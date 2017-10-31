@@ -5,6 +5,6 @@ package br.redcode.dataform.lib.utils
  */
 object Constantes {
 
-    const val TIPO_PERGUNTA_TEXTUAL = 0
+    const val TIPO_PERGUNTA_TEXTUAL = "textual"
 
 }

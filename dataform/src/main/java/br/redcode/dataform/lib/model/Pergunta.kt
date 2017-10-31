@@ -9,7 +9,7 @@ import java.io.Serializable
 data class Pergunta(
         val id: Int,
         val descricao: String,
-        val formato: Int,
+        val formato: String,
         var resposta: Resposta = Resposta()
 ) : Serializable {
 
