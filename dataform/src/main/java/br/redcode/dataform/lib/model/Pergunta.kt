@@ -1,5 +1,6 @@
 package br.redcode.dataform.lib.model
 
+import br.redcode.dataform.lib.utils.Constantes
 import java.io.Serializable
 
 /**
@@ -8,5 +9,12 @@ import java.io.Serializable
 data class Pergunta(
         val id: Int,
         val descricao: String,
-        val formato: Int
-) : Serializable
+        val formato: Int,
+        var resposta: Resposta = Resposta()
+) : Serializable {
+
+    fun isPerguntaTextual(): Boolean {
+        return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
+    }
+
+}

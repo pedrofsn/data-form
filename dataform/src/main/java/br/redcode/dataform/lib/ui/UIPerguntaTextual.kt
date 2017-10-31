@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.EditText
 import android.widget.TextView
 import br.redcode.dataform.lib.R
-import br.redcode.dataform.lib.domain.CustomUI
+import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -12,7 +12,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPergunta(contextActivity: Context, val pergunta: Pergunta) : CustomUI<Pergunta>(contextActivity, pergunta, R.layout.ui_pergunta), Perguntavel {
+class UIPerguntaTextual(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, pergunta, R.layout.ui_pergunta_textual), Perguntavel {
 
     private lateinit var textViewLabel: TextView
     private lateinit var editText: EditText
@@ -27,11 +27,17 @@ class UIPergunta(contextActivity: Context, val pergunta: Pergunta) : CustomUI<Pe
     }
 
     override fun getResposta(): Resposta {
-        return Resposta(editText.text.toString())
+        val resposta = Resposta(editText.text.toString().trim())
+        pergunta.resposta = resposta
+        return resposta
     }
 
     override fun isPreenchidoCorretamente(): Boolean {
-        return editText.text.toString().isNotEmpty()
+        return editText.text.toString().trim().isNotEmpty()
+    }
+
+    override fun exibirAlerta(mensagem: String) {
+        editText.error = mensagem
     }
 
 }
