@@ -35,13 +35,26 @@ class UIPerguntaMultiplaEscolha(contextActivity: Context, val pergunta: Pergunta
             adapter.setLista(it)
             recyclerView.setCustomAdapter(adapter)
         }
+
+        pergunta.resposta?.alternativas?.let {
+            for (alternativa in adapter.getLista()) {
+                for (resposta in it) {
+                    if (resposta.selecionado && resposta.id == alternativa.id) {
+                        alternativa.selecionado = resposta.selecionado
+                    }
+                }
+            }
+
+            adapter.notifyDataSetChanged()
+        }
+
     }
 
     override fun onItemClickListener(position: Int) {
         pergunta.alternativas?.let {
-            val estado = it.get(position).selecionada
+            val estado = it.get(position).selecionado
 
-            it.get(position).selecionada = estado.not()
+            it.get(position).selecionado = estado.not()
             adapter.notifyDataSetChanged()
         }
     }

@@ -18,7 +18,7 @@ class ViewHolderRadioButton(itemView: View) : ViewHolderGeneric<Alternativa>(ite
         radioButton = itemView.findViewById<RadioButton>(R.id.radioButton)
 
         radioButton.text = obj.descricao
-        radioButton.isChecked = obj.selecionada
+        radioButton.isChecked = obj.selecionado
     }
 
     override fun popular(obj: Alternativa, click: OnItemClickListener?) {

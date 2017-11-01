@@ -24,6 +24,7 @@ class UIPerguntaTextual(contextActivity: Context, val pergunta: Pergunta) : UIPe
 
     override fun populateView() {
         textViewLabel.setText(pergunta.descricao)
+        pergunta.resposta?.resposta?.let { editText.setText(it) }
     }
 
     override fun getResposta(): Resposta {

@@ -37,17 +37,28 @@ class UIPerguntaObjetiva(contextActivity: Context, val pergunta: Pergunta) : UIP
             adapter.setLista(it)
             recyclerView.setCustomAdapter(adapter)
         }
+
+        pergunta.resposta?.alternativa?.let {
+            for (i in adapter.getLista().indices) {
+                if (it.selecionado && it.id == adapter.getLista().get(i).id) {
+                    posicaoSelecionada = i
+                    adapter.getLista().get(i).selecionado = true
+                    adapter.notifyDataSetChanged()
+                    break
+                }
+            }
+        }
     }
 
     override fun onItemClickListener(position: Int) {
         pergunta.alternativas?.let {
-            val estado = it.get(position).selecionada
+            val estado = it.get(position).selecionado
 
             for (alternativa in it) {
-                alternativa.selecionada = false
+                alternativa.selecionado = false
             }
 
-            it.get(position).selecionada = estado.not()
+            it.get(position).selecionado = estado.not()
             posicaoSelecionada = if (estado.not()) {
                 position
             } else {

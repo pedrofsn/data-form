@@ -3,7 +3,10 @@
     {
       "id": 1,
       "descricao": "Qual é o seu nome?",
-      "formato": "textual"
+      "formato": "textual",
+      "resposta": {
+        "resposta": "Pedro Francisco de Sousa Neto"
+      }
     },
     {
       "id": 2,
@@ -22,8 +25,19 @@
         {
           "id": 1,
           "descricao": "Feminino"
+        },
+        {
+          "id": 2,
+          "descricao": "Não informado"
         }
-      ]
+      ],
+      "resposta": {
+        "alternativa": {
+          "id": 0,
+          "descricao": "Masculino",
+          "selecionado": true
+        }
+      }
     },
     {
       "id": 4,
@@ -42,7 +56,21 @@
           "id": 2,
           "descricao": "Kibe"
         }
-      ]
+      ],
+      "resposta": {
+        "alternativas": [
+          {
+            "id": 0,
+            "descricao": "Coxinha",
+            "selecionado": true
+          },
+          {
+            "id": 1,
+            "descricao": "Empadinha",
+            "selecionado": true
+          }
+        ]
+      }
     }
   ]
 }

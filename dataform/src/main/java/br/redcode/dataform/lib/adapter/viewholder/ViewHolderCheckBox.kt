@@ -18,7 +18,7 @@ class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Alternativa>(itemVi
         checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
 
         checkBox.text = obj.descricao
-        checkBox.isChecked = obj.selecionada
+        checkBox.isChecked = obj.selecionado
     }
 
     override fun popular(obj: Alternativa, click: OnItemClickListener?) {

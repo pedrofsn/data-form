@@ -10,7 +10,7 @@ data class Pergunta(
         val id: Int,
         val descricao: String,
         val formato: String,
-        var resposta: Resposta = Resposta(),
+        var resposta: Resposta? = Resposta(),
 
         var alternativas: ArrayList<Alternativa>? = null
 ) : Serializable {
