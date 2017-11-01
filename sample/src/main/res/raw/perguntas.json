@@ -9,6 +9,21 @@
       "id": 2,
       "descricao": "Qual é o mês do seu aniversário?",
       "formato": "textual"
+    },
+    {
+      "id": 3,
+      "descricao": "Qual é o seu sexo?",
+      "formato": "objetiva",
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Masculino"
+        },
+        {
+          "id": 1,
+          "descricao": "Feminino"
+        }
+      ]
     }
   ]
 }

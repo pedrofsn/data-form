@@ -3,6 +3,7 @@ package br.redcode.sample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +26,9 @@ class ActivityMain : AppCompatActivity() {
             Log.e(App.TAG, "Preenchido corretamente: " + agregador.isPerguntasPreenchidasCorretamente())
 
             agregador.obterRespostas()
-            Log.e(App.TAG, agregador.perguntas.toString())
+            val respostas = agregador.perguntas.toString()
+            Log.e(App.TAG, respostas)
+            Toast.makeText(this, respostas, Toast.LENGTH_LONG).show()
         }
     }
 

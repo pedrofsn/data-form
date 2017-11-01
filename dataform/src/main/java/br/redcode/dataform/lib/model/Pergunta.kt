@@ -10,11 +10,17 @@ data class Pergunta(
         val id: Int,
         val descricao: String,
         val formato: String,
-        var resposta: Resposta = Resposta()
+        var resposta: Resposta = Resposta(),
+
+        var alternativas: ArrayList<Alternativa>? = null
 ) : Serializable {
 
     fun isPerguntaTextual(): Boolean {
         return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
+    }
+
+    fun isPerguntaObjetiva(): Boolean {
+        return Constantes.TIPO_PERGUNTA_OBJETIVA == formato
     }
 
 }

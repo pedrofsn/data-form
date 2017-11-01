@@ -5,6 +5,9 @@ package br.redcode.dataform.lib.utils
  */
 object Constantes {
 
+    const val VALOR_INVALIDO = -1
+
     const val TIPO_PERGUNTA_TEXTUAL = "textual"
+    const val TIPO_PERGUNTA_OBJETIVA = "objetiva"
 
 }

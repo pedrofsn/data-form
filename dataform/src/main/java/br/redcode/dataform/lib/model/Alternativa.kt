@@ -8,5 +8,5 @@ import java.io.Serializable
 data class Alternativa(
         val id: Int,
         val descricao: String,
-        val selecionada: Boolean = false
+        var selecionada: Boolean = false
 ) : Serializable

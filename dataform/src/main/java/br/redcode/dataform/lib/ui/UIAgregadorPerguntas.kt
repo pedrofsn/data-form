@@ -24,6 +24,9 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
                     pergunta.isPerguntaTextual() -> {
                         uiPergunta = UIPerguntaTextual(context, pergunta)
                     }
+                    pergunta.isPerguntaObjetiva() -> {
+                        uiPergunta = UIPerguntaObjetiva(context, pergunta)
+                    }
                 }
 
                 uiPergunta?.let { perguntasUI.add(it) }
