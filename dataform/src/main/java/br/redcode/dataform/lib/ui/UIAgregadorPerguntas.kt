@@ -27,6 +27,9 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
                     pergunta.isPerguntaObjetiva() -> {
                         uiPergunta = UIPerguntaObjetiva(context, pergunta)
                     }
+                    pergunta.isPerguntaMultiplaEscolha() -> {
+                        uiPergunta = UIPerguntaMultiplaEscolha(context, pergunta)
+                    }
                 }
 
                 uiPergunta?.let { perguntasUI.add(it) }

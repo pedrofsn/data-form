@@ -9,5 +9,6 @@ object Constantes {
 
     const val TIPO_PERGUNTA_TEXTUAL = "textual"
     const val TIPO_PERGUNTA_OBJETIVA = "objetiva"
+    const val TIPO_PERGUNTA_MULTIPLA_ESCOLHA = "multipla_escolha"
 
 }

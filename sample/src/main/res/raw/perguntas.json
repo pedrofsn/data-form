@@ -24,6 +24,25 @@
           "descricao": "Feminino"
         }
       ]
+    },
+    {
+      "id": 4,
+      "descricao": "Quais salgadinhos você prefere?",
+      "formato": "multipla_escolha",
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Coxinha"
+        },
+        {
+          "id": 1,
+          "descricao": "Empadinha"
+        },
+        {
+          "id": 2,
+          "descricao": "Kibe"
+        }
+      ]
     }
   ]
 }

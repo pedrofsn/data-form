@@ -8,5 +8,6 @@ import java.io.Serializable
 data class Resposta(
         var resposta: String? = null,
 
-        var alternativa: Alternativa? = null
+        var alternativa: Alternativa? = null,
+        var alternativas: List<Alternativa>? = null
 ) : Serializable

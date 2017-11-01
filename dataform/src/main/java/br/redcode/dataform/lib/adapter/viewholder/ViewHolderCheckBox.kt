@@ -1,7 +1,7 @@
-package br.redcode.dataform.lib.adapter
+package br.redcode.dataform.lib.adapter.viewholder
 
 import android.view.View
-import android.widget.RadioButton
+import android.widget.CheckBox
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
@@ -10,15 +10,15 @@ import br.redcode.dataform.lib.model.Alternativa
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class ViewHolderRadioButton(itemView: View) : ViewHolderGeneric<Alternativa>(itemView) {
+class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Alternativa>(itemView) {
 
-    private lateinit var radioButton: RadioButton
+    private lateinit var checkBox: CheckBox
 
     override fun popular(obj: Alternativa) {
-        radioButton = itemView.findViewById<RadioButton>(R.id.radioButton)
+        checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
 
-        radioButton.text = obj.descricao
-        radioButton.isChecked = obj.selecionada
+        checkBox.text = obj.descricao
+        checkBox.isChecked = obj.selecionada
     }
 
     override fun popular(obj: Alternativa, click: OnItemClickListener?) {

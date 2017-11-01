@@ -23,4 +23,8 @@ data class Pergunta(
         return Constantes.TIPO_PERGUNTA_OBJETIVA == formato
     }
 
+    fun isPerguntaMultiplaEscolha(): Boolean {
+        return Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato
+    }
+
 }
