@@ -2,4 +2,5 @@
 <resources>
     <dimen name="respiro_visual_card">5dp</dimen>
     <dimen name="tamanho_preview_foto">100dp</dimen>
+    <dimen name="tamanho_lista_preview_foto">110dp</dimen>
 </resources>

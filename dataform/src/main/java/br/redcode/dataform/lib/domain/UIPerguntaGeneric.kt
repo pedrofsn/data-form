@@ -7,7 +7,7 @@ import android.view.View
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIPerguntaGeneric<T>(contex: Context, t: T, val idLayout: Int) {
+abstract class UIPerguntaGeneric<T>(contex: Context, val idLayout: Int) {
 
     private val inflater = LayoutInflater.from(contex)
     lateinit var view: View

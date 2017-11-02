@@ -16,7 +16,7 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaObjetiva(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, pergunta, R.layout.ui_pergunta_objetiva), Perguntavel, OnItemClickListener {
+class UIPerguntaObjetiva(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_objetiva), Perguntavel, OnItemClickListener {
 
     private lateinit var textViewLabel: TextView
     private lateinit var recyclerView: RecyclerView

@@ -12,7 +12,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaTextual(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, pergunta, R.layout.ui_pergunta_textual), Perguntavel {
+class UIPerguntaTextual(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_textual), Perguntavel {
 
     private lateinit var textViewLabel: TextView
     private lateinit var editText: EditText

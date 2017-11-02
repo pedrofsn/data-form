@@ -71,6 +71,15 @@
           }
         ]
       }
+    },
+    {
+      "id": 5,
+      "descricao": "Adicione algumas fotos",
+      "formato": "imagem",
+      "limite": {
+        "minimo": 1,
+        "maximo": 3
+      }
     }
   ]
 }

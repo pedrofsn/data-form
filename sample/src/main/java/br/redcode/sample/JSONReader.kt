@@ -39,7 +39,7 @@ class JSONReader(val context: Context) {
         }
 
         val resultado = sb.toString()
-        Log.e(App.TAG, "JSON lido: " + resultado)
+        Log.e(Constantes.TAG, "JSON lido: " + resultado)
         return resultado
     }
 

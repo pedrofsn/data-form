@@ -12,8 +12,29 @@ data class Pergunta(
         val formato: String,
         var resposta: Resposta? = Resposta(),
 
+        var limite: Limite? = null,
         var alternativas: ArrayList<Alternativa>? = null
 ) : Serializable {
+
+    fun getLimiteMaximo(): Int {
+        return limite?.maximo ?: 1
+    }
+
+    fun getLimiteMinimo(): Int {
+        return limite?.minimo ?: 0
+    }
+
+    fun getQuantidadeImagens(): Int {
+        return resposta?.imagens?.size ?: 0
+    }
+
+    fun isDentroDoLimiteMaximo(): Boolean {
+        return getQuantidadeImagens() <= getLimiteMaximo()
+    }
+
+    fun isDentroDoLimiteMinimo(): Boolean {
+        return getQuantidadeImagens() >= getLimiteMinimo()
+    }
 
     fun isPerguntaTextual(): Boolean {
         return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
@@ -25,6 +46,10 @@ data class Pergunta(
 
     fun isPerguntaMultiplaEscolha(): Boolean {
         return Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato
+    }
+
+    fun isPerguntaImagem(): Boolean {
+        return Constantes.TIPO_PERGUNTA_IMAGEM == formato && limite != null
     }
 
 }

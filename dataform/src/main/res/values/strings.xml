@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DataForm</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="x_barra_x">%d/%d</string>
+    <string name="nenhuma_imagem_adicionada">Nenhuma imagem adicionada</string>
+    <string name="selecione">Selecione</string>
+    <string name="limite_maximo_atingido">Limite máximo atingido</string>
 </resources>
