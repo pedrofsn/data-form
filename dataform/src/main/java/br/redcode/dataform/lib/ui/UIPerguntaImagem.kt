@@ -10,9 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
+import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
-import br.redcode.dataform.lib.interfaces.CallbackImagem
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.Imagem
@@ -22,13 +22,16 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val callback: CallbackImagem) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_imagem), Perguntavel {
+class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val handlerCaptura: HandlerCapturaImagem, val tipo: Tipo) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_imagem), Perguntavel {
+
+    enum class Tipo {
+        CAMERA, GALERIA, CAMERA_OU_GALERIA
+    }
 
     private lateinit var textViewLabel: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var buttonAdicionar: Button
-
 
     private val adapter = AdapterImagem(object : OnItemClickListener {
         override fun onItemClickListener(position: Int) {
@@ -60,7 +63,7 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     private fun adicionarImagem() {
         if (hasPermissao()) {
             if (canAdicionarMaisUmaImagem()) {
-                callback.capturarImagem(this)
+                handlerCaptura.capturarImagem(this, tipo)
             } else {
                 exibirAlerta(contextActivity.getString(R.string.limite_maximo_atingido))
             }
@@ -79,13 +82,15 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     }
 
     override fun isPreenchidoCorretamente(): Boolean {
-        return pergunta.isDentroDoLimiteMinimo() && pergunta.isDentroDoLimiteMaximo()
+        return isDentroDoLimiteMinimo() && isDentroDoLimiteMaximo()
     }
 
     private fun atualizarContador() {
-        val tamanho = pergunta.getQuantidadeImagens()
-        val maximo = pergunta.getLimiteMaximo()
+        val tamanho = getQuantidadeImagens()
+        val maximo = getLimiteMaximo()
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
+
+        buttonAdicionar.isEnabled = tamanho != maximo
     }
 
     override fun exibirAlerta(mensagem: String) {
@@ -101,7 +106,7 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     }
 
     private fun canAdicionarMaisUmaImagem(): Boolean {
-        return pergunta.getQuantidadeImagens() + 1 <= pergunta.getLimiteMaximo()
+        return getQuantidadeImagens() + 1 <= getLimiteMaximo()
     }
 
     private fun removerImagem(position: Int) {
@@ -112,6 +117,26 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
 
     private fun previsualizarImagem(position: Int) {
         Log.e("tag", "Pré-visualizar ${position}") //TODO
+    }
+
+    fun getLimiteMaximo(): Int {
+        return pergunta.limite?.maximo ?: 1
+    }
+
+    fun getLimiteMinimo(): Int {
+        return pergunta.limite?.minimo ?: 0
+    }
+
+    fun getQuantidadeImagens(): Int {
+        return adapter.itemCount
+    }
+
+    fun isDentroDoLimiteMaximo(): Boolean {
+        return getQuantidadeImagens() <= getLimiteMaximo()
+    }
+
+    fun isDentroDoLimiteMinimo(): Boolean {
+        return getQuantidadeImagens() >= getLimiteMinimo()
     }
 
 }

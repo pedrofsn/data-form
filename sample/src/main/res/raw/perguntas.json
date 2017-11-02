@@ -75,10 +75,28 @@
     {
       "id": 5,
       "descricao": "Adicione algumas fotos",
-      "formato": "imagem",
+      "formato": "imagem_camera_ou_galeria",
       "limite": {
         "minimo": 1,
-        "maximo": 3
+        "maximo": 2
+      }
+    },
+    {
+      "id": 5,
+      "descricao": "Adicione uma imagem da galeria",
+      "formato": "imagem_galeria",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
+      }
+    },
+    {
+      "id": 5,
+      "descricao": "Adicione uma imagem da câmera",
+      "formato": "imagem_camera",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
       }
     }
   ]

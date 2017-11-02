@@ -16,26 +16,6 @@ data class Pergunta(
         var alternativas: ArrayList<Alternativa>? = null
 ) : Serializable {
 
-    fun getLimiteMaximo(): Int {
-        return limite?.maximo ?: 1
-    }
-
-    fun getLimiteMinimo(): Int {
-        return limite?.minimo ?: 0
-    }
-
-    fun getQuantidadeImagens(): Int {
-        return resposta?.imagens?.size ?: 0
-    }
-
-    fun isDentroDoLimiteMaximo(): Boolean {
-        return getQuantidadeImagens() <= getLimiteMaximo()
-    }
-
-    fun isDentroDoLimiteMinimo(): Boolean {
-        return getQuantidadeImagens() >= getLimiteMinimo()
-    }
-
     fun isPerguntaTextual(): Boolean {
         return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
     }
@@ -48,8 +28,25 @@ data class Pergunta(
         return Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato
     }
 
-    fun isPerguntaImagem(): Boolean {
-        return Constantes.TIPO_PERGUNTA_IMAGEM == formato && limite != null
+    fun isPerguntaImagemSomenteCamera(): Boolean {
+        if (limite == null) {
+            throw RuntimeException("Falta especificar os limites no JSON")
+        }
+        return Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA == formato
+    }
+
+    fun isPerguntaImagemSomenteGaleria(): Boolean {
+        if (limite == null) {
+            throw RuntimeException("Falta especificar os limites no JSON")
+        }
+        return Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA == formato
+    }
+
+    fun isPerguntaImagemCameraOuGaleria(): Boolean {
+        if (limite == null) {
+            throw RuntimeException("Falta especificar os limites no JSON")
+        }
+        return Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA == formato
     }
 
 }
