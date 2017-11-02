@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="respiro_visual_card">5dp</dimen>
+    <dimen name="tamanho_preview_foto">100dp</dimen>
 </resources>
