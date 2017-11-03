@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaMultiplaEscolha(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_objetiva), Perguntavel, OnItemClickListener {
+class UIPerguntaMultiplaEscolha(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_objetiva_lista), Perguntavel, OnItemClickListener {
 
     private lateinit var textViewLabel: TextView
     private lateinit var recyclerView: RecyclerView

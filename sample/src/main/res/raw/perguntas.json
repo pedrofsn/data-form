@@ -16,7 +16,7 @@
     {
       "id": 3,
       "descricao": "Qual é o seu sexo?",
-      "formato": "objetiva",
+      "formato": "objetiva_lista",
       "alternativas": [
         {
           "id": 0,
@@ -78,7 +78,7 @@
       "formato": "imagem_camera_ou_galeria",
       "limite": {
         "minimo": 1,
-        "maximo": 5
+        "maximo": 3
       }
     },
     {
@@ -104,6 +104,32 @@
       "limite": {
         "minimo": 1,
         "maximo": 1
+      }
+    },
+    {
+      "id": 8,
+      "descricao": "Qual é o seu estado civil?",
+      "formato": "objetiva_spinner",
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Solteiro"
+        },
+        {
+          "id": 1,
+          "descricao": "Casado"
+        },
+        {
+          "id": 2,
+          "descricao": "Não informado"
+        }
+      ],
+      "resposta": {
+        "alternativa": {
+          "id": 1,
+          "descricao": "casado",
+          "selecionado": true
+        }
       }
     }
   ]

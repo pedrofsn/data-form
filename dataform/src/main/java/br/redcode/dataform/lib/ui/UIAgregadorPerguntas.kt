@@ -25,8 +25,11 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
                     pergunta.isPerguntaTextual() -> {
                         uiPergunta = UIPerguntaTextual(context, pergunta)
                     }
-                    pergunta.isPerguntaObjetiva() -> {
-                        uiPergunta = UIPerguntaObjetiva(context, pergunta)
+                    pergunta.isPerguntaObjetivaLista() -> {
+                        uiPergunta = UIPerguntaObjetivaLista(context, pergunta)
+                    }
+                    pergunta.isPerguntaObjetivaSpinner() -> {
+                        uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta)
                     }
                     pergunta.isPerguntaMultiplaEscolha() -> {
                         uiPergunta = UIPerguntaMultiplaEscolha(context, pergunta)

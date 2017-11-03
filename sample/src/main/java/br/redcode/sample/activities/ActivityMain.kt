@@ -26,12 +26,14 @@ class ActivityMain : BaseActivity() {
 
     private fun inicializarListeners() {
         button.setOnClickListener {
-            Utils.log("Preenchido corretamente: " + agregador.isPerguntasPreenchidasCorretamente())
-
-            agregador.obterRespostas()
-            val respostas = agregador.perguntas.toString()
-            Utils.log(respostas)
-            Toast.makeText(this, respostas, Toast.LENGTH_LONG).show()
+            if (agregador.isPerguntasPreenchidasCorretamente()) {
+                agregador.obterRespostas()
+                val respostas = agregador.perguntas.toString()
+                Utils.log(respostas)
+                Toast.makeText(this, respostas, Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
+            }
         }
     }
 

@@ -20,8 +20,12 @@ data class Pergunta(
         return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
     }
 
-    fun isPerguntaObjetiva(): Boolean {
-        return Constantes.TIPO_PERGUNTA_OBJETIVA == formato
+    fun isPerguntaObjetivaLista(): Boolean {
+        return Constantes.TIPO_PERGUNTA_OBJETIVA_LISTA == formato
+    }
+
+    fun isPerguntaObjetivaSpinner(): Boolean {
+        return Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER == formato
     }
 
     fun isPerguntaMultiplaEscolha(): Boolean {

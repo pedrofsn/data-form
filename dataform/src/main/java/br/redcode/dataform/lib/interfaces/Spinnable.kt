@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 interface Spinnable : Serializable {
 
-    fun getId(): Int
+    fun getId(): String
 
     fun getTexto(): String
 
