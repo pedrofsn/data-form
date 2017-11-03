@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ActivityCapturarImagem
+import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.ui.UIPerguntaImagem
 import br.redcode.sample.activities.ActivityImagemComZoom
 import br.redcode.sample.utils.Utils
@@ -27,10 +28,6 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
 
     private val RESULT_CODE_EASY_IMAGE = 1992
     private val RESULT_CODE_PERMISSAO = 12
-
-    override fun previsualizarImagem(caminho: String) {
-        startActivity(intentFor<ActivityImagemComZoom>("imagem" to caminho))
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -50,31 +47,6 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
 
     override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
 
-    }
-
-    override fun capturarImagemComContext(tipo: UIPerguntaImagem.Tipo) {
-        when (tipo) {
-            UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
-            UIPerguntaImagem.Tipo.CAMERA -> EasyImage.openCamera(this, RESULT_CODE_EASY_IMAGE)
-            UIPerguntaImagem.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
-        }
-    }
-
-    override fun hasTodasPermissoesAtivas(): Boolean {
-        for (permissao in permissoes) {
-            val isOk: Boolean = ContextCompat.checkSelfPermission(this@BaseActivity, permissao) == PermissionChecker.PERMISSION_GRANTED
-
-            if (isOk.not()) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissao)) {
-                    ActivityCompat.requestPermissions(this, permissoes, RESULT_CODE_PERMISSAO)
-                } else {
-                    forcarPermissoes()
-                }
-                return false
-            }
-        }
-
-        return true
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -97,7 +69,36 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
         startActivity(intent)
     }
 
-    override fun loadImage(imagem: String, imageView: ImageView) {
+    override fun capturarImagem(tipo: UIPerguntaImagem.Tipo) {
+        when (tipo) {
+            UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
+            UIPerguntaImagem.Tipo.CAMERA -> EasyImage.openCamera(this, RESULT_CODE_EASY_IMAGE)
+            UIPerguntaImagem.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
+        }
+    }
+
+    override fun hasPermissoes(): Boolean {
+        for (permissao in permissoes) {
+            val isOk: Boolean = ContextCompat.checkSelfPermission(this@BaseActivity, permissao) == PermissionChecker.PERMISSION_GRANTED
+
+            if (isOk.not()) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissao)) {
+                    ActivityCompat.requestPermissions(this, permissoes, RESULT_CODE_PERMISSAO)
+                } else {
+                    forcarPermissoes()
+                }
+                return false
+            }
+        }
+
+        return true
+    }
+
+    override fun visualizarImagem(imagem: Imagem) {
+        startActivity(intentFor<ActivityImagemComZoom>("imagem" to imagem.imagem))
+    }
+
+    override fun carregarImagem(imagem: String, imageView: ImageView) {
         var temp = imagem
 
         if (imagem.startsWith("/")) {

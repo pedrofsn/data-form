@@ -3,7 +3,7 @@ package br.redcode.dataform.lib.domain
 import android.Manifest
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
-import br.redcode.dataform.lib.interfaces.OnCapturaImagem
+import br.redcode.dataform.lib.interfaces.ImagemCapturavel
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.ui.UIPerguntaImagem
 
@@ -11,34 +11,18 @@ import br.redcode.dataform.lib.ui.UIPerguntaImagem
 /**
  * Created by pedrofsn on 02/11/2017.
  */
-abstract class ActivityCapturarImagem : AppCompatActivity() {
+abstract class ActivityCapturarImagem : AppCompatActivity(), ImagemCapturavel {
 
     val permissoes: Array<String> = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-    val handlerCapturaImagem = HandlerCapturaImagem(object : OnCapturaImagem {
-        override fun carregarImagem(imagem: String, imageView: ImageView) {
-            loadImage(imagem, imageView)
-        }
+    val handlerCapturaImagem = HandlerCapturaImagem(this)
 
-        override fun hasPermissoes(): Boolean {
-            return hasTodasPermissoesAtivas()
-        }
+    abstract override fun capturarImagem(tipo: UIPerguntaImagem.Tipo)
 
-        override fun previsualizarImagem(imagem: Imagem) {
-            previsualizarImagem(imagem.imagem)
-        }
+    abstract override fun hasPermissoes(): Boolean
 
-        override fun capturarImagem(tipo: UIPerguntaImagem.Tipo) {
-            capturarImagemComContext(tipo)
-        }
-    })
+    abstract override fun visualizarImagem(imagem: Imagem)
 
-    abstract fun capturarImagemComContext(tipo: UIPerguntaImagem.Tipo)
-
-    abstract fun hasTodasPermissoesAtivas(): Boolean
-
-    abstract fun previsualizarImagem(caminho: String)
-
-    abstract fun loadImage(imagem: String, imageView: ImageView)
+    abstract override fun carregarImagem(imagem: String, imageView: ImageView)
 
 }

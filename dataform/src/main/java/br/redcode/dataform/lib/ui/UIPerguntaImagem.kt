@@ -34,12 +34,12 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     private lateinit var buttonAdicionar: Button
 
     private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
-        override fun acaoRemoverImagem(posicao: Int) {
+        override fun removerImagem(posicao: Int) {
             removerImagem(posicao)
         }
 
-        override fun acaoPrevisualizarImagem(imagem: Imagem) {
-            handlerCaptura.previsualizarImagem(imagem)
+        override fun visualizarImagem(imagem: Imagem) {
+            handlerCaptura.visualizarImagem(imagem)
         }
 
         override fun carregarImagem(imagem: String, imageView: ImageView) {

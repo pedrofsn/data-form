@@ -1,9 +1,7 @@
 package br.redcode.dataform.lib.domain
 
 import android.widget.ImageView
-import br.redcode.dataform.lib.interfaces.ImagemCarregavel
-import br.redcode.dataform.lib.interfaces.OnCapturaImagem
-import br.redcode.dataform.lib.interfaces.Permitido
+import br.redcode.dataform.lib.interfaces.ImagemCapturavel
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.ui.UIPerguntaImagem
 import java.io.File
@@ -11,11 +9,7 @@ import java.io.File
 /**
  * Created by pedrofsn on 02/11/2017.
  */
-class HandlerCapturaImagem(val callback: OnCapturaImagem) : Permitido, ImagemCarregavel {
-
-    override fun carregarImagem(imagem: String, imageView: ImageView) {
-        callback.carregarImagem(imagem, imageView)
-    }
+class HandlerCapturaImagem(val callback: ImagemCapturavel) {
 
     var uiPerguntaImagemTemp: UIPerguntaImagem? = null
 
@@ -30,11 +24,15 @@ class HandlerCapturaImagem(val callback: OnCapturaImagem) : Permitido, ImagemCar
         }
     }
 
-    fun previsualizarImagem(imagem: Imagem) {
-        callback.previsualizarImagem(imagem)
+    fun visualizarImagem(imagem: Imagem) {
+        callback.visualizarImagem(imagem)
     }
 
-    override fun hasPermissoes(): Boolean {
+    fun carregarImagem(imagem: String, imageView: ImageView) {
+        callback.carregarImagem(imagem, imageView)
+    }
+
+    fun hasPermissoes(): Boolean {
         return callback.hasPermissoes()
     }
 

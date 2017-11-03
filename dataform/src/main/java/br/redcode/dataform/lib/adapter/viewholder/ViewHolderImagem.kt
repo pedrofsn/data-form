@@ -16,8 +16,8 @@ class ViewHolderImagem(itemView: View) : ViewHolderGeneric<Imagem>(itemView) {
 
     fun popular(obj: Imagem, callback: CallbackViewHolderImagem) {
         popular(obj)
-        click(imageViewPreview, function = { callback.acaoPrevisualizarImagem(obj) })
-        click(imageViewRemover, function = { callback.acaoRemoverImagem(adapterPosition) })
+        click(imageViewPreview, function = { callback.visualizarImagem(obj) })
+        click(imageViewRemover, function = { callback.removerImagem(adapterPosition) })
         callback.carregarImagem(obj.imagem, imageViewPreview)
     }
 
@@ -28,8 +28,8 @@ class ViewHolderImagem(itemView: View) : ViewHolderGeneric<Imagem>(itemView) {
 
     interface CallbackViewHolderImagem {
 
-        fun acaoRemoverImagem(posicao: Int)
-        fun acaoPrevisualizarImagem(imagem: Imagem)
+        fun removerImagem(posicao: Int)
+        fun visualizarImagem(imagem: Imagem)
         fun carregarImagem(imagem: String, imageView: ImageView)
 
     }
