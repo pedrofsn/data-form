@@ -15,17 +15,18 @@ abstract class ViewHolderGeneric<Objeto>(itemView: View) : RecyclerView.ViewHold
         if (obj != null) {
             popular(obj)
 
-            if (click != null) {
-                click(itemView, click)
+            click?.let {
+                click(itemView, it)
             }
         }
     }
 
     fun click(view: View, clickListener: OnItemClickListener) {
-        view.setOnClickListener { onClick(clickListener) }
+        view.setOnClickListener { clickListener.onItemClickListener(adapterPosition) }
     }
 
-    open fun onClick(clickListener: OnItemClickListener?) {
-        if (clickListener != null) clickListener.onItemClickListener(adapterPosition)
+    fun click(view: View, function: () -> Unit) {
+        view.setOnClickListener { function.invoke() }
     }
+
 }

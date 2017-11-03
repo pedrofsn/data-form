@@ -5,14 +5,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
+import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
 import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.model.Pergunta
@@ -32,15 +33,20 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     private lateinit var textViewAndamento: TextView
     private lateinit var buttonAdicionar: Button
 
-    private val adapter = AdapterImagem(object : OnItemClickListener {
-        override fun onItemClickListener(position: Int) {
-            previsualizarImagem(position)
+    private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
+        override fun acaoRemoverImagem(posicao: Int) {
+            removerImagem(posicao)
         }
-    }, object : OnItemClickListener {
-        override fun onItemClickListener(position: Int) {
-            removerImagem(position)
+
+        override fun acaoPrevisualizarImagem(imagem: Imagem) {
+            handlerCaptura.previsualizarImagem(imagem)
         }
-    }, handlerCaptura)
+
+        override fun carregarImagem(imagem: String, imageView: ImageView) {
+            handlerCaptura.carregarImagem(imagem, imageView)
+        }
+
+    })
 
     override fun initView() {
         textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)
@@ -116,10 +122,6 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         adapter.remover(position)
         adapter.notifyDataSetChanged()
         atualizarContador()
-    }
-
-    private fun previsualizarImagem(position: Int) {
-        handlerCaptura.previsualizarImagem(adapter.getLista().get(position))
     }
 
     fun getLimiteMaximo(): Int {

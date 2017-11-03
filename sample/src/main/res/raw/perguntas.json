@@ -78,7 +78,7 @@
       "formato": "imagem_camera_ou_galeria",
       "limite": {
         "minimo": 1,
-        "maximo": 2
+        "maximo": 5
       }
     },
     {
