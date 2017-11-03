@@ -5,4 +5,5 @@
     <string name="nenhuma_imagem_adicionada">Nenhuma imagem adicionada</string>
     <string name="selecione">Selecione</string>
     <string name="limite_maximo_atingido">Limite máximo atingido</string>
+    <string name="habilite_todas_as_permissoes">Habilite todas as permissões</string>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -63,22 +62,19 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         pergunta.resposta?.imagens?.let {
             adapter.setLista(it)
             adapter.notifyDataSetChanged()
+            atualizarContador()
         }
 
     }
 
     private fun adicionarImagem() {
-        if (hasPermissao()) {
+        if (handlerCaptura.hasPermissoes()) {
             if (canAdicionarMaisUmaImagem()) {
                 handlerCaptura.capturarImagem(this, tipo)
             } else {
                 exibirAlerta(contextActivity.getString(R.string.limite_maximo_atingido))
             }
         }
-    }
-
-    private fun hasPermissao(): Boolean {
-        return true //TODO tratar permissões
     }
 
     override fun getResposta(): Resposta {
@@ -123,7 +119,7 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
     }
 
     private fun previsualizarImagem(position: Int) {
-        Log.e("tag", "Pré-visualizar ${position}") //TODO
+        handlerCaptura.previsualizarImagem(adapter.getLista().get(position))
     }
 
     fun getLimiteMaximo(): Int {

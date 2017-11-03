@@ -7,6 +7,7 @@ import br.redcode.dataform.lib.domain.ActivityCapturarImagem
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 
 class ActivityMain : ActivityCapturarImagem() {
 
@@ -43,6 +44,10 @@ class ActivityMain : ActivityCapturarImagem() {
     private fun afterOnCreate() {
         agregador = UIAgregadorPerguntas(this, minhasPerguntas.perguntas, handlerCapturaImagem)
         linearLayout.addView(agregador.getView())
+    }
+
+    override fun previsualizarImagem(caminho: String) {
+        startActivity(intentFor<ActivityImagemComZoom>("imagem" to caminho))
     }
 
 }
