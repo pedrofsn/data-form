@@ -2,7 +2,7 @@ package br.redcode.dataform.lib.ui
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.widget.TextView
+import android.view.View
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -16,22 +16,21 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaObjetivaLista(contextActivity: Context, val pergunta: Pergunta) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_objetiva_lista), Perguntavel, OnItemClickListener {
+class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta), Perguntavel, OnItemClickListener {
 
-    private lateinit var textViewLabel: TextView
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter: AdapterRadioButton
     private var posicaoSelecionada: Int = Constantes.VALOR_INVALIDO
 
-    override fun initView() {
-        textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)
+    override fun initView(view: View) {
+        super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         adapter = AdapterRadioButton(this)
     }
 
     override fun populateView() {
-        textViewLabel.setText(pergunta.descricao)
+        super.populateView()
 
         pergunta.alternativas?.let {
             adapter.setLista(it)
@@ -84,8 +83,8 @@ class UIPerguntaObjetivaLista(contextActivity: Context, val pergunta: Pergunta) 
         return posicaoSelecionada != Constantes.VALOR_INVALIDO
     }
 
-    override fun exibirAlerta(mensagem: String) {
-
+    override fun getMensagemErroPreenchimento(): String {
+        return contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
     }
 
 }

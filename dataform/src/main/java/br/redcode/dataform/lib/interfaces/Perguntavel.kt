@@ -11,6 +11,10 @@ interface Perguntavel {
 
     fun isPreenchidoCorretamente(): Boolean
 
-    fun exibirAlerta(mensagem: String)
+    fun getMensagemErroPreenchimento(): String
+
+    fun getMensagemInformacao(): String
+
+    fun exibirMensagemErroPreenchimento(isPreenchidoCorretamente: Boolean)
 
 }

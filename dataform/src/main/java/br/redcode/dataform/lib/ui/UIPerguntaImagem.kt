@@ -4,17 +4,16 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
 import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
-import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -22,20 +21,19 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val handlerCaptura: HandlerCapturaImagem, val tipo: Tipo) : UIPerguntaGeneric<Pergunta>(contextActivity, R.layout.ui_pergunta_imagem), Perguntavel {
+class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, val handlerCaptura: HandlerCapturaImagem, val tipo: Tipo) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_imagem, pergunta) {
 
     enum class Tipo {
         CAMERA, GALERIA, CAMERA_OU_GALERIA
     }
 
-    private lateinit var textViewLabel: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var buttonAdicionar: Button
 
     private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
         override fun removerImagem(posicao: Int) {
-            removerImagem(posicao)
+            this@UIPerguntaImagem.removerImagem(posicao)
         }
 
         override fun visualizarImagem(imagem: Imagem) {
@@ -48,15 +46,15 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
 
     })
 
-    override fun initView() {
-        textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)
+    override fun initView(view: View) {
+        super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
         buttonAdicionar = view.findViewById<Button>(R.id.buttonAdicionar)
     }
 
     override fun populateView() {
-        textViewLabel.setText(pergunta.descricao)
+        super.populateView()
         buttonAdicionar.setOnClickListener { adicionarImagem() }
 
         val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
@@ -77,8 +75,6 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         if (handlerCaptura.hasPermissoes()) {
             if (canAdicionarMaisUmaImagem()) {
                 handlerCaptura.capturarImagem(this, tipo)
-            } else {
-                exibirAlerta(contextActivity.getString(R.string.limite_maximo_atingido))
             }
         }
     }
@@ -94,16 +90,17 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         return isDentroDoLimiteMinimo() && isDentroDoLimiteMaximo()
     }
 
+    override fun getMensagemErroPreenchimento(): String {
+        return String.format(contextActivity.getString(R.string.faltam_x_imagens), (getLimiteMaximo() - getQuantidadeImagens()))
+    }
+
     private fun atualizarContador() {
         val tamanho = getQuantidadeImagens()
         val maximo = getLimiteMaximo()
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
         buttonAdicionar.isEnabled = tamanho != maximo
-    }
-
-    override fun exibirAlerta(mensagem: String) {
-        Toast.makeText(contextActivity, mensagem, Toast.LENGTH_SHORT).show()
+        if (isPreenchidoCorretamente()) indicador.hide()
     }
 
     fun adicionarImagem(imagem: Imagem) {

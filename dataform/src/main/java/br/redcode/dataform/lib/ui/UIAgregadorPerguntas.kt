@@ -13,14 +13,14 @@ import br.redcode.dataform.lib.model.Pergunta
  */
 class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergunta>, val handlerCapturaImagem: HandlerCapturaImagem) {
 
-    private val perguntasUI = ArrayList<UIPerguntaGeneric<Pergunta>>()
+    private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
     fun gerarPerguntasUI() {
         if (perguntas.isNotEmpty()) {
             perguntasUI.clear()
 
             for (pergunta in perguntas) {
-                var uiPergunta: UIPerguntaGeneric<Pergunta>? = null
+                var uiPergunta: UIPerguntaGeneric? = null
                 when {
                     pergunta.isPerguntaTextual() -> {
                         uiPergunta = UIPerguntaTextual(context, pergunta)
@@ -63,8 +63,15 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
     }
 
     fun isPerguntasPreenchidasCorretamente(): Boolean {
-        val preenchidasCorretamente = perguntasUI.filter { (it as Perguntavel).isPreenchidoCorretamente() }
-        return preenchidasCorretamente.size == perguntas.size
+        var quantidadePerguntasPreenchidasCorretamente = 0
+
+        for (ui in perguntasUI) {
+            val isPreenchidoCorretamente = ui.isPreenchidoCorretamente()
+            ui.exibirMensagemErroPreenchimento(isPreenchidoCorretamente)
+            quantidadePerguntasPreenchidasCorretamente += if (isPreenchidoCorretamente) 1 else 0
+        }
+
+        return quantidadePerguntasPreenchidasCorretamente == perguntas.size
     }
 
     fun obterRespostas() {

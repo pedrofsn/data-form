@@ -1,0 +1,81 @@
+package br.redcode.dataform.lib.ui
+
+import android.content.Context
+import android.content.DialogInterface
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
+import android.util.AttributeSet
+import android.view.View
+import android.widget.ImageView
+import br.redcode.dataform.lib.R
+import br.redcode.dataform.lib.utils.Constantes
+
+/**
+ * Created by pedrofsn on 03/11/2017.
+ */
+class Indicador : ImageView {
+
+    private var isErro: Boolean = false
+    private var mensagem: String = Constantes.STRING_VAZIA
+
+    constructor(context: Context) : super(context) {
+        inicializar()
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        inicializar()
+    }
+
+    constructor(context: Context, attrs: AttributeSet, style: Int) : super(context, attrs, style) {
+        inicializar()
+    }
+
+    private fun inicializar() {
+        isErro = false
+        hide()
+        setOnClickListener { exibirAlerta() }
+    }
+
+    fun setErro(msg: String) {
+        if (msg.isNotEmpty()) {
+            isErro = true
+            mensagem = msg
+            show()
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_erro))
+        }
+    }
+
+    fun setInformacao(msg: String) {
+        if (msg.isNotEmpty()) {
+            isErro = false
+            mensagem = msg
+            show()
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_informacao))
+        }
+    }
+
+    private fun exibirAlerta() {
+        if (mensagem.isNotEmpty()) {
+            AlertDialog.Builder(context)
+                    .setTitle(context.getString(if (isErro) R.string.erro else R.string.informacao))
+                    .setMessage(mensagem)
+                    .setPositiveButton(context.getString(R.string.ok), object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                        }
+                    })
+                    .setCancelable(false)
+                    .show()
+
+        }
+    }
+
+    fun show() {
+        visibility = View.VISIBLE
+    }
+
+    fun hide() {
+        visibility = View.GONE
+    }
+
+}

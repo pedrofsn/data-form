@@ -4,6 +4,11 @@
     <string name="x_barra_x">%d/%d</string>
     <string name="nenhuma_imagem_adicionada">Nenhuma imagem adicionada</string>
     <string name="selecione">Selecione</string>
-    <string name="limite_maximo_atingido">Limite máximo atingido</string>
     <string name="habilite_todas_as_permissoes">Habilite todas as permissões</string>
+    <string name="informacao">Informação</string>
+    <string name="erro">Erro</string>
+    <string name="ok">Ok</string>
+    <string name="faltam_x_imagens">Faltam %d imagens</string>
+    <string name="selecione_ao_menos_uma_alternativa">Selecione ao menos uma alternativa</string>
+    <string name="o_campo_de_texto_nao_foi_preenchido">O campo de texto não foi preenchido</string>
 </resources>

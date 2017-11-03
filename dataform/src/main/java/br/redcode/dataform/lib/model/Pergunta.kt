@@ -11,6 +11,7 @@ data class Pergunta(
         val descricao: String,
         val formato: String,
         var resposta: Resposta? = Resposta(),
+        val informacao: String? = Constantes.STRING_VAZIA,
 
         var limite: Limite? = null,
         var alternativas: ArrayList<Alternativa>? = null
