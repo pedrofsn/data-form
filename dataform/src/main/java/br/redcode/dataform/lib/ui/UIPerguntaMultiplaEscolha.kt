@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaMultiplaEscolha(contextActivity: Context, pergunta: Pergunta) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta), Perguntavel, OnItemClickListener {
+class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta), Perguntavel, OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
 
@@ -66,12 +66,16 @@ class UIPerguntaMultiplaEscolha(contextActivity: Context, pergunta: Pergunta) : 
     }
 
     override fun isPreenchidoCorretamente(): Boolean {
-        return true // Permite que nenhuma alternativa seja marcada // TODO migrar pra pelo menos uma (NDA)
+        val countMarcadas = getQuantidadeAlternativasMarcadas()
+        return countMarcadas >= pergunta.getLimiteMinimo() && countMarcadas <= pergunta.getLimiteMaximo()
+    }
+
+    fun getQuantidadeAlternativasMarcadas(): Int {
+        return getResposta().alternativas?.filter { it.selecionado }?.size ?: 0
     }
 
     override fun getMensagemErroPreenchimento(): String {
-//        return  contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa) //TODO: tratar limites aqui
-        return ""
+        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeAlternativasMarcadas()))
     }
 
 }

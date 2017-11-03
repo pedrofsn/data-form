@@ -44,6 +44,10 @@
       "id": 4,
       "descricao": "Quais salgadinhos você prefere?",
       "formato": "multipla_escolha",
+      "limite": {
+        "minimo": 1,
+        "maximo": 2
+      },
       "alternativas": [
         {
           "id": 0,

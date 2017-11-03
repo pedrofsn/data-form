@@ -13,9 +13,9 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIPerguntaGeneric(contex: Context, val idLayout: Int, val pergunta: Pergunta) : Perguntavel {
+abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pergunta: Pergunta) : Perguntavel {
 
-    private val inflater = LayoutInflater.from(contex)
+    private val inflater = LayoutInflater.from(context)
 
     private lateinit var textViewLabel: TextView
     lateinit var indicador: Indicador
@@ -47,7 +47,10 @@ abstract class UIPerguntaGeneric(contex: Context, val idLayout: Int, val pergunt
     }
 
     override fun getMensagemInformacao(): String {
-        return pergunta.informacao ?: Constantes.STRING_VAZIA
+        val mensagemDefaultLimites: String = pergunta.limite?.getMensagemDefault(context) ?: Constantes.STRING_VAZIA
+        val mensagemInformacao: String = pergunta.informacao ?: Constantes.STRING_VAZIA
+
+        return if (mensagemInformacao.isEmpty()) mensagemDefaultLimites else mensagemInformacao
     }
 
 }
