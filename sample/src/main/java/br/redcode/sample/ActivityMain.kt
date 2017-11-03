@@ -3,13 +3,11 @@ package br.redcode.sample
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import br.redcode.dataform.lib.domain.ActivityCapturarImagem
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.intentFor
 
-class ActivityMain : ActivityCapturarImagem() {
+class ActivityMain : BaseActivity() {
 
     private lateinit var agregador: UIAgregadorPerguntas
     private lateinit var minhasPerguntas: MinhasPerguntas
@@ -44,10 +42,6 @@ class ActivityMain : ActivityCapturarImagem() {
     private fun afterOnCreate() {
         agregador = UIAgregadorPerguntas(this, minhasPerguntas.perguntas, handlerCapturaImagem)
         linearLayout.addView(agregador.getView())
-    }
-
-    override fun previsualizarImagem(caminho: String) {
-        startActivity(intentFor<ActivityImagemComZoom>("imagem" to caminho))
     }
 
 }

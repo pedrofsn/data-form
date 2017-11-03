@@ -62,36 +62,3 @@ fun ImageView.load(url: String?, width: Int, height: Int) {
         }
     }
 }
-
-fun ImageView.loadFit(url: String) {
-    url.let {
-        Picasso.with(context)
-                .load(it)
-                .placeholder(placeholder)
-                .fit()
-                .error(error)
-                .into(this)
-    }
-}
-
-// DRAWABLE
-fun ImageView.load(drawable: Int) {
-    drawable.let {
-        Picasso.with(context)
-                .load(it)
-                .placeholder(placeholder)
-                .error(error)
-                .into(this)
-    }
-}
-
-fun ImageView.loadFit(drawable: Int) {
-    drawable.let {
-        Picasso.with(context)
-                .load(it)
-                .placeholder(placeholder)
-                .fit()
-                .error(error)
-                .into(this)
-    }
-}
