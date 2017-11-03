@@ -58,6 +58,13 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         recyclerView.setCustomAdapter(adapter, layoutManager = layoutManagerHorizontal)
 
         atualizarContador()
+
+        // Resposta pré-preenchida
+        pergunta.resposta?.imagens?.let {
+            adapter.setLista(it)
+            adapter.notifyDataSetChanged()
+        }
+
     }
 
     private fun adicionarImagem() {

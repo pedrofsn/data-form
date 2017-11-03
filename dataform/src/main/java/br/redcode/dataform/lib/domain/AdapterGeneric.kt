@@ -46,7 +46,7 @@ abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : Recycler
         notifyDataSetChanged()
     }
 
-    fun setLista(lista: ArrayList<Objeto>?) {
+    fun setLista(lista: List<Objeto>?) {
         if (lista != null) {
             this.lista.clear()
             this.lista.addAll(lista)

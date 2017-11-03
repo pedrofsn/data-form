@@ -82,16 +82,23 @@
       }
     },
     {
-      "id": 5,
-      "descricao": "Adicione uma imagem da galeria",
+      "id": 6,
+      "descricao": "Imagem pré-adicionada da internet que pode ser substituída por uma da galeria",
       "formato": "imagem_galeria",
       "limite": {
         "minimo": 1,
         "maximo": 1
+      },
+      "resposta": {
+        "imagens": [
+          {
+            "imagem": "https://avatars3.githubusercontent.com/u/3484814"
+          }
+        ]
       }
     },
     {
-      "id": 5,
+      "id": 7,
       "descricao": "Adicione uma imagem da câmera",
       "formato": "imagem_camera",
       "limite": {

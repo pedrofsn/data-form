@@ -36,6 +36,7 @@ class UIPerguntaMultiplaEscolha(contextActivity: Context, val pergunta: Pergunta
             recyclerView.setCustomAdapter(adapter)
         }
 
+        // Resposta pré-preenchida
         pergunta.resposta?.alternativas?.let {
             for (alternativa in adapter.getLista()) {
                 for (resposta in it) {
