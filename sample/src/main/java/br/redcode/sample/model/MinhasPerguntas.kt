@@ -1,4 +1,4 @@
-package br.redcode.sample
+package br.redcode.sample.model
 
 import br.redcode.dataform.lib.model.Pergunta
 

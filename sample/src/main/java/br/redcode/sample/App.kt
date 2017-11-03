@@ -1,4 +1,4 @@
-package br.redcode.dataform.lib
+package br.redcode.sample
 
 import android.app.Application
 import com.jakewharton.picasso.OkHttp3Downloader

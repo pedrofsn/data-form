@@ -1,9 +1,13 @@
-package br.redcode.sample
+package br.redcode.sample.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
+import br.redcode.sample.R
+import br.redcode.sample.domain.BaseActivity
+import br.redcode.sample.model.MinhasPerguntas
+import br.redcode.sample.utils.JSONReader
+import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,11 +26,11 @@ class ActivityMain : BaseActivity() {
 
     private fun inicializarListeners() {
         button.setOnClickListener {
-            Log.e(br.redcode.sample.Constantes.TAG, "Preenchido corretamente: " + agregador.isPerguntasPreenchidasCorretamente())
+            Utils.log("Preenchido corretamente: " + agregador.isPerguntasPreenchidasCorretamente())
 
             agregador.obterRespostas()
             val respostas = agregador.perguntas.toString()
-            Log.e(br.redcode.sample.Constantes.TAG, respostas)
+            Utils.log(respostas)
             Toast.makeText(this, respostas, Toast.LENGTH_LONG).show()
         }
     }

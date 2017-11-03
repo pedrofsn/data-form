@@ -6,7 +6,7 @@
     android:background="#f1f1f1"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="br.redcode.sample.ActivityMain">
+    tools:context="br.redcode.sample.activities.ActivityMain">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

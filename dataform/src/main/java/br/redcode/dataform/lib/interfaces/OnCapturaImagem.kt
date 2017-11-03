@@ -6,7 +6,7 @@ import br.redcode.dataform.lib.ui.UIPerguntaImagem
 /**
  * Created by pedrofsn on 02/11/2017.
  */
-interface OnCapturaImagem : Permitido {
+interface OnCapturaImagem : Permitido, ImagemCarregavel {
 
     fun capturarImagem(tipo: UIPerguntaImagem.Tipo)
 

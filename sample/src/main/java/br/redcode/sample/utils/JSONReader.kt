@@ -1,8 +1,7 @@
-package br.redcode.sample
+package br.redcode.sample.utils
 
 import android.content.Context
 import android.support.annotation.RawRes
-import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -39,7 +38,7 @@ class JSONReader(val context: Context) {
         }
 
         val resultado = sb.toString()
-        Log.e(Constantes.TAG, "JSON lido: " + resultado)
+        Utils.log("JSON lido: " + resultado)
         return resultado
     }
 

@@ -4,6 +4,7 @@
     package="br.redcode.sample">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ActivityMain"
+            android:name=".activities.ActivityMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -23,7 +24,7 @@
         </activity>
 
         <activity
-            android:name=".ActivityImagemComZoom"
+            android:name=".activities.ActivityImagemComZoom"
             android:label="@string/imagem"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />

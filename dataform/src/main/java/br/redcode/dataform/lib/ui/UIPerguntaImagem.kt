@@ -40,7 +40,7 @@ class UIPerguntaImagem(val contextActivity: Context, val pergunta: Pergunta, val
         override fun onItemClickListener(position: Int) {
             removerImagem(position)
         }
-    })
+    }, handlerCaptura)
 
     override fun initView() {
         textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)

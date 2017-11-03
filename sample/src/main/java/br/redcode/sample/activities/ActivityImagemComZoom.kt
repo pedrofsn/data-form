@@ -1,10 +1,10 @@
-package br.redcode.sample
+package br.redcode.sample.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.widget.ImageView
-import br.redcode.dataform.lib.extension.load
+import br.redcode.sample.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_imagem_com_zoom.*
 
 /**
@@ -19,7 +19,9 @@ class ActivityImagemComZoom : AppCompatActivity() {
 
         val imagem: String = intent.getStringExtra("imagem")
 
-        (photoView as ImageView).load(imagem)
+        Picasso.with(this)
+                .load(imagem)
+                .into(photoView)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

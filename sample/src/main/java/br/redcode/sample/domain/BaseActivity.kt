@@ -1,4 +1,4 @@
-package br.redcode.sample
+package br.redcode.sample.domain
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,10 +7,15 @@ import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
+import android.widget.ImageView
 import android.widget.Toast
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ActivityCapturarImagem
 import br.redcode.dataform.lib.ui.UIPerguntaImagem
+import br.redcode.sample.activities.ActivityImagemComZoom
+import br.redcode.sample.utils.Utils
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.intentFor
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
@@ -90,6 +95,31 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
         val uri = Uri.fromParts("package", packageName, null)
         intent.data = uri
         startActivity(intent)
+    }
+
+    override fun loadImage(imagem: String, imageView: ImageView) {
+        var temp = imagem
+
+        if (imagem.startsWith("/")) {
+            temp = "file://" + imagem
+        }
+
+        Utils.log("Carregando: " + temp)
+
+        Picasso.with(this)
+                .load(temp)
+                .placeholder(android.R.drawable.stat_sys_download)
+                .error(android.R.drawable.stat_notify_error)
+                .resize(100, 100)
+                .into(imageView, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@BaseActivity, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
+                    }
+                })
     }
 
 }
