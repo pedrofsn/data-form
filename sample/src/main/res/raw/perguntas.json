@@ -10,6 +10,108 @@
       "informacao": "Por favor, insira o seu nome completo"
     },
     {
+      "id": 2,
+      "descricao": "Qual é o mês do seu aniversário?",
+      "formato": "textual"
+    },
+    {
+      "id": 3,
+      "descricao": "Qual é o seu sexo?",
+      "formato": "objetiva_lista",
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Masculino"
+        },
+        {
+          "id": 1,
+          "descricao": "Feminino"
+        },
+        {
+          "id": 2,
+          "descricao": "Não informado"
+        }
+      ],
+      "resposta": {
+        "alternativa": {
+          "id": 0,
+          "descricao": "Masculino",
+          "selecionado": true
+        }
+      }
+    },
+    {
+      "id": 4,
+      "descricao": "Quais salgadinhos você prefere?",
+      "formato": "multipla_escolha",
+      "limite": {
+        "minimo": 1,
+        "maximo": 2
+      },
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Coxinha"
+        },
+        {
+          "id": 1,
+          "descricao": "Empadinha"
+        },
+        {
+          "id": 2,
+          "descricao": "Kibe"
+        }
+      ],
+      "resposta": {
+        "alternativas": [
+          {
+            "id": 0,
+            "descricao": "Coxinha",
+            "selecionado": true
+          },
+          {
+            "id": 1,
+            "descricao": "Empadinha",
+            "selecionado": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "descricao": "Adicione algumas fotos",
+      "formato": "imagem_camera_ou_galeria",
+      "limite": {
+        "minimo": 1,
+        "maximo": 3
+      }
+    },
+    {
+      "id": 6,
+      "descricao": "Imagem pré-adicionada da internet que pode ser substituída por uma da galeria",
+      "formato": "imagem_galeria",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
+      },
+      "resposta": {
+        "imagens": [
+          {
+            "imagem": "https://avatars3.githubusercontent.com/u/3484814"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "descricao": "Adicione uma imagem da câmera",
+      "formato": "imagem_camera",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
+      }
+    },
+    {
       "id": 8,
       "descricao": "Qual é o seu estado civil?",
       "formato": "objetiva_spinner",
