@@ -28,7 +28,7 @@ data class MinhasPerguntas(val perguntas: ArrayList<Pergunta>) : Serializable {
                         }
 
                         if (alternativa != null) {
-                            dto = RespostaPayload(idPergunta, alternativa.toDTO())
+                            dto = RespostaPayload(idPergunta, alternativa.id)
                         }
 
                         if (alternativas != null) {
@@ -37,7 +37,8 @@ data class MinhasPerguntas(val perguntas: ArrayList<Pergunta>) : Serializable {
                         }
 
                         if (imagens != null) {
-                            dto = RespostaPayload(idPergunta, imagens)
+                            val imagensTratadas = imagens.map { it.imagem }
+                            dto = RespostaPayload(idPergunta, imagensTratadas)
                         }
 
                         dto?.let { dtos.add(it) }
