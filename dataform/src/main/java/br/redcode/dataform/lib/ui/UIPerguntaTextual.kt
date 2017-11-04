@@ -27,7 +27,7 @@ class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta) : UIPe
     }
 
     override fun getResposta(): Resposta {
-        val resposta = Resposta(editText.text.toString().trim())
+        val resposta = Resposta(resposta = editText.text.toString().trim())
         pergunta.resposta = resposta
         return resposta
     }
