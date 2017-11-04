@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.CheckBox
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.model.Alternativa
 
 /**
@@ -20,9 +19,5 @@ class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Alternativa>(itemVi
         checkBox.text = obj.descricao
         checkBox.isChecked = obj.selecionado
     }
-
-    override fun popular(obj: Alternativa, click: OnItemClickListener?) {
-        super.popular(obj, click)
-    }
-
+    
 }
