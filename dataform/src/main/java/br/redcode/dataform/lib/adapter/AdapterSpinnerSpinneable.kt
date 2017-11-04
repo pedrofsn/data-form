@@ -12,7 +12,7 @@ import br.redcode.dataform.lib.interfaces.Spinnable
 /**
  * Created by pedrofsn on 27/10/2017.
  */
-class AdapterSpinnerSpinneable(var mContext: Context, val mObjects: List<Spinnable>, val textViewResourceId: Int = R.layout.adapter_spinner) : ArrayAdapter<Any>(mContext, textViewResourceId, mObjects) {
+class AdapterSpinnerSpinneable(mContext: Context, val mObjects: List<Spinnable>, val textViewResourceId: Int = R.layout.adapter_spinner) : ArrayAdapter<Any>(mContext, textViewResourceId, mObjects) {
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return getCustomView(position, parent)
