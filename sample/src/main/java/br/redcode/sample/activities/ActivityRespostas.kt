@@ -2,7 +2,7 @@ package br.redcode.sample.activities
 
 import android.os.Bundle
 import br.redcode.dataform.lib.model.Pergunta
-import br.redcode.dataform.lib.model.RespostaDTO
+import br.redcode.dataform.lib.model.payloads.RespostaPayload
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityGeneric
 import br.redcode.sample.model.MinhasPerguntas
@@ -28,7 +28,7 @@ class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : Activi
     }
 
     private fun atualizarRespostas() {
-        val dtos = ArrayList<RespostaDTO>()
+        val dtos = ArrayList<RespostaPayload>()
 
         perguntas?.let {
 
@@ -37,25 +37,25 @@ class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : Activi
             for (r in respostas) {
                 r?.let {
                     val (idPergunta, resposta, alternativa, alternativas, imagens) = it
-                    var dto: RespostaDTO? = null
+                    var dto: RespostaPayload? = null
 
                     if (idPergunta != null) {
 
                         if (resposta != null) {
-                            dto = RespostaDTO(idPergunta, resposta)
+                            dto = RespostaPayload(idPergunta, resposta)
                         }
 
                         if (alternativa != null) {
-                            dto = RespostaDTO(idPergunta, alternativa.toDTO())
+                            dto = RespostaPayload(idPergunta, alternativa.toDTO())
                         }
 
                         if (alternativas != null) {
                             val alternativasTratadas = alternativas.map { it.toDTO() }
-                            dto = RespostaDTO(idPergunta, alternativasTratadas)
+                            dto = RespostaPayload(idPergunta, alternativasTratadas)
                         }
 
                         if (imagens != null) {
-                            dto = RespostaDTO(idPergunta, imagens)
+                            dto = RespostaPayload(idPergunta, imagens)
                         }
 
                         dto?.let { dtos.add(it) }
