@@ -26,7 +26,7 @@ fun Spinner.setSpinnable(list: List<Spinnable>, hasDefault: Boolean = false, id:
                 override fun getTexto(): String {
                     return context.getString(R.string.selecione)
                 }
-            })
+            } as Spinnable)
         }
 
         temp.addAll(list)
@@ -61,7 +61,7 @@ fun Spinner.setSpinnable(list: List<Spinnable>, hasDefault: Boolean = false, id:
 fun Spinner.getSpinnableFromSpinner(spinnables: List<Spinnable>): Spinnable? {
     val textoSelecionado = selectedItem.toString().trim { it <= ' ' }
 
-    if (textoSelecionado.isEmpty()) {
+    if (textoSelecionado.isNotEmpty()) {
         for (i in spinnables.indices) {
             val spinnable = spinnables[i]
 
