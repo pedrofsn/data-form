@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.widget.Toast
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import br.redcode.sample.R
-import br.redcode.sample.domain.BaseActivity
+import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.model.MinhasPerguntas
 import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 
-class ActivityMain : BaseActivity() {
+class ActivityMain : ActivityCapturarImagem() {
 
     private lateinit var agregador: UIAgregadorPerguntas
     private lateinit var minhasPerguntas: MinhasPerguntas
@@ -29,8 +30,9 @@ class ActivityMain : BaseActivity() {
             if (agregador.isPerguntasPreenchidasCorretamente()) {
                 agregador.obterRespostas()
                 val respostas = agregador.perguntas.toString()
+
                 Utils.log(respostas)
-                Toast.makeText(this, respostas, Toast.LENGTH_LONG).show()
+                startActivity(intentFor<ActivityRespostas>("minhasPerguntas" to minhasPerguntas))
             } else {
                 Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }

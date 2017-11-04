@@ -24,7 +24,7 @@ import java.io.File
 /**
  * Created by pedrofsn on 03/11/2017.
  */
-abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
+abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Callbacks {
 
     private val RESULT_CODE_EASY_IMAGE = 1992
     private val RESULT_CODE_PERMISSAO = 12
@@ -61,7 +61,7 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
     }
 
     private fun forcarPermissoes() {
-        Toast.makeText(this@BaseActivity, getString(R.string.habilite_todas_as_permissoes), Toast.LENGTH_LONG).show()
+        Toast.makeText(this@ActivityCapturarImagem, getString(R.string.habilite_todas_as_permissoes), Toast.LENGTH_LONG).show()
         val intent = Intent()
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         val uri = Uri.fromParts("package", packageName, null)
@@ -79,13 +79,13 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
 
     override fun hasPermissoes(): Boolean {
         for (permissao in permissoes) {
-            val isOk: Boolean = ContextCompat.checkSelfPermission(this@BaseActivity, permissao) == PermissionChecker.PERMISSION_GRANTED
+            val isOk: Boolean = ContextCompat.checkSelfPermission(this@ActivityCapturarImagem, permissao) == PermissionChecker.PERMISSION_GRANTED
 
             if (isOk.not()) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissao)) {
-                    ActivityCompat.requestPermissions(this, permissoes, RESULT_CODE_PERMISSAO)
-                } else {
                     forcarPermissoes()
+                } else {
+                    ActivityCompat.requestPermissions(this, permissoes, RESULT_CODE_PERMISSAO)
                 }
                 return false
             }
@@ -118,7 +118,7 @@ abstract class BaseActivity : ActivityCapturarImagem(), EasyImage.Callbacks {
                     }
 
                     override fun onError() {
-                        Toast.makeText(this@BaseActivity, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ActivityCapturarImagem, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

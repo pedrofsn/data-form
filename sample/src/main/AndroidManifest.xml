@@ -24,6 +24,12 @@
         </activity>
 
         <activity
+            android:name=".activities.ActivityRespostas"
+            android:label="@string/respostas"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
             android:name=".activities.ActivityImagemComZoom"
             android:label="@string/imagem"
             android:screenOrientation="portrait"
