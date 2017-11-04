@@ -76,7 +76,7 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
 
     fun obterRespostas() {
         for (ui in perguntasUI) {
-            (ui as Perguntavel).getResposta()
+            (ui as Perguntavel).getResposta().idPergunta = ui.pergunta.id
         }
     }
 
