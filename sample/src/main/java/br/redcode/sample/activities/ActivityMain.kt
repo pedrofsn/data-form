@@ -36,7 +36,7 @@ class ActivityMain : ActivityCapturarImagem() {
                 val respostas = agregador.formularioDePerguntas.perguntas.toString()
 
                 Utils.log(respostas)
-                startActivity(intentFor<ActivityRespostas>("minhasPerguntas" to formularioDePerguntas.perguntas))
+                startActivity(intentFor<ActivityRespostas>("formularioDePerguntas" to formularioDePerguntas))
             } else {
                 Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }

@@ -21,7 +21,7 @@ class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : Activi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_respostas)
 
-        formularioDePerguntas = intent.getSerializableExtra("minhasPerguntas") as FormularioDePerguntas
+        formularioDePerguntas = intent.getSerializableExtra("formularioDePerguntas") as FormularioDePerguntas
 
         atualizarRespostas()
         button.setOnClickListener { atualizarRespostas() }
