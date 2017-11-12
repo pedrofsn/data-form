@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import br.redcode.dataform.lib.domain.HandlerCapturaImagem
@@ -55,6 +56,11 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
     fun getView(): View {
         val linearLayout = LinearLayout(context)
         linearLayout.orientation = LinearLayout.VERTICAL
+
+        // Alterar cor de fundo do formulário
+        val hexColor = formularioDePerguntas.configuracoes.corBackgroundFormulario
+        val color = Color.parseColor(hexColor)
+        linearLayout.setBackgroundColor(color)
 
         gerarPerguntasUI()
         for (ui in perguntasUI) {

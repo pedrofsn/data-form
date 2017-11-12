@@ -1,7 +1,9 @@
 {
   "configuracoes": {
     "exibirIndicadorErro": true,
-    "exibirIndicadorInformacao": true
+    "exibirIndicadorInformacao": true,
+    "exibirInformacaoAntesDaPergunta": true,
+    "corBackgroundFormulario": "#f1f1f1"
   },
   "perguntas": [
     {

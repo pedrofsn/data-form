@@ -18,6 +18,7 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
 
     private val inflater = LayoutInflater.from(context)
     private lateinit var textViewLabel: TextView
+    private lateinit var textViewInformacao: TextView
     lateinit var indicador: Indicador
 
     open fun inicializar(): View {
@@ -31,12 +32,18 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
     open fun initView(view: View) {
         indicador = view.findViewById<Indicador>(R.id.indicador)
         textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)
+        textViewInformacao = view.findViewById<TextView>(R.id.textViewInformacao)
     }
 
     open fun populateView() {
-        configuracao.let { indicador.configuracao = it }
+        indicador.configuracao = configuracao
         indicador.setInformacao(getMensagemInformacao())
         textViewLabel.setText(pergunta.descricao)
+
+        textViewInformacao?.let {
+            textViewInformacao.setText(pergunta.informacao)
+            textViewInformacao.visibility = if (pergunta.informacao?.length ?: 0 > 0) View.VISIBLE else View.GONE
+        }
     }
 
     override fun exibirMensagemErroPreenchimento(isPreenchidoCorretamente: Boolean) {
