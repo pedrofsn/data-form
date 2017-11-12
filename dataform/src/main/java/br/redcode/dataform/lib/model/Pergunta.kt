@@ -12,10 +12,15 @@ data class Pergunta(
         val formato: String,
         var resposta: Resposta? = Resposta(),
         val informacao: String? = Constantes.STRING_VAZIA,
+        val obrigatoria: Boolean = true,
 
         var limite: Limite? = null,
         var alternativas: ArrayList<Alternativa>? = null
 ) : Serializable {
+
+    fun getDescricaoComObrigatoriedade(): String {
+        return if (obrigatoria) descricao + " *" else descricao
+    }
 
     fun getLimiteMaximo(): Int {
         return limite?.maximo ?: 1

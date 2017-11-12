@@ -38,7 +38,7 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
     open fun populateView() {
         indicador.configuracao = configuracao
         indicador.setInformacao(getMensagemInformacao())
-        textViewLabel.setText(pergunta.descricao)
+        textViewLabel.setText(pergunta.getDescricaoComObrigatoriedade())
 
         textViewInformacao?.let {
             textViewInformacao.setText(pergunta.informacao)
@@ -59,6 +59,10 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
         val mensagemInformacao: String = pergunta.informacao ?: Constantes.STRING_VAZIA
 
         return if (mensagemInformacao.isEmpty()) mensagemDefaultLimites else mensagemInformacao
+    }
+
+    override fun isObrigatoria(): Boolean {
+        return pergunta.obrigatoria
     }
 
 }

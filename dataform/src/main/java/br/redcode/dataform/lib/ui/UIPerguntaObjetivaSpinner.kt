@@ -43,8 +43,8 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
         val spinnable = spinner.getSpinnableFromSpinner(adapter.getSpinnables())
         val resposta = Resposta()
 
-        if (spinnable != null) {
-            resposta.alternativa = spinnable as Alternativa
+        if (spinnable != null && spinnable is Alternativa) {
+            resposta.alternativa = spinnable
             resposta.alternativa?.selecionado = true
         }
 

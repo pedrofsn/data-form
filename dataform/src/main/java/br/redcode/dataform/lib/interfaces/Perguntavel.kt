@@ -17,4 +17,6 @@ interface Perguntavel {
 
     fun exibirMensagemErroPreenchimento(isPreenchidoCorretamente: Boolean)
 
+    fun isObrigatoria(): Boolean
+
 }

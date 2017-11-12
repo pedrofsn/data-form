@@ -10,6 +10,7 @@
       "id": 1,
       "descricao": "Qual é o seu nome?",
       "formato": "textual",
+      "obrigatoria": "true",
       "resposta": {
         "resposta": "Pedro Francisco de Sousa Neto"
       },
@@ -18,12 +19,14 @@
     {
       "id": 2,
       "descricao": "Qual é o mês do seu aniversário?",
-      "formato": "textual"
+      "formato": "textual",
+      "obrigatoria": "false"
     },
     {
       "id": 3,
       "descricao": "Qual é o seu sexo?",
       "formato": "objetiva_lista",
+      "obrigatoria": "false",
       "alternativas": [
         {
           "id": 0,
@@ -50,6 +53,7 @@
       "id": 4,
       "descricao": "Quais salgadinhos você prefere?",
       "formato": "multipla_escolha",
+      "obrigatoria": "false",
       "limite": {
         "minimo": 1,
         "maximo": 2
@@ -87,6 +91,7 @@
       "id": 5,
       "descricao": "Adicione algumas fotos",
       "formato": "imagem_camera_ou_galeria",
+      "obrigatoria": "false",
       "limite": {
         "minimo": 1,
         "maximo": 3
@@ -96,6 +101,7 @@
       "id": 6,
       "descricao": "Imagem pré-adicionada da internet que pode ser substituída por uma da galeria",
       "formato": "imagem_galeria",
+      "obrigatoria": "true",
       "limite": {
         "minimo": 1,
         "maximo": 1
@@ -112,6 +118,7 @@
       "id": 7,
       "descricao": "Adicione uma imagem da câmera",
       "formato": "imagem_camera",
+      "obrigatoria": "false",
       "limite": {
         "minimo": 1,
         "maximo": 1
@@ -121,6 +128,7 @@
       "id": 8,
       "descricao": "Qual é o seu estado civil?",
       "formato": "objetiva_spinner",
+      "obrigatoria": "true",
       "alternativas": [
         {
           "id": 0,
@@ -145,8 +153,9 @@
     },
     {
       "id": 9,
-      "descricao": "Really?",
+      "descricao": "Do you speak english?",
       "formato": "objetiva_spinner",
+      "obrigatoria": "false",
       "alternativas": [
         {
           "id": 0,

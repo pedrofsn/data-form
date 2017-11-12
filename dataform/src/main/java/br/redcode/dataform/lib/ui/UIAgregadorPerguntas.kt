@@ -74,7 +74,9 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
         var quantidadePerguntasPreenchidasCorretamente = 0
 
         for (ui in perguntasUI) {
-            val isPreenchidoCorretamente = ui.isPreenchidoCorretamente()
+            val obrigatoria = ui.isObrigatoria()
+            val isPreenchidoCorretamente = if (obrigatoria) ui.isPreenchidoCorretamente() else true
+
             ui.exibirMensagemErroPreenchimento(isPreenchidoCorretamente)
             quantidadePerguntasPreenchidasCorretamente += if (isPreenchidoCorretamente) 1 else 0
         }
