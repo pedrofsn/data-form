@@ -6,20 +6,20 @@ import android.widget.LinearLayout
 import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.interfaces.Perguntavel
-import br.redcode.dataform.lib.model.Pergunta
+import br.redcode.dataform.lib.model.FormularioDePerguntas
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergunta>, val handlerCapturaImagem: HandlerCapturaImagem) {
+class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: FormularioDePerguntas, val handlerCapturaImagem: HandlerCapturaImagem) {
 
     private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
     fun gerarPerguntasUI() {
-        if (perguntas.isNotEmpty()) {
+        if (formularioDePerguntas.perguntas.isNotEmpty()) {
             perguntasUI.clear()
 
-            for (pergunta in perguntas) {
+            for (pergunta in formularioDePerguntas.perguntas) {
                 var uiPergunta: UIPerguntaGeneric? = null
                 when {
                     pergunta.isPerguntaTextual() -> {
@@ -71,7 +71,7 @@ class UIAgregadorPerguntas(val context: Context, val perguntas: ArrayList<Pergun
             quantidadePerguntasPreenchidasCorretamente += if (isPreenchidoCorretamente) 1 else 0
         }
 
-        return quantidadePerguntasPreenchidasCorretamente == perguntas.size
+        return quantidadePerguntasPreenchidasCorretamente == formularioDePerguntas.perguntas.size
     }
 
     fun obterRespostas() {

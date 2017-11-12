@@ -1,9 +1,10 @@
 package br.redcode.sample.activities
 
 import android.os.Bundle
+import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityGeneric
-import br.redcode.sample.model.MinhasPerguntas
+import br.redcode.sample.model.toListDTO
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_respostas.*
@@ -13,21 +14,21 @@ import kotlinx.android.synthetic.main.activity_respostas.*
  */
 class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : ActivityGeneric() {
 
-    private var perguntas: MinhasPerguntas? = null
+    private var formularioDePerguntas: FormularioDePerguntas? = null
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_respostas)
 
-        perguntas = intent.getSerializableExtra("minhasPerguntas") as MinhasPerguntas
+        formularioDePerguntas = intent.getSerializableExtra("minhasPerguntas") as FormularioDePerguntas
 
         atualizarRespostas()
         button.setOnClickListener { atualizarRespostas() }
     }
 
     private fun atualizarRespostas() {
-        perguntas?.let {
+        formularioDePerguntas?.let {
             val json = gson.toJson(it.toListDTO())
 
             textView.text = json

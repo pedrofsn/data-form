@@ -2,10 +2,10 @@ package br.redcode.sample.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityCapturarImagem
-import br.redcode.sample.model.MinhasPerguntas
 import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
@@ -15,7 +15,7 @@ import org.jetbrains.anko.intentFor
 class ActivityMain : ActivityCapturarImagem() {
 
     private lateinit var agregador: UIAgregadorPerguntas
-    private lateinit var minhasPerguntas: MinhasPerguntas
+    private lateinit var formularioDePerguntas: FormularioDePerguntas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +29,10 @@ class ActivityMain : ActivityCapturarImagem() {
         button.setOnClickListener {
             if (agregador.isPerguntasPreenchidasCorretamente()) {
                 agregador.obterRespostas()
-                val respostas = agregador.perguntas.toString()
+                val respostas = agregador.formularioDePerguntas.perguntas.toString()
 
                 Utils.log(respostas)
-                startActivity(intentFor<ActivityRespostas>("minhasPerguntas" to minhasPerguntas))
+                startActivity(intentFor<ActivityRespostas>("minhasPerguntas" to formularioDePerguntas.perguntas))
             } else {
                 Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }
@@ -44,11 +44,11 @@ class ActivityMain : ActivityCapturarImagem() {
         val json = reader.getStringFromJson(R.raw.perguntas)
 
         val gson = Gson()
-        minhasPerguntas = gson.fromJson<MinhasPerguntas>(json, MinhasPerguntas::class.java)
+        formularioDePerguntas = gson.fromJson<FormularioDePerguntas>(json, FormularioDePerguntas::class.java)
     }
 
     private fun afterOnCreate() {
-        agregador = UIAgregadorPerguntas(this, minhasPerguntas.perguntas, handlerCapturaImagem)
+        agregador = UIAgregadorPerguntas(this, formularioDePerguntas, handlerCapturaImagem)
         linearLayout.addView(agregador.getView())
     }
 
