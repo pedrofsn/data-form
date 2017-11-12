@@ -35,6 +35,8 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
             val idPreSelecionado = pergunta.resposta?.alternativa?.id.toString()
             adapter = spinner.setSpinnable(it, true, idPreSelecionado)
         }
+
+        spinner.setTag("ui_pergunta_" + pergunta.id + "_spinner")
     }
 
     override fun getResposta(): Resposta {

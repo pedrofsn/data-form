@@ -23,7 +23,7 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
 
     open fun inicializar(): View {
         val view = inflater.inflate(idLayout, null)
-
+        view.setTag("ui_pergunta_" + pergunta.id)
         initView(view)
         populateView()
         return view;

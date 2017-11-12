@@ -142,6 +142,21 @@
           "selecionado": true
         }
       }
+    },
+    {
+      "id": 9,
+      "descricao": "Really?",
+      "formato": "objetiva_spinner",
+      "alternativas": [
+        {
+          "id": 0,
+          "descricao": "Yes"
+        },
+        {
+          "id": 1,
+          "descricao": "No"
+        }
+      ]
     }
   ]
 }
