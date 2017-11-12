@@ -1,6 +1,6 @@
 package br.redcode.sample.utils
 
-import android.util.Log.d
+import android.util.Log.e
 
 /**
  * Created by pedrofsn on 02/11/2017.
@@ -8,7 +8,7 @@ import android.util.Log.d
 object Utils {
 
     fun log(mensagem: String) {
-        d("minha-tag", mensagem)
+        e("minha-tag", mensagem)
     }
 
 }
