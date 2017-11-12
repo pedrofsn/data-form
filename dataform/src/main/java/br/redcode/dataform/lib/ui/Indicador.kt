@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import br.redcode.dataform.lib.R
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.utils.Constantes
 
 /**
@@ -17,6 +18,7 @@ class Indicador : ImageView {
 
     private var isErro: Boolean = false
     private var mensagem: String = Constantes.STRING_VAZIA
+    var configuracao: ConfiguracaoFormulario = ConfiguracaoFormulario()
 
     constructor(context: Context) : super(context) {
         inicializar()
@@ -31,13 +33,16 @@ class Indicador : ImageView {
     }
 
     private fun inicializar() {
-        isErro = false
         hide()
-        setOnClickListener { exibirAlerta() }
+
+        if (configuracao.hasIndicadorVisivel()) {
+            isErro = false
+            setOnClickListener { exibirAlerta() }
+        }
     }
 
     fun setErro(msg: String) {
-        if (msg.isNotEmpty()) {
+        if (msg.isNotEmpty() && configuracao.exibirIndicadorErro) {
             isErro = true
             mensagem = msg
             show()
@@ -46,7 +51,7 @@ class Indicador : ImageView {
     }
 
     fun setInformacao(msg: String) {
-        if (msg.isNotEmpty()) {
+        if (msg.isNotEmpty() && configuracao.exibirIndicadorInformacao) {
             isErro = false
             mensagem = msg
             show()

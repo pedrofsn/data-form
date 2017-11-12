@@ -19,29 +19,31 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
         if (formularioDePerguntas.perguntas.isNotEmpty()) {
             perguntasUI.clear()
 
+            val configuracoes = formularioDePerguntas.configuracoes
+
             for (pergunta in formularioDePerguntas.perguntas) {
                 var uiPergunta: UIPerguntaGeneric? = null
                 when {
                     pergunta.isPerguntaTextual() -> {
-                        uiPergunta = UIPerguntaTextual(context, pergunta)
+                        uiPergunta = UIPerguntaTextual(context, pergunta, configuracoes)
                     }
                     pergunta.isPerguntaObjetivaLista() -> {
-                        uiPergunta = UIPerguntaObjetivaLista(context, pergunta)
+                        uiPergunta = UIPerguntaObjetivaLista(context, pergunta, configuracoes)
                     }
                     pergunta.isPerguntaObjetivaSpinner() -> {
-                        uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta)
+                        uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta, configuracoes)
                     }
                     pergunta.isPerguntaMultiplaEscolha() -> {
-                        uiPergunta = UIPerguntaMultiplaEscolha(context, pergunta)
+                        uiPergunta = UIPerguntaMultiplaEscolha(context, pergunta, configuracoes)
                     }
                     pergunta.isPerguntaImagemCameraOuGaleria() -> {
-                        uiPergunta = UIPerguntaImagem(context, pergunta, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA)
+                        uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA)
                     }
                     pergunta.isPerguntaImagemSomenteCamera() -> {
-                        uiPergunta = UIPerguntaImagem(context, pergunta, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA)
+                        uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA)
                     }
                     pergunta.isPerguntaImagemSomenteGaleria() -> {
-                        uiPergunta = UIPerguntaImagem(context, pergunta, handlerCapturaImagem, UIPerguntaImagem.Tipo.GALERIA)
+                        uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.GALERIA)
                     }
                 }
 

@@ -9,13 +9,14 @@ import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta), Perguntavel, OnItemClickListener {
+class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Perguntavel, OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
 

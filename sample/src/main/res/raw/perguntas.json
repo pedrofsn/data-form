@@ -1,4 +1,8 @@
 {
+  "configuracoes": {
+    "exibirIndicadorErro": true,
+    "exibirIndicadorInformacao": true
+  },
   "perguntas": [
     {
       "id": 1,

@@ -14,6 +14,7 @@ import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
 import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -21,7 +22,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, val handlerCaptura: HandlerCapturaImagem, val tipo: Tipo) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_imagem, pergunta) {
+class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, val handlerCaptura: HandlerCapturaImagem, val tipo: Tipo) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_imagem, pergunta, configuracao) {
 
     enum class Tipo {
         CAMERA, GALERIA, CAMERA_OU_GALERIA

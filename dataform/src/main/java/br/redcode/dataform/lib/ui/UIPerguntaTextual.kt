@@ -6,13 +6,14 @@ import android.widget.EditText
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_textual, pergunta), Perguntavel {
+class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_textual, pergunta, configuracao), Perguntavel {
 
     private lateinit var editText: EditText
 

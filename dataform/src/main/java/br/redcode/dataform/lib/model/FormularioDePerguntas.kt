@@ -6,7 +6,7 @@ import java.io.Serializable
  * Created by pedrofsn on 12/11/2017.
  */
 data class FormularioDePerguntas(
-        val configuracao: ConfiguracaoFormulario,
+        val configuracoes: ConfiguracaoFormulario,
         val perguntas: ArrayList<Pergunta>
 ) : Serializable
 
