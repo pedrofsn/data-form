@@ -20,35 +20,6 @@
           "Pudim#Tem leite",
           "Macarrão#É massa"
         ]
-      },
-      "inputPopup": {
-        "titulo": "Novo Cadastro",
-        "campos": [
-          {
-            "tag": "sexo",
-            "descricao": "Qual é o seu sexo?",
-            "tipo": "spinner",
-            "alternativas": [
-              {
-                "id": 0,
-                "descricao": "Masculino"
-              },
-              {
-                "id": 1,
-                "descricao": "Feminino"
-              },
-              {
-                "id": 2,
-                "descricao": "Não informado"
-              }
-            ]
-          },
-          {
-            "tag": "dia_mes_ano",
-            "descricao": "Que dia é hoje?",
-            "tipo": "texto_data"
-          }
-        ]
       }
     },
     {
