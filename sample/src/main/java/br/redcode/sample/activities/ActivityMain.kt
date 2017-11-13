@@ -78,22 +78,24 @@ class ActivityMain : ActivityCapturarImagem() {
         val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_8_spinner")
         val pergunta9 = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_9")
 
-        pergunta9.visibility = View.GONE
+        if (pergunta9 != null && spinner != null) {
+            pergunta9.visibility = View.GONE
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
-                Utils.log("position : " + position)
-                Utils.log("id : " + id)
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+                    Utils.log("position : " + position)
+                    Utils.log("id : " + id)
 
-                if (position == 3) {
-                    pergunta9.visibility = View.VISIBLE
-                } else {
-                    pergunta9.visibility = View.GONE
+                    if (position == 3) {
+                        pergunta9.visibility = View.VISIBLE
+                    } else {
+                        pergunta9.visibility = View.GONE
+                    }
                 }
-            }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
 
+                }
             }
         }
     }
