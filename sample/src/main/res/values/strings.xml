@@ -3,4 +3,6 @@
     <string name="respostas">Respostas</string>
     <string name="imagem">Imagem</string>
     <string name="existem_perguntas_nao_respondidas">Existem perguntas não respondidas</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
 </resources>

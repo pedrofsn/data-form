@@ -11,7 +11,9 @@ import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import br.redcode.sample.R
+import br.redcode.sample.dialogs.DialogCheckin
 import br.redcode.sample.domain.ActivityCapturarImagem
+import br.redcode.sample.interfaces.OnPosicaoCadastrada
 import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
@@ -56,21 +58,9 @@ class ActivityMain : ActivityCapturarImagem() {
     private fun afterOnCreate() {
         val handlerInputPopup = object : HandlerInputPopup() {
 
-            override fun chamarPopup(idPergunta: Int, removerItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
-                super.chamarPopup(idPergunta, removerItem)
-                Utils.log("sample : chamarPopup " + idPergunta)
-
-                Utils.log("sample : adicionarElementoNaLista forçado ao chamar popup")
-                val novoItem = object : DuasLinhas {
-                    override fun getLinha1(): String {
-                        return "JESUS"
-                    }
-
-                    override fun getLinha2(): String {
-                        return "só Deus salva"
-                    }
-                }
-                removerItem.invoke(idPergunta, novoItem)
+            override fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+                super.chamarPopup(idPergunta, functionAdicionarItem)
+                abrirPopup(idPergunta, functionAdicionarItem)
             }
         }
 
@@ -101,6 +91,24 @@ class ActivityMain : ActivityCapturarImagem() {
                 }
             }
         }
+    }
+
+    private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+        DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
+            override fun onPosicaoCadastrada(latitude: String, longitude: String) {
+                val novoItem = object : DuasLinhas {
+                    override fun getLinha1(): String {
+                        return latitude
+                    }
+
+                    override fun getLinha2(): String {
+                        return longitude
+                    }
+                }
+
+                functionAdicionarItem.invoke(idPergunta, novoItem)
+            }
+        })
     }
 
 }
