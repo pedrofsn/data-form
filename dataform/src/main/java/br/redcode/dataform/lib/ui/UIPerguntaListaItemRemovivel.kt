@@ -3,7 +3,7 @@ package br.redcode.dataform.lib.ui
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterItemRemovivel
@@ -25,7 +25,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
-    private lateinit var buttonAdicionar: Button
+    private lateinit var linearLayoutAdicionar: LinearLayout
 
     private val adapter = AdapterItemRemovivel(object : OnItemClickListener {
         override fun onItemClickListener(position: Int) {
@@ -37,13 +37,13 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
-        buttonAdicionar = view.findViewById<Button>(R.id.buttonAdicionar)
+        linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
     }
 
     override fun populateView() {
         super.populateView()
         recyclerView.setCustomAdapter(adapter)
-        buttonAdicionar.setOnClickListener { handlerInputPopup.chamarPopup() }
+        linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup() }
 
 //        if (pergunta.inputPopup == null) {
 //            throw RuntimeException("Pergunta do tipo LISTA_ITEM_REMOVIVEL deve conter um inputPopup")
@@ -92,7 +92,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         val maximo = pergunta.getLimiteMaximo()
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
-        buttonAdicionar.isEnabled = tamanho != maximo
+        linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isPreenchidoCorretamente()) indicador.hide()
     }
 

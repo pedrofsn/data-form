@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
@@ -30,7 +30,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
-    private lateinit var buttonAdicionar: Button
+    private lateinit var linearLayoutAdicionar: LinearLayout
 
     private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
         override fun removerImagem(posicao: Int) {
@@ -51,12 +51,12 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
-        buttonAdicionar = view.findViewById<Button>(R.id.buttonAdicionar)
+        linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
     }
 
     override fun populateView() {
         super.populateView()
-        buttonAdicionar.setOnClickListener { adicionarImagem() }
+        linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
 
         val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
         recyclerView.setCustomAdapter(adapter, layoutManager = layoutManagerHorizontal)
@@ -100,7 +100,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         val maximo = pergunta.getLimiteMaximo()
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
-        buttonAdicionar.isEnabled = tamanho != maximo
+        linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isPreenchidoCorretamente()) indicador.hide()
     }
 
