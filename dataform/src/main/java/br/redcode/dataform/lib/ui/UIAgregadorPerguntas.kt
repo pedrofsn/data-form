@@ -27,6 +27,9 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
             for (pergunta in formularioDePerguntas.perguntas) {
                 var uiPergunta: UIPerguntaGeneric? = null
                 when {
+                    pergunta.isPerguntaTextoInformativo() -> {
+                        uiPergunta = UIPerguntaTextoInformativo(context, pergunta, configuracoes)
+                    }
                     pergunta.isPerguntaTextual() -> {
                         uiPergunta = UIPerguntaTextual(context, pergunta, configuracoes)
                     }

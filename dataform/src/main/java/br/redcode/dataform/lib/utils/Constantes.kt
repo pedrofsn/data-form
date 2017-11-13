@@ -8,6 +8,7 @@ object Constantes {
     const val VALOR_INVALIDO = -1
     const val STRING_VAZIA: String = ""
 
+    const val TIPO_PERGUNTA_TEXTO_INFORMATIVO = "texto_informativo"
     const val TIPO_PERGUNTA_TEXTUAL = "textual"
     const val TIPO_PERGUNTA_OBJETIVA_LISTA = "objetiva_lista"
     const val TIPO_PERGUNTA_OBJETIVA_SPINNER = "objetiva_spinner"

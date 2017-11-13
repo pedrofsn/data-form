@@ -15,7 +15,8 @@ data class Pergunta(
         val obrigatoria: Boolean = true,
 
         var limite: Limite? = null,
-        var alternativas: ArrayList<Alternativa>? = null
+        var alternativas: ArrayList<Alternativa>? = null,
+        var textoInformativo: String? = null
 ) : Serializable {
 
     fun getDescricaoComObrigatoriedade(): String {
@@ -28,6 +29,10 @@ data class Pergunta(
 
     fun getLimiteMinimo(): Int {
         return limite?.minimo ?: 0
+    }
+
+    fun isPerguntaTextoInformativo(): Boolean {
+        return Constantes.TIPO_PERGUNTA_TEXTO_INFORMATIVO == formato
     }
 
     fun isPerguntaTextual(): Boolean {
