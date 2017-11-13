@@ -19,13 +19,14 @@
             android:id="@+id/textViewLinha1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+            android:textColor="@color/cor_textview_item_removivel_1"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewLinha2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/cor_textview_item_removivel_2"
             android:textStyle="italic" />
 
     </LinearLayout>
