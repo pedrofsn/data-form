@@ -24,6 +24,7 @@ class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, config
 
     override fun populateView() {
         super.populateView()
+        editText.setTag("ui_pergunta_" + pergunta.id + "_edittext")
         pergunta.resposta?.resposta?.let { editText.setText(it) }
     }
 

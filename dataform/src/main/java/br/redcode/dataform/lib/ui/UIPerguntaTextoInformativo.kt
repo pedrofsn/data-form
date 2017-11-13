@@ -25,6 +25,7 @@ class UIPerguntaTextoInformativo(val contextActivity: Context, pergunta: Pergunt
 
     override fun populateView() {
         super.populateView()
+        textViewInformativo.setTag("ui_pergunta_" + pergunta.id + "_textview")
         pergunta.textoInformativo?.let { textViewInformativo.setText(it) }
     }
 

@@ -42,7 +42,11 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
     override fun populateView() {
         super.populateView()
-        recyclerView.setCustomAdapter(adapter)
+        recyclerView.setTag("ui_pergunta_" + pergunta.id + "_recyclerview")
+        textViewAndamento.setTag("ui_pergunta_" + pergunta.id + "_textview")
+        linearLayoutAdicionar.setTag("ui_pergunta_" + pergunta.id + "_linearlayout")
+
+        recyclerView.setCustomAdapter(adapter, true)
         linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup() }
 
 //        if (pergunta.inputPopup == null) {

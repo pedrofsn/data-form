@@ -56,6 +56,10 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
 
     override fun populateView() {
         super.populateView()
+        recyclerView.setTag("ui_pergunta_" + pergunta.id + "_recyclerview")
+        textViewAndamento.setTag("ui_pergunta_" + pergunta.id + "_textview")
+        linearLayoutAdicionar.setTag("ui_pergunta_" + pergunta.id + "_linearlayout")
+
         linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
 
         val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
@@ -69,7 +73,6 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
             adapter.notifyDataSetChanged()
             atualizarContador()
         }
-
     }
 
     private fun adicionarImagem() {
@@ -102,6 +105,8 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isPreenchidoCorretamente()) indicador.hide()
+
+        recyclerView.visibility = if (tamanho > 0) View.VISIBLE else View.GONE
     }
 
     fun adicionarImagem(imagem: Imagem) {

@@ -30,6 +30,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
 
     override fun populateView() {
         super.populateView()
+        spinner.setTag("ui_pergunta_" + pergunta.id + "_spinner")
 
         pergunta.alternativas?.let {
             val idPreSelecionado = pergunta.resposta?.alternativa?.id.toString()

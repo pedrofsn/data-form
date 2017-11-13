@@ -32,6 +32,7 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
 
     override fun populateView() {
         super.populateView()
+        recyclerView.setTag("ui_pergunta_" + pergunta.id + "_recyclerview")
 
         pergunta.alternativas?.let {
             adapter.setLista(it)
