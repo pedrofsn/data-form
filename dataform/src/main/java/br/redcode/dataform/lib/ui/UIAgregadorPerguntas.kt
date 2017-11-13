@@ -12,7 +12,6 @@ import br.redcode.dataform.lib.model.FormularioDePerguntas
 
 /**
  * Created by pedrofsn on 31/10/2017.
- * TODO: O handlerInputPopup é único, ou seja se um form tiver que ter mais de um tipo de popup distinto, esta solução não irá atender!
  */
 class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: FormularioDePerguntas, val handlerCapturaImagem: HandlerCapturaImagem, val handlerInputPopup: HandlerInputPopup) {
 

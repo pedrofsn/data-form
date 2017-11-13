@@ -55,11 +55,13 @@ class ActivityMain : ActivityCapturarImagem() {
 
     private fun afterOnCreate() {
         val handlerInputPopup = object : HandlerInputPopup() {
-            override fun chamarPopup() {
-                Utils.log("sample : chamarPopup")
+
+            override fun chamarPopup(idPergunta: Int, removerItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+                super.chamarPopup(idPergunta, removerItem)
+                Utils.log("sample : chamarPopup " + idPergunta)
 
                 Utils.log("sample : adicionarElementoNaLista forçado ao chamar popup")
-                adicionarElementoNaLista(object : DuasLinhas {
+                val novoItem = object : DuasLinhas {
                     override fun getLinha1(): String {
                         return "JESUS"
                     }
@@ -67,7 +69,8 @@ class ActivityMain : ActivityCapturarImagem() {
                     override fun getLinha2(): String {
                         return "só Deus salva"
                     }
-                })
+                }
+                removerItem.invoke(idPergunta, novoItem)
             }
         }
 

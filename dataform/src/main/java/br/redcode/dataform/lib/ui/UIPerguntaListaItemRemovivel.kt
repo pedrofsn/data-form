@@ -47,17 +47,14 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         linearLayoutAdicionar.setTag("ui_pergunta_" + pergunta.id + "_linearlayout")
 
         recyclerView.setCustomAdapter(adapter, true)
-        linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup() }
 
-//        if (pergunta.inputPopup == null) {
-//            throw RuntimeException("Pergunta do tipo LISTA_ITEM_REMOVIVEL deve conter um inputPopup")
-//        }
-
-        // DEFININDO O QUE O CÓDIGO A SER EXECUTADO
-        handlerInputPopup.function = { duasLinhas: DuasLinhas ->
-            adapter.adicionar(duasLinhas)
-            atualizarContador()
+        val removerItem = { idPerguntaHandler: Int, duasLinhas: DuasLinhas ->
+            if (idPerguntaHandler == pergunta.id) {
+                adapter.adicionar(duasLinhas)
+                atualizarContador()
+            }
         }
+        linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup(pergunta.id, removerItem) }
 
         pergunta.resposta?.respostas?.let {
             val mutavel = it as MutableList<String>

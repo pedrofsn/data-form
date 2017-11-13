@@ -7,12 +7,10 @@ import br.redcode.dataform.lib.interfaces.DuasLinhas
  */
 abstract class HandlerInputPopup {
 
-    lateinit var function: (duasLinhas: DuasLinhas) -> Unit
+    var idPergunta = -1
 
-    abstract fun chamarPopup()
-
-    fun adicionarElementoNaLista(duasLinhas: DuasLinhas) {
-        function.invoke(duasLinhas)
+    open fun chamarPopup(idPergunta: Int, removerItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+        this.idPergunta = idPergunta
     }
 
 }
