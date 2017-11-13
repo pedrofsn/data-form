@@ -72,6 +72,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     }
 
     private fun adicionarItemRemovivel() {
+        //TODO repensar input
         adapter.adicionar(object : DuasLinhas {
             override fun getLinha1(): String {
                 return "Novo item"
