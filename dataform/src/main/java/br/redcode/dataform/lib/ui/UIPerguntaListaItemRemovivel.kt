@@ -48,13 +48,13 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
         recyclerView.setCustomAdapter(adapter, true)
 
-        val removerItem = { idPerguntaHandler: Int, duasLinhas: DuasLinhas ->
+        val functionAdicionarItem = { idPerguntaHandler: Int, duasLinhas: DuasLinhas ->
             if (idPerguntaHandler == pergunta.id) {
                 adapter.adicionar(duasLinhas)
                 atualizarContador()
             }
         }
-        linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup(pergunta.id, removerItem) }
+        linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup(pergunta.id, functionAdicionarItem) }
 
         pergunta.resposta?.respostas?.let {
             val mutavel = it as MutableList<String>

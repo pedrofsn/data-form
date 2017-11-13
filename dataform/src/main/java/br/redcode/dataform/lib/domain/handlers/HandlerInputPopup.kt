@@ -9,7 +9,7 @@ abstract class HandlerInputPopup {
 
     var idPergunta = -1
 
-    open fun chamarPopup(idPergunta: Int, removerItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+    open fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
         this.idPergunta = idPergunta
     }
 
