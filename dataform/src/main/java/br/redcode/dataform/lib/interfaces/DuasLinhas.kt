@@ -5,10 +5,4 @@ import java.io.Serializable
 /**
  * Created by pedrofsn on 13/11/2017.
  */
-interface DuasLinhas : Serializable {
-
-    fun getLinha1(): String
-
-    fun getLinha2(): String
-
-}
+data class DuasLinhas(val linha1: String, val linha2: String) : Serializable

@@ -57,27 +57,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         linearLayoutAdicionar.setOnClickListener { handlerInputPopup.chamarPopup(pergunta.id, functionAdicionarItem) }
 
         pergunta.resposta?.respostas?.let {
-            val mutavel = it as MutableList<String>
-
-            for (string in mutavel) {
-                if (string.contains("#").not()) {
-                    it.remove(string)
-                }
-            }
-
-            val listaDuasLinhas: List<DuasLinhas> = mutavel.map { stringComSeparador ->
-                object : DuasLinhas {
-                    override fun getLinha1(): String {
-                        return stringComSeparador.split("#")[0]
-                    }
-
-                    override fun getLinha2(): String {
-                        return stringComSeparador.split("#")[1]
-                    }
-                }
-            }
-
-            adapter.setLista(listaDuasLinhas)
+            adapter.setLista(it)
         }
 
         atualizarContador()
@@ -98,23 +78,20 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     }
 
     override fun getResposta(): Resposta {
-        val listaString: List<String> = adapter.getLista().map { duasLinhas -> duasLinhas.getLinha1() + " # " + duasLinhas.getLinha2() }
-        val resposta = Resposta(respostas = listaString)
+        val listaResposta: List<DuasLinhas> = adapter.getLista()
+        val resposta = Resposta(respostas = listaResposta)
         pergunta.resposta = resposta
         return resposta
     }
 
     override fun isPreenchidoCorretamente(): Boolean {
-        val countMarcadas = getQuantidadeAlternativasMarcadas()
-        return countMarcadas >= pergunta.getLimiteMinimo() && countMarcadas <= pergunta.getLimiteMaximo()
-    }
-
-    fun getQuantidadeAlternativasMarcadas(): Int {
-        return getResposta().alternativas?.filter { it.selecionado }?.size ?: 0
+        val countItens = adapter.getLista().size
+        val isPreenchidoCorretamente = countItens >= pergunta.getLimiteMinimo() && countItens <= pergunta.getLimiteMaximo()
+        return isPreenchidoCorretamente
     }
 
     override fun getMensagemErroPreenchimento(): String {
-        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeAlternativasMarcadas()))
+        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - adapter.getLista().size))
     }
 
 }

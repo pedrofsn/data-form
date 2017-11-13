@@ -7,10 +7,14 @@
   },
   "perguntas": [
     {
-      "id": 999,
-      "descricao": "Texto Informativo",
-      "textoInformativo": "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.\n\nLorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.",
-      "formato": "texto_informativo"
+      "id": 888,
+      "descricao": "Objeto adicionado via Kotlin",
+      "formato": "lista_item_removivel",
+      "obrigatoria": "true",
+      "limite": {
+        "minimo": 1,
+        "maximo": 2
+      }
     },
     {
       "id": 0,
@@ -23,8 +27,14 @@
       },
       "resposta": {
         "respostas": [
-          "Pudim#Tem leite",
-          "Macarrão#É massa"
+          {
+            "linha1": "Pudim",
+            "linha2": "Não tem albomina"
+          },
+          {
+            "linha1": "Ovo",
+            "linha2": "Não tem leite"
+          }
         ]
       }
     },
@@ -188,6 +198,12 @@
           "descricao": "No"
         }
       ]
+    },
+    {
+      "id": 999,
+      "descricao": "Texto Informativo",
+      "textoInformativo": "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.\n\nLorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.",
+      "formato": "texto_informativo"
     }
   ]
 }

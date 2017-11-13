@@ -22,8 +22,8 @@ class ViewHolderItemRemovivel(itemView: View) : ViewHolderGeneric<DuasLinhas>(it
         textViewLinha2 = itemView.findViewById<TextView>(R.id.textViewLinha2)
         imageViewRemoverItem = itemView.findViewById<ImageView>(R.id.imageViewRemoverItem)
 
-        textViewLinha1.text = obj.getLinha1()
-        textViewLinha2.text = obj.getLinha2()
+        textViewLinha1.text = obj.linha1
+        textViewLinha2.text = obj.linha2
     }
 
     override fun popular(obj: DuasLinhas, click: OnItemClickListener?) {

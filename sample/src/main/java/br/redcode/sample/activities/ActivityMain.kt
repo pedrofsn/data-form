@@ -14,6 +14,7 @@ import br.redcode.sample.R
 import br.redcode.sample.dialogs.DialogCheckin
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.interfaces.OnPosicaoCadastrada
+import br.redcode.sample.model.CustomObject
 import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
@@ -94,21 +95,18 @@ class ActivityMain : ActivityCapturarImagem() {
     }
 
     private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
-        DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
-            override fun onPosicaoCadastrada(latitude: String, longitude: String) {
-                val novoItem = object : DuasLinhas {
-                    override fun getLinha1(): String {
-                        return latitude
+        when (idPergunta) {
+            888 ->
+                functionAdicionarItem.invoke(idPergunta, CustomObject("Título", "Teste").toDuasLinhas())
+            else -> {
+                DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
+                    override fun onPosicaoCadastrada(latitude: String, longitude: String) {
+                        val obj = CustomObject(latitude, longitude)
+                        functionAdicionarItem.invoke(idPergunta, obj.toDuasLinhas())
                     }
-
-                    override fun getLinha2(): String {
-                        return longitude
-                    }
-                }
-
-                functionAdicionarItem.invoke(idPergunta, novoItem)
+                })
             }
-        })
+        }
     }
 
 }

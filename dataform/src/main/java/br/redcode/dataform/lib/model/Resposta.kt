@@ -1,5 +1,6 @@
 package br.redcode.dataform.lib.model
 
+import br.redcode.dataform.lib.interfaces.DuasLinhas
 import java.io.Serializable
 
 /**
@@ -9,7 +10,7 @@ data class Resposta(
         var idPergunta: Int? = null,
         var resposta: String? = null,
 
-        var respostas: List<String>? = null,
+        var respostas: List<DuasLinhas>? = null,
         var alternativa: Alternativa? = null,
         var alternativas: List<Alternativa>? = null,
         var imagens: List<Imagem>? = null
