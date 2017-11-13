@@ -11,8 +11,8 @@ import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
-import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Imagem

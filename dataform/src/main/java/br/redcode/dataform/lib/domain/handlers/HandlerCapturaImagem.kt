@@ -1,4 +1,4 @@
-package br.redcode.dataform.lib.domain
+package br.redcode.dataform.lib.domain.handlers
 
 import android.widget.ImageView
 import br.redcode.dataform.lib.interfaces.ImagemCapturavel
