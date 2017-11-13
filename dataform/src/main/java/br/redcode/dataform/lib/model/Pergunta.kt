@@ -38,6 +38,10 @@ data class Pergunta(
         return Constantes.TIPO_PERGUNTA_OBJETIVA_LISTA == formato
     }
 
+    fun isPerguntaListaItemRemovivel(): Boolean {
+        return Constantes.TIPO_PERGUNTA_LISTA_ITEM_REMOVIVEL == formato
+    }
+
     fun isPerguntaObjetivaSpinner(): Boolean {
         return Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER == formato
     }

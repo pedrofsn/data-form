@@ -1,10 +1,6 @@
 package br.redcode.sample.activities
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.LinearLayout
-import android.widget.Spinner
 import android.widget.Toast
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
@@ -56,27 +52,27 @@ class ActivityMain : ActivityCapturarImagem() {
         linearLayout.addView(agregador.getView())
 
         // hack
-        val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_8_spinner")
-        val pergunta9 = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_9")
-
-        pergunta9.visibility = View.GONE
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
-                Utils.log("position : " + position)
-                Utils.log("id : " + id)
-
-                if (position == 3) {
-                    pergunta9.visibility = View.VISIBLE
-                } else {
-                    pergunta9.visibility = View.GONE
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
+//        val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_8_spinner")
+//        val pergunta9 = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_9")
+//
+//        pergunta9.visibility = View.GONE
+//
+//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+//                Utils.log("position : " + position)
+//                Utils.log("id : " + id)
+//
+//                if (position == 3) {
+//                    pergunta9.visibility = View.VISIBLE
+//                } else {
+//                    pergunta9.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//
+//            }
+//        }
     }
 
 }

@@ -18,25 +18,20 @@ fun FormularioDePerguntas.toListDTO(): ArrayList<RespostaPayload> {
 
         for (r in respostas) {
             r?.let {
-                val (idPergunta, resposta, alternativa, alternativas, imagens) = it
+                val (idPergunta, resposta, respostas, alternativa, alternativas, imagens) = it
                 var dto: RespostaPayload? = null
 
                 if (idPergunta != null) {
+                    resposta?.let { dto = RespostaPayload(idPergunta, resposta) }
+                    respostas?.let { dto = RespostaPayload(idPergunta, respostas) }
+                    alternativa?.let { dto = RespostaPayload(idPergunta, alternativa.id) }
 
-                    if (resposta != null) {
-                        dto = RespostaPayload(idPergunta, resposta)
-                    }
-
-                    if (alternativa != null) {
-                        dto = RespostaPayload(idPergunta, alternativa.id)
-                    }
-
-                    if (alternativas != null) {
+                    alternativas?.let {
                         val alternativasTratadas = alternativas.map { it.toDTO() }
                         dto = RespostaPayload(idPergunta, alternativasTratadas)
                     }
 
-                    if (imagens != null) {
+                    imagens?.let {
                         val imagensTratadas = imagens.map { it.imagem }
                         dto = RespostaPayload(idPergunta, imagensTratadas)
                     }

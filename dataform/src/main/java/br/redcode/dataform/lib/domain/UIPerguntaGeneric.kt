@@ -36,8 +36,11 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
     }
 
     open fun populateView() {
-        indicador.configuracao = configuracao
-        indicador.setInformacao(getMensagemInformacao())
+        indicador?.let {
+            it.configuracao = configuracao
+            it.setInformacao(getMensagemInformacao())
+        }
+
         textViewLabel.setText(pergunta.getDescricaoComObrigatoriedade())
 
         textViewInformacao?.let {
@@ -47,10 +50,8 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
     }
 
     override fun exibirMensagemErroPreenchimento(isPreenchidoCorretamente: Boolean) {
-        if (isPreenchidoCorretamente.not()) {
-            indicador.setErro(getMensagemErroPreenchimento())
-        } else {
-            indicador.hide()
+        indicador?.let {
+            if (isPreenchidoCorretamente.not()) it.setErro(getMensagemErroPreenchimento()) else it.hide()
         }
     }
 

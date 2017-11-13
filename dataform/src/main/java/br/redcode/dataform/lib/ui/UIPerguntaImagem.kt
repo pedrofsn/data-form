@@ -92,11 +92,11 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     }
 
     override fun getMensagemErroPreenchimento(): String {
-        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeImagens()))
+        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeAtual()))
     }
 
     private fun atualizarContador() {
-        val tamanho = getQuantidadeImagens()
+        val tamanho = getQuantidadeAtual()
         val maximo = pergunta.getLimiteMaximo()
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
@@ -113,7 +113,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     }
 
     private fun canAdicionarMaisUmaImagem(): Boolean {
-        return getQuantidadeImagens() + 1 <= pergunta.getLimiteMaximo()
+        return getQuantidadeAtual() + 1 <= pergunta.getLimiteMaximo()
     }
 
     private fun removerImagem(position: Int) {
@@ -122,16 +122,16 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         atualizarContador()
     }
 
-    fun getQuantidadeImagens(): Int {
+    fun getQuantidadeAtual(): Int {
         return adapter.itemCount
     }
 
     fun isDentroDoLimiteMaximo(): Boolean {
-        return getQuantidadeImagens() <= pergunta.getLimiteMaximo()
+        return getQuantidadeAtual() <= pergunta.getLimiteMaximo()
     }
 
     fun isDentroDoLimiteMinimo(): Boolean {
-        return getQuantidadeImagens() >= pergunta.getLimiteMinimo()
+        return getQuantidadeAtual() >= pergunta.getLimiteMinimo()
     }
 
 }

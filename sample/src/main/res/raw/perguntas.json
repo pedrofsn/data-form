@@ -7,6 +7,22 @@
   },
   "perguntas": [
     {
+      "id": 0,
+      "descricao": "Do que você gosta?",
+      "formato": "lista_item_removivel",
+      "obrigatoria": "true",
+      "limite": {
+        "minimo": 0,
+        "maximo": 2
+      },
+      "resposta": {
+        "respostas": [
+          "Pudim#Tem leite",
+          "Macarrão#É massa"
+        ]
+      }
+    },
+    {
       "id": 1,
       "descricao": "Qual é o seu nome?",
       "formato": "textual",

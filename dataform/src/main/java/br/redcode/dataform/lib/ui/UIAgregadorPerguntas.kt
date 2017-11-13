@@ -31,6 +31,9 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
                     pergunta.isPerguntaObjetivaLista() -> {
                         uiPergunta = UIPerguntaObjetivaLista(context, pergunta, configuracoes)
                     }
+                    pergunta.isPerguntaListaItemRemovivel() -> {
+                        uiPergunta = UIPerguntaListaItemRemovivel(context, pergunta, configuracoes)
+                    }
                     pergunta.isPerguntaObjetivaSpinner() -> {
                         uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta, configuracoes)
                     }

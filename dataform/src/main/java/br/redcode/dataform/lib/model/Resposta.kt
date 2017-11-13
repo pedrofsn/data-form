@@ -9,17 +9,20 @@ data class Resposta(
         var idPergunta: Int? = null,
         var resposta: String? = null,
 
+        var respostas: List<String>? = null,
         var alternativa: Alternativa? = null,
         var alternativas: List<Alternativa>? = null,
         var imagens: List<Imagem>? = null
 ) : Serializable {
 
     fun hasResposta(): Boolean {
-        return idPergunta != null
+        return (idPergunta != null
                 || resposta != null && resposta?.isNotEmpty() ?: false
                 || alternativa != null
-                || alternativas != null && alternativas?.isNotEmpty() ?: false
-                || imagens != null && imagens?.isNotEmpty() ?: false
+                || alternativas != null && alternativas?.isNotEmpty() ?: false // TODO: testar, caso o limite mínimo seja 0, a pergunta seja obrigatória. Provavelmente será necessário remover este isNotEmpty()
+                || imagens != null && imagens?.isNotEmpty() ?: false)
+
+                || respostas != null
     }
 
 }

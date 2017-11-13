@@ -11,6 +11,7 @@ object Constantes {
     const val TIPO_PERGUNTA_TEXTUAL = "textual"
     const val TIPO_PERGUNTA_OBJETIVA_LISTA = "objetiva_lista"
     const val TIPO_PERGUNTA_OBJETIVA_SPINNER = "objetiva_spinner"
+    const val TIPO_PERGUNTA_LISTA_ITEM_REMOVIVEL = "lista_item_removivel"
     const val TIPO_PERGUNTA_MULTIPLA_ESCOLHA = "multipla_escolha"
     const val TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA = "imagem_camera"
     const val TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA = "imagem_galeria"
