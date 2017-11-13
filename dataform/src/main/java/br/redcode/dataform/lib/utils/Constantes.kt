@@ -17,4 +17,7 @@ object Constantes {
     const val TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA = "imagem_galeria"
     const val TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA = "imagem_camera_ou_galeria"
 
+    const val INPUT_SPINNER = "spinner"
+    const val INPUT_TEXTO_DATA = "texto_data"
+
 }
