@@ -2,3 +2,6 @@
 
 
 compile 'com.github.pedrofsn:data-form:X.X'
+
+# in development
+I'll give you more details as soon as possible
