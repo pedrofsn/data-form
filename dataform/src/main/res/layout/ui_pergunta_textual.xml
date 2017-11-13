@@ -22,8 +22,7 @@
                 style="@style/TextoInformacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/respiro_visual_card"
-                android:text="Manejo de Plantas Daninhas" />
+                android:padding="@dimen/respiro_visual_card" />
 
             <LinearLayout
                 android:layout_width="match_parent"
