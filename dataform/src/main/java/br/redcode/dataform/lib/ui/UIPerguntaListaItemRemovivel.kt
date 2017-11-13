@@ -8,6 +8,7 @@ import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterItemRemovivel
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
@@ -15,12 +16,12 @@ import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
-import java.util.*
+
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
+class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
@@ -42,7 +43,17 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     override fun populateView() {
         super.populateView()
         recyclerView.setCustomAdapter(adapter)
-        buttonAdicionar.setOnClickListener { adicionarItemRemovivel() }
+        buttonAdicionar.setOnClickListener { handlerInputPopup.chamarPopup() }
+
+//        if (pergunta.inputPopup == null) {
+//            throw RuntimeException("Pergunta do tipo LISTA_ITEM_REMOVIVEL deve conter um inputPopup")
+//        }
+
+        // DEFININDO O QUE O CÓDIGO A SER EXECUTADO
+        handlerInputPopup.function = { duasLinhas: DuasLinhas ->
+            adapter.adicionar(duasLinhas)
+            atualizarContador()
+        }
 
         pergunta.resposta?.respostas?.let {
             val mutavel = it as MutableList<String>
@@ -68,20 +79,6 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
             adapter.setLista(listaDuasLinhas)
         }
 
-        atualizarContador()
-    }
-
-    private fun adicionarItemRemovivel() {
-        //TODO repensar input
-        adapter.adicionar(object : DuasLinhas {
-            override fun getLinha1(): String {
-                return "Novo item"
-            }
-
-            override fun getLinha2(): String {
-                return Date().toString()
-            }
-        })
         atualizarContador()
     }
 

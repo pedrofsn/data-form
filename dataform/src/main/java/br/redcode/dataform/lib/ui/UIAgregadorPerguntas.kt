@@ -4,15 +4,16 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
-import br.redcode.dataform.lib.domain.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
+import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: FormularioDePerguntas, val handlerCapturaImagem: HandlerCapturaImagem) {
+class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: FormularioDePerguntas, val handlerCapturaImagem: HandlerCapturaImagem, val handlerInputPopup: HandlerInputPopup) {
 
     private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
@@ -32,7 +33,7 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
                         uiPergunta = UIPerguntaObjetivaLista(context, pergunta, configuracoes)
                     }
                     pergunta.isPerguntaListaItemRemovivel() -> {
-                        uiPergunta = UIPerguntaListaItemRemovivel(context, pergunta, configuracoes)
+                        uiPergunta = UIPerguntaListaItemRemovivel(context, pergunta, configuracoes, handlerInputPopup)
                     }
                     pergunta.isPerguntaObjetivaSpinner() -> {
                         uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta, configuracoes)
