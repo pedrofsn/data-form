@@ -57,31 +57,7 @@
                     android:layout_height="@dimen/tamanho_lista_preview_foto"
                     android:nestedScrollingEnabled="false" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textViewAndamento"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/buttonAdicionar"
-                        android:text="@string/x_barra_x" />
-
-                    <Button
-                        android:id="@+id/buttonAdicionar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/adicionar" />
-
-                </RelativeLayout>
+                <include layout="@layout/ui_progresso_e_botao_adicionar" />
 
             </LinearLayout>
 
