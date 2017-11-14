@@ -13,8 +13,6 @@ import br.redcode.dataform.lib.model.ConfiguracaoFormulario
  */
 class AdapterRadioButton(override var myOnItemClickListener: OnItemClickListener?, val configuracao: ConfiguracaoFormulario) : AdapterGeneric<Alternativa, ViewHolderRadioButton>() {
 
-    // todo configuracao.editavel
-
     override val layout: Int = R.layout.adapter_radiobutton
 
     override fun getViewHolder(view: View): ViewHolderRadioButton {
