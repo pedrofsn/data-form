@@ -30,7 +30,7 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
     override fun populateView() {
         super.populateView()
         recyclerView.setTag("ui_pergunta_" + pergunta.id + "_recyclerview")
-        adapter = AdapterCheckBox(this)
+        adapter = AdapterCheckBox(this, configuracao)
 
         pergunta.alternativas?.let {
             adapter.setLista(it)
@@ -53,11 +53,13 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
     }
 
     override fun onItemClickListener(position: Int) {
-        pergunta.alternativas?.let {
-            val estado = it.get(position).selecionado
+        if (configuracao.editavel) {
+            pergunta.alternativas?.let {
+                val estado = it.get(position).selecionado
 
-            it.get(position).selecionado = estado.not()
-            adapter.notifyDataSetChanged()
+                it.get(position).selecionado = estado.not()
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 

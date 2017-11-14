@@ -6,16 +6,23 @@ import br.redcode.dataform.lib.adapter.viewholder.ViewHolderRadioButton
 import br.redcode.dataform.lib.domain.AdapterGeneric
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.model.Alternativa
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterRadioButton(override var myOnItemClickListener: OnItemClickListener?) : AdapterGeneric<Alternativa, ViewHolderRadioButton>() {
+class AdapterRadioButton(override var myOnItemClickListener: OnItemClickListener?, val configuracao: ConfiguracaoFormulario) : AdapterGeneric<Alternativa, ViewHolderRadioButton>() {
+
+    // todo configuracao.editavel
 
     override val layout: Int = R.layout.adapter_radiobutton
 
     override fun getViewHolder(view: View): ViewHolderRadioButton {
         return ViewHolderRadioButton(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolderRadioButton, position: Int) {
+        holder.popular(getLista()[position], myOnItemClickListener, configuracao)
     }
 
 }

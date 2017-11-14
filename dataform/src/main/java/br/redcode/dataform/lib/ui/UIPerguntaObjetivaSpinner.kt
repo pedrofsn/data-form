@@ -37,7 +37,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
             adapter = spinner.setSpinnable(it, true, idPreSelecionado)
         }
 
-        spinner.setTag("ui_pergunta_" + pergunta.id + "_spinner")
+        spinner.isEnabled = configuracao.editavel
     }
 
     override fun getResposta(): Resposta {

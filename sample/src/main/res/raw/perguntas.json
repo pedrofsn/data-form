@@ -3,6 +3,7 @@
     "exibirIndicadorErro": true,
     "exibirIndicadorInformacao": true,
     "exibirInformacaoAntesDaPergunta": true,
+    "editavel": true,
     "corBackgroundFormulario": "#f1f1f1"
   },
   "perguntas": [

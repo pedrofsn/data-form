@@ -60,7 +60,9 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         textViewAndamento.setTag("ui_pergunta_" + pergunta.id + "_textview")
         linearLayoutAdicionar.setTag("ui_pergunta_" + pergunta.id + "_linearlayout")
 
-        linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
+        if (configuracao.editavel) {
+            linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
+        }
 
         val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
         recyclerView.setCustomAdapter(adapter, layoutManager = layoutManagerHorizontal)
@@ -110,7 +112,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     }
 
     fun adicionarImagem(imagem: Imagem) {
-        if (canAdicionarMaisUmaImagem()) {
+        if (configuracao.editavel && canAdicionarMaisUmaImagem()) {
             adapter.adicionar(imagem)
             adapter.notifyDataSetChanged()
             atualizarContador()
@@ -122,9 +124,11 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     }
 
     private fun removerImagem(position: Int) {
-        adapter.remover(position)
-        adapter.notifyDataSetChanged()
-        atualizarContador()
+        if (configuracao.editavel) {
+            adapter.remover(position)
+            adapter.notifyDataSetChanged()
+            atualizarContador()
+        }
     }
 
     fun getQuantidadeAtual(): Int {

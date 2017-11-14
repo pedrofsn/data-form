@@ -49,7 +49,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         recyclerView.setCustomAdapter(adapter, true)
 
         val functionAdicionarItem = { idPerguntaHandler: Int, duasLinhas: DuasLinhas ->
-            if (idPerguntaHandler == pergunta.id) {
+            if (configuracao.editavel && idPerguntaHandler == pergunta.id) {
                 adapter.adicionar(duasLinhas)
                 atualizarContador()
             }
@@ -64,8 +64,10 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     }
 
     private fun removerItemDaLista(position: Int) {
-        adapter.remover(position)
-        atualizarContador()
+        if (configuracao.editavel) {
+            adapter.remover(position)
+            atualizarContador()
+        }
     }
 
     private fun atualizarContador() {

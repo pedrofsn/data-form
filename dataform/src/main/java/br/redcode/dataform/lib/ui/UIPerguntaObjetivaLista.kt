@@ -27,7 +27,7 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
     override fun initView(view: View) {
         super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        adapter = AdapterRadioButton(this)
+        adapter = AdapterRadioButton(this, configuracao)
     }
 
     override fun populateView() {
@@ -52,21 +52,23 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
     }
 
     override fun onItemClickListener(position: Int) {
-        pergunta.alternativas?.let {
-            val estado = it.get(position).selecionado
+        if (configuracao.editavel) {
+            pergunta.alternativas?.let {
+                val estado = it.get(position).selecionado
 
-            for (alternativa in it) {
-                alternativa.selecionado = false
+                for (alternativa in it) {
+                    alternativa.selecionado = false
+                }
+
+                it.get(position).selecionado = estado.not()
+                posicaoSelecionada = if (estado.not()) {
+                    position
+                } else {
+                    Constantes.VALOR_INVALIDO
+                }
+
+                adapter.notifyDataSetChanged()
             }
-
-            it.get(position).selecionado = estado.not()
-            posicaoSelecionada = if (estado.not()) {
-                position
-            } else {
-                Constantes.VALOR_INVALIDO
-            }
-
-            adapter.notifyDataSetChanged()
         }
     }
 
