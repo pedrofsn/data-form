@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterItemRemovivel
@@ -26,18 +27,20 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var linearLayoutAdicionar: LinearLayout
+    private lateinit var relativeLayout: RelativeLayout
 
     private val adapter = AdapterItemRemovivel(object : OnItemClickListener {
         override fun onItemClickListener(position: Int) {
             removerItemDaLista(position)
         }
-    })
+    }, configuracao)
 
     override fun initView(view: View) {
         super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
         linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
+        relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
     }
 
     override fun populateView() {
@@ -77,6 +80,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isPreenchidoCorretamente()) indicador.hide()
+        relativeLayout.visibility = if (configuracao.editavel) View.VISIBLE else View.GONE
     }
 
     override fun getResposta(): Resposta {

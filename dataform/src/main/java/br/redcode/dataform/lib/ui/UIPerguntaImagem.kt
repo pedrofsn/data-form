@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
@@ -31,6 +32,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var linearLayoutAdicionar: LinearLayout
+    private lateinit var relativeLayout: RelativeLayout
 
     private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
         override fun removerImagem(posicao: Int) {
@@ -45,13 +47,14 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
             handlerCaptura.carregarImagem(imagem, imageView)
         }
 
-    })
+    }, configuracao)
 
     override fun initView(view: View) {
         super.initView(view)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
         linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
+        relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
     }
 
     override fun populateView() {
@@ -109,6 +112,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         if (isPreenchidoCorretamente()) indicador.hide()
 
         recyclerView.visibility = if (tamanho > 0) View.VISIBLE else View.GONE
+        relativeLayout.visibility = if (configuracao.editavel) View.VISIBLE else View.GONE
     }
 
     fun adicionarImagem(imagem: Imagem) {

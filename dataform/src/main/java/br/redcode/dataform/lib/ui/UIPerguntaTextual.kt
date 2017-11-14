@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.ui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.View
 import android.widget.EditText
 import br.redcode.dataform.lib.R
@@ -27,6 +28,10 @@ class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, config
         editText.setTag("ui_pergunta_" + pergunta.id + "_edittext")
         pergunta.resposta?.resposta?.let { editText.setText(it) }
         editText.isEnabled = configuracao.editavel
+        if (configuracao.editavel.not()) {
+            editText.setTextAppearance(contextActivity, android.R.style.TextAppearance_Widget_TextView);
+            editText.setTypeface(null, Typeface.ITALIC);
+        }
     }
 
     override fun getResposta(): Resposta {

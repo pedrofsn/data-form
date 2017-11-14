@@ -5,8 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
+import br.redcode.dataform.lib.extension.setTextOrHide
 import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -22,14 +24,18 @@ class ViewHolderItemRemovivel(itemView: View) : ViewHolderGeneric<DuasLinhas>(it
         textViewLinha2 = itemView.findViewById<TextView>(R.id.textViewLinha2)
         imageViewRemoverItem = itemView.findViewById<ImageView>(R.id.imageViewRemoverItem)
 
-        textViewLinha1.text = obj.linha1
-        textViewLinha2.text = obj.linha2
+        textViewLinha1.setTextOrHide(obj.linha1)
+        textViewLinha2.setTextOrHide(obj.linha2)
     }
 
     override fun popular(obj: DuasLinhas, click: OnItemClickListener?) {
-        popular(obj)
-
+        super.popular(obj, click)
         click?.let { imageViewRemoverItem.setOnClickListener { click.onItemClickListener(adapterPosition) } }
+    }
+
+    fun popular(duasLinhas: DuasLinhas, myOnItemClickListener: OnItemClickListener?, configuracao: ConfiguracaoFormulario) {
+        popular(duasLinhas, myOnItemClickListener)
+        imageViewRemoverItem.visibility = if (configuracao.editavel) View.VISIBLE else View.GONE
     }
 
 }

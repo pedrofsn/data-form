@@ -5,12 +5,13 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
 import br.redcode.dataform.lib.domain.AdapterGeneric
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
+import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Imagem
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterImagem(val callback: ViewHolderImagem.CallbackViewHolderImagem) : AdapterGeneric<Imagem, ViewHolderImagem>() {
+class AdapterImagem(val callback: ViewHolderImagem.CallbackViewHolderImagem, val configuracao: ConfiguracaoFormulario) : AdapterGeneric<Imagem, ViewHolderImagem>() {
 
     override var myOnItemClickListener: OnItemClickListener? = null
     override val layout: Int = R.layout.adapter_imagem
@@ -20,7 +21,7 @@ class AdapterImagem(val callback: ViewHolderImagem.CallbackViewHolderImagem) : A
     }
 
     override fun onBindViewHolder(holder: ViewHolderImagem, position: Int) {
-        holder.popular(getLista()[position], callback)
+        holder.popular(getLista()[position], callback, configuracao)
     }
 
 }
