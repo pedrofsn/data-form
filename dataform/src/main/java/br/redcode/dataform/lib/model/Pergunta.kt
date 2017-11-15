@@ -51,29 +51,34 @@ data class Pergunta(
         return Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER == formato
     }
 
+    fun isPerguntaPercentual(): Boolean {
+        return Constantes.TIPO_PERGUNTA_PERCENTUAL == formato
+    }
+
     fun isPerguntaMultiplaEscolha(): Boolean {
-        quebrarAppSeEstiverSemLimite()
-        return Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato
+        return validarLimites(Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato)
     }
 
     fun isPerguntaImagemSomenteCamera(): Boolean {
-        quebrarAppSeEstiverSemLimite()
-        return Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA == formato
+        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA == formato)
     }
 
     fun isPerguntaImagemSomenteGaleria(): Boolean {
-        quebrarAppSeEstiverSemLimite()
-        return Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA == formato
+        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA == formato)
     }
 
     fun isPerguntaImagemCameraOuGaleria(): Boolean {
-        quebrarAppSeEstiverSemLimite()
-        return Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA == formato
+        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA == formato)
+    }
+
+    private fun validarLimites(resultado: Boolean): Boolean {
+        if (resultado) quebrarAppSeEstiverSemLimite()
+        return resultado
     }
 
     private fun quebrarAppSeEstiverSemLimite() {
         if (limite == null) {
-            throw RuntimeException("Falta especificar os limites no JSON")
+            throw RuntimeException("Falta especificar os limites no JSON da pergunta ${id}")
         }
     }
 }
