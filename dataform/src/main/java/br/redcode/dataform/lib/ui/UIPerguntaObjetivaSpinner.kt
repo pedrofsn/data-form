@@ -54,7 +54,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
     }
 
     override fun isPreenchidoCorretamente(): Boolean {
-        return spinner.selectedItemPosition != 0
+        return spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE // TODO ver se comporta como no Java
     }
 
     override fun getMensagemErroPreenchimento(): String {
