@@ -8,6 +8,15 @@
   },
   "perguntas": [
     {
+      "id": 777,
+      "descricao": "Qual é o seu domínio da linguagem de programação Kotlin?",
+      "formato": "percentual",
+      "obrigatoria": "true",
+      "resposta": {
+        "resposta": "60"
+      }
+    },
+    {
       "id": 888,
       "descricao": "Objeto adicionado via Kotlin",
       "formato": "lista_item_removivel",
