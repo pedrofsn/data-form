@@ -59,16 +59,6 @@ fun Spinner.setSpinnable(list: List<Spinnable>, hasDefault: Boolean = false, id:
 }
 
 fun Spinner.getSpinnableFromSpinner(spinnables: List<Spinnable>): Spinnable? {
-    val textoSelecionado = selectedItem.toString().trim { it <= ' ' }
-
-    if (textoSelecionado.isNotEmpty()) {
-        for (i in spinnables.indices) {
-            val spinnable = spinnables[i]
-
-            if (textoSelecionado.trim { it <= ' ' } == spinnable.getTexto().trim()) {
-                return spinnable
-            }
-        }
-    }
-    return null
+    val textoSelecionado = selectedItem?.toString()?.trim() ?: Constantes.STRING_VAZIA
+    return if (textoSelecionado.isNotEmpty()) spinnables.firstOrNull { spinnable -> textoSelecionado == spinnable.getTexto().trim() } else null
 }
