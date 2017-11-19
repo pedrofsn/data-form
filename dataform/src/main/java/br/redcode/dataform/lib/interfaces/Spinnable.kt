@@ -11,6 +11,4 @@ interface Spinnable : Serializable {
 
     fun getTexto(): String
 
-    fun toSpinnable(): Spinnable = this
-
 }

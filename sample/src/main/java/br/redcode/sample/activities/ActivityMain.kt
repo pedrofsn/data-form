@@ -20,6 +20,7 @@ import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.intentFor
+import java.util.*
 
 class ActivityMain : ActivityCapturarImagem() {
 
@@ -97,12 +98,12 @@ class ActivityMain : ActivityCapturarImagem() {
     private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
         when (idPergunta) {
             888 ->
-                functionAdicionarItem.invoke(idPergunta, CustomObject("Título", "Teste").toDuasLinhas())
+                functionAdicionarItem.invoke(idPergunta, DuasLinhas("Título", "Teste", auxiliar = Calendar.getInstance().toString()))
             else -> {
                 DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
                     override fun onPosicaoCadastrada(latitude: String, longitude: String) {
                         val obj = CustomObject(latitude, longitude)
-                        functionAdicionarItem.invoke(idPergunta, obj.toDuasLinhas())
+                        functionAdicionarItem.invoke(idPergunta, obj)
                     }
                 })
             }

@@ -84,8 +84,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
     }
 
     override fun getResposta(): Resposta {
-        val listaResposta: List<DuasLinhas> = adapter.getLista()
-        val resposta = Resposta(respostas = listaResposta)
+        val resposta = Resposta(respostas = ArrayList(adapter.getLista()))
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
