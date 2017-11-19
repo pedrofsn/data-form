@@ -67,6 +67,7 @@ class UIPerguntaPercentual(val contextActivity: Context, pergunta: Pergunta, con
 
     override fun getResposta(): Resposta {
         val resposta = Resposta(resposta = seekBar.progress.toString())
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }

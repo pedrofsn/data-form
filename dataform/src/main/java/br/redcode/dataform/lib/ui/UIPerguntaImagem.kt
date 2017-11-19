@@ -91,6 +91,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     override fun getResposta(): Resposta {
         val resposta = Resposta()
         resposta.imagens = adapter.getLista()
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }

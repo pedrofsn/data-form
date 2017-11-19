@@ -36,6 +36,7 @@ class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, config
 
     override fun getResposta(): Resposta {
         val resposta = Resposta(resposta = editText.text.toString().trim())
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }

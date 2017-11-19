@@ -65,6 +65,7 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
 
     override fun getResposta(): Resposta {
         val resposta = Resposta(alternativas = adapter.getLista())
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }

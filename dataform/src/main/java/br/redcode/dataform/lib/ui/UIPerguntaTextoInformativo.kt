@@ -30,7 +30,9 @@ class UIPerguntaTextoInformativo(val contextActivity: Context, pergunta: Pergunt
     }
 
     override fun getResposta(): Resposta {
-        return Resposta()
+        val resposta = Resposta()
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
+        return resposta
     }
 
     override fun isPreenchidoCorretamente(): Boolean {

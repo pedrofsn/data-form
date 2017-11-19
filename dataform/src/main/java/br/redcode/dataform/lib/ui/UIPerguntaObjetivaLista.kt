@@ -79,6 +79,7 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
             Resposta()
         }
 
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }

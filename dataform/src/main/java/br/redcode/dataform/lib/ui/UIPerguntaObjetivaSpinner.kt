@@ -49,6 +49,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
             resposta.alternativa?.selecionado = true
         }
 
+        if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }
