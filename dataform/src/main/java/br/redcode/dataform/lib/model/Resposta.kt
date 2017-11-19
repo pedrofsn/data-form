@@ -9,11 +9,12 @@ import java.io.Serializable
 data class Resposta(
         var idPergunta: Int? = null,
         var resposta: String? = null,
-
         var respostas: List<DuasLinhas>? = null,
+
         var alternativa: Alternativa? = null,
         var alternativas: List<Alternativa>? = null,
-        var imagens: List<Imagem>? = null
+        var imagens: List<Imagem>? = null,
+        var tag: String? = null
 ) : Serializable {
 
     fun hasResposta(): Boolean {
