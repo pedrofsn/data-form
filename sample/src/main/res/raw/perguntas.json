@@ -71,21 +71,21 @@
       "obrigatoria": "false",
       "alternativas": [
         {
-          "id": 0,
+          "id": "0",
           "descricao": "Masculino"
         },
         {
-          "id": 1,
+          "id": "1",
           "descricao": "Feminino"
         },
         {
-          "id": 2,
+          "id": "2",
           "descricao": "Não informado"
         }
       ],
       "resposta": {
         "alternativa": {
-          "id": 0,
+          "id": "0",
           "descricao": "Masculino",
           "selecionado": true
         }
@@ -102,27 +102,27 @@
       },
       "alternativas": [
         {
-          "id": 0,
+          "id": "0",
           "descricao": "Coxinha"
         },
         {
-          "id": 1,
+          "id": "1",
           "descricao": "Empadinha"
         },
         {
-          "id": 2,
+          "id": "2",
           "descricao": "Kibe"
         }
       ],
       "resposta": {
         "alternativas": [
           {
-            "id": 0,
+            "id": "0",
             "descricao": "Coxinha",
             "selecionado": true
           },
           {
-            "id": 1,
+            "id": "1",
             "descricao": "Empadinha",
             "selecionado": true
           }
@@ -173,21 +173,21 @@
       "obrigatoria": "true",
       "alternativas": [
         {
-          "id": 0,
+          "id": "0",
           "descricao": "Solteiro"
         },
         {
-          "id": 1,
+          "id": "1",
           "descricao": "Casado"
         },
         {
-          "id": 2,
+          "id": "2",
           "descricao": "Não informado"
         }
       ],
       "resposta": {
         "alternativa": {
-          "id": 1,
+          "id": "1",
           "descricao": "casado",
           "selecionado": true
         }
@@ -200,11 +200,11 @@
       "obrigatoria": "false",
       "alternativas": [
         {
-          "id": 0,
+          "id": "0",
           "descricao": "Yes"
         },
         {
-          "id": 1,
+          "id": "1",
           "descricao": "No"
         }
       ]

@@ -6,6 +6,6 @@ import java.io.Serializable
  * Created by pedrofsn on 03/11/2017.
  */
 data class AlternativaPayload(
-        val id: Int,
+        val id: Long,
         var selecionado: Boolean = false
 ) : Serializable
