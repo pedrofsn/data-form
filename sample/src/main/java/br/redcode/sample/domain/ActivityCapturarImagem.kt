@@ -1,5 +1,6 @@
 package br.redcode.sample.domain
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -7,12 +8,18 @@ import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
+import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ActivityCapturarImagem
+import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.ui.UIPerguntaImagem
+import br.redcode.sample.R
 import br.redcode.sample.activities.ActivityImagemComZoom
 import br.redcode.sample.utils.Utils
 import com.squareup.picasso.Callback
@@ -42,7 +49,34 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
     }
 
     override fun onImagesPicked(imagesFiles: List<File>, source: EasyImage.ImageSource, type: Int) {
-        handlerCapturaImagem.onImagensSelecionadas(imagesFiles)
+        imagesFiles.forEach { getDialogDialogComOk(file = it, handlerCapturaImagem = handlerCapturaImagem) }
+    }
+
+    fun getDialogDialogComOk(context: Context = this, file: File, handlerCapturaImagem: HandlerCapturaImagem) {
+        val viewDialog = (context as AppCompatActivity).layoutInflater.inflate(R.layout.dialog_imagem, null)
+
+        val imageViewPreview: ImageView = viewDialog.findViewById(R.id.imageViewPreview);
+        val editTextLegenda: EditText = viewDialog.findViewById(R.id.editTextLegenda);
+        val buttonOk: Button = viewDialog.findViewById(R.id.buttonOk);
+
+        editTextLegenda.setHint("Apenas em uma pergunta")
+
+        carregarImagem(file.absolutePath, imageViewPreview)
+
+        val alert = AlertDialog.Builder(context /*, R.style.DialogCustomizado*/)
+        alert.setView(viewDialog)
+        alert.setCancelable(false)
+
+        val dialog = alert.create()
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+
+        buttonOk.setOnClickListener {
+            dialog?.dismiss()
+            val imagem = Imagem(legenda = editTextLegenda.text.toString(), imagem = file.absolutePath)
+            handlerCapturaImagem.onImagensSelecionadas(imagem)
+        }
     }
 
     override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {

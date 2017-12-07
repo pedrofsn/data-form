@@ -2,7 +2,7 @@ package br.redcode.dataform.lib.adapter.viewholder
 
 import android.view.View
 import android.widget.TextView
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
+import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.model.Imagem
 
 /**
@@ -10,10 +10,10 @@ import br.redcode.dataform.lib.model.Imagem
  */
 class ViewHolderImagemComLegenda(itemView: View) : ViewHolderImagem(itemView) {
 
-    private lateinit var textViewLegenda: TextView
+    private val textViewLegenda: TextView by lazy { itemView.findViewById<TextView>(R.id.textViewLegenda) }
 
-    override fun popular(obj: Imagem, click: OnItemClickListener?) {
-        super.popular(obj, click)
+    override fun popular(obj: Imagem) {
+        super.popular(obj)
         obj.legenda?.let { textViewLegenda.setText(it) }
     }
 

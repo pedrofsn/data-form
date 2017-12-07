@@ -32,8 +32,7 @@ fun FormularioDePerguntas.toListDTO(): ArrayList<RespostaPayload> {
                     }
 
                     imagens?.let {
-                        val imagensTratadas = imagens.map { it.imagem }
-                        dto = RespostaPayload(idPergunta, imagensTratadas)
+                        dto = RespostaPayload(idPergunta, imagens)
                     }
 
                     dto?.let { dtos.add(it) }
