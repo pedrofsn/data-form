@@ -5,4 +5,4 @@ import java.io.Serializable
 /**
  * Created by pedrofsn on 02/11/2017.
  */
-data class Imagem(val imagem: String) : Serializable
+data class Imagem(val imagem: String, val legenda: String? = null) : Serializable

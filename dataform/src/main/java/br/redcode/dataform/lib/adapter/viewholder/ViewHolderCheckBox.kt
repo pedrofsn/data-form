@@ -26,5 +26,5 @@ class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Alternativa>(itemVi
         checkBox.text = obj.descricao
         checkBox.isChecked = obj.selecionado
     }
-    
+
 }

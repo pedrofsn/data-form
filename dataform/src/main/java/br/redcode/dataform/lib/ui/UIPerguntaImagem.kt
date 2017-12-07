@@ -11,10 +11,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImagem
-import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImagem
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.extension.setCustomAdapter
+import br.redcode.dataform.lib.interfaces.CallbackViewHolderImagem
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Imagem
 import br.redcode.dataform.lib.model.Pergunta
@@ -34,7 +34,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
     private lateinit var linearLayoutAdicionar: LinearLayout
     private lateinit var relativeLayout: RelativeLayout
 
-    private val adapter = AdapterImagem(object : ViewHolderImagem.CallbackViewHolderImagem {
+    val callback = object : CallbackViewHolderImagem {
         override fun removerImagem(posicao: Int) {
             this@UIPerguntaImagem.removerImagem(posicao)
         }
@@ -47,7 +47,10 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
             handlerCaptura.carregarImagem(imagem, imageView)
         }
 
-    }, configuracao)
+    }
+
+    private val comLegenda = pergunta.configuracaoPergunta?.get("legenda") ?: false
+    private val adapter by lazy { AdapterImagem(callback, configuracao, comLegenda) }
 
     override fun initView(view: View) {
         super.initView(view)
@@ -68,7 +71,8 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         }
 
         val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
-        recyclerView.setCustomAdapter(adapter, layoutManager = layoutManagerHorizontal)
+        val layoutManagerVertical = LinearLayoutManager(context)
+        recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
 
         atualizarContador()
 

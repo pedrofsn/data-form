@@ -137,6 +137,9 @@
       "limite": {
         "minimo": 1,
         "maximo": 3
+      },
+      "configuracaoPergunta": {
+        "legenda": true
       }
     },
     {

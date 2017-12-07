@@ -16,7 +16,8 @@ data class Pergunta(
 
         var limite: Limite? = null,
         var alternativas: ArrayList<Alternativa>? = null,
-        var textoInformativo: String? = null
+        var textoInformativo: String? = null,
+        var configuracaoPergunta: HashMap<String, Boolean>? = null
 ) : Serializable {
 
     fun getDescricaoComObrigatoriedade(): String {
