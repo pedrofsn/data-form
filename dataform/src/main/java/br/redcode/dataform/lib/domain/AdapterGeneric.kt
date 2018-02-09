@@ -47,7 +47,15 @@ abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : Recycler
     }
 
     fun setLista(lista: ArrayList<Objeto>?) {
-        if (lista != null) {
+        lista?.let {
+            this.lista.clear()
+            this.lista.addAll(lista)
+            notifyDataSetChanged()
+        }
+    }
+
+    fun setLista(lista: List<Objeto>?) {
+        lista?.let {
             this.lista.clear()
             this.lista.addAll(lista)
             notifyDataSetChanged()
@@ -55,7 +63,18 @@ abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : Recycler
     }
 
     fun addAll(novaLista: ArrayList<Objeto>?) {
-        if (novaLista != null) {
+        novaLista?.let {
+            val tamanhoAtual = this.lista.size
+            val tamanhoNovo = novaLista.size
+            val total = tamanhoAtual + tamanhoNovo
+
+            this.lista.addAll(novaLista)
+            notifyItemRangeInserted(tamanhoAtual, total)
+        }
+    }
+
+    fun addAll(novaLista: List<Objeto>?) {
+        novaLista?.let {
             val tamanhoAtual = this.lista.size
             val tamanhoNovo = novaLista.size
             val total = tamanhoAtual + tamanhoNovo
