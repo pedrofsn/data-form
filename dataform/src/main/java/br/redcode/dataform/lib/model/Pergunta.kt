@@ -1,6 +1,16 @@
 package br.redcode.dataform.lib.model
 
 import br.redcode.dataform.lib.utils.Constantes
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_LISTA_ITEM_REMOVIVEL
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_OBJETIVA_LISTA
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_PERCENTUAL
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_TEXTO_INFORMATIVO
+import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_TEXTUAL
 import java.io.Serializable
 
 /**
@@ -20,57 +30,19 @@ data class Pergunta(
         var configuracaoPergunta: HashMap<String, Boolean>? = null
 ) : Serializable {
 
-    fun getDescricaoComObrigatoriedade(): String {
-        return if (obrigatoria) descricao + " *" else descricao
-    }
-
-    fun getLimiteMaximo(): Int {
-        return limite?.maximo ?: 1
-    }
-
-    fun getLimiteMinimo(): Int {
-        return limite?.minimo ?: 0
-    }
-
-    fun isPerguntaTextoInformativo(): Boolean {
-        return Constantes.TIPO_PERGUNTA_TEXTO_INFORMATIVO == formato
-    }
-
-    fun isPerguntaTextual(): Boolean {
-        return Constantes.TIPO_PERGUNTA_TEXTUAL == formato
-    }
-
-    fun isPerguntaObjetivaLista(): Boolean {
-        return Constantes.TIPO_PERGUNTA_OBJETIVA_LISTA == formato
-    }
-
-    fun isPerguntaListaItemRemovivel(): Boolean {
-        return Constantes.TIPO_PERGUNTA_LISTA_ITEM_REMOVIVEL == formato
-    }
-
-    fun isPerguntaObjetivaSpinner(): Boolean {
-        return Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER == formato
-    }
-
-    fun isPerguntaPercentual(): Boolean {
-        return Constantes.TIPO_PERGUNTA_PERCENTUAL == formato
-    }
-
-    fun isPerguntaMultiplaEscolha(): Boolean {
-        return validarLimites(Constantes.TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato)
-    }
-
-    fun isPerguntaImagemSomenteCamera(): Boolean {
-        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA == formato)
-    }
-
-    fun isPerguntaImagemSomenteGaleria(): Boolean {
-        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA == formato)
-    }
-
-    fun isPerguntaImagemCameraOuGaleria(): Boolean {
-        return validarLimites(Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA == formato)
-    }
+    fun getDescricaoComObrigatoriedade() = if (obrigatoria) "$descricao *" else descricao
+    fun getLimiteMaximo() = limite?.maximo ?: 1
+    fun getLimiteMinimo(): Int = limite?.minimo ?: 0
+    fun isPerguntaTextoInformativo() = TIPO_PERGUNTA_TEXTO_INFORMATIVO == formato
+    fun isPerguntaTextual() = TIPO_PERGUNTA_TEXTUAL == formato
+    fun isPerguntaObjetivaLista() = TIPO_PERGUNTA_OBJETIVA_LISTA == formato
+    fun isPerguntaListaItemRemovivel() = TIPO_PERGUNTA_LISTA_ITEM_REMOVIVEL == formato
+    fun isPerguntaObjetivaSpinner() = TIPO_PERGUNTA_OBJETIVA_SPINNER == formato
+    fun isPerguntaPercentual() = TIPO_PERGUNTA_PERCENTUAL == formato
+    fun isPerguntaMultiplaEscolha() = validarLimites(TIPO_PERGUNTA_MULTIPLA_ESCOLHA == formato)
+    fun isPerguntaImagemSomenteCamera() = validarLimites(TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA == formato)
+    fun isPerguntaImagemSomenteGaleria() = validarLimites(TIPO_PERGUNTA_IMAGEM_SOMENTE_GALERIA == formato)
+    fun isPerguntaImagemCameraOuGaleria() = validarLimites(TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA == formato)
 
     private fun validarLimites(resultado: Boolean): Boolean {
         if (resultado) quebrarAppSeEstiverSemLimite()
