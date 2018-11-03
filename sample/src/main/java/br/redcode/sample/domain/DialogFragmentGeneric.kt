@@ -14,8 +14,8 @@ abstract class DialogFragmentGeneric : DialogFragment() {
     abstract var layout: Int
     abstract var canceledOnTouchOutside: Boolean
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(layout, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(layout, container, false)
         dialog.setCanceledOnTouchOutside(canceledOnTouchOutside)
         initView(view)
         afterOnCreate()

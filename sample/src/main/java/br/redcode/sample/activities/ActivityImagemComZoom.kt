@@ -18,7 +18,7 @@ class ActivityImagemComZoom(override var ativarBotaoVoltar: Boolean = true) : Ac
 
         val imagem: String = intent.getStringExtra("imagem")
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(imagem)
                 .into(photoView as ImageView)
     }

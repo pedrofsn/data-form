@@ -37,7 +37,7 @@ class DialogCheckin : DialogFragmentGeneric() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        callback = arguments.getSerializable(PARAMETRO) as OnPosicaoCadastrada
+        callback = arguments?.getSerializable(PARAMETRO) as OnPosicaoCadastrada
         return super.onCreateDialog(savedInstanceState)
     }
 

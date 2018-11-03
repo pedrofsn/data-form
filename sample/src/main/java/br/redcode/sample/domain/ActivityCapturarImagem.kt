@@ -106,7 +106,7 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
     override fun capturarImagem(tipo: UIPerguntaImagem.Tipo) {
         when (tipo) {
             UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
-            UIPerguntaImagem.Tipo.CAMERA -> EasyImage.openCamera(this, RESULT_CODE_EASY_IMAGE)
+            UIPerguntaImagem.Tipo.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
             UIPerguntaImagem.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
         }
     }
@@ -141,7 +141,7 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
 
         Utils.log("Carregando: " + temp)
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(temp)
                 .placeholder(android.R.drawable.stat_sys_download)
                 .error(android.R.drawable.stat_notify_error)
@@ -151,7 +151,8 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
 
                     }
 
-                    override fun onError() {
+                    override fun onError(e: Exception?) {
+                        e?.printStackTrace()
                         Toast.makeText(this@ActivityCapturarImagem, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
                     }
                 })
