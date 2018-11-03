@@ -2,9 +2,9 @@ package br.redcode.sample.activities
 
 import android.os.Bundle
 import android.widget.ImageView
+import br.com.redcode.easyglide.library.load
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityGeneric
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_imagem_com_zoom.*
 
 /**
@@ -17,10 +17,7 @@ class ActivityImagemComZoom(override var ativarBotaoVoltar: Boolean = true) : Ac
         setContentView(R.layout.activity_imagem_com_zoom)
 
         val imagem: String = intent.getStringExtra("imagem")
-
-        Picasso.get()
-                .load(imagem)
-                .into(photoView as ImageView)
+        (photoView as ImageView).load(imagem)
     }
 
 }

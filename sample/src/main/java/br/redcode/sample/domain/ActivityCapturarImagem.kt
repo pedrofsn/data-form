@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
+import br.com.redcode.easyglide.library.load
 import br.redcode.dataform.lib.domain.ActivityCapturarImagem
 import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.model.Imagem
@@ -22,8 +23,6 @@ import br.redcode.dataform.lib.ui.UIPerguntaImagem
 import br.redcode.sample.R
 import br.redcode.sample.activities.ActivityImagemComZoom
 import br.redcode.sample.utils.Utils
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import org.jetbrains.anko.intentFor
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
@@ -141,21 +140,7 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
 
         Utils.log("Carregando: " + temp)
 
-        Picasso.get()
-                .load(temp)
-                .placeholder(android.R.drawable.stat_sys_download)
-                .error(android.R.drawable.stat_notify_error)
-                .resize(100, 100)
-                .into(imageView, object : Callback {
-                    override fun onSuccess() {
-
-                    }
-
-                    override fun onError(e: Exception?) {
-                        e?.printStackTrace()
-                        Toast.makeText(this@ActivityCapturarImagem, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
-                    }
-                })
+        imageView.load(temp)
     }
 
 }
