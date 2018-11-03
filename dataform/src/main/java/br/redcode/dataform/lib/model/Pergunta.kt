@@ -23,6 +23,7 @@ data class Pergunta(
         var resposta: Resposta? = Resposta(),
         val informacao: String? = Constantes.STRING_VAZIA,
         val obrigatoria: Boolean = true,
+        val tipo: String? = null,
 
         var limite: Limite? = null,
         var alternativas: ArrayList<Alternativa>? = null,
