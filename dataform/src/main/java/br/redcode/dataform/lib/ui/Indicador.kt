@@ -2,11 +2,11 @@ package br.redcode.dataform.lib.ui
 
 import android.content.Context
 import android.content.DialogInterface
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.utils.Constantes

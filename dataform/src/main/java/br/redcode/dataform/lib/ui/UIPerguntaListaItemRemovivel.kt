@@ -1,7 +1,6 @@
 package br.redcode.dataform.lib.ui
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -24,7 +23,7 @@ import br.redcode.dataform.lib.model.Resposta
  */
 class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var linearLayoutAdicionar: LinearLayout
     private lateinit var relativeLayout: RelativeLayout
@@ -37,7 +36,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
     override fun initView(view: View) {
         super.initView(view)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
         linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
         relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)

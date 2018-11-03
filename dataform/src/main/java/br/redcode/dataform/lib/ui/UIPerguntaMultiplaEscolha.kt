@@ -1,7 +1,6 @@
 package br.redcode.dataform.lib.ui
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterCheckBox
@@ -18,13 +17,13 @@ import br.redcode.dataform.lib.model.Resposta
  */
 class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Perguntavel, OnItemClickListener {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
     private lateinit var adapter: AdapterCheckBox
 
     override fun initView(view: View) {
         super.initView(view)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView)
     }
 
     override fun populateView() {

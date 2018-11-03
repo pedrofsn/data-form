@@ -1,13 +1,12 @@
 package br.redcode.dataform.lib.domain
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
 
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class ViewHolderGeneric<Objeto>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class ViewHolderGeneric<Objeto>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     abstract fun popular(obj: Objeto)
 

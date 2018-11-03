@@ -1,9 +1,6 @@
 package br.redcode.dataform.lib.ui
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -29,7 +26,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         CAMERA, GALERIA, CAMERA_OU_GALERIA
     }
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var linearLayoutAdicionar: LinearLayout
     private lateinit var relativeLayout: RelativeLayout
@@ -54,7 +51,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
 
     override fun initView(view: View) {
         super.initView(view)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView)
         textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
         linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
         relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
@@ -70,8 +67,8 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
             linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
         }
 
-        val layoutManagerHorizontal = LinearLayoutManager(contextActivity, OrientationHelper.HORIZONTAL, false)
-        val layoutManagerVertical = LinearLayoutManager(context)
+        val layoutManagerHorizontal = androidx.recyclerview.widget.LinearLayoutManager(contextActivity, androidx.recyclerview.widget.OrientationHelper.HORIZONTAL, false)
+        val layoutManagerVertical = androidx.recyclerview.widget.LinearLayoutManager(context)
         recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
 
         atualizarContador()

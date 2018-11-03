@@ -1,8 +1,8 @@
 package br.redcode.sample.domain
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Created by pedrofsn on 03/11/2017.

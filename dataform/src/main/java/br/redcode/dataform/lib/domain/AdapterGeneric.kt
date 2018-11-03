@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.domain
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import br.redcode.dataform.lib.interfaces.OnItemClickListener
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : RecyclerView.Adapter<VH>() {
+abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
 
     abstract var myOnItemClickListener: OnItemClickListener?
     private val lista = ArrayList<Objeto>()

@@ -2,10 +2,10 @@ package br.redcode.sample.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import br.redcode.sample.R
 import br.redcode.sample.domain.DialogFragmentGeneric
 import br.redcode.sample.interfaces.OnPosicaoCadastrada

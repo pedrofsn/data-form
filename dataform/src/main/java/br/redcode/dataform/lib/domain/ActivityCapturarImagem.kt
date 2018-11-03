@@ -1,8 +1,8 @@
 package br.redcode.dataform.lib.domain
 
 import android.Manifest
-import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.interfaces.ImagemCapturavel
 import br.redcode.dataform.lib.model.Imagem
