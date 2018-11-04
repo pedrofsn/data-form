@@ -23,34 +23,34 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
 
     open fun inicializar(): View {
         val view = inflater.inflate(idLayout, null)
-        view.setTag("ui_pergunta_" + pergunta.id)
+        view.tag = "ui_pergunta_${pergunta.id}"
         initView(view)
         populateView()
-        return view;
+        return view
     }
 
     open fun initView(view: View) {
-        indicador = view.findViewById<Indicador>(R.id.indicador)
-        textViewLabel = view.findViewById<TextView>(R.id.textViewLabel)
-        textViewInformacao = view.findViewById<TextView>(R.id.textViewInformacao)
+        indicador = view.findViewById(R.id.indicador)
+        textViewLabel = view.findViewById(R.id.textViewLabel)
+        textViewInformacao = view.findViewById(R.id.textViewInformacao)
     }
 
     open fun populateView() {
-        indicador?.let {
+        indicador.let {
             it.configuracao = configuracao
             it.setInformacao(getMensagemInformacao())
         }
 
-        textViewLabel.setText(pergunta.getDescricaoComObrigatoriedade())
+        textViewLabel.text = pergunta.getDescricaoComObrigatoriedade()
 
-        textViewInformacao?.let {
-            textViewInformacao.setText(pergunta.informacao)
+        textViewInformacao.let {
+            textViewInformacao.text = pergunta.informacao
             textViewInformacao.visibility = if (pergunta.informacao?.length ?: 0 > 0) View.VISIBLE else View.GONE
         }
     }
 
     override fun exibirMensagemErroPreenchimento(isPreenchidoCorretamente: Boolean) {
-        indicador?.let {
+        indicador.let {
             if (isPreenchidoCorretamente.not()) it.setErro(getMensagemErroPreenchimento()) else it.hide()
         }
     }
@@ -62,8 +62,6 @@ abstract class UIPerguntaGeneric(val context: Context, val idLayout: Int, val pe
         return if (mensagemInformacao.isEmpty()) mensagemDefaultLimites else mensagemInformacao
     }
 
-    override fun isObrigatoria(): Boolean {
-        return pergunta.obrigatoria
-    }
+    override fun isObrigatoria() = pergunta.obrigatoria
 
 }

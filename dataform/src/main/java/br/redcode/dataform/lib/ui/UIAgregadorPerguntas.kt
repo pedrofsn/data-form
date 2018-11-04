@@ -24,18 +24,18 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
             val configuracoes = formularioDePerguntas.configuracoes
 
             for (pergunta in formularioDePerguntas.perguntas) {
-                var uiPergunta: UIPerguntaGeneric? = null
-                when {
-                    pergunta.isPerguntaTextoInformativo() -> uiPergunta = UIPerguntaTextoInformativo(context, pergunta, configuracoes)
-                    pergunta.isPerguntaTextual() -> uiPergunta = UIPerguntaTextual(context, pergunta, configuracoes)
-                    pergunta.isPerguntaObjetivaLista() -> uiPergunta = UIPerguntaObjetivaLista(context, pergunta, configuracoes)
-                    pergunta.isPerguntaListaItemRemovivel() -> uiPergunta = UIPerguntaListaItemRemovivel(context, pergunta, configuracoes, handlerInputPopup)
-                    pergunta.isPerguntaObjetivaSpinner() -> uiPergunta = UIPerguntaObjetivaSpinner(context, pergunta, configuracoes)
-                    pergunta.isPerguntaMultiplaEscolha() -> uiPergunta = UIPerguntaMultiplaEscolha(context, pergunta, configuracoes)
-                    pergunta.isPerguntaImagemCameraOuGaleria() -> uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA)
-                    pergunta.isPerguntaImagemSomenteCamera() -> uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA)
-                    pergunta.isPerguntaImagemSomenteGaleria() -> uiPergunta = UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.GALERIA)
-                    pergunta.isPerguntaPercentual() -> uiPergunta = UIPerguntaPercentual(context, pergunta, configuracoes)
+                val uiPergunta: UIPerguntaGeneric? = when {
+                    pergunta.isPerguntaTextoInformativo() -> UIPerguntaTextoInformativo(context, pergunta, configuracoes)
+                    pergunta.isPerguntaTextual() -> UIPerguntaTextual(context, pergunta, configuracoes)
+                    pergunta.isPerguntaObjetivaLista() -> UIPerguntaObjetivaLista(context, pergunta, configuracoes)
+                    pergunta.isPerguntaListaItemRemovivel() -> UIPerguntaListaItemRemovivel(context, pergunta, configuracoes, handlerInputPopup)
+                    pergunta.isPerguntaObjetivaSpinner() -> UIPerguntaObjetivaSpinner(context, pergunta, configuracoes)
+                    pergunta.isPerguntaMultiplaEscolha() -> UIPerguntaMultiplaEscolha(context, pergunta, configuracoes)
+                    pergunta.isPerguntaImagemCameraOuGaleria() -> UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA)
+                    pergunta.isPerguntaImagemSomenteCamera() -> UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.CAMERA)
+                    pergunta.isPerguntaImagemSomenteGaleria() -> UIPerguntaImagem(context, pergunta, configuracoes, handlerCapturaImagem, UIPerguntaImagem.Tipo.GALERIA)
+                    pergunta.isPerguntaPercentual() -> UIPerguntaPercentual(context, pergunta, configuracoes)
+                    else -> null
                 }
 
                 uiPergunta?.let { perguntasUI.add(it) }
