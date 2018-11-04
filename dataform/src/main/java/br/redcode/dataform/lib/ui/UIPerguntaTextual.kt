@@ -2,6 +2,7 @@ package br.redcode.dataform.lib.ui
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import br.redcode.dataform.lib.R
@@ -14,23 +15,29 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_textual, pergunta, configuracao), Perguntavel {
+class UIPerguntaTextual(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_textual, pergunta, configuracao), Perguntavel {
 
     private lateinit var editText: EditText
 
     override fun initView(view: View) {
         super.initView(view)
-        editText = view.findViewById<EditText>(R.id.editText)
+        editText = view.findViewById(R.id.editText)
     }
 
     override fun populateView() {
         super.populateView()
-        editText.setTag("ui_pergunta_" + pergunta.id + "_edittext")
+        editText.tag = "ui_pergunta_" + pergunta.id + "_edittext"
         pergunta.resposta?.resposta?.let { editText.setText(it) }
         editText.isEnabled = configuracao.editavel
         if (configuracao.editavel.not()) {
-            editText.setTextAppearance(contextActivity, android.R.style.TextAppearance_Widget_TextView);
-            editText.setTypeface(null, Typeface.ITALIC);
+            editText.setTextAppearance(contextActivity, android.R.style.TextAppearance_Widget_TextView)
+            editText.setTypeface(null, Typeface.ITALIC)
+        }
+
+        if (pergunta.tipo != null) {
+            when {
+                "email" == pergunta.tipo -> editText.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+            }
         }
     }
 
@@ -41,12 +48,7 @@ class UIPerguntaTextual(val contextActivity: Context, pergunta: Pergunta, config
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
-        return editText.text.toString().trim().isNotEmpty()
-    }
-
-    override fun getMensagemErroPreenchimento(): String {
-        return contextActivity.getString(R.string.o_campo_de_texto_nao_foi_preenchido)
-    }
+    override fun isPreenchidoCorretamente() = editText.text.toString().trim().isNotEmpty()
+    override fun getMensagemErroPreenchimento() = contextActivity.getString(R.string.o_campo_de_texto_nao_foi_preenchido)
 
 }
