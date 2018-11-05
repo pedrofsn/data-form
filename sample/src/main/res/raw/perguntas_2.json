@@ -1,0 +1,222 @@
+{
+  "configuracoes": {
+    "exibirIndicadorErro": true,
+    "exibirIndicadorInformacao": true,
+    "exibirInformacaoAntesDaPergunta": true,
+    "editavel": true,
+    "corBackgroundFormulario": "#f1f1f1"
+  },
+  "perguntas": [
+    {
+      "id": 777,
+      "descricao": "Qual é o seu domínio da linguagem de programação Kotlin?",
+      "formato": "percentual",
+      "obrigatoria": "true",
+      "resposta": {
+        "resposta": "60"
+      }
+    },
+    {
+      "id": 888,
+      "descricao": "Objeto adicionado via Kotlin",
+      "formato": "lista_item_removivel",
+      "obrigatoria": "true",
+      "limite": {
+        "minimo": 1,
+        "maximo": 2
+      }
+    },
+    {
+      "id": 0,
+      "descricao": "Do que você gosta?",
+      "formato": "lista_item_removivel",
+      "obrigatoria": "true",
+      "limite": {
+        "minimo": 0,
+        "maximo": 2
+      },
+      "resposta": {
+        "respostas": [
+          {
+            "linha1": "Pudim",
+            "linha2": "Não tem albomina"
+          },
+          {
+            "linha1": "Ovo",
+            "linha2": "Não tem leite"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "descricao": "Qual é o seu nome?",
+      "formato": "textual",
+      "obrigatoria": "true",
+      "resposta": {
+        "resposta": "Pedro Francisco de Sousa Neto"
+      },
+      "informacao": "Por favor, insira o seu nome completo"
+    },
+    {
+      "id": 2,
+      "descricao": "Qual é o mês do seu aniversário?",
+      "formato": "textual",
+      "obrigatoria": "false"
+    },
+    {
+      "id": 3,
+      "descricao": "Qual é o seu sexo?",
+      "formato": "objetiva_lista",
+      "obrigatoria": "false",
+      "alternativas": [
+        {
+          "id": "0",
+          "descricao": "Masculino"
+        },
+        {
+          "id": "1",
+          "descricao": "Feminino"
+        },
+        {
+          "id": "2",
+          "descricao": "Não informado"
+        }
+      ],
+      "resposta": {
+        "alternativa": {
+          "id": "0",
+          "descricao": "Masculino",
+          "selecionado": true
+        }
+      }
+    },
+    {
+      "id": 4,
+      "descricao": "Quais salgadinhos você prefere?",
+      "formato": "multipla_escolha",
+      "obrigatoria": "false",
+      "limite": {
+        "minimo": 1,
+        "maximo": 2
+      },
+      "alternativas": [
+        {
+          "id": "0",
+          "descricao": "Coxinha"
+        },
+        {
+          "id": "1",
+          "descricao": "Empadinha"
+        },
+        {
+          "id": "2",
+          "descricao": "Kibe"
+        }
+      ],
+      "resposta": {
+        "alternativas": [
+          {
+            "id": "0",
+            "descricao": "Coxinha",
+            "selecionado": true
+          },
+          {
+            "id": "1",
+            "descricao": "Empadinha",
+            "selecionado": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "descricao": "Adicione algumas fotos",
+      "formato": "imagem_camera_ou_galeria",
+      "obrigatoria": "false",
+      "limite": {
+        "minimo": 1,
+        "maximo": 3
+      },
+      "configuracaoPergunta": {
+        "legenda": true
+      }
+    },
+    {
+      "id": 6,
+      "descricao": "Imagem pré-adicionada da internet que pode ser substituída por uma da galeria",
+      "formato": "imagem_galeria",
+      "obrigatoria": "true",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
+      },
+      "resposta": {
+        "imagens": [
+          {
+            "imagem": "https://avatars3.githubusercontent.com/u/3484814"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "descricao": "Adicione uma imagem da câmera",
+      "formato": "imagem_camera",
+      "obrigatoria": "false",
+      "limite": {
+        "minimo": 1,
+        "maximo": 1
+      }
+    },
+    {
+      "id": 8,
+      "descricao": "Qual é o seu estado civil?",
+      "formato": "objetiva_spinner",
+      "obrigatoria": "true",
+      "alternativas": [
+        {
+          "id": "0",
+          "descricao": "Solteiro"
+        },
+        {
+          "id": "1",
+          "descricao": "Casado"
+        },
+        {
+          "id": "2",
+          "descricao": "Não informado"
+        }
+      ],
+      "resposta": {
+        "alternativa": {
+          "id": "1",
+          "descricao": "casado",
+          "selecionado": true
+        }
+      }
+    },
+    {
+      "id": 9,
+      "descricao": "Do you speak english?",
+      "formato": "objetiva_spinner",
+      "obrigatoria": "false",
+      "alternativas": [
+        {
+          "id": "0",
+          "descricao": "Yes"
+        },
+        {
+          "id": "1",
+          "descricao": "No"
+        }
+      ]
+    },
+    {
+      "id": 999,
+      "descricao": "Texto Informativo",
+      "textoInformativo": "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.\n\nLorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.",
+      "formato": "texto_informativo"
+    }
+  ]
+}
