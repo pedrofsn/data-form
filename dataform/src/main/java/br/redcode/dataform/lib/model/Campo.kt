@@ -1,5 +1,6 @@
 package br.redcode.dataform.lib.model
 
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.utils.Constantes
 import java.io.Serializable
 
@@ -11,7 +12,7 @@ data class Campo(
         val descricao: String,
         val tipo: String,
 
-        val alternativas: List<Alternativa>? = null
+        val alternativas: List<Spinnable>? = null
 ) : Serializable {
 
     fun isTextoData(): Boolean {

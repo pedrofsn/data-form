@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterItemRemovivel
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.extension.setCustomAdapter
-import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
 import br.redcode.dataform.lib.interfaces.Perguntavel
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
@@ -21,7 +21,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
+class UIPerguntaListaItemRemovivel(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, private val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
@@ -36,23 +36,23 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
 
     override fun initView(view: View) {
         super.initView(view)
-        recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView)
-        textViewAndamento = view.findViewById<TextView>(R.id.textViewAndamento)
-        linearLayoutAdicionar = view.findViewById<LinearLayout>(R.id.linearLayoutAdicionar)
-        relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
+        recyclerView = view.findViewById(R.id.recyclerView)
+        textViewAndamento = view.findViewById(R.id.textViewAndamento)
+        linearLayoutAdicionar = view.findViewById(R.id.linearLayoutAdicionar)
+        relativeLayout = view.findViewById(R.id.relativeLayout)
     }
 
     override fun populateView() {
         super.populateView()
-        recyclerView.setTag("ui_pergunta_" + pergunta.id + "_recyclerview")
-        textViewAndamento.setTag("ui_pergunta_" + pergunta.id + "_textview")
-        linearLayoutAdicionar.setTag("ui_pergunta_" + pergunta.id + "_linearlayout")
+        recyclerView.tag = "ui_pergunta_${pergunta.id}_recyclerview"
+        textViewAndamento.tag = "ui_pergunta_${pergunta.id}_textview"
+        linearLayoutAdicionar.tag = "ui_pergunta_${pergunta.id}_linearlayout"
 
         recyclerView.setCustomAdapter(adapter, true)
 
-        val functionAdicionarItem = { idPerguntaHandler: Int, duasLinhas: DuasLinhas ->
+        val functionAdicionarItem = { idPerguntaHandler: Int, spinnable: Spinnable ->
             if (configuracao.editavel && idPerguntaHandler == pergunta.id) {
-                adapter.adicionar(duasLinhas)
+                adapter.adicionar(spinnable)
                 atualizarContador()
             }
         }
@@ -89,14 +89,7 @@ class UIPerguntaListaItemRemovivel(val contextActivity: Context, pergunta: Pergu
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
-        val countItens = adapter.getLista().size
-        val isPreenchidoCorretamente = countItens >= pergunta.getLimiteMinimo() && countItens <= pergunta.getLimiteMaximo()
-        return isPreenchidoCorretamente
-    }
-
-    override fun getMensagemErroPreenchimento(): String {
-        return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - adapter.getLista().size))
-    }
+    override fun isPreenchidoCorretamente() = adapter.getLista().size in pergunta.getLimiteMaximo()..pergunta.getLimiteMinimo()
+    override fun getMensagemErroPreenchimento() = String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - adapter.getLista().size))
 
 }

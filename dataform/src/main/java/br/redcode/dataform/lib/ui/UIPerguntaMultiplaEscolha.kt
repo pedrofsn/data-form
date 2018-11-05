@@ -40,8 +40,8 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
         pergunta.resposta?.alternativas?.let {
             for (alternativa in adapter.getLista()) {
                 for (resposta in it) {
-                    if (resposta.selecionado && resposta.id == alternativa.id) {
-                        alternativa.selecionado = resposta.selecionado
+                    if (resposta.selected && resposta.id == alternativa.id) {
+                        alternativa.selected = resposta.selected
                     }
                 }
             }
@@ -54,9 +54,9 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
     override fun onItemClickListener(position: Int) {
         if (configuracao.editavel) {
             pergunta.alternativas?.let {
-                val estado = it.get(position).selecionado
+                val estado = it.get(position).selected
 
-                it.get(position).selecionado = estado.not()
+                it.get(position).selected = estado.not()
                 adapter.notifyDataSetChanged()
             }
         }
@@ -75,7 +75,7 @@ class UIPerguntaMultiplaEscolha(val contextActivity: Context, pergunta: Pergunta
     }
 
     fun getQuantidadeAlternativasMarcadas(): Int {
-        return getResposta().alternativas?.filter { it.selecionado }?.size ?: 0
+        return getResposta().alternativas?.filter { it.selected }?.size ?: 0
     }
 
     override fun getMensagemErroPreenchimento(): String {

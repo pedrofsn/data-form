@@ -1,5 +1,6 @@
 package br.redcode.sample.model
 
+import br.redcode.dataform.lib.extension.toDTO
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.payloads.RespostaPayload

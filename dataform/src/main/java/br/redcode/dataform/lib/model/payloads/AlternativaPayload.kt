@@ -7,5 +7,5 @@ import java.io.Serializable
  */
 data class AlternativaPayload(
         val id: Long,
-        var selecionado: Boolean = false
+        var selected: Boolean = false
 ) : Serializable

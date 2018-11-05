@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import br.com.concrete.canarinho.watcher.CPFCNPJTextWatcher
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
-import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 import br.redcode.dataform.lib.ui.UIAgregadorPerguntas
 import br.redcode.sample.R
 import br.redcode.sample.dialogs.DialogCheckin
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.interfaces.OnPosicaoCadastrada
-import br.redcode.sample.model.CustomObject
 import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.intentFor
-import java.util.*
 
 class ActivityMain : ActivityCapturarImagem() {
 
@@ -58,7 +56,7 @@ class ActivityMain : ActivityCapturarImagem() {
     private fun afterOnCreate() {
         val handlerInputPopup = object : HandlerInputPopup() {
 
-            override fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+            override fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
                 super.chamarPopup(idPergunta, functionAdicionarItem)
                 abrirPopup(idPergunta, functionAdicionarItem)
             }
@@ -100,14 +98,14 @@ class ActivityMain : ActivityCapturarImagem() {
         }
     }
 
-    private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, duasLinhas: DuasLinhas) -> Unit) {
+    private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
         when (idPergunta) {
             888 ->
-                functionAdicionarItem.invoke(idPergunta, DuasLinhas("Título", "Teste", auxiliar = Calendar.getInstance().toString()))
+                functionAdicionarItem.invoke(idPergunta, Spinnable("Título", "Teste"/*, auxiliar = Calendar.getInstance().toString()*/))
             else -> {
                 DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
                     override fun onPosicaoCadastrada(latitude: String, longitude: String) {
-                        val obj = CustomObject(latitude, longitude)
+                        val obj = Spinnable(latitude, longitude)
                         functionAdicionarItem.invoke(idPergunta, obj)
                     }
                 })

@@ -87,7 +87,7 @@
         "alternativa": {
           "id": "0",
           "descricao": "Masculino",
-          "selecionado": true
+          "selected": true
         }
       }
     },
@@ -119,12 +119,12 @@
           {
             "id": "0",
             "descricao": "Coxinha",
-            "selecionado": true
+            "selected": true
           },
           {
             "id": "1",
             "descricao": "Empadinha",
-            "selecionado": true
+            "selected": true
           }
         ]
       }
@@ -192,7 +192,7 @@
         "alternativa": {
           "id": "1",
           "descricao": "casado",
-          "selecionado": true
+          "selected": true
         }
       }
     },

@@ -3,13 +3,12 @@ package br.redcode.dataform.lib.ui
 import android.content.Context
 import android.view.View
 import android.widget.Spinner
+import br.com.redcode.spinnable.library.adapter.AdapterSpinneable
+import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
+import br.com.redcode.spinnable.library.extensions_functions.setSpinnable
 import br.redcode.dataform.lib.R
-import br.redcode.dataform.lib.adapter.AdapterSpinnerSpinneable
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
-import br.redcode.dataform.lib.extension.getSpinnableFromSpinner
-import br.redcode.dataform.lib.extension.setSpinnable
 import br.redcode.dataform.lib.interfaces.Perguntavel
-import br.redcode.dataform.lib.model.Alternativa
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -20,8 +19,7 @@ import br.redcode.dataform.lib.model.Resposta
 class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Perguntavel {
 
     private lateinit var spinner: Spinner
-
-    private lateinit var adapter: AdapterSpinnerSpinneable
+    private lateinit var adapter: AdapterSpinneable
 
     override fun initView(view: View) {
         super.initView(view)
@@ -30,7 +28,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
 
     override fun populateView() {
         super.populateView()
-        spinner.setTag("ui_pergunta_" + pergunta.id + "_spinner")
+        spinner.tag = "ui_pergunta_${pergunta.id}_spinner"
 
         pergunta.alternativas?.let {
             val idPreSelecionado = pergunta.resposta?.alternativa?.id.toString()
@@ -44,9 +42,9 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
         val spinnable = spinner.getSpinnableFromSpinner(adapter.getSpinnables())
         val resposta = Resposta()
 
-        if (spinnable != null && spinnable is Alternativa) {
+        if (spinnable != null) {
             resposta.alternativa = spinnable
-            resposta.alternativa?.selecionado = true
+            resposta.alternativa?.selected = true
         }
 
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
@@ -54,12 +52,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
-        return spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE // TODO ver se comporta como no Java
-    }
-
-    override fun getMensagemErroPreenchimento(): String {
-        return contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
-    }
+    override fun isPreenchidoCorretamente() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
+    override fun getMensagemErroPreenchimento() = contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
 
 }

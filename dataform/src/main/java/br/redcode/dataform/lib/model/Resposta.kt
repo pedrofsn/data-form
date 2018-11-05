@@ -1,6 +1,6 @@
 package br.redcode.dataform.lib.model
 
-import br.redcode.dataform.lib.interfaces.DuasLinhas
+import br.com.redcode.spinnable.library.model.Spinnable
 import java.io.Serializable
 
 /**
@@ -9,10 +9,10 @@ import java.io.Serializable
 data class Resposta(
         var idPergunta: Int? = null,
         var resposta: String? = null,
-        var respostas: ArrayList<DuasLinhas>? = null,
+        var respostas: ArrayList<Spinnable>? = null,
 
-        var alternativa: Alternativa? = null,
-        var alternativas: ArrayList<Alternativa>? = null,
+        var alternativa: Spinnable? = null,
+        var alternativas: ArrayList<Spinnable>? = null,
         var imagens: ArrayList<Imagem>? = null,
         var tag: String? = null
 ) : Serializable {

@@ -1,5 +1,6 @@
 package br.redcode.dataform.lib.model
 
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.utils.Constantes
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_SOMENTE_CAMERA
@@ -26,7 +27,7 @@ data class Pergunta(
         val tipo: String? = null,
 
         var limite: Limite? = null,
-        var alternativas: ArrayList<Alternativa>? = null,
+        var alternativas: ArrayList<Spinnable>? = null,
         var textoInformativo: String? = null,
         var configuracaoPergunta: HashMap<String, Boolean>? = null
 ) : Serializable {

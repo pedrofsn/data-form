@@ -52,7 +52,7 @@
       "resposta": {
         "alternativa": {
           "id": "2",
-          "selecionado": true
+          "selected": true
         }
       }
     },
@@ -75,7 +75,7 @@
         "alternativa": {
           "id": "1",
           "descricao": "yes",
-          "selecionado": true
+          "selected": true
         }
       }
     }

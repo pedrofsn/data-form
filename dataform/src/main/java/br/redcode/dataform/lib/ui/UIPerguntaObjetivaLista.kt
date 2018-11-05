@@ -40,9 +40,9 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
 
         pergunta.resposta?.alternativa?.let {
             for (i in adapter.getLista().indices) {
-                if (it.selecionado && it.id == adapter.getLista().get(i).id) {
+                if (it.selected && it.id == adapter.getLista().get(i).id) {
                     posicaoSelecionada = i
-                    adapter.getLista().get(i).selecionado = true
+                    adapter.getLista().get(i).selected = true
                     adapter.notifyDataSetChanged()
                     break
                 }
@@ -53,13 +53,13 @@ class UIPerguntaObjetivaLista(val contextActivity: Context, pergunta: Pergunta, 
     override fun onItemClickListener(position: Int) {
         if (configuracao.editavel) {
             pergunta.alternativas?.let {
-                val estado = it.get(position).selecionado
+                val estado = it.get(position).selected
 
                 for (alternativa in it) {
-                    alternativa.selecionado = false
+                    alternativa.selected = false
                 }
 
-                it.get(position).selecionado = estado.not()
+                it.get(position).selected = estado.not()
                 posicaoSelecionada = if (estado.not()) {
                     position
                 } else {
