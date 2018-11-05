@@ -4,7 +4,7 @@
     "exibirIndicadorInformacao": false,
     "exibirInformacaoAntesDaPergunta": false,
     "editavel": true,
-    "corBackgroundFormulario": "#f1f1f1"
+    "corBackgroundFormulario": "#FFFFFF"
   },
   "perguntas": [
     {
