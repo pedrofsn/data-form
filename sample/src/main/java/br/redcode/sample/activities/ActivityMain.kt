@@ -2,10 +2,8 @@ package br.redcode.sample.activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
+import br.com.concrete.canarinho.watcher.CPFCNPJTextWatcher
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.DuasLinhas
 import br.redcode.dataform.lib.model.FormularioDePerguntas
@@ -70,21 +68,24 @@ class ActivityMain : ActivityCapturarImagem() {
         linearLayout.addView(agregador.getView())
 
         // hack
-        val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_8_spinner")
-        val pergunta9 = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_9")
+        val editText = linearLayout.findViewWithTag<EditText>("ui_pergunta_3_edittext")
+        editText.addTextChangedListener(CPFCNPJTextWatcher())
 
-        if (pergunta9 != null && spinner != null) {
-            pergunta9.visibility = View.GONE
+        val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_4_spinner")
+        val pergunta = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_5")
+
+        if (pergunta != null && spinner != null) {
+            pergunta.visibility = View.GONE
 
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
-                    Utils.log("position : " + position)
-                    Utils.log("id : " + id)
+                    Utils.log("position : $position")
+                    Utils.log("id : $id")
 
                     if (position == 3) {
-                        pergunta9.visibility = View.VISIBLE
+                        pergunta.visibility = View.VISIBLE
                     } else {
-                        pergunta9.visibility = View.GONE
+                        pergunta.visibility = View.GONE
                     }
                 }
 

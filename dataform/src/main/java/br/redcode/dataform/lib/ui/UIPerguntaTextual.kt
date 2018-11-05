@@ -37,6 +37,7 @@ class UIPerguntaTextual(private val contextActivity: Context, pergunta: Pergunta
         if (pergunta.tipo != null) {
             when {
                 "email" == pergunta.tipo -> editText.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+                "cpf" == pergunta.tipo -> editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
         }
     }
