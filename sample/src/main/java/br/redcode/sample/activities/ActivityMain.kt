@@ -68,8 +68,9 @@ class ActivityMain : ActivityCapturarImagem() {
         linearLayout.addView(agregador.getView())
 
         // hack
-        val editText = linearLayout.findViewWithTag<EditText>("ui_pergunta_3_edittext")
-        editText.addTextChangedListener(CPFCNPJTextWatcher())
+        agregador.formularioDePerguntas.perguntas.filter { p -> p.tipo == "cpf" || p.tipo == "cnpj" }.forEach { p ->
+            linearLayout.findViewWithTag<EditText>("ui_pergunta_${p.id}_edittext").addTextChangedListener(CPFCNPJTextWatcher())
+        }
 
         val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_4_spinner")
         val pergunta = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_5")
