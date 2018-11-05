@@ -74,7 +74,10 @@ class ActivityMain : ActivityCapturarImagem() {
 
         val spinner = linearLayout.findViewWithTag<Spinner>("ui_pergunta_4_spinner")
         val pergunta = linearLayout.findViewWithTag<LinearLayout>("ui_pergunta_5")
+        showAskIfSpinnerHasPosition3AsSelected(spinner, pergunta)
+    }
 
+    private fun showAskIfSpinnerHasPosition3AsSelected(spinner: Spinner?, pergunta: LinearLayout?) {
         if (pergunta != null && spinner != null) {
             pergunta.visibility = View.GONE
 
