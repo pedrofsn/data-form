@@ -15,6 +15,10 @@ import br.redcode.dataform.lib.model.FormularioDePerguntas
  */
 class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: FormularioDePerguntas, val handlerCapturaImagem: HandlerCapturaImagem, val handlerInputPopup: HandlerInputPopup) {
 
+    companion object {
+        const val DEFAULT_COLOR = "#ffffff"
+    }
+
     private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
     fun gerarPerguntasUI() {
@@ -48,7 +52,7 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
         linearLayout.orientation = LinearLayout.VERTICAL
 
         // Alterar cor de fundo do formulário
-        val hexColor = formularioDePerguntas.configuracoes.corBackgroundFormulario
+        val hexColor = formularioDePerguntas.configuracoes.corBackgroundFormulario ?: DEFAULT_COLOR
         val color = Color.parseColor(hexColor)
         linearLayout.setBackgroundColor(color)
 

@@ -3,7 +3,9 @@ package br.redcode.dataform.lib.ui
 import android.content.Context
 import android.graphics.Typeface
 import android.text.InputType
+import android.text.method.ScrollingMovementMethod
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -34,10 +36,20 @@ class UIPerguntaTextual(private val contextActivity: Context, pergunta: Pergunta
             editText.setTypeface(null, Typeface.ITALIC)
         }
 
-        if (pergunta.tipo != null) {
+        if (pergunta.isPerguntaTextual() && pergunta.tipo != null) {
             when {
                 "email" == pergunta.tipo -> editText.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
-                "cpf" == pergunta.tipo -> editText.inputType = InputType.TYPE_CLASS_NUMBER
+                "numero" == pergunta.tipo -> editText.inputType = InputType.TYPE_CLASS_NUMBER
+                "multi" == pergunta.tipo -> {
+                    editText.setSingleLine(false)
+                    editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                    editText.imeOptions = EditorInfo.IME_FLAG_NO_ENTER_ACTION
+                    editText.setLines(5)
+                    editText.maxLines = 10
+                    editText.isVerticalScrollBarEnabled = true
+                    editText.movementMethod = ScrollingMovementMethod.getInstance()
+                    editText.scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
+                }
             }
         }
     }

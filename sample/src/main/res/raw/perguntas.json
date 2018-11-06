@@ -78,6 +78,13 @@
           "selected": true
         }
       }
+    },
+    {
+      "id": 6,
+      "descricao": "Fale sobre você",
+      "formato": "textual",
+      "tipo": "multi",
+      "obrigatoria": "false"
     }
   ]
 }

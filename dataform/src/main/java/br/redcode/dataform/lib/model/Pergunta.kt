@@ -29,7 +29,8 @@ data class Pergunta(
         var limite: Limite? = null,
         var alternativas: ArrayList<Spinnable>? = null,
         var textoInformativo: String? = null,
-        var configuracaoPergunta: HashMap<String, Boolean>? = null
+        var configuracaoPergunta: HashMap<String, Boolean>? = null,
+        var extra: Any? = null
 ) : Serializable {
 
     fun getDescricaoComObrigatoriedade() = if (obrigatoria) "$descricao *" else descricao
