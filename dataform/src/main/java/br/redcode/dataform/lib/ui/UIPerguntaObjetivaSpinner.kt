@@ -39,7 +39,7 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
     }
 
     override fun getResposta(): Resposta {
-        val spinnable = spinner.getSpinnableFromSpinner(adapter.getSpinnables())
+        val spinnable = adapter.getSpinnableSelected()
         val resposta = Resposta()
 
         if (spinnable != null) {
