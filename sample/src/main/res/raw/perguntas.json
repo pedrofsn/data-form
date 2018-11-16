@@ -38,15 +38,15 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Solteiro"
+          "description": "Solteiro"
         },
         {
           "id": "1",
-          "descricao": "Casado"
+          "description": "Casado"
         },
         {
           "id": "2",
-          "descricao": "Não informado"
+          "description": "Não informado"
         }
       ],
       "resposta": {
@@ -64,17 +64,17 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Yes"
+          "description": "Yes"
         },
         {
           "id": "1",
-          "descricao": "No"
+          "description": "No"
         }
       ],
       "resposta": {
         "alternativa": {
           "id": "1",
-          "descricao": "yes",
+          "description": "yes",
           "selected": true
         }
       }

@@ -72,21 +72,21 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Masculino"
+          "description": "Masculino"
         },
         {
           "id": "1",
-          "descricao": "Feminino"
+          "description": "Feminino"
         },
         {
           "id": "2",
-          "descricao": "Não informado"
+          "description": "Não informado"
         }
       ],
       "resposta": {
         "alternativa": {
           "id": "0",
-          "descricao": "Masculino",
+          "description": "Masculino",
           "selected": true
         }
       }
@@ -103,15 +103,15 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Coxinha"
+          "description": "Coxinha"
         },
         {
           "id": "1",
-          "descricao": "Empadinha"
+          "description": "Empadinha"
         },
         {
           "id": "2",
-          "descricao": "Kibe"
+          "description": "Kibe"
         }
       ],
       "resposta": {
@@ -177,21 +177,21 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Solteiro"
+          "description": "Solteiro"
         },
         {
           "id": "1",
-          "descricao": "Casado"
+          "description": "Casado"
         },
         {
           "id": "2",
-          "descricao": "Não informado"
+          "description": "Não informado"
         }
       ],
       "resposta": {
         "alternativa": {
           "id": "1",
-          "descricao": "casado",
+          "description": "casado",
           "selected": true
         }
       }
@@ -204,11 +204,11 @@
       "alternativas": [
         {
           "id": "0",
-          "descricao": "Yes"
+          "description": "Yes"
         },
         {
           "id": "1",
-          "descricao": "No"
+          "description": "No"
         }
       ]
     },
