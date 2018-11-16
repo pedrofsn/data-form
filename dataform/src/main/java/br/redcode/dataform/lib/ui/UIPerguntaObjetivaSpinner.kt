@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Spinner
 import br.com.redcode.spinnable.library.adapter.AdapterSpinneable
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
+import br.com.redcode.spinnable.library.extensions_functions.getSpinnableSelected
 import br.com.redcode.spinnable.library.extensions_functions.setSpinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -19,7 +20,6 @@ import br.redcode.dataform.lib.model.Resposta
 class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Perguntavel {
 
     private lateinit var spinner: Spinner
-    private lateinit var adapter: AdapterSpinneable
 
     override fun initView(view: View) {
         super.initView(view)
@@ -32,14 +32,14 @@ class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta
 
         pergunta.alternativas?.let {
             val idPreSelecionado = pergunta.resposta?.alternativa?.id.toString()
-            adapter = spinner.setSpinnable(it, true, idPreSelecionado)
+            spinner.setSpinnable(it, true, idPreSelecionado)
         }
 
         spinner.isEnabled = configuracao.editavel
     }
 
     override fun getResposta(): Resposta {
-        val spinnable = adapter.getSpinnableSelected()
+        val spinnable = spinner.getSpinnableFromSpinner(pergunta.alternativas)
         val resposta = Resposta()
 
         if (spinnable != null) {
