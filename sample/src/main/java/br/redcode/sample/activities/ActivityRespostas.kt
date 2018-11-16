@@ -14,14 +14,12 @@ import kotlinx.android.synthetic.main.activity_respostas.*
  */
 class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : ActivityGeneric() {
 
-    private var formularioDePerguntas: FormularioDePerguntas? = null
+    private val formularioDePerguntas by lazy { intent.getParcelableExtra<FormularioDePerguntas>("formularioDePerguntas") }
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_respostas)
-
-        formularioDePerguntas = intent.getSerializableExtra("formularioDePerguntas") as FormularioDePerguntas
 
         atualizarRespostas()
         button.setOnClickListener { atualizarRespostas() }

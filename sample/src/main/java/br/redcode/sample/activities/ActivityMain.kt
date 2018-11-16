@@ -1,5 +1,6 @@
 package br.redcode.sample.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -83,6 +84,7 @@ class ActivityMain : ActivityCapturarImagem() {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
                     Utils.log("position : $position")
                     Utils.log("id : $id")
+                    Utils.log("text : ${spinner.adapter.getItem(position)}")
 
                     if (position == 3) {
                         pergunta.visibility = View.VISIBLE
