@@ -1,5 +1,6 @@
 package br.redcode.dataform.lib.model
 
+import android.os.Parcelable
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.utils.Constantes
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_IMAGEM_CAMERA_OU_GALERIA
@@ -12,11 +13,13 @@ import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_OBJETIVA_SPINNER
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_PERCENTUAL
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_TEXTO_INFORMATIVO
 import br.redcode.dataform.lib.utils.Constantes.TIPO_PERGUNTA_TEXTUAL
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
+@Parcelize
 data class Pergunta(
         val id: Int,
         val descricao: String,
@@ -30,8 +33,8 @@ data class Pergunta(
         var alternativas: ArrayList<Spinnable>? = null,
         var textoInformativo: String? = null,
         var configuracaoPergunta: HashMap<String, Boolean>? = null,
-        var extra: Any? = null
-) : Serializable {
+        var extra: @RawValue Any? = null
+) : Parcelable {
 
     fun getDescricaoComObrigatoriedade() = if (obrigatoria) "$descricao *" else descricao
     fun getLimiteMaximo() = limite?.maximo ?: 1
