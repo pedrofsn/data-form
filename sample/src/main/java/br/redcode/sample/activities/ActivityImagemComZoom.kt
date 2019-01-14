@@ -3,6 +3,7 @@ package br.redcode.sample.activities
 import android.os.Bundle
 import android.widget.ImageView
 import br.com.redcode.easyglide.library.load
+import br.redcode.dataform.lib.model.Image
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityGeneric
 import kotlinx.android.synthetic.main.activity_imagem_com_zoom.*
@@ -16,8 +17,9 @@ class ActivityImagemComZoom(override var ativarBotaoVoltar: Boolean = true) : Ac
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_imagem_com_zoom)
 
-        val imagem: String = intent.getStringExtra("image")
-        (photoView as ImageView).load(imagem)
+        val image = intent.getParcelableExtra<Image>("image")
+        (photoView as ImageView).load(image.image)
+        supportActionBar?.subtitle = image.subtitle
     }
 
 }

@@ -128,7 +128,7 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
 
     override fun visualizeImage(image: Image) {
         val intent = Intent(this, ActivityImagemComZoom::class.java)
-        intent.putExtra("image", image.image)
+        intent.putExtra("image", image)
         startActivity(intent)
     }
 
