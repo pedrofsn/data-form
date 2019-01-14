@@ -3,9 +3,7 @@ package br.redcode.dataform.lib.ui
 import android.content.Context
 import android.view.View
 import android.widget.Spinner
-import br.com.redcode.spinnable.library.adapter.AdapterSpinneable
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
-import br.com.redcode.spinnable.library.extensions_functions.getSpinnableSelected
 import br.com.redcode.spinnable.library.extensions_functions.setSpinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -17,7 +15,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaObjetivaSpinner(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Perguntavel {
+class UIPerguntaObjetivaSpinner(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Perguntavel {
 
     private lateinit var spinner: Spinner
 

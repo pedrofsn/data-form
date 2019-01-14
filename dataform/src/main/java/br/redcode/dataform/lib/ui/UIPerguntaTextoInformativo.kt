@@ -14,13 +14,13 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaTextoInformativo(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_texto_informativo, pergunta, configuracao), Perguntavel {
+class UIPerguntaTextoInformativo(contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_texto_informativo, pergunta, configuracao), Perguntavel {
 
     private lateinit var textViewInformativo: TextView
 
     override fun initView(view: View) {
         super.initView(view)
-        textViewInformativo = view.findViewById<TextView>(R.id.textViewInformativo)
+        textViewInformativo = view.findViewById(R.id.textViewInformativo)
     }
 
     override fun populateView() {

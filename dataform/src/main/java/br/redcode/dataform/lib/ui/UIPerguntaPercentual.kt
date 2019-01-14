@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaPercentual(val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_percentual, pergunta, configuracao), Perguntavel {
+class UIPerguntaPercentual(contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_percentual, pergunta, configuracao), Perguntavel {
 
     private lateinit var seekBar: SeekBar
     private lateinit var textView: TextView
