@@ -23,7 +23,6 @@ import br.redcode.dataform.lib.ui.UIPerguntaImagem
 import br.redcode.sample.R
 import br.redcode.sample.activities.ActivityImagemComZoom
 import br.redcode.sample.utils.Utils
-import org.jetbrains.anko.intentFor
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
@@ -128,7 +127,9 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
     }
 
     override fun visualizarImagem(imagem: Imagem) {
-        startActivity(intentFor<ActivityImagemComZoom>("imagem" to imagem.imagem))
+        val intent = Intent(this, ActivityImagemComZoom::class.java)
+        intent.putExtra("imagem", imagem.imagem)
+        startActivity(intent)
     }
 
     override fun carregarImagem(imagem: String, imageView: ImageView) {

@@ -17,7 +17,6 @@ import br.redcode.sample.utils.JSONReader
 import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.intentFor
 
 class ActivityMain : ActivityCapturarImagem() {
 
@@ -39,7 +38,9 @@ class ActivityMain : ActivityCapturarImagem() {
                 val respostas = agregador.formularioDePerguntas.perguntas.toString()
 
                 Utils.log(respostas)
-                startActivity(intentFor<ActivityRespostas>("formularioDePerguntas" to formularioDePerguntas))
+                val intent = Intent(this, ActivityRespostas::class.java)
+                intent.putExtra("formularioDePerguntas", formularioDePerguntas)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }
