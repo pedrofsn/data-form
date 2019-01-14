@@ -16,10 +16,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import br.com.redcode.easyglide.library.load
-import br.redcode.dataform.lib.domain.ActivityCapturarImagem
-import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
-import br.redcode.dataform.lib.model.Imagem
-import br.redcode.dataform.lib.ui.UIPerguntaImagem
+import br.redcode.dataform.lib.domain.ActivityCaptureImage
+import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
+import br.redcode.dataform.lib.model.Image
+import br.redcode.dataform.lib.ui.UIQuestionImage
 import br.redcode.sample.R
 import br.redcode.sample.activities.ActivityImagemComZoom
 import br.redcode.sample.utils.Utils
@@ -29,7 +29,7 @@ import java.io.File
 /**
  * Created by pedrofsn on 03/11/2017.
  */
-abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Callbacks {
+abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callbacks {
 
     private val RESULT_CODE_EASY_IMAGE = 1992
     private val RESULT_CODE_PERMISSAO = 12
@@ -47,10 +47,10 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
     }
 
     override fun onImagesPicked(imagesFiles: List<File>, source: EasyImage.ImageSource, type: Int) {
-        imagesFiles.forEach { getDialogDialogComOk(file = it, handlerCapturaImagem = handlerCapturaImagem) }
+        imagesFiles.forEach { getDialogDialogComOk(file = it, handlerCaptureImage = handlerCapturaImagem) }
     }
 
-    fun getDialogDialogComOk(context: Context = this, file: File, handlerCapturaImagem: HandlerCapturaImagem) {
+    fun getDialogDialogComOk(context: Context = this, file: File, handlerCaptureImage: HandlerCaptureImage) {
         val viewDialog = (context as AppCompatActivity).layoutInflater.inflate(R.layout.dialog_imagem, null)
 
         val imageViewPreview: ImageView = viewDialog.findViewById(R.id.imageViewPreview);
@@ -59,7 +59,7 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
 
         editTextLegenda.setHint("Apenas em uma pergunta")
 
-        carregarImagem(file.absolutePath, imageViewPreview)
+        loadImage(file.absolutePath, imageViewPreview)
 
         val alert = AlertDialog.Builder(context /*, R.style.DialogCustomizado*/)
         alert.setView(viewDialog)
@@ -72,8 +72,8 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
 
         buttonOk.setOnClickListener {
             dialog?.dismiss()
-            val imagem = Imagem(legenda = editTextLegenda.text.toString(), imagem = file.absolutePath)
-            handlerCapturaImagem.onImagensSelecionadas(imagem)
+            val imagem = Image(subtitle = editTextLegenda.text.toString(), image = file.absolutePath)
+            handlerCaptureImage.onImagensSelecionadas(imagem)
         }
     }
 
@@ -101,15 +101,15 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
         startActivity(intent)
     }
 
-    override fun capturarImagem(tipo: UIPerguntaImagem.Tipo) {
+    override fun captureImage(tipo: UIQuestionImage.Tipo) {
         when (tipo) {
-            UIPerguntaImagem.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
-            UIPerguntaImagem.Tipo.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
-            UIPerguntaImagem.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Tipo.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
         }
     }
 
-    override fun hasPermissoes(): Boolean {
+    override fun hasPermissions(): Boolean {
         for (permissao in permissoes) {
             val isOk: Boolean = ContextCompat.checkSelfPermission(this@ActivityCapturarImagem, permissao) == PermissionChecker.PERMISSION_GRANTED
 
@@ -126,13 +126,13 @@ abstract class ActivityCapturarImagem : ActivityCapturarImagem(), EasyImage.Call
         return true
     }
 
-    override fun visualizarImagem(imagem: Imagem) {
+    override fun visualizeImage(image: Image) {
         val intent = Intent(this, ActivityImagemComZoom::class.java)
-        intent.putExtra("imagem", imagem.imagem)
+        intent.putExtra("image", image.image)
         startActivity(intent)
     }
 
-    override fun carregarImagem(imagem: String, imageView: ImageView) {
+    override fun loadImage(imagem: String, imageView: ImageView) {
         var temp = imagem
 
         if (imagem.startsWith("/")) {

@@ -5,13 +5,13 @@ import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderCheckBox
 import br.redcode.dataform.lib.domain.AdapterGeneric
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
-import br.redcode.dataform.lib.model.ConfiguracaoFormulario
+
+import br.redcode.dataform.lib.model.QuestionSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterCheckBox(override var myOnItemClickListener: OnItemClickListener?, val configuracaoFormulario: ConfiguracaoFormulario) : AdapterGeneric<Spinnable, ViewHolderCheckBox>() {
+class AdapterCheckBox(val questionSettings: QuestionSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderCheckBox>() {
 
     override val layout: Int = R.layout.adapter_checkbox
 
@@ -20,7 +20,7 @@ class AdapterCheckBox(override var myOnItemClickListener: OnItemClickListener?, 
     }
 
     override fun onBindViewHolder(holder: ViewHolderCheckBox, position: Int) {
-        holder.popular(getLista()[position], myOnItemClickListener, configuracaoFormulario)
+        holder.popular(getList()[position], myOnItemClickListener, questionSettings)
     }
 
 }

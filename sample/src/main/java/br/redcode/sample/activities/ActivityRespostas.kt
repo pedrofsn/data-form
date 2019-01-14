@@ -1,7 +1,7 @@
 package br.redcode.sample.activities
 
 import android.os.Bundle
-import br.redcode.dataform.lib.model.FormularioDePerguntas
+import br.redcode.dataform.lib.model.FormQuestions
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityGeneric
 import br.redcode.sample.model.toListDTO
@@ -14,18 +14,17 @@ import kotlinx.android.synthetic.main.activity_respostas.*
  */
 class ActivityRespostas(override var ativarBotaoVoltar: Boolean = true) : ActivityGeneric() {
 
-    private val formularioDePerguntas by lazy { intent.getParcelableExtra<FormularioDePerguntas>("formularioDePerguntas") }
+    private val formularioDePerguntas by lazy { intent.getParcelableExtra<FormQuestions>("formularioDePerguntas") }
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_respostas)
 
-        atualizarRespostas()
-        button.setOnClickListener { atualizarRespostas() }
+        updateAnswers()
     }
 
-    private fun atualizarRespostas() {
+    private fun updateAnswers() {
         formularioDePerguntas?.let {
             val json = gson.toJson(it.toListDTO())
 

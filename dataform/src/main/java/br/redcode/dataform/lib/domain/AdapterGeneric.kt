@@ -3,14 +3,14 @@ package br.redcode.dataform.lib.domain
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
+
 
 /**
  * Created by pedrofsn on 16/10/2017.
  */
 abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
 
-    abstract var myOnItemClickListener: OnItemClickListener?
+    abstract var myOnItemClickListener: ((Int) -> Unit)?
     private val lista = ArrayList<Objeto>()
 
     abstract val layout: Int
@@ -24,16 +24,12 @@ abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : androidx
     abstract fun getViewHolder(view: View): VH
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.popular(getLista()[position], myOnItemClickListener)
+        holder.popular(getList()[position], myOnItemClickListener)
     }
 
-    override fun getItemCount(): Int {
-        return lista.size
-    }
+    override fun getItemCount(): Int = lista.size
 
-    fun getLista(): ArrayList<Objeto> {
-        return lista
-    }
+    fun getList(): ArrayList<Objeto> = lista
 
     fun adicionar(objeto: Objeto) {
         this.lista.add(objeto)

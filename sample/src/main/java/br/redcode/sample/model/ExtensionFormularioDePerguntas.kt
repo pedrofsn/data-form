@@ -1,39 +1,39 @@
 package br.redcode.sample.model
 
 import br.redcode.dataform.lib.extension.toDTO
-import br.redcode.dataform.lib.model.FormularioDePerguntas
-import br.redcode.dataform.lib.model.Pergunta
-import br.redcode.dataform.lib.model.payloads.RespostaPayload
+import br.redcode.dataform.lib.model.FormQuestions
+import br.redcode.dataform.lib.model.Question
+import br.redcode.dataform.lib.model.payloads.PayloadAnswer
 
 /**
  * Created by pedrofsn on 12/11/2017.
  */
 
 
-fun FormularioDePerguntas.toListDTO(): ArrayList<RespostaPayload> {
-    val dtos = ArrayList<RespostaPayload>()
+fun FormQuestions.toListDTO(): ArrayList<PayloadAnswer> {
+    val dtos = ArrayList<PayloadAnswer>()
 
-    perguntas.let {
+    questions.let {
 
-        val respostas = it.filter { pergunta: Pergunta -> pergunta.resposta?.hasResposta() == true }.map { it.resposta }
+        val respostas = it.filter { question: Question -> question.answer?.hasResposta() == true }.map { it.answer }
 
         for (r in respostas) {
             r?.let {
-                val (idPergunta, resposta, respostas, alternativa, alternativas, imagens) = it
-                var dto: RespostaPayload? = null
+                val (id, answer, option, options, images) = it
+                var dto: PayloadAnswer? = null
 
-                if (idPergunta != null) {
-                    resposta?.let { dto = RespostaPayload(idPergunta, resposta) }
-                    respostas?.let { dto = RespostaPayload(idPergunta, respostas) }
-                    alternativa?.let { dto = RespostaPayload(idPergunta, alternativa.id) }
+                if (id != null) {
+                    answer?.let { dto = PayloadAnswer(id, answer) }
+                    option?.let { dto = PayloadAnswer(id, option.id) }
+                    options?.let { dto = PayloadAnswer(id, options) }
 
-                    alternativas?.let {
-                        val alternativasTratadas = alternativas.map { it.toDTO() }
-                        dto = RespostaPayload(idPergunta, alternativasTratadas)
+                    options?.let {
+                        val alternativasTratadas = options.map { it.toDTO() }
+                        dto = PayloadAnswer(id, alternativasTratadas)
                     }
 
-                    imagens?.let {
-                        dto = RespostaPayload(idPergunta, imagens)
+                    images?.let {
+                        dto = PayloadAnswer(id, images)
                     }
 
                     dto?.let { dtos.add(it) }

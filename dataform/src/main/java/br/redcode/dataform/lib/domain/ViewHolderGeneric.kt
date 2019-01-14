@@ -1,7 +1,7 @@
 package br.redcode.dataform.lib.domain
 
 import android.view.View
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
+
 
 /**
  * Created by pedrofsn on 16/10/2017.
@@ -10,7 +10,7 @@ abstract class ViewHolderGeneric<Objeto>(itemView: View) : androidx.recyclerview
 
     abstract fun popular(obj: Objeto)
 
-    open fun popular(obj: Objeto, click: OnItemClickListener?) {
+    open fun popular(obj: Objeto, click: ((Int) -> Unit)?) {
         if (obj != null) {
             popular(obj)
 
@@ -20,8 +20,8 @@ abstract class ViewHolderGeneric<Objeto>(itemView: View) : androidx.recyclerview
         }
     }
 
-    fun click(view: View, clickListener: OnItemClickListener) {
-        view.setOnClickListener { clickListener.onItemClickListener(adapterPosition) }
+    fun click(view: View, clickListener: ((Int) -> Unit)) {
+        view.setOnClickListener { clickListener.invoke(adapterPosition) }
     }
 
     fun click(view: View, function: () -> Unit) {

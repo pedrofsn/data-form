@@ -5,13 +5,13 @@ import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderRadioButton
 import br.redcode.dataform.lib.domain.AdapterGeneric
-import br.redcode.dataform.lib.interfaces.OnItemClickListener
-import br.redcode.dataform.lib.model.ConfiguracaoFormulario
+
+import br.redcode.dataform.lib.model.QuestionSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterRadioButton(override var myOnItemClickListener: OnItemClickListener?, val configuracao: ConfiguracaoFormulario) : AdapterGeneric<Spinnable, ViewHolderRadioButton>() {
+class AdapterRadioButton(val configuracao: QuestionSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderRadioButton>() {
 
     override val layout: Int = R.layout.adapter_radiobutton
 
@@ -20,7 +20,7 @@ class AdapterRadioButton(override var myOnItemClickListener: OnItemClickListener
     }
 
     override fun onBindViewHolder(holder: ViewHolderRadioButton, position: Int) {
-        holder.popular(getLista()[position], myOnItemClickListener, configuracao)
+        holder.popular(getList()[position], myOnItemClickListener, configuracao)
     }
 
 }

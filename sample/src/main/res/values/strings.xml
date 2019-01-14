@@ -5,4 +5,7 @@
     <string name="existem_perguntas_nao_respondidas">Existem perguntas não respondidas</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
+    <string name="answers">Respostas</string>
+    <string name="new_register">Novo Cadastro</string>
+    <string name="register">Cadastrar</string>
 </resources>

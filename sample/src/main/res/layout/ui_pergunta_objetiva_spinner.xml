@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:padding="@dimen/respiro_visual_card"
+        tools:text="@tools:sample/full_names"
         tools:visibility="gone" />
 
     <LinearLayout
@@ -32,7 +33,7 @@
                 android:layout_toLeftOf="@+id/indicador"
                 tools:text="@tools:sample/full_names" />
 
-            <br.redcode.dataform.lib.ui.Indicador
+            <br.redcode.dataform.lib.ui.UIIndicator
                 android:id="@+id/indicador"
                 android:layout_width="25dp"
                 android:layout_height="25dp"

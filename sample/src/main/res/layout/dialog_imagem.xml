@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Novo Cadastro"
+        android:text="@string/new_register"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
@@ -20,12 +21,14 @@
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
-        android:src="@color/cardview_dark_background" />
+        android:src="@color/cardview_dark_background"
+        tools:src="@tools:sample/avatars" />
 
     <EditText
         android:id="@+id/editTextLegenda"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/full_names" />
 
     <Button
         android:id="@+id/buttonOk"
@@ -35,6 +38,6 @@
         android:layout_marginTop="10dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
-        android:text="Cadastrar" />
+        android:text="@string/register" />
 
 </LinearLayout>

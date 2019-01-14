@@ -13,13 +13,13 @@ class JSONReader(val context: Context) {
 
     fun getStringFromJson(@RawRes raw: Int): String {
         val sb = StringBuffer()
-        val br = BufferedReader(InputStreamReader(context.getResources().openRawResource(raw)))
+        val br = BufferedReader(InputStreamReader(context.resources.openRawResource(raw)))
 
         try {
             var temp: String? = ""
 
             while (temp != null) {
-                temp?.let {
+                temp.let {
                     if (it.isNotEmpty()) {
                         sb.append(it)
                     }
@@ -38,7 +38,7 @@ class JSONReader(val context: Context) {
         }
 
         val resultado = sb.toString()
-        Utils.log("JSON lido: " + resultado)
+        Utils.log("JSON lido: $resultado")
         return resultado
     }
 

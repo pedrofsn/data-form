@@ -1,41 +1,41 @@
 {
-  "configuracoes": {
-    "exibirIndicadorErro": true,
-    "exibirIndicadorInformacao": false,
+  "settings": {
+    "showIndicatorError": true,
+    "showIndicatorInformation": false,
     "exibirInformacaoAntesDaPergunta": false,
-    "editavel": true,
-    "corBackgroundFormulario": "#FFFFFF"
+    "editable": true,
+    "backgroundColor": "#FFFFFF"
   },
-  "perguntas": [
+  "questions": [
     {
       "id": 1,
-      "descricao": "Qual é o seu nome?",
-      "formato": "textual",
-      "obrigatoria": "true",
-      "resposta": {
-        "resposta": "Pedro Francisco de Sousa Neto"
+      "description": "Qual é o seu nome?",
+      "type": "textual",
+      "required": "true",
+      "answer": {
+        "answer": "Pedro Francisco de Sousa Neto"
       }
     },
     {
       "id": 2,
-      "descricao": "Qual é seu e-mail?",
-      "formato": "textual",
-      "tipo": "email",
-      "obrigatoria": "false"
+      "description": "Qual é seu e-mail?",
+      "type": "textual",
+      "format": "email",
+      "required": "false"
     },
     {
       "id": 3,
-      "descricao": "Qual é o seu CPF?",
-      "formato": "textual",
-      "tipo": "cpf",
-      "obrigatoria": "true"
+      "description": "Qual é o seu CPF?",
+      "type": "textual",
+      "format": "cpf",
+      "required": "true"
     },
     {
       "id": 4,
-      "descricao": "Qual é o seu estado civil?",
-      "formato": "objetiva_spinner",
-      "obrigatoria": "true",
-      "alternativas": [
+      "description": "Qual é o seu estado civil?",
+      "type": "objetiva_spinner",
+      "required": "true",
+      "options": [
         {
           "id": "0",
           "description": "Solteiro"
@@ -49,8 +49,8 @@
           "description": "Não informado"
         }
       ],
-      "resposta": {
-        "alternativa": {
+      "answer": {
+        "option": {
           "id": "2",
           "selected": true
         }
@@ -58,10 +58,10 @@
     },
     {
       "id": 5,
-      "descricao": "Do you speak english?",
-      "formato": "objetiva_spinner",
-      "obrigatoria": "false",
-      "alternativas": [
+      "description": "Do you speak english?",
+      "type": "objetiva_spinner",
+      "required": "false",
+      "options": [
         {
           "id": "0",
           "description": "Yes"
@@ -71,8 +71,8 @@
           "description": "No"
         }
       ],
-      "resposta": {
-        "alternativa": {
+      "answer": {
+        "option": {
           "id": "1",
           "description": "yes",
           "selected": true
@@ -81,10 +81,10 @@
     },
     {
       "id": 6,
-      "descricao": "Fale sobre você",
-      "formato": "textual",
-      "tipo": "multi",
-      "obrigatoria": "false"
+      "description": "Fale sobre você",
+      "type": "textual",
+      "format": "multi",
+      "required": "false"
     }
   ]
 }

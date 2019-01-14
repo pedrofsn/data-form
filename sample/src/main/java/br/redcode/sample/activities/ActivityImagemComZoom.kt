@@ -16,7 +16,7 @@ class ActivityImagemComZoom(override var ativarBotaoVoltar: Boolean = true) : Ac
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_imagem_com_zoom)
 
-        val imagem: String = intent.getStringExtra("imagem")
+        val imagem: String = intent.getStringExtra("image")
         (photoView as ImageView).load(imagem)
     }
 
