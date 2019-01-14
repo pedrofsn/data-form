@@ -3,9 +3,9 @@ package br.redcode.dataform.lib.ui
 import android.view.View
 import android.widget.Spinner
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
-import br.com.redcode.spinnable.library.extensions_functions.setSpinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.extension.setSpinnable2
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Question
@@ -31,7 +31,7 @@ class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSetti
 
         question.options?.let {
             val idPreSelecionado = question.answer?.option?.id.toString()
-            spinner.setSpinnable(it, true, idPreSelecionado)
+            spinner.setSpinnable2(it, true, idPreSelecionado)
         }
 
         spinner.isEnabled = configuracao.editable
