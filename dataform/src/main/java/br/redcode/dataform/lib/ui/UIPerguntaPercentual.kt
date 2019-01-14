@@ -6,7 +6,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaPercentual(contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_percentual, pergunta, configuracao), Perguntavel {
+class UIPerguntaPercentual(contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_percentual, pergunta, configuracao), Questionable {
 
     private lateinit var seekBar: SeekBar
     private lateinit var textView: TextView
@@ -65,18 +65,18 @@ class UIPerguntaPercentual(contextActivity: Context, pergunta: Pergunta, configu
         textView.text = progress.toString().plus("%")
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val resposta = Resposta(resposta = seekBar.progress.toString())
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
+    override fun isFilledCorrect(): Boolean {
         return true
     }
 
-    override fun getMensagemErroPreenchimento(): String {
+    override fun getMessageErrorFill(): String {
         return Constantes.STRING_VAZIA
     }
 

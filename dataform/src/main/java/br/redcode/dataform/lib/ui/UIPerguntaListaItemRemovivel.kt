@@ -12,7 +12,7 @@ import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -21,7 +21,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaListaItemRemovivel(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, private val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Perguntavel {
+class UIPerguntaListaItemRemovivel(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario, private val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_lista_item_removivel, pergunta, configuracao), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
@@ -78,18 +78,18 @@ class UIPerguntaListaItemRemovivel(private val contextActivity: Context, pergunt
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
-        if (isPreenchidoCorretamente()) indicador.hide()
+        if (isFilledCorrect()) indicador.hide()
         relativeLayout.visibility = if (configuracao.editavel) View.VISIBLE else View.GONE
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val resposta = Resposta(respostas = ArrayList(adapter.getLista()))
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }
 
-    override fun isPreenchidoCorretamente() = adapter.getLista().size in pergunta.getLimiteMaximo()..pergunta.getLimiteMinimo()
-    override fun getMensagemErroPreenchimento() = String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - adapter.getLista().size))
+    override fun isFilledCorrect() = adapter.getLista().size in pergunta.getLimiteMaximo()..pergunta.getLimiteMinimo()
+    override fun getMessageErrorFill() = String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - adapter.getLista().size))
 
 }

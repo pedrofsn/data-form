@@ -89,7 +89,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         }
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val resposta = Resposta()
         resposta.imagens = adapter.getLista()
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
@@ -97,11 +97,11 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
+    override fun isFilledCorrect(): Boolean {
         return isDentroDoLimiteMinimo() && isDentroDoLimiteMaximo()
     }
 
-    override fun getMensagemErroPreenchimento(): String {
+    override fun getMessageErrorFill(): String {
         return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeAtual()))
     }
 
@@ -111,7 +111,7 @@ class UIPerguntaImagem(val contextActivity: Context, pergunta: Pergunta, configu
         textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
-        if (isPreenchidoCorretamente()) indicador.hide()
+        if (isFilledCorrect()) indicador.hide()
 
         recyclerView.visibility = if (tamanho > 0) View.VISIBLE else View.GONE
         relativeLayout.visibility = if (configuracao.editavel) View.VISIBLE else View.GONE

@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.domain.handlers.HandlerCapturaImagem
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.FormularioDePerguntas
 
 /**
@@ -68,10 +68,10 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
         var quantidadePerguntasPreenchidasCorretamente = 0
 
         for (ui in perguntasUI) {
-            val obrigatoria = ui.isObrigatoria()
-            val isPreenchidoCorretamente = if (obrigatoria) ui.isPreenchidoCorretamente() else true
+            val obrigatoria = ui.isRequired()
+            val isPreenchidoCorretamente = if (obrigatoria) ui.isFilledCorrect() else true
 
-            ui.exibirMensagemErroPreenchimento(isPreenchidoCorretamente)
+            ui.showMessageForErrorFill(isPreenchidoCorretamente)
             quantidadePerguntasPreenchidasCorretamente += if (isPreenchidoCorretamente) 1 else 0
         }
 
@@ -80,7 +80,7 @@ class UIAgregadorPerguntas(val context: Context, val formularioDePerguntas: Form
 
     fun obterRespostas() {
         for (ui in perguntasUI) {
-            (ui as Perguntavel).getResposta().idPergunta = ui.pergunta.id
+            (ui as Questionable).getAnswer().idPergunta = ui.pergunta.id
         }
     }
 

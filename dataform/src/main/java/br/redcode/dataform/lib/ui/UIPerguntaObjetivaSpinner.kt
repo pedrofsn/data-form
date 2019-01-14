@@ -7,7 +7,7 @@ import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpi
 import br.com.redcode.spinnable.library.extensions_functions.setSpinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaObjetivaSpinner(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Perguntavel {
+class UIPerguntaObjetivaSpinner(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_spinner, pergunta, configuracao), Questionable {
 
     private lateinit var spinner: Spinner
 
@@ -36,7 +36,7 @@ class UIPerguntaObjetivaSpinner(private val contextActivity: Context, pergunta: 
         spinner.isEnabled = configuracao.editavel
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val spinnable = spinner.getSpinnableFromSpinner(pergunta.alternativas)
         val resposta = Resposta()
 
@@ -50,7 +50,7 @@ class UIPerguntaObjetivaSpinner(private val contextActivity: Context, pergunta: 
         return resposta
     }
 
-    override fun isPreenchidoCorretamente() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
-    override fun getMensagemErroPreenchimento() = contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
+    override fun getMessageErrorFill() = contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
 
 }

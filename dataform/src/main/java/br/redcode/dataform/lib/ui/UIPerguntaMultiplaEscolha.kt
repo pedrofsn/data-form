@@ -7,7 +7,7 @@ import br.redcode.dataform.lib.adapter.AdapterCheckBox
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.model.Resposta
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaMultiplaEscolha(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Perguntavel, OnItemClickListener {
+class UIPerguntaMultiplaEscolha(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Questionable, OnItemClickListener {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -62,23 +62,23 @@ class UIPerguntaMultiplaEscolha(private val contextActivity: Context, pergunta: 
         }
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val resposta = Resposta(alternativas = adapter.getLista())
         if (pergunta.resposta != null) resposta.tag = pergunta.resposta?.tag
         pergunta.resposta = resposta
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
+    override fun isFilledCorrect(): Boolean {
         val countMarcadas = getQuantidadeAlternativasMarcadas()
         return countMarcadas >= pergunta.getLimiteMinimo() && countMarcadas <= pergunta.getLimiteMaximo()
     }
 
     fun getQuantidadeAlternativasMarcadas(): Int {
-        return getResposta().alternativas?.filter { it.selected }?.size ?: 0
+        return getAnswer().alternativas?.filter { it.selected }?.size ?: 0
     }
 
-    override fun getMensagemErroPreenchimento(): String {
+    override fun getMessageErrorFill(): String {
         return String.format(contextActivity.getString(R.string.faltam_x_itens), (pergunta.getLimiteMaximo() - getQuantidadeAlternativasMarcadas()))
     }
 

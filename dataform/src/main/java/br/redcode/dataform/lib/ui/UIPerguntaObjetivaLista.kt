@@ -7,7 +7,7 @@ import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.OnItemClickListener
-import br.redcode.dataform.lib.interfaces.Perguntavel
+import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.ConfiguracaoFormulario
 import br.redcode.dataform.lib.model.Pergunta
 import br.redcode.dataform.lib.model.Resposta
@@ -16,7 +16,7 @@ import br.redcode.dataform.lib.utils.Constantes
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIPerguntaObjetivaLista(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Perguntavel, OnItemClickListener {
+class UIPerguntaObjetivaLista(private val contextActivity: Context, pergunta: Pergunta, configuracao: ConfiguracaoFormulario) : UIPerguntaGeneric(contextActivity, R.layout.ui_pergunta_objetiva_lista, pergunta, configuracao), Questionable, OnItemClickListener {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -71,7 +71,7 @@ class UIPerguntaObjetivaLista(private val contextActivity: Context, pergunta: Pe
         }
     }
 
-    override fun getResposta(): Resposta {
+    override fun getAnswer(): Resposta {
         val resposta: Resposta = if (posicaoSelecionada != Constantes.VALOR_INVALIDO) {
             Resposta(alternativa = adapter.getLista().get(posicaoSelecionada))
         } else {
@@ -83,11 +83,11 @@ class UIPerguntaObjetivaLista(private val contextActivity: Context, pergunta: Pe
         return resposta
     }
 
-    override fun isPreenchidoCorretamente(): Boolean {
+    override fun isFilledCorrect(): Boolean {
         return posicaoSelecionada != Constantes.VALOR_INVALIDO
     }
 
-    override fun getMensagemErroPreenchimento(): String {
+    override fun getMessageErrorFill(): String {
         return contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
     }
 
