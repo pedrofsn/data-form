@@ -22,18 +22,30 @@ import br.redcode.sample.utils.Utils.CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ
 import br.redcode.sample.utils.Utils.CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class ActivityMain : ActivityCapturarImagem() {
+class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
     private lateinit var agregador: UIForm
     private lateinit var formQuestions: FormQuestions
+
+    val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = io()
+
+    fun io() = job + Dispatchers.IO
+    fun main() = job + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inicializarListeners()
-        gerarListaPerguntas()
-        afterOnCreate()
+
+        launch(coroutineContext) {
+            gerarListaPerguntas()
+            afterOnCreate()
+        }
     }
 
     private fun inicializarListeners() {
@@ -53,15 +65,15 @@ class ActivityMain : ActivityCapturarImagem() {
         }
     }
 
-    fun gerarListaPerguntas() {
-        val reader = JSONReader(this)
+    private suspend fun gerarListaPerguntas() = coroutineScope() {
+        val reader = JSONReader(this@ActivityMain)
         val json = reader.getStringFromJson(R.raw.perguntas)
 
         val gson = Gson()
         formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
     }
 
-    private fun afterOnCreate() {
+    private suspend fun afterOnCreate() = coroutineScope() {
         val handlerInputPopup = object : HandlerInputPopup() {
 
             override fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
@@ -71,16 +83,20 @@ class ActivityMain : ActivityCapturarImagem() {
         }
 
         agregador = UIForm(formQuestions, handlerCapturaImagem, handlerInputPopup)
-        linearLayout.addView(agregador.getView(this))
+        val viewGenerated = agregador.getView(this@ActivityMain)
 
-        // hack
-        agregador.formQuestions.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->
-            linearLayout.findViewWithTag<EditText>("$PREFFIX_QUESTION${p.id}$SUFFIX_QUESTION_EDITTEXT").addTextChangedListener(CPFCNPJTextWatcher())
+        launch(main()) {
+            linearLayout.addView(viewGenerated)
+
+            // hack
+            agregador.formQuestions.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->
+                linearLayout.findViewWithTag<EditText>("$PREFFIX_QUESTION${p.id}$SUFFIX_QUESTION_EDITTEXT").addTextChangedListener(CPFCNPJTextWatcher())
+            }
+
+            val spinner = linearLayout.findViewWithTag<Spinner>("${PREFFIX_QUESTION}4${SUFFIX_QUESTION_SPINNER}")
+            val pergunta = linearLayout.findViewWithTag<LinearLayout>("${PREFFIX_QUESTION}5")
+            showAskIfSpinnerHasPosition3AsSelected(spinner, pergunta)
         }
-
-        val spinner = linearLayout.findViewWithTag<Spinner>("${PREFFIX_QUESTION}4${SUFFIX_QUESTION_SPINNER}")
-        val pergunta = linearLayout.findViewWithTag<LinearLayout>("${PREFFIX_QUESTION}5")
-        showAskIfSpinnerHasPosition3AsSelected(spinner, pergunta)
     }
 
     private fun showAskIfSpinnerHasPosition3AsSelected(spinner: Spinner?, pergunta: LinearLayout?) {

@@ -10,6 +10,9 @@ import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.FormQuestions
 import br.redcode.dataform.lib.utils.Constants.FORM_UI_BACKGROUND_DEFAULT_COLOR
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -18,7 +21,7 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
 
     private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
-    private fun generateUI() {
+    private fun generateUIQuestionsObjects() {
         if (formQuestions.questions.isNotEmpty()) {
             perguntasUI.clear()
 
@@ -44,21 +47,29 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
         }
     }
 
-    fun getView(context: Context): View {
-        val linearLayout = LinearLayout(context)
-        linearLayout.orientation = LinearLayout.VERTICAL
+    suspend fun getView(context: Context): View = coroutineScope {
+        val asyncLinearLayout = async(Dispatchers.IO) {
+            val linearLayout = LinearLayout(context)
+            linearLayout.orientation = LinearLayout.VERTICAL
 
-        // Alterar cor de fundo do formulário
-        val hexColor = formQuestions.settings.backgroundColor ?: FORM_UI_BACKGROUND_DEFAULT_COLOR
-        val color = Color.parseColor(hexColor)
-        linearLayout.setBackgroundColor(color)
+            // Alterar cor de fundo do formulário
+            val hexColor = formQuestions.settings.backgroundColor
+                    ?: FORM_UI_BACKGROUND_DEFAULT_COLOR
+            val color = Color.parseColor(hexColor)
+            linearLayout.setBackgroundColor(color)
 
-        generateUI()
-        for (ui in perguntasUI) {
-            linearLayout.addView(ui.initialize(context))
+
+            generateUIQuestionsObjects()
+
+            for (ui in perguntasUI) {
+                val view = ui.initialize(context)
+                linearLayout.addView(view)
+            }
+
+            return@async linearLayout
         }
 
-        return linearLayout
+        return@coroutineScope asyncLinearLayout.await()
     }
 
     fun isQuestionsFilledCorrect(): Boolean {

@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/respiro_visual_card"
             android:orientation="vertical"
-            android:text="@string/answers"
-            android:textStyle="bold" />
+            tools:text="@tools:sample/cities" />
 
     </LinearLayout>
 
