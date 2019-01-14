@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="spinnable_hint_color">@color/colorPrimaryDark</color>
-    <color name="spinnable_text_color">@color/colorAccent</color>
+    <color name="spinnable_hint_color">@android:color/darker_gray</color>
+    <color name="spinnable_text_color">@android:color/black</color>
 </resources>
