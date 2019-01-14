@@ -140,9 +140,10 @@
         "max": 1
       },
       "answer": {
-        "imagens": [
+        "images": [
           {
-            "imagem": "https://avatars3.githubusercontent.com/u/3484814"
+            "image": "https://avatars3.githubusercontent.com/u/3484814",
+            "subtitle": "@pedrofsn"
           }
         ]
       }
