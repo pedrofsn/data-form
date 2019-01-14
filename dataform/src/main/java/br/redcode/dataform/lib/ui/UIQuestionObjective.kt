@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.view.View
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
@@ -17,7 +16,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjective(private val contextActivity: Context, question: Question, settings: QuestionSettings) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -85,6 +84,6 @@ class UIQuestionObjective(private val contextActivity: Context, question: Questi
     }
 
     override fun isFilledCorrect() = indexSelected != Constants.INVALID_VALUE
-    override fun getMessageErrorFill() = contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.selecione_ao_menos_uma_alternativa)
 
 }

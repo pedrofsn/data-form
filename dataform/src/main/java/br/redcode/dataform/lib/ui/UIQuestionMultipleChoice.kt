@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.view.View
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterCheckBox
@@ -16,7 +15,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionMultipleChoice(private val contextActivity: Context, question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_list, question, configuracao), Questionable {
+class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_list, question, configuracao), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -80,7 +79,7 @@ class UIQuestionMultipleChoice(private val contextActivity: Context, question: Q
     }
 
     override fun getMessageErrorFill(): String {
-        return String.format(contextActivity.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantidadeAlternativasMarcadas()))
+        return String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantidadeAlternativasMarcadas()))
     }
 
 }

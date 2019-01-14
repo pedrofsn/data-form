@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.view.View
 import android.widget.Spinner
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
@@ -17,7 +16,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_SPINNER
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjectiveSpinner(private val contextActivity: Context, question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_objective_spinner, question, configuracao), Questionable {
+class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_objective_spinner, question, configuracao), Questionable {
 
     private lateinit var spinner: Spinner
 
@@ -53,6 +52,6 @@ class UIQuestionObjectiveSpinner(private val contextActivity: Context, question:
     }
 
     override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
-    override fun getMessageErrorFill() = contextActivity.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = spinner.context.getString(R.string.selecione_ao_menos_uma_alternativa)
 
 }

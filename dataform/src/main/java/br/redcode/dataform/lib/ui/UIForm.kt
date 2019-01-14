@@ -14,11 +14,11 @@ import br.redcode.dataform.lib.utils.Constants.FORM_UI_BACKGROUND_DEFAULT_COLOR
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIForm(val context: Context, val formQuestions: FormQuestions, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
+class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
 
     private val perguntasUI = ArrayList<UIPerguntaGeneric>()
 
-    fun generateUI() {
+    private fun generateUI() {
         if (formQuestions.questions.isNotEmpty()) {
             perguntasUI.clear()
 
@@ -26,16 +26,16 @@ class UIForm(val context: Context, val formQuestions: FormQuestions, val handler
 
             for (question in formQuestions.questions) {
                 val uiPergunta: UIPerguntaGeneric? = when {
-                    question.isQuestionInformativeText() -> UIQuestionInformationText(context, question, settings)
-                    question.isQuestionTextual() -> UIQuestionTextual(context, question, settings)
-                    question.isQuestionObjectiveList() -> UIQuestionObjective(context, question, settings)
-                    question.isQuestionListRemovable() -> UIQuestionListItemRemovable(context, question, settings, handlerInputPopup)
-                    question.isQuestionObjectiveSpinner() -> UIQuestionObjectiveSpinner(context, question, settings)
-                    question.isQuestionMultipleChoice() -> UIQuestionMultipleChoice(context, question, settings)
-                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(context, question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA_OU_GALERIA)
-                    question.isQuestionImageOnlyCamera() -> UIQuestionImage(context, question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA)
-                    question.isQuestionImagemOnlyGallery() -> UIQuestionImage(context, question, settings, handlerCaptureImage, UIQuestionImage.Tipo.GALERIA)
-                    question.isQuestionPercentage() -> UIQuestionPercentage(context, question, settings)
+                    question.isQuestionInformativeText() -> UIQuestionInformationText(question, settings)
+                    question.isQuestionTextual() -> UIQuestionTextual(question, settings)
+                    question.isQuestionObjectiveList() -> UIQuestionObjective(question, settings)
+                    question.isQuestionListRemovable() -> UIQuestionListItemRemovable(question, settings, handlerInputPopup)
+                    question.isQuestionObjectiveSpinner() -> UIQuestionObjectiveSpinner(question, settings)
+                    question.isQuestionMultipleChoice() -> UIQuestionMultipleChoice(question, settings)
+                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA_OU_GALERIA)
+                    question.isQuestionImageOnlyCamera() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA)
+                    question.isQuestionImagemOnlyGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.GALERIA)
+                    question.isQuestionPercentage() -> UIQuestionPercentage(question, settings)
                     else -> null
                 }
 
@@ -44,7 +44,7 @@ class UIForm(val context: Context, val formQuestions: FormQuestions, val handler
         }
     }
 
-    fun getView(): View {
+    fun getView(context: Context): View {
         val linearLayout = LinearLayout(context)
         linearLayout.orientation = LinearLayout.VERTICAL
 
@@ -55,7 +55,7 @@ class UIForm(val context: Context, val formQuestions: FormQuestions, val handler
 
         generateUI()
         for (ui in perguntasUI) {
-            linearLayout.addView(ui.initialize())
+            linearLayout.addView(ui.initialize(context))
         }
 
         return linearLayout

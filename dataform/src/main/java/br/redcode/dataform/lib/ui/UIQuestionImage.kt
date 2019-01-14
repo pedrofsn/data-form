@@ -1,11 +1,12 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.OrientationHelper
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImage
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -24,7 +25,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionImage(val contextActivity: Context, question: Question, configuracao: QuestionSettings, val handlerCaptura: HandlerCaptureImage, val tipo: Tipo) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_image, question, configuracao) {
+class UIQuestionImage(question: Question, configuracao: QuestionSettings, val handlerCaptura: HandlerCaptureImage, val tipo: Tipo) : UIPerguntaGeneric(R.layout.ui_question_image, question, configuracao) {
 
     enum class Tipo {
         CAMERA, GALERIA, CAMERA_OU_GALERIA
@@ -71,8 +72,8 @@ class UIQuestionImage(val contextActivity: Context, question: Question, configur
             linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
         }
 
-        val layoutManagerHorizontal = androidx.recyclerview.widget.LinearLayoutManager(contextActivity, androidx.recyclerview.widget.OrientationHelper.HORIZONTAL, false)
-        val layoutManagerVertical = androidx.recyclerview.widget.LinearLayoutManager(context)
+        val layoutManagerHorizontal = LinearLayoutManager(recyclerView.context, OrientationHelper.HORIZONTAL, false)
+        val layoutManagerVertical = LinearLayoutManager(recyclerView.context)
         recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
 
         atualizarContador()
@@ -87,32 +88,32 @@ class UIQuestionImage(val contextActivity: Context, question: Question, configur
 
     private fun adicionarImagem() {
         if (handlerCaptura.hasPermissoes()) {
-            if (canAdicionarMaisUmaImagem()) {
+            if (canAddMoreOne()) {
                 handlerCaptura.capturarImagem(this, tipo)
             }
         }
     }
 
     override fun getAnswer(): Answer {
-        val resposta = Answer()
-        resposta.images = adapter.getList()
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        question.answer = resposta
-        return resposta
+        val answer = Answer()
+        answer.images = adapter.getList()
+        if (question.answer != null) answer.tag = question.answer?.tag
+        question.answer = answer
+        return answer
     }
 
     override fun isFilledCorrect(): Boolean {
-        return isDentroDoLimiteMinimo() && isDentroDoLimiteMaximo()
+        return isInMin() && isInMax()
     }
 
     override fun getMessageErrorFill(): String {
-        return String.format(contextActivity.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantidadeAtual()))
+        return String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantityCurrent()))
     }
 
     private fun atualizarContador() {
-        val tamanho = getQuantidadeAtual()
+        val tamanho = getQuantityCurrent()
         val maximo = question.getLimitMax()
-        textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
+        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), tamanho, maximo)
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isFilledCorrect()) UIIndicator.hide()
@@ -122,15 +123,11 @@ class UIQuestionImage(val contextActivity: Context, question: Question, configur
     }
 
     fun adicionarImagem(image: Image) {
-        if (configuracao.editable && canAdicionarMaisUmaImagem()) {
+        if (configuracao.editable && canAddMoreOne()) {
             adapter.adicionar(image)
             adapter.notifyDataSetChanged()
             atualizarContador()
         }
-    }
-
-    private fun canAdicionarMaisUmaImagem(): Boolean {
-        return getQuantidadeAtual() + 1 <= question.getLimitMax()
     }
 
     private fun removerImagem(position: Int) {
@@ -141,16 +138,9 @@ class UIQuestionImage(val contextActivity: Context, question: Question, configur
         }
     }
 
-    fun getQuantidadeAtual(): Int {
-        return adapter.itemCount
-    }
-
-    fun isDentroDoLimiteMaximo(): Boolean {
-        return getQuantidadeAtual() <= question.getLimitMax()
-    }
-
-    fun isDentroDoLimiteMinimo(): Boolean {
-        return getQuantidadeAtual() >= question.getLimitMin()
-    }
+    fun getQuantityCurrent() = adapter.itemCount
+    fun isInMax() = getQuantityCurrent() <= question.getLimitMax()
+    fun isInMin() = getQuantityCurrent() >= question.getLimitMin()
+    private fun canAddMoreOne() = getQuantityCurrent() + 1 <= question.getLimitMax()
 
 }

@@ -38,16 +38,17 @@ class ActivityMain : ActivityCapturarImagem() {
 
     private fun inicializarListeners() {
         button.setOnClickListener {
-            if (agregador.isQuestionsFilledCorrect()) {
-                agregador.getAnswers()
-                val respostas = agregador.formQuestions.questions.toString()
+            when {
+                agregador.isQuestionsFilledCorrect() -> {
+                    agregador.getAnswers()
+                    val respostas = agregador.formQuestions.questions.toString()
 
-                Utils.log(respostas)
-                val intent = Intent(this, ActivityRespostas::class.java)
-                intent.putExtra("formularioDePerguntas", formQuestions)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
+                    Utils.log(respostas)
+                    val intent = Intent(this, ActivityRespostas::class.java)
+                    intent.putExtra("formularioDePerguntas", formQuestions)
+                    startActivity(intent)
+                }
+                else -> Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -69,8 +70,8 @@ class ActivityMain : ActivityCapturarImagem() {
             }
         }
 
-        agregador = UIForm(this, formQuestions, handlerCapturaImagem, handlerInputPopup)
-        linearLayout.addView(agregador.getView())
+        agregador = UIForm(formQuestions, handlerCapturaImagem, handlerInputPopup)
+        linearLayout.addView(agregador.getView(this))
 
         // hack
         agregador.formQuestions.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->

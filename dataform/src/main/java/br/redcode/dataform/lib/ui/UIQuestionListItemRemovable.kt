@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -24,7 +23,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionListItemRemovable(private val contextActivity: Context, question: Question, configuracao: QuestionSettings, private val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_list_item_removable, question, configuracao), Questionable {
+class UIQuestionListItemRemovable(question: Question, configuracao: QuestionSettings, private val handlerInputPopup: HandlerInputPopup) : UIPerguntaGeneric(R.layout.ui_question_list_item_removable, question, configuracao), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
@@ -74,7 +73,7 @@ class UIQuestionListItemRemovable(private val contextActivity: Context, question
     private fun atualizarContador() {
         val tamanho = adapter.itemCount
         val maximo = question.getLimitMax()
-        textViewAndamento.text = String.format(contextActivity.getString(R.string.x_barra_x), tamanho, maximo)
+        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), tamanho, maximo)
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
         if (isFilledCorrect()) UIIndicator.hide()
@@ -89,6 +88,6 @@ class UIQuestionListItemRemovable(private val contextActivity: Context, question
     }
 
     override fun isFilledCorrect() = adapter.getList().size in question.getLimitMax()..question.getLimitMin()
-    override fun getMessageErrorFill() = String.format(contextActivity.getString(R.string.faltam_x_itens), (question.getLimitMax() - adapter.getList().size))
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - adapter.getList().size))
 
 }

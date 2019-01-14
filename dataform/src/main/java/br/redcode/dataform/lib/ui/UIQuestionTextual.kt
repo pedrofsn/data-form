@@ -1,6 +1,5 @@
 package br.redcode.dataform.lib.ui
 
-import android.content.Context
 import android.graphics.Typeface
 import android.text.InputType
 import android.text.method.ScrollingMovementMethod
@@ -22,7 +21,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionTextual(private val contextActivity: Context, question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(contextActivity, R.layout.ui_question_textual, question, configuracao), Questionable {
+class UIQuestionTextual(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_textual, question, configuracao), Questionable {
 
     private lateinit var editText: EditText
 
@@ -69,6 +68,6 @@ class UIQuestionTextual(private val contextActivity: Context, question: Question
     }
 
     override fun isFilledCorrect() = editText.text.toString().trim().isNotEmpty()
-    override fun getMessageErrorFill() = contextActivity.getString(R.string.o_campo_de_texto_nao_foi_preenchido)
+    override fun getMessageErrorFill() = editText.context.getString(R.string.o_campo_de_texto_nao_foi_preenchido)
 
 }
