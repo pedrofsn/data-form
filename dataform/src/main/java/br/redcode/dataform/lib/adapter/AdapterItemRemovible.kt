@@ -11,7 +11,7 @@ import br.redcode.dataform.lib.model.QuestionSettings
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterItemRemovible(val configuracao: QuestionSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderItemRemovible>() {
+class AdapterItemRemovible(val settings: QuestionSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderItemRemovible>() {
 
     override val layout: Int = R.layout.adapter_item_removable
 
@@ -20,6 +20,6 @@ class AdapterItemRemovible(val configuracao: QuestionSettings, override var myOn
     }
 
     override fun onBindViewHolder(holder: ViewHolderItemRemovible, position: Int) {
-        holder.popular(getList()[position], myOnItemClickListener, configuracao)
+        holder.popular(getList()[position], myOnItemClickListener, settings)
     }
 }

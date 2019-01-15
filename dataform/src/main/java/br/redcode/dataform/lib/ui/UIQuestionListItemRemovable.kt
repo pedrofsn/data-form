@@ -23,14 +23,14 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionListItemRemovable(question: Question, configuracao: QuestionSettings, private val handlerInputPopup: HandlerInputPopup) : UIQuestionBase(R.layout.ui_question_list_item_removable, question, configuracao), Questionable {
+class UIQuestionListItemRemovable(question: Question, settings: QuestionSettings, private val handlerInputPopup: HandlerInputPopup) : UIQuestionBase(R.layout.ui_question_list_item_removable, question, settings), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView
     private lateinit var linearLayoutAdicionar: LinearLayout
     private lateinit var relativeLayout: RelativeLayout
 
-    private val adapter = AdapterItemRemovible(configuracao) { position: Int -> removerItemDaLista(position) }
+    private val adapter = AdapterItemRemovible(settings) { position: Int -> removerItemDaLista(position) }
 
     override fun initView(view: View) {
         super.initView(view)

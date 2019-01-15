@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_objective_spinner, question, configuracao), Questionable {
+class UIQuestionObjectiveSpinner(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_objective_spinner, question, settings), Questionable {
 
     private lateinit var spinner: Spinner
 

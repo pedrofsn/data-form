@@ -18,7 +18,7 @@ class UIIndicator : ImageView {
 
     private var isError: Boolean = false
     private var message: String = EMPTY_STRING
-    var configuracao: QuestionSettings = QuestionSettings()
+    var settings: QuestionSettings = QuestionSettings()
 
     constructor(context: Context) : super(context) {
         inicializar()
@@ -35,14 +35,14 @@ class UIIndicator : ImageView {
     private fun inicializar() {
         hide()
 
-        if (configuracao.hasIndicator()) {
+        if (settings.hasIndicator()) {
             isError = false
             setOnClickListener { exibirAlerta() }
         }
     }
 
     fun setErro(msg: String) {
-        if (msg.isNotEmpty() && configuracao.showIndicatorError) {
+        if (msg.isNotEmpty() && settings.showIndicatorError) {
             isError = true
             message = msg
             show()
@@ -51,7 +51,7 @@ class UIIndicator : ImageView {
     }
 
     fun setInformacao(msg: String) {
-        if (msg.isNotEmpty() && configuracao.showIndicatorInformation) {
+        if (msg.isNotEmpty() && settings.showIndicatorInformation) {
             isError = false
             message = msg
             show()

@@ -28,9 +28,9 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
         imageViewRemover = itemView.findViewById(R.id.imageViewRemover)
     }
 
-    fun popular(obj: Image, callback: CallbackViewHolderImage, configuracao: QuestionSettings) {
+    fun popular(obj: Image, callback: CallbackViewHolderImage, settings: QuestionSettings) {
         popular(obj, callback)
-        imageViewRemover.visibility = if (configuracao.editable) View.VISIBLE else View.GONE
+        imageViewRemover.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }
 
 }
