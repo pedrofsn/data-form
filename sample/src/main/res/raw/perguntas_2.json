@@ -72,11 +72,12 @@
         }
       ],
       "answer": {
-        "option": {
-          "id": "0",
-          "description": "Masculino",
-          "selected": true
-        }
+        "options": [
+          {
+            "id": "0",
+            "selected": true
+          }
+        ]
       }
     },
     {
@@ -178,11 +179,12 @@
         }
       ],
       "answer": {
-        "option": {
-          "id": "1",
-          "description": "casado",
-          "selected": true
-        }
+        "options": [
+          {
+            "id": "1",
+            "selected": true
+          }
+        ]
       }
     },
     {

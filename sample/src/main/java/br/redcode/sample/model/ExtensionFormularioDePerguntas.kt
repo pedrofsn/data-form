@@ -15,16 +15,15 @@ fun FormQuestions.toListDTO(): ArrayList<PayloadAnswer> {
 
     questions.let {
 
-        val respostas = it.filter { question: Question -> question.answer?.hasResposta() == true }.map { it.answer }
+        val respostas = it.filter { question: Question -> question.answer?.hasAnswer() == true }.map { it.answer }
 
         for (r in respostas) {
             r?.let {
-                val (id, answer, option, options, images) = it
+                val (id, answer, options, images) = it
                 var dto: PayloadAnswer? = null
 
                 if (id != null) {
                     answer?.let { dto = PayloadAnswer(id, answer) }
-                    option?.let { dto = PayloadAnswer(id, option.id) }
                     options?.let { dto = PayloadAnswer(id, options) }
 
                     options?.let {
