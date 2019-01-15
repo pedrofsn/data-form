@@ -65,7 +65,7 @@ class UIQuestionListItemRemovable(question: Question, settings: QuestionSettings
 
     private fun removerItemDaLista(position: Int) {
         if (settings.editable) {
-            adapter.remover(position)
+            adapter.remove(position)
             atualizarContador()
         }
     }

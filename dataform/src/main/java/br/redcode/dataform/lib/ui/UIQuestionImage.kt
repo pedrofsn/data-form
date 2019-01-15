@@ -1,6 +1,8 @@
 package br.redcode.dataform.lib.ui
 
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -38,7 +40,7 @@ class UIQuestionImage(question: Question, settings: QuestionSettings, val handle
 
     val callback = object : CallbackViewHolderImage {
         override fun removeImage(position: Int) {
-            this@UIQuestionImage.removerImagem(position)
+            this@UIQuestionImage.removeImage(position)
         }
 
         override fun visualizeImage(image: Image) {
@@ -69,24 +71,26 @@ class UIQuestionImage(question: Question, settings: QuestionSettings, val handle
         linearLayoutAdicionar.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_LINEAR_LAYOUT"
 
         if (settings.editable) {
-            linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
+            linearLayoutAdicionar.setOnClickListener { addImage() }
         }
 
         val layoutManagerHorizontal = LinearLayoutManager(recyclerView.context, OrientationHelper.HORIZONTAL, false)
         val layoutManagerVertical = LinearLayoutManager(recyclerView.context)
         recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
 
-        atualizarContador()
+        updateCounter()
+        fillAnswer()
+    }
 
-        // Resposta pré-preenchida
+    private fun fillAnswer() {
         question.answer?.images?.let {
             adapter.setLista(it)
             adapter.notifyDataSetChanged()
-            atualizarContador()
+            updateCounter()
         }
     }
 
-    private fun adicionarImagem() {
+    private fun addImage() {
         if (handlerCaptureImage.hasPermissoes()) {
             if (canAddMoreOne()) {
                 handlerCaptureImage.capturarImagem(this, tipo)
@@ -102,39 +106,34 @@ class UIQuestionImage(question: Question, settings: QuestionSettings, val handle
         return answer
     }
 
-    override fun isFilledCorrect(): Boolean {
-        return isInMin() && isInMax()
-    }
+    override fun isFilledCorrect() = isInMin() && isInMax()
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantityCurrent()))
 
-    override fun getMessageErrorFill(): String {
-        return String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantityCurrent()))
-    }
+    private fun updateCounter() {
+        val current = getQuantityCurrent()
+        val max = question.getLimitMax()
+        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), current, max)
 
-    private fun atualizarContador() {
-        val tamanho = getQuantityCurrent()
-        val maximo = question.getLimitMax()
-        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), tamanho, maximo)
-
-        linearLayoutAdicionar.isEnabled = tamanho != maximo
+        linearLayoutAdicionar.isEnabled = current != max
         if (isFilledCorrect()) uiIndicator.hide()
 
-        recyclerView.visibility = if (tamanho > 0) View.VISIBLE else View.GONE
-        relativeLayout.visibility = if (settings.editable) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (current > 0) VISIBLE else GONE
+        relativeLayout.visibility = if (settings.editable) VISIBLE else GONE
     }
 
-    fun adicionarImagem(image: Image) {
+    fun addImage(image: Image) {
         if (settings.editable && canAddMoreOne()) {
             adapter.adicionar(image)
             adapter.notifyDataSetChanged()
-            atualizarContador()
+            updateCounter()
         }
     }
 
-    private fun removerImagem(position: Int) {
+    private fun removeImage(position: Int) {
         if (settings.editable) {
-            adapter.remover(position)
+            adapter.remove(position)
             adapter.notifyDataSetChanged()
-            atualizarContador()
+            updateCounter()
         }
     }
 
