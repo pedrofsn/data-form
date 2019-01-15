@@ -90,9 +90,9 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
     private suspend fun afterOnCreate() = coroutineScope() {
         val handlerInputPopup = object : HandlerInputPopup() {
 
-            override fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
-                super.chamarPopup(idPergunta, functionAdicionarItem)
-                abrirPopup(idPergunta, functionAdicionarItem)
+            override fun chamarPopup(idQuestion: Long, functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit) {
+                super.chamarPopup(idQuestion, functionAdicionarItem)
+                abrirPopup(idQuestion, functionAdicionarItem)
             }
         }
 
@@ -137,15 +137,15 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
         }
     }
 
-    private fun abrirPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
-        when (idPergunta) {
-            888 ->
-                functionAdicionarItem.invoke(idPergunta, Spinnable("Título", "Teste"/*, auxiliar = Calendar.getInstance().toString()*/))
+    private fun abrirPopup(idQuestion: Long, functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit) {
+        when (idQuestion) {
+            888.toLong() ->
+                functionAdicionarItem.invoke(idQuestion, Spinnable("Título", "Teste"/*, auxiliar = Calendar.getInstance().toString()*/))
             else -> {
                 DialogCheckin.customShow(this@ActivityMain, object : OnPosicaoCadastrada {
                     override fun onPosicaoCadastrada(latitude: String, longitude: String) {
                         val obj = Spinnable(latitude, longitude)
-                        functionAdicionarItem.invoke(idPergunta, obj)
+                        functionAdicionarItem.invoke(idQuestion, obj)
                     }
                 })
             }

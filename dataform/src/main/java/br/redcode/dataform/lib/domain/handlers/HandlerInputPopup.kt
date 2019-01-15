@@ -8,10 +8,10 @@ import br.redcode.dataform.lib.utils.Constants.INVALID_VALUE
  */
 abstract class HandlerInputPopup {
 
-    var idPergunta = INVALID_VALUE
+    var idQuestion = INVALID_VALUE.toLong()
 
-    open fun chamarPopup(idPergunta: Int, functionAdicionarItem: (idPergunta: Int, spinnable: Spinnable) -> Unit) {
-        this.idPergunta = idPergunta
+    open fun chamarPopup(idQuestion: Long, functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit) {
+        this.idQuestion = idQuestion
     }
 
 }
