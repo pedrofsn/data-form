@@ -10,6 +10,6 @@ import kotlinx.android.parcel.RawValue
  */
 @Parcelize
 data class PayloadAnswer(
-        val id: Int,
+        val id: Long,
         val resposta: @RawValue Any
 ) : Parcelable

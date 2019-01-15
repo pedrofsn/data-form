@@ -22,7 +22,7 @@ import kotlinx.android.parcel.RawValue
  */
 @Parcelize
 data class Question(
-        val id: Int,
+        val id: Long,
         val description: String,
         val type: String,
         var answer: Answer? = Answer(),

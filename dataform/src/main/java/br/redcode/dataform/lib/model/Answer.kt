@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Answer(
-        var id: Int? = null,
+        var id: Long? = null,
         var answer: String? = null,
         var options: ArrayList<Spinnable>? = null,
         var images: ArrayList<Image>? = null,
@@ -24,4 +24,3 @@ data class Answer(
     fun hasAnswer() = id != null && (hasText() || hasOptions() || hasImages())
 
 }
-
