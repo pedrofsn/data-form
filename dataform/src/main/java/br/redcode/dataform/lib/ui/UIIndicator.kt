@@ -46,7 +46,7 @@ class UIIndicator : ImageView {
             isError = true
             message = msg
             show()
-            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_erro))
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.error))
         }
     }
 
@@ -55,7 +55,7 @@ class UIIndicator : ImageView {
             isError = false
             message = msg
             show()
-            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_informacao))
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.information))
         }
     }
 
