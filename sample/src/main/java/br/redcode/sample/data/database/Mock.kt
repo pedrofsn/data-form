@@ -1,9 +1,12 @@
 package br.redcode.sample.data.database
 
+import br.redcode.sample.utils.Utils
+
 object Mock {
 
     fun seedDatabase() {
-        // TODO
+        Utils.log("Mock -> seedDatabase - start")
+        Utils.log("Mock -> seedDatabase - end")
     }
 
 }

@@ -1,8 +1,10 @@
 package br.redcode.sample.data.dao
 
-import br.redcode.sample.data.entities.QuestionEntity
+import androidx.room.Dao
+import br.redcode.sample.data.entities.EntityQuestion
 
-interface QuestionDAO : BaseDAO<QuestionEntity> {
+@Dao
+interface QuestionDAO : BaseDAO<EntityQuestion> {
 
 //    @Language("RoomSql")
 //    @Query("SELECT question_id as idPlace, latitude, longitude, address FROM places where user_id like :idUser")
