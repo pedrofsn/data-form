@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -41,4 +42,7 @@ dependencies {
     // ORM
     implementation 'androidx.room:room-runtime:2.1.0-alpha03'
     kapt 'androidx.room:room-compiler:2.1.0-alpha03'
+
+    // SQL Navigation
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
 }
