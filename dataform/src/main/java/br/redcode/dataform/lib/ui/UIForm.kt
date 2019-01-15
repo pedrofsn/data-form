@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.Questionable
@@ -19,7 +19,7 @@ import kotlinx.coroutines.coroutineScope
  */
 class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
 
-    private val perguntasUI = ArrayList<UIPerguntaGeneric>()
+    private val perguntasUI = ArrayList<UIQuestionBase>()
 
     private fun generateUIQuestionsObjects() {
         if (formQuestions.questions.isNotEmpty()) {
@@ -28,7 +28,7 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
             val settings = formQuestions.settings
 
             for (question in formQuestions.questions) {
-                val uiPergunta: UIPerguntaGeneric? = when {
+                val uiPergunta: UIQuestionBase? = when {
                     question.isQuestionInformativeText() -> UIQuestionInformationText(question, settings)
                     question.isQuestionTextual() -> UIQuestionTextual(question, settings)
                     question.isQuestionObjectiveList() -> UIQuestionObjective(question, settings)
@@ -76,7 +76,7 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
         var quantityQuestionsFilledCorrect = 0
 
         for (ui in perguntasUI) {
-            val required = ui.isRequired()
+            val required = ui.question.required
             val isFilledCorrect = if (required) ui.isFilledCorrect() else true
 
             ui.showMessageForErrorFill(isFilledCorrect)

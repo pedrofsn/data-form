@@ -3,7 +3,7 @@ package br.redcode.dataform.lib.ui
 import android.view.View
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterCheckBox
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_list, question, configuracao), Questionable {
+class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_list, question, configuracao), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -29,7 +29,7 @@ class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSetting
     override fun populateView() {
         super.populateView()
         recyclerView.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_RECYCLERVIEW"
-        adapter = AdapterCheckBox(configuracao, onItemClickListener)
+        adapter = AdapterCheckBox(settings, onItemClickListener)
 
         question.options?.let {
             adapter.setLista(it)

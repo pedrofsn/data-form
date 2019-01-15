@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
-import br.redcode.dataform.lib.interfaces.CallbackViewHolderImagem
+import br.redcode.dataform.lib.interfaces.CallbackViewHolderImage
 import br.redcode.dataform.lib.model.Image
 import br.redcode.dataform.lib.model.QuestionSettings
 
@@ -16,7 +16,7 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
     private lateinit var imageViewPreview: ImageView
     private lateinit var imageViewRemover: ImageView
 
-    fun popular(obj: Image, callback: CallbackViewHolderImagem) {
+    fun popular(obj: Image, callback: CallbackViewHolderImage) {
         popular(obj)
         click(imageViewPreview, function = { callback.visualizeImage(obj) })
         click(imageViewRemover, function = { callback.removeImage(adapterPosition) })
@@ -28,7 +28,7 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
         imageViewRemover = itemView.findViewById<ImageView>(R.id.imageViewRemover)
     }
 
-    fun popular(obj: Image, callback: CallbackViewHolderImagem, configuracao: QuestionSettings) {
+    fun popular(obj: Image, callback: CallbackViewHolderImage, configuracao: QuestionSettings) {
         popular(obj, callback)
         imageViewRemover.visibility = if (configuracao.editable) View.VISIBLE else View.GONE
     }
