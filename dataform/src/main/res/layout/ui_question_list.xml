@@ -18,13 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewInformacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/respiro_visual_card"
-                tools:text="@tools:sample/full_names" />
+            <include layout="@layout/ui_question_piece_information" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,16 +31,16 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textViewLabel"
+                        android:id="@+id/textViewDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/indicador"
+                        android:layout_toLeftOf="@+id/indicator"
                         tools:text="@tools:sample/full_names" />
 
                     <br.redcode.dataform.lib.ui.UIIndicator
-                        android:id="@+id/indicador"
+                        android:id="@+id/indicator"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"

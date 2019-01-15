@@ -18,15 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewInformacao"
-                style="@style/TextoInformacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/respiro_visual_card"
-                android:visibility="gone"
-                tools:text="@tools:sample/full_names"
-                tools:visibility="visible" />
+            <include layout="@layout/ui_question_piece_information" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,28 +30,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/textViewDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/indicator"
+                        tools:text="@tools:sample/full_names" />
 
-                        <TextView
-                            android:id="@+id/textViewLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/indicador"
-                            tools:text="@tools:sample/full_names" />
-
-                        <br.redcode.dataform.lib.ui.UIIndicator
-                            android:id="@+id/indicador"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp" />
-
-                    </RelativeLayout>
+                    <br.redcode.dataform.lib.ui.UIIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp" />
 
                 </RelativeLayout>
 

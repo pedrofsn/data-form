@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textViewInformation"
+    style="@style/TextoInformacao"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/respiro_visual_card"
+    android:visibility="gone"
+    tools:text="@tools:sample/full_names"
+    tools:visibility="visible" />

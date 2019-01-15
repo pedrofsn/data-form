@@ -29,8 +29,8 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
 
-    private lateinit var textViewLabel: TextView
-    private lateinit var textViewInformacao: TextView
+    private lateinit var textViewDescription: TextView
+    private lateinit var textViewInformation: TextView
     lateinit var uiIndicator: UIIndicator
 
     open fun initialize(context: Context): View {
@@ -43,9 +43,9 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     }
 
     open fun initView(view: View) {
-        uiIndicator = view.findViewById(R.id.indicador)
-        textViewLabel = view.findViewById(R.id.textViewLabel)
-        textViewInformacao = view.findViewById(R.id.textViewInformacao)
+        uiIndicator = view.findViewById(R.id.indicator)
+        textViewDescription = view.findViewById(R.id.textViewDescription)
+        textViewInformation = view.findViewById(R.id.textViewInformation)
     }
 
     open fun populateView() {
@@ -54,13 +54,13 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
             it.setInformation(getMessageInformation())
         }
 
-        textViewLabel.text = question.getDescriptionWithSymbolRequired()
+        textViewDescription.text = question.getDescriptionWithSymbolRequired()
 
         if (settings.showIndicatorInformation.not()) {
-            textViewInformacao.text = question.information
+            textViewInformation.text = question.information
         }
 
-        textViewInformacao.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
+        textViewInformation.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
     }
 
     override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
@@ -72,7 +72,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     }
 
     override fun getMessageInformation(): String {
-        val messageDefaultLimits = question.limit?.getMessageDefault(textViewLabel.context)
+        val messageDefaultLimits = question.limit?.getMessageDefault(textViewDescription.context)
         val messageInformation = question.information
         val result = if (messageInformation?.isEmpty() == true) messageDefaultLimits else messageInformation
         return result ?: EMPTY_STRING
