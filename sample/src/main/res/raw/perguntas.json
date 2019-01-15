@@ -17,6 +17,7 @@
     {
       "id": 2,
       "description": "Qual é seu e-mail?",
+      "information": "Esta é uma mensagem de informação fora de um popup\n\nshowIndicatorInformation -> false",
       "type": "textual",
       "format": "email",
       "required": "false"

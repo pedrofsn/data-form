@@ -56,10 +56,11 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
         textViewLabel.text = question.getDescriptionWithSymbolRequired()
 
-        textViewInformacao.let {
+        if (settings.showIndicatorInformation.not()) {
             textViewInformacao.text = question.information
-            textViewInformacao.visibility = if (question.information?.length ?: 0 > 0) View.VISIBLE else View.GONE
         }
+
+        textViewInformacao.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
     }
 
     override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
