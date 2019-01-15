@@ -19,11 +19,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val configuracao: QuestionSettings) : Questionable, CoroutineScope {
-
-    private lateinit var textViewLabel: TextView
-    private lateinit var textViewInformacao: TextView
-    lateinit var UIIndicator: UIIndicator
+abstract class UIQuestionBase(val idLayout: Int, val question: Question, val settings: QuestionSettings) : Questionable, CoroutineScope {
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -31,6 +27,10 @@ abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val 
 
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
+
+    private lateinit var textViewLabel: TextView
+    private lateinit var textViewInformacao: TextView
+    lateinit var uiIndicator: UIIndicator
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
@@ -42,14 +42,14 @@ abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val 
     }
 
     open fun initView(view: View) {
-        UIIndicator = view.findViewById(R.id.indicador)
+        uiIndicator = view.findViewById(R.id.indicador)
         textViewLabel = view.findViewById(R.id.textViewLabel)
         textViewInformacao = view.findViewById(R.id.textViewInformacao)
     }
 
     open fun populateView() {
-        UIIndicator.let {
-            it.configuracao = configuracao
+        uiIndicator.let {
+            it.configuracao = settings
             it.setInformacao(getMessageInformation())
         }
 
@@ -61,9 +61,9 @@ abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val 
         }
     }
 
-    override fun showMessageForErrorFill(isPreenchidoCorretamente: Boolean) {
-        UIIndicator.let {
-            if (isPreenchidoCorretamente.not()) it.setErro(getMessageErrorFill()) else it.hide()
+    override fun showMessageForErrorFill(isFilledRight: Boolean) {
+        uiIndicator.let {
+            if (isFilledRight.not()) it.setErro(getMessageErrorFill()) else it.hide()
         }
     }
 

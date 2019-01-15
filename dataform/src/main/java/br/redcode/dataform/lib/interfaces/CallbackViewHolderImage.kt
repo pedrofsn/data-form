@@ -6,7 +6,7 @@ import br.redcode.dataform.lib.model.Image
 /**
  * Created by pedrofsn on 07/12/17.
  */
-interface CallbackViewHolderImagem {
+interface CallbackViewHolderImage {
 
     fun removeImage(position: Int)
 

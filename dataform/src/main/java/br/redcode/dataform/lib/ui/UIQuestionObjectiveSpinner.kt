@@ -5,7 +5,7 @@ import android.widget.Spinner
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setSpinnable2
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_objective_spinner, question, configuracao), Questionable {
+class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_objective_spinner, question, configuracao), Questionable {
 
     private lateinit var spinner: Spinner
 
@@ -45,7 +45,7 @@ class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSetti
         val questionOptions = question.options?.toList() ?: emptyList()
 
         spinner.setSpinnable2(questionOptions, true, id)
-        spinner.isEnabled = configuracao.editable
+        spinner.isEnabled = settings.editable
     }
 
     override fun getAnswer(): Answer {

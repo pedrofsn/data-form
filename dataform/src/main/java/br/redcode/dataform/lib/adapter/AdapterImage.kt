@@ -5,14 +5,14 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImage
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderImageWithSubtitle
 import br.redcode.dataform.lib.domain.AdapterGeneric
-import br.redcode.dataform.lib.interfaces.CallbackViewHolderImagem
+import br.redcode.dataform.lib.interfaces.CallbackViewHolderImage
 import br.redcode.dataform.lib.model.Image
 import br.redcode.dataform.lib.model.QuestionSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterImage(val callback: CallbackViewHolderImagem, val configuracao: QuestionSettings, val comLegenda: Boolean = false) : AdapterGeneric<Image, ViewHolderImage>() {
+class AdapterImage(val callback: CallbackViewHolderImage, val configuracao: QuestionSettings, val comLegenda: Boolean = false) : AdapterGeneric<Image, ViewHolderImage>() {
 
     override var myOnItemClickListener: ((Int) -> Unit)? = null
 

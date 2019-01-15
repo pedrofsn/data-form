@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImage
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.extension.setCustomAdapter
-import br.redcode.dataform.lib.interfaces.CallbackViewHolderImagem
+import br.redcode.dataform.lib.interfaces.CallbackViewHolderImage
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Image
 import br.redcode.dataform.lib.model.Question
@@ -25,7 +25,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionImage(question: Question, configuracao: QuestionSettings, val handlerCaptura: HandlerCaptureImage, val tipo: Tipo) : UIPerguntaGeneric(R.layout.ui_question_image, question, configuracao) {
+class UIQuestionImage(question: Question, configuracao: QuestionSettings, val handlerCaptura: HandlerCaptureImage, val tipo: Tipo) : UIQuestionBase(R.layout.ui_question_image, question, configuracao) {
 
     enum class Tipo {
         CAMERA, GALERIA, CAMERA_OU_GALERIA
@@ -36,7 +36,7 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
     private lateinit var linearLayoutAdicionar: LinearLayout
     private lateinit var relativeLayout: RelativeLayout
 
-    val callback = object : CallbackViewHolderImagem {
+    val callback = object : CallbackViewHolderImage {
         override fun removeImage(position: Int) {
             this@UIQuestionImage.removerImagem(position)
         }
@@ -68,7 +68,7 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
         textViewAndamento.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_TEXTVIEW"
         linearLayoutAdicionar.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_LINEAR_LAYOUT"
 
-        if (configuracao.editable) {
+        if (settings.editable) {
             linearLayoutAdicionar.setOnClickListener { adicionarImagem() }
         }
 
@@ -116,14 +116,14 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
         textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), tamanho, maximo)
 
         linearLayoutAdicionar.isEnabled = tamanho != maximo
-        if (isFilledCorrect()) UIIndicator.hide()
+        if (isFilledCorrect()) uiIndicator.hide()
 
         recyclerView.visibility = if (tamanho > 0) View.VISIBLE else View.GONE
-        relativeLayout.visibility = if (configuracao.editable) View.VISIBLE else View.GONE
+        relativeLayout.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }
 
     fun adicionarImagem(image: Image) {
-        if (configuracao.editable && canAddMoreOne()) {
+        if (settings.editable && canAddMoreOne()) {
             adapter.adicionar(image)
             adapter.notifyDataSetChanged()
             atualizarContador()
@@ -131,7 +131,7 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
     }
 
     private fun removerImagem(position: Int) {
-        if (configuracao.editable) {
+        if (settings.editable) {
             adapter.remover(position)
             adapter.notifyDataSetChanged()
             atualizarContador()

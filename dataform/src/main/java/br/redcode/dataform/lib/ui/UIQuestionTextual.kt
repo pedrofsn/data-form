@@ -7,7 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import br.redcode.dataform.lib.R
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Question
@@ -21,7 +21,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionTextual(question: Question, configuracao: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_textual, question, configuracao), Questionable {
+class UIQuestionTextual(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_textual, question, configuracao), Questionable {
 
     private lateinit var editText: EditText
 
@@ -34,8 +34,8 @@ class UIQuestionTextual(question: Question, configuracao: QuestionSettings) : UI
         super.populateView()
         editText.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_EDITTEXT"
         question.answer?.answer?.let { editText.setText(it) }
-        editText.isEnabled = configuracao.editable
-        if (configuracao.editable.not()) {
+        editText.isEnabled = settings.editable
+        if (settings.editable.not()) {
             // TODO try to migrete from this code bellow to TextViewCompat.setTextAppearance(editText, android.R.style.TextAppearance_Widget_TextView) (FIX: https://stackoverflow.com/a/37028325/1565769)
             @Suppress("DEPRECATION")
             editText.setTextAppearance(editText.context, android.R.style.TextAppearance_Widget_TextView)

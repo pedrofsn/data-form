@@ -4,7 +4,7 @@ import android.view.View
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
-import br.redcode.dataform.lib.domain.UIPerguntaGeneric
+import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIPerguntaGeneric(R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 
@@ -31,7 +31,7 @@ class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIPe
     override fun initView(view: View) {
         super.initView(view)
         recyclerView = view.findViewById(R.id.recyclerView)
-        adapter = AdapterRadioButton(configuracao, onItemClickListener)
+        adapter = AdapterRadioButton(settings, onItemClickListener)
     }
 
     override fun populateView() {
