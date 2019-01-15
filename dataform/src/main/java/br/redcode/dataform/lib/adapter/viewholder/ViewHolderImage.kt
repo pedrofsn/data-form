@@ -24,8 +24,8 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
     }
 
     override fun popular(obj: Image) {
-        imageViewPreview = itemView.findViewById<ImageView>(R.id.imageViewPreview)
-        imageViewRemover = itemView.findViewById<ImageView>(R.id.imageViewRemover)
+        imageViewPreview = itemView.findViewById(R.id.imageViewPreview)
+        imageViewRemover = itemView.findViewById(R.id.imageViewRemover)
     }
 
     fun popular(obj: Image, callback: CallbackViewHolderImage, configuracao: QuestionSettings) {
