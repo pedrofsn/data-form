@@ -44,5 +44,6 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.1.0-alpha03'
 
     // SQL Navigation
-    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    debugImplementation 'com.idescout.sql:sqlscout-server:4.1'
+    releaseImplementation 'com.idescout.sql:sqlscout-server-noop:4.1'
 }
