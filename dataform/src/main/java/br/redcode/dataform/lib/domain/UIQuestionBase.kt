@@ -74,6 +74,4 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         return result ?: EMPTY_STRING
     }
 
-    override fun isRequired() = question.required
-
 }
