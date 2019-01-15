@@ -2,7 +2,7 @@ package br.redcode.dataform.lib.model
 
 import android.os.Parcelable
 import br.com.redcode.spinnable.library.model.Spinnable
-import br.redcode.dataform.lib.utils.Constants
+import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.utils.Constants.QUESTION_DESCRIPTION_SYMBOL_REQUIRED
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_IMAGE_ONLY_CAMERA
@@ -26,7 +26,7 @@ data class Question(
         val description: String,
         val type: String,
         var answer: Answer? = Answer(),
-        val information: String? = Constants.EMPTY_STRING,
+        val information: String? = EMPTY_STRING,
         val required: Boolean = true,
         val format: String? = null,
 

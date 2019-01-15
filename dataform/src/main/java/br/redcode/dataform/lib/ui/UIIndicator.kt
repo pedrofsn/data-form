@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import br.redcode.dataform.lib.R
-import br.redcode.dataform.lib.model.QuestionSettings
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 
 /**
@@ -16,32 +16,32 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
  */
 class UIIndicator : ImageView {
 
-    private var isError: Boolean = false
-    private var message: String = EMPTY_STRING
-    var settings: QuestionSettings = QuestionSettings()
+    private var isError = false
+    private var message = EMPTY_STRING
+    var settings = FormSettings()
 
     constructor(context: Context) : super(context) {
-        inicializar()
+        initialize()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        inicializar()
+        initialize()
     }
 
     constructor(context: Context, attrs: AttributeSet, style: Int) : super(context, attrs, style) {
-        inicializar()
+        initialize()
     }
 
-    private fun inicializar() {
+    private fun initialize() {
         hide()
 
         if (settings.hasIndicator()) {
             isError = false
-            setOnClickListener { exibirAlerta() }
+            setOnClickListener { showAlert() }
         }
     }
 
-    fun setErro(msg: String) {
+    fun setError(msg: String) {
         if (msg.isNotEmpty() && settings.showIndicatorError) {
             isError = true
             message = msg
@@ -50,7 +50,7 @@ class UIIndicator : ImageView {
         }
     }
 
-    fun setInformacao(msg: String) {
+    fun setInformation(msg: String) {
         if (msg.isNotEmpty() && settings.showIndicatorInformation) {
             isError = false
             message = msg
@@ -59,10 +59,10 @@ class UIIndicator : ImageView {
         }
     }
 
-    private fun exibirAlerta() {
+    private fun showAlert() {
         if (message.isNotEmpty()) {
             AlertDialog.Builder(context)
-                    .setTitle(context.getString(if (isError) R.string.erro else R.string.informacao))
+                    .setTitle(getTitle())
                     .setMessage(message)
                     .setPositiveButton(context.getString(R.string.ok), object : DialogInterface.OnClickListener {
                         override fun onClick(p0: DialogInterface?, p1: Int) {
@@ -71,9 +71,10 @@ class UIIndicator : ImageView {
                     })
                     .setCancelable(false)
                     .show()
-
         }
     }
+
+    private fun getTitle() = context.getString(if (isError) R.string.erro else R.string.informacao)
 
     fun show() {
         visibility = View.VISIBLE

@@ -9,7 +9,7 @@ import br.redcode.dataform.lib.ui.UIQuestionImage
  */
 interface ImageCapturable {
 
-    fun captureImage(tipo: UIQuestionImage.Tipo)
+    fun captureImage(type: UIQuestionImage.Type)
     fun hasPermissions(): Boolean
 
     fun visualizeImage(image: Image)

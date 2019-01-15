@@ -6,7 +6,7 @@ import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
 
-import br.redcode.dataform.lib.model.QuestionSettings
+import br.redcode.dataform.lib.model.FormSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -22,9 +22,9 @@ class ViewHolderRadioButton(itemView: View) : ViewHolderGeneric<Spinnable>(itemV
         radioButton.isChecked = obj.selected
     }
 
-    fun popular(obj: Spinnable, click: ((Int) -> Unit)?, questionSettings: QuestionSettings) {
+    fun popular(obj: Spinnable, click: ((Int) -> Unit)?, formSettings: FormSettings) {
         super.popular(obj, click)
-        radioButton.isEnabled = questionSettings.editable
+        radioButton.isEnabled = formSettings.editable
     }
 
 }

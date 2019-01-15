@@ -8,15 +8,15 @@ import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionMultipleChoice(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterCheckBox

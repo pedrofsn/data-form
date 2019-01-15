@@ -17,7 +17,7 @@ abstract class ActivityCaptureImage : AppCompatActivity(), ImageCapturable {
 
     val handlerCapturaImagem = HandlerCaptureImage(this)
 
-    abstract override fun captureImage(tipo: UIQuestionImage.Tipo)
+    abstract override fun captureImage(type: UIQuestionImage.Type)
 
     abstract override fun hasPermissions(): Boolean
 

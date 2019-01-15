@@ -7,8 +7,8 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_SEEKBAR
@@ -17,7 +17,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionPercentage(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_percentage, question, settings), Questionable {
+class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_percentage, question, settings), Questionable {
 
     private lateinit var seekBar: SeekBar
     private lateinit var textView: TextView

@@ -8,8 +8,8 @@ import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants
 import br.redcode.dataform.lib.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
 

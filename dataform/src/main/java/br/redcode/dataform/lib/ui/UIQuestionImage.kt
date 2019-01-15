@@ -16,9 +16,9 @@ import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.CallbackViewHolderImage
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Image
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_LINEAR_LAYOUT
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
@@ -27,9 +27,9 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionImage(question: Question, settings: QuestionSettings, val handlerCaptureImage: HandlerCaptureImage, val tipo: Tipo) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
+class UIQuestionImage(question: Question, settings: FormSettings, val handlerCaptureImage: HandlerCaptureImage, val type: Type) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
 
-    enum class Tipo {
+    enum class Type {
         CAMERA, GALLERY, CAMERA_OR_GALLERY
     }
 
@@ -50,7 +50,6 @@ class UIQuestionImage(question: Question, settings: QuestionSettings, val handle
         override fun loadImage(image: String, imageView: ImageView) {
             handlerCaptureImage.carregarImagem(image, imageView)
         }
-
     }
 
     private val comLegenda = question.customSettings?.get("subtitle") ?: false
@@ -93,7 +92,7 @@ class UIQuestionImage(question: Question, settings: QuestionSettings, val handle
     private fun addImage() {
         if (handlerCaptureImage.hasPermissoes()) {
             if (canAddMoreOne()) {
-                handlerCaptureImage.capturarImagem(this, tipo)
+                handlerCaptureImage.capturarImagem(this, type)
             }
         }
     }

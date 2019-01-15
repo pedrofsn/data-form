@@ -6,7 +6,7 @@ import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
 
-import br.redcode.dataform.lib.model.QuestionSettings
+import br.redcode.dataform.lib.model.FormSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -15,9 +15,9 @@ class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Spinnable>(itemView
 
     private lateinit var checkBox: CheckBox
 
-    fun popular(obj: Spinnable, click: ((Int) -> Unit)?, questionSettings: QuestionSettings) {
+    fun popular(obj: Spinnable, click: ((Int) -> Unit)?, formSettings: FormSettings) {
         super.popular(obj, click)
-        checkBox.isEnabled = questionSettings.editable
+        checkBox.isEnabled = formSettings.editable
     }
 
     override fun popular(obj: Spinnable) {

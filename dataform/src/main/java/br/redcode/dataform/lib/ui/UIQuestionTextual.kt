@@ -10,8 +10,8 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_EMAIL
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_MULTI
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_NUMBER
@@ -21,7 +21,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionTextual(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_textual, question, settings), Questionable {
+class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_textual, question, settings), Questionable {
 
     private lateinit var editText: EditText
 
