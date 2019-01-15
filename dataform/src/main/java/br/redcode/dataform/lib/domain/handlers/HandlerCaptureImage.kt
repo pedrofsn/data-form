@@ -18,7 +18,7 @@ class HandlerCaptureImage(val callback: ImageCapturable) {
     }
 
     fun onImagensSelecionadas(vararg imagens: Image) {
-        imagens.forEach { uiQuestionImageTemp?.adicionarImagem(it) }
+        imagens.forEach { uiQuestionImageTemp?.addImage(it) }
     }
 
     fun visualizarImagem(image: Image) {

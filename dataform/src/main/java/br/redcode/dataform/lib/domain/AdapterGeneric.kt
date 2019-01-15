@@ -36,7 +36,7 @@ abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : androidx
         notifyDataSetChanged()
     }
 
-    fun remover(position: Int) {
+    fun remove(position: Int) {
         this.lista.removeAt(position)
         notifyDataSetChanged()
     }
