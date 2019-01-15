@@ -6,6 +6,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.core.widget.TextViewCompat
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.interfaces.Questionable
@@ -36,9 +37,7 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
         question.answer?.answer?.let { editText.setText(it) }
         editText.isEnabled = settings.editable
         if (settings.editable.not()) {
-            // TODO try to migrete from this code bellow to TextViewCompat.setTextAppearance(editText, android.R.style.TextAppearance_Widget_TextView) (FIX: https://stackoverflow.com/a/37028325/1565769)
-            @Suppress("DEPRECATION")
-            editText.setTextAppearance(editText.context, android.R.style.TextAppearance_Widget_TextView)
+            TextViewCompat.setTextAppearance(editText, android.R.style.TextAppearance_Widget_TextView)
             editText.setTypeface(null, Typeface.ITALIC)
         }
 
