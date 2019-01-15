@@ -51,8 +51,10 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
             val linearLayout = LinearLayout(context)
             linearLayout.orientation = LinearLayout.VERTICAL
 
-            val color = Color.parseColor(formQuestions.getFormBackgroundColor())
-            linearLayout.setBackgroundColor(color)
+            formQuestions.settings.backgroundColor?.let {
+                val color = Color.parseColor(it)
+                linearLayout.setBackgroundColor(color)
+            }
 
             generateUIQuestionsObjects()
 
