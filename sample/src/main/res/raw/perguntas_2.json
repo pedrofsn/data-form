@@ -2,7 +2,6 @@
   "settings": {
     "showIndicatorError": true,
     "showIndicatorInformation": true,
-    "exibirInformacaoAntesDaPergunta": true,
     "editable": true,
     "backgroundColor": "#f1f1f1"
   },
