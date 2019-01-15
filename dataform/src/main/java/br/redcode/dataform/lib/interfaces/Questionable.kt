@@ -11,6 +11,6 @@ interface Questionable {
     fun isFilledCorrect(): Boolean
     fun getMessageErrorFill(): String
     fun getMessageInformation(): String
-    fun showMessageForErrorFill(isFilledRight: Boolean)
+    suspend fun showMessageForErrorFill(isFilledRight: Boolean)
 
 }

@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.ui
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterCheckBox
 import br.redcode.dataform.lib.domain.UIQuestionBase
@@ -17,8 +18,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
  */
 class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_list, question, configuracao), Questionable {
 
-    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
-
+    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterCheckBox
 
     override fun initView(view: View) {
@@ -63,23 +63,18 @@ class UIQuestionMultipleChoice(question: Question, configuracao: QuestionSetting
     }
 
     override fun getAnswer(): Answer {
-        val resposta = Answer(options = adapter.getList())
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        question.answer = resposta
-        return resposta
+        val answer = Answer(options = adapter.getList())
+        if (question.answer != null) answer.tag = question.answer?.tag
+        question.answer = answer
+        return answer
     }
 
     override fun isFilledCorrect(): Boolean {
-        val countMarcadas = getQuantidadeAlternativasMarcadas()
-        return countMarcadas >= question.getLimitMin() && countMarcadas <= question.getLimitMax()
+        val selecteds = getQuantitySelecteds()
+        return selecteds >= question.getLimitMin() && selecteds <= question.getLimitMax()
     }
 
-    fun getQuantidadeAlternativasMarcadas(): Int {
-        return getAnswer().options?.filter { it.selected }?.size ?: 0
-    }
-
-    override fun getMessageErrorFill(): String {
-        return String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantidadeAlternativasMarcadas()))
-    }
+    private fun getQuantitySelecteds() = getAnswer().options?.count { it.selected } ?: 0
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantitySelecteds()))
 
 }
