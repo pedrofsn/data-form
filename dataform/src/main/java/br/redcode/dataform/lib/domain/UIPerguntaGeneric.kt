@@ -11,15 +11,26 @@ import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.ui.UIIndicator
 import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val configuracao: QuestionSettings) : Questionable {
+abstract class UIPerguntaGeneric(val idLayout: Int, val question: Question, val configuracao: QuestionSettings) : Questionable, CoroutineScope {
 
     private lateinit var textViewLabel: TextView
     private lateinit var textViewInformacao: TextView
     lateinit var UIIndicator: UIIndicator
+
+    val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = io()
+
+    fun io() = job + Dispatchers.IO
+    fun main() = job + Dispatchers.Main
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)

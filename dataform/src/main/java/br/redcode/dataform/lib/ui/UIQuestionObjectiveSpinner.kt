@@ -3,6 +3,7 @@ package br.redcode.dataform.lib.ui
 import android.view.View
 import android.widget.Spinner
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
 import br.redcode.dataform.lib.extension.setSpinnable2
@@ -12,6 +13,9 @@ import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_SPINNER
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -29,11 +33,18 @@ class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSetti
         super.populateView()
         spinner.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_SPINNER"
 
-        question.options?.let {
-            val idPreSelecionado = question.answer?.option?.id.toString()
-            spinner.setSpinnable2(it, true, idPreSelecionado)
+        launch(main()) { fillAnswer() }
+    }
+
+    private suspend fun fillAnswer() = coroutineScope() {
+        val asyncId = async(io()) {
+            return@async question.answer?.options?.firstOrNull { it.selected }?.id
         }
 
+        val id = asyncId.await()
+        val questionOptions = question.options?.toList() ?: emptyList()
+
+        spinner.setSpinnable2(questionOptions, true, id)
         spinner.isEnabled = configuracao.editable
     }
 
@@ -42,8 +53,11 @@ class UIQuestionObjectiveSpinner(question: Question, configuracao: QuestionSetti
         val resposta = Answer()
 
         if (spinnable != null) {
-            resposta.option = spinnable
-            resposta.option?.selected = true
+            val result = arrayListOf<Spinnable>()
+            result.add(spinnable)
+
+            spinnable.selected = true
+            resposta.options = result
         }
 
         if (question.answer != null) resposta.tag = question.answer?.tag

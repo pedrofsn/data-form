@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.ui
 
 import android.view.View
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIPerguntaGeneric
@@ -10,8 +11,12 @@ import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants
+import br.redcode.dataform.lib.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -38,15 +43,27 @@ class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIPe
             recyclerView.setCustomAdapter(adapter)
         }
 
-        question.answer?.option?.let {
-            for (i in adapter.getList().indices) {
-                if (it.selected && it.id == adapter.getList().get(i).id) {
-                    indexSelected = i
-                    adapter.getList().get(i).selected = true
-                    adapter.notifyDataSetChanged()
-                    break
-                }
+        launch(main()) { fillAnswer() }
+    }
+
+    private suspend fun fillAnswer() = coroutineScope() {
+        val asyncIndex = async(io()) {
+            var indexAdapter = INVALID_VALUE
+
+            val selectedId = question.answer?.options?.firstOrNull { it.selected }?.id
+            if (selectedId?.toLong() != INVALID_VALUE.toLong()) {
+                indexAdapter = adapter.getList().indexOfFirst { selectedId == it.id }
             }
+
+            return@async indexAdapter
+        }
+
+        val index = asyncIndex.await()
+
+        if (index != INVALID_VALUE) {
+            indexSelected = index
+            adapter.getList()[index].selected = true
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -73,7 +90,11 @@ class UIQuestionObjective(question: Question, settings: QuestionSettings) : UIPe
 
     override fun getAnswer(): Answer {
         val answer: Answer = if (indexSelected != Constants.INVALID_VALUE) {
-            Answer(option = adapter.getList().get(indexSelected))
+
+            val result = arrayListOf<Spinnable>()
+            result.add(adapter.getList()[indexSelected])
+
+            Answer(options = result)
         } else {
             Answer()
         }

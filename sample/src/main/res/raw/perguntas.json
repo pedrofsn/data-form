@@ -50,10 +50,12 @@
         }
       ],
       "answer": {
-        "option": {
-          "id": "2",
-          "selected": true
-        }
+        "options": [
+          {
+            "id": "1",
+            "selected": true
+          }
+        ]
       }
     },
     {
@@ -72,11 +74,12 @@
         }
       ],
       "answer": {
-        "option": {
-          "id": "1",
-          "description": "yes",
-          "selected": true
-        }
+        "options": [
+          {
+            "id": "0",
+            "selected": true
+          }
+        ]
       }
     },
     {
