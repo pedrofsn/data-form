@@ -34,9 +34,9 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
                     question.isQuestionListRemovable() -> UIQuestionListItemRemovable(question, settings, handlerInputPopup)
                     question.isQuestionObjectiveSpinner() -> UIQuestionObjectiveSpinner(question, settings)
                     question.isQuestionMultipleChoice() -> UIQuestionMultipleChoice(question, settings)
-                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA_OU_GALERIA)
+                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA_OR_GALLERY)
                     question.isQuestionImageOnlyCamera() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.CAMERA)
-                    question.isQuestionImagemOnlyGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.GALERIA)
+                    question.isQuestionImagemOnlyGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Tipo.GALLERY)
                     question.isQuestionPercentage() -> UIQuestionPercentage(question, settings)
                     else -> null
                 }

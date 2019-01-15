@@ -57,7 +57,7 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
         val editTextLegenda: EditText = viewDialog.findViewById(R.id.editTextLegenda);
         val buttonOk: Button = viewDialog.findViewById(R.id.buttonOk);
 
-        editTextLegenda.setHint("Apenas em uma pergunta")
+        editTextLegenda.hint = getString(R.string.hint_capture_image_subtitle)
 
         loadImage(file.absolutePath, imageViewPreview)
 
@@ -103,9 +103,9 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
 
     override fun captureImage(tipo: UIQuestionImage.Tipo) {
         when (tipo) {
-            UIQuestionImage.Tipo.CAMERA_OU_GALERIA -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Tipo.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
             UIQuestionImage.Tipo.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
-            UIQuestionImage.Tipo.GALERIA -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Tipo.GALLERY -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
         }
     }
 
@@ -136,10 +136,10 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
         var temp = imagem
 
         if (imagem.startsWith("/")) {
-            temp = "file://" + imagem
+            temp = "file://$imagem"
         }
 
-        Utils.log("Carregando: " + temp)
+        Utils.log("Loading image '$temp'")
 
         imageView.load(temp)
     }

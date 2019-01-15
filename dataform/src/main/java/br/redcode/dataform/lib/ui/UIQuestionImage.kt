@@ -28,7 +28,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 class UIQuestionImage(question: Question, settings: QuestionSettings, val handlerCaptureImage: HandlerCaptureImage, val tipo: Tipo) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
 
     enum class Tipo {
-        CAMERA, GALERIA, CAMERA_OU_GALERIA
+        CAMERA, GALLERY, CAMERA_OR_GALLERY
     }
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
