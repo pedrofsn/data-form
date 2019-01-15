@@ -21,7 +21,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionTextual(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_textual, question, configuracao), Questionable {
+class UIQuestionTextual(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_textual, question, settings), Questionable {
 
     private lateinit var editText: EditText
 

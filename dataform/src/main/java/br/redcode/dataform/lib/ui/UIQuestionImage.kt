@@ -25,7 +25,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionImage(question: Question, configuracao: QuestionSettings, val handlerCaptura: HandlerCaptureImage, val tipo: Tipo) : UIQuestionBase(R.layout.ui_question_image, question, configuracao) {
+class UIQuestionImage(question: Question, settings: QuestionSettings, val handlerCaptureImage: HandlerCaptureImage, val tipo: Tipo) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
 
     enum class Tipo {
         CAMERA, GALERIA, CAMERA_OU_GALERIA
@@ -42,17 +42,17 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
         }
 
         override fun visualizeImage(image: Image) {
-            handlerCaptura.visualizarImagem(image)
+            handlerCaptureImage.visualizarImagem(image)
         }
 
         override fun loadImage(image: String, imageView: ImageView) {
-            handlerCaptura.carregarImagem(image, imageView)
+            handlerCaptureImage.carregarImagem(image, imageView)
         }
 
     }
 
     private val comLegenda = question.customSettings?.get("subtitle") ?: false
-    private val adapter by lazy { AdapterImage(callback, configuracao, comLegenda) }
+    private val adapter by lazy { AdapterImage(callback, settings, comLegenda) }
 
     override fun initView(view: View) {
         super.initView(view)
@@ -87,9 +87,9 @@ class UIQuestionImage(question: Question, configuracao: QuestionSettings, val ha
     }
 
     private fun adicionarImagem() {
-        if (handlerCaptura.hasPermissoes()) {
+        if (handlerCaptureImage.hasPermissoes()) {
             if (canAddMoreOne()) {
-                handlerCaptura.capturarImagem(this, tipo)
+                handlerCaptureImage.capturarImagem(this, tipo)
             }
         }
     }

@@ -15,7 +15,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionInformationText(question: Question, configuracao: QuestionSettings) : UIQuestionBase(R.layout.ui_question_informative_text, question, configuracao), Questionable {
+class UIQuestionInformationText(question: Question, settings: QuestionSettings) : UIQuestionBase(R.layout.ui_question_informative_text, question, settings), Questionable {
 
     private lateinit var textViewInformativo: TextView
 

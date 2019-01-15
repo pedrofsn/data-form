@@ -12,7 +12,7 @@ import br.redcode.dataform.lib.model.QuestionSettings
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterImage(val callback: CallbackViewHolderImage, val configuracao: QuestionSettings, val comLegenda: Boolean = false) : AdapterGeneric<Image, ViewHolderImage>() {
+class AdapterImage(val callback: CallbackViewHolderImage, val settings: QuestionSettings, val comLegenda: Boolean = false) : AdapterGeneric<Image, ViewHolderImage>() {
 
     override var myOnItemClickListener: ((Int) -> Unit)? = null
 
@@ -23,7 +23,7 @@ class AdapterImage(val callback: CallbackViewHolderImage, val configuracao: Ques
     }
 
     override fun onBindViewHolder(holder: ViewHolderImage, position: Int) {
-        holder.popular(getList()[position], callback, configuracao)
+        holder.popular(getList()[position], callback, settings)
     }
 
 }

@@ -50,7 +50,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
     open fun populateView() {
         uiIndicator.let {
-            it.configuracao = settings
+            it.settings = settings
             it.setInformacao(getMessageInformation())
         }
 
