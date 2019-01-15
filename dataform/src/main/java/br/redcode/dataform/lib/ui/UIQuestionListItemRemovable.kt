@@ -48,7 +48,7 @@ class UIQuestionListItemRemovable(question: Question, settings: FormSettings, pr
 
         recyclerView.setCustomAdapter(adapter, true)
 
-        val functionAdicionarItem = { idPerguntaHandler: Int, spinnable: Spinnable ->
+        val functionAdicionarItem = { idPerguntaHandler: Long, spinnable: Spinnable ->
             if (settings.editable && idPerguntaHandler == question.id) {
                 adapter.adicionar(spinnable)
                 atualizarContador()
