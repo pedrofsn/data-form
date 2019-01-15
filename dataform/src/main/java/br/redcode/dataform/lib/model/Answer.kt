@@ -21,7 +21,6 @@ data class Answer(
     fun hasOnlyOneOption() = hasOptions() && options!!.size == 1
     fun hasImages() = images != null && images?.isNotEmpty() ?: false
 
-    // TODO: testar, caso o limite mínimo seja 0, a pergunta seja obrigatória. Provavelmente será necessário remove este isNotEmpty()
     fun hasAnswer() = id != null && (hasText() || hasOptions() || hasImages())
 
 }
