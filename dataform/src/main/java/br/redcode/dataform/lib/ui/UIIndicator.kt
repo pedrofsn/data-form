@@ -64,11 +64,7 @@ class UIIndicator : ImageView {
             AlertDialog.Builder(context)
                     .setTitle(getTitle())
                     .setMessage(message)
-                    .setPositiveButton(context.getString(R.string.ok), object : DialogInterface.OnClickListener {
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-
-                        }
-                    })
+                    .setPositiveButton(context.getString(R.string.ok)) { di: DialogInterface, p1 -> di.dismiss() }
                     .setCancelable(false)
                     .show()
         }
