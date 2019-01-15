@@ -9,7 +9,6 @@ import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.FormQuestions
-import br.redcode.dataform.lib.utils.Constants.FORM_UI_BACKGROUND_DEFAULT_COLOR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -52,12 +51,8 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
             val linearLayout = LinearLayout(context)
             linearLayout.orientation = LinearLayout.VERTICAL
 
-            // Alterar cor de fundo do formulário
-            val hexColor = formQuestions.settings.backgroundColor
-                    ?: FORM_UI_BACKGROUND_DEFAULT_COLOR
-            val color = Color.parseColor(hexColor)
+            val color = Color.parseColor(formQuestions.getFormBackgroundColor())
             linearLayout.setBackgroundColor(color)
-
 
             generateUIQuestionsObjects()
 
@@ -72,21 +67,25 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
         return@coroutineScope asyncLinearLayout.await()
     }
 
-    fun isQuestionsFilledCorrect(): Boolean {
-        var quantityQuestionsFilledCorrect = 0
+    suspend fun isQuestionsFilledCorrect(): Boolean = coroutineScope {
+        val async = async(Dispatchers.IO) {
+            var quantityQuestionsFilledCorrect = 0
 
-        for (ui in perguntasUI) {
-            val required = ui.question.required
-            val isFilledCorrect = if (required) ui.isFilledCorrect() else true
+            for (ui in perguntasUI) {
+                val required = ui.question.required
+                val isFilledCorrect = if (required) ui.isFilledCorrect() else true
 
-            ui.showMessageForErrorFill(isFilledCorrect)
-            quantityQuestionsFilledCorrect += if (isFilledCorrect) 1 else 0
+                ui.showMessageForErrorFill(isFilledCorrect)
+                quantityQuestionsFilledCorrect += if (isFilledCorrect) 1 else 0
+            }
+
+            quantityQuestionsFilledCorrect == formQuestions.questions.size
         }
 
-        return quantityQuestionsFilledCorrect == formQuestions.questions.size
+        return@coroutineScope async.await()
     }
 
-    fun getAnswers() {
+    fun refreshAnswers() {
         for (ui in perguntasUI) {
             (ui as Questionable).getAnswer().id = ui.question.id
         }

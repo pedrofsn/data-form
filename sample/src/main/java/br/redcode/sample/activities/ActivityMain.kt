@@ -40,29 +40,43 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        inicializarListeners()
 
+        initializeListener()
         launch(coroutineContext) {
             gerarListaPerguntas()
             afterOnCreate()
         }
     }
 
-    private fun inicializarListeners() {
+    private fun initializeListener() {
         button.setOnClickListener {
-            when {
-                agregador.isQuestionsFilledCorrect() -> {
-                    agregador.getAnswers()
-                    val respostas = agregador.formQuestions.questions.toString()
 
-                    Utils.log(respostas)
-                    val intent = Intent(this, ActivityRespostas::class.java)
-                    intent.putExtra("formularioDePerguntas", formQuestions)
-                    startActivity(intent)
+            launch(main()) {
+                val isQuestionsFilledCorrect = agregador.isQuestionsFilledCorrect()
+
+                when {
+                    isQuestionsFilledCorrect -> {
+                        agregador.refreshAnswers()
+                        logQuestions()
+                        openAnswers()
+                    }
+                    else -> showErrorFillForm()
                 }
-                else -> Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun showErrorFillForm() = Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
+
+    private fun logQuestions() {
+        val questions = agregador.formQuestions.questions.toString()
+        Utils.log(questions)
+    }
+
+    private fun openAnswers() {
+        val intent = Intent(this, ActivityRespostas::class.java)
+        intent.putExtra("formularioDePerguntas", formQuestions)
+        startActivity(intent)
     }
 
     private suspend fun gerarListaPerguntas() = coroutineScope() {

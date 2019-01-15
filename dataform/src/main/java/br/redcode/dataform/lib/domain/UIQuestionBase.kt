@@ -14,6 +14,7 @@ import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -61,9 +62,11 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         }
     }
 
-    override fun showMessageForErrorFill(isFilledRight: Boolean) {
-        uiIndicator.let {
-            if (isFilledRight.not()) it.setErro(getMessageErrorFill()) else it.hide()
+    override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
+        launch(Dispatchers.Main) {
+            uiIndicator.let {
+                if (isFilledRight.not()) it.setErro(getMessageErrorFill()) else it.hide()
+            }
         }
     }
 
