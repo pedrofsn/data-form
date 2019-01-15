@@ -5,8 +5,8 @@ import android.widget.ImageView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
 import br.redcode.dataform.lib.interfaces.CallbackViewHolderImage
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Image
-import br.redcode.dataform.lib.model.QuestionSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -28,7 +28,7 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
         imageViewRemover = itemView.findViewById(R.id.imageViewRemover)
     }
 
-    fun popular(obj: Image, callback: CallbackViewHolderImage, settings: QuestionSettings) {
+    fun popular(obj: Image, callback: CallbackViewHolderImage, settings: FormSettings) {
         popular(obj, callback)
         imageViewRemover.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }

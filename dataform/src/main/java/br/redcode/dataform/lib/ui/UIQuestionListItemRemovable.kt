@@ -12,8 +12,8 @@ import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_LINEAR_LAYOUT
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
@@ -23,7 +23,7 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionListItemRemovable(question: Question, settings: QuestionSettings, private val handlerInputPopup: HandlerInputPopup) : UIQuestionBase(R.layout.ui_question_list_item_removable, question, settings), Questionable {
+class UIQuestionListItemRemovable(question: Question, settings: FormSettings, private val handlerInputPopup: HandlerInputPopup) : UIQuestionBase(R.layout.ui_question_list_item_removable, question, settings), Questionable {
 
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var textViewAndamento: TextView

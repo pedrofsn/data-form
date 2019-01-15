@@ -8,7 +8,7 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.ViewHolderGeneric
 import br.redcode.dataform.lib.extension.setTextOrHide
 
-import br.redcode.dataform.lib.model.QuestionSettings
+import br.redcode.dataform.lib.model.FormSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -30,7 +30,7 @@ class ViewHolderItemRemovible(itemView: View) : ViewHolderGeneric<Spinnable>(ite
         click?.let { imageViewRemoverItem.setOnClickListener { click.invoke(adapterPosition) } }
     }
 
-    fun popular(duasLinhas: Spinnable, myOnItemClickListener: ((Int) -> Unit)?, settings: QuestionSettings) {
+    fun popular(duasLinhas: Spinnable, myOnItemClickListener: ((Int) -> Unit)?, settings: FormSettings) {
         popular(duasLinhas, myOnItemClickListener)
         imageViewRemoverItem.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }

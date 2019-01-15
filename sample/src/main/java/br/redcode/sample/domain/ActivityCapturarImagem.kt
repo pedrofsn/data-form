@@ -101,11 +101,11 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
         startActivity(intent)
     }
 
-    override fun captureImage(tipo: UIQuestionImage.Tipo) {
-        when (tipo) {
-            UIQuestionImage.Tipo.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
-            UIQuestionImage.Tipo.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
-            UIQuestionImage.Tipo.GALLERY -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
+    override fun captureImage(type: UIQuestionImage.Type) {
+        when (type) {
+            UIQuestionImage.Type.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(this, getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Type.CAMERA -> EasyImage.openCameraForImage(this, RESULT_CODE_EASY_IMAGE)
+            UIQuestionImage.Type.GALLERY -> EasyImage.openGallery(this, RESULT_CODE_EASY_IMAGE)
         }
     }
 

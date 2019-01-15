@@ -6,12 +6,12 @@ import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.viewholder.ViewHolderCheckBox
 import br.redcode.dataform.lib.domain.AdapterGeneric
 
-import br.redcode.dataform.lib.model.QuestionSettings
+import br.redcode.dataform.lib.model.FormSettings
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterCheckBox(val questionSettings: QuestionSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderCheckBox>() {
+class AdapterCheckBox(val formSettings: FormSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderCheckBox>() {
 
     override val layout: Int = R.layout.adapter_checkbox
 
@@ -20,7 +20,7 @@ class AdapterCheckBox(val questionSettings: QuestionSettings, override var myOnI
     }
 
     override fun onBindViewHolder(holder: ViewHolderCheckBox, position: Int) {
-        holder.popular(getList()[position], myOnItemClickListener, questionSettings)
+        holder.popular(getList()[position], myOnItemClickListener, formSettings)
     }
 
 }

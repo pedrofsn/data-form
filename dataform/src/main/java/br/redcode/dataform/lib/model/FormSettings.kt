@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class QuestionSettings(
+data class FormSettings(
         val showIndicatorError: Boolean = true,
         val showIndicatorInformation: Boolean = true,
         val editable: Boolean = true,

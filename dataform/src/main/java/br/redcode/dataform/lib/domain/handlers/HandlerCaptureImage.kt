@@ -12,9 +12,9 @@ class HandlerCaptureImage(val callback: ImageCapturable) {
 
     var uiQuestionImageTemp: UIQuestionImage? = null
 
-    fun capturarImagem(uiQuestionImage: UIQuestionImage, tipo: UIQuestionImage.Tipo) {
+    fun capturarImagem(uiQuestionImage: UIQuestionImage, type: UIQuestionImage.Type) {
         uiQuestionImageTemp = uiQuestionImage
-        callback.captureImage(tipo)
+        callback.captureImage(type)
     }
 
     fun onImagensSelecionadas(vararg imagens: Image) {

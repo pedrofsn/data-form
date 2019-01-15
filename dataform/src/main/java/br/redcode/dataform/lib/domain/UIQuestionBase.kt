@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.interfaces.Questionable
+import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.model.QuestionSettings
 import br.redcode.dataform.lib.ui.UIIndicator
 import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
@@ -20,7 +20,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIQuestionBase(val idLayout: Int, val question: Question, val settings: QuestionSettings) : Questionable, CoroutineScope {
+abstract class UIQuestionBase(val idLayout: Int, val question: Question, val settings: FormSettings) : Questionable, CoroutineScope {
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -51,7 +51,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     open fun populateView() {
         uiIndicator.let {
             it.settings = settings
-            it.setInformacao(getMessageInformation())
+            it.setInformation(getMessageInformation())
         }
 
         textViewLabel.text = question.getDescriptionWithSymbolRequired()
@@ -65,7 +65,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
         launch(Dispatchers.Main) {
             uiIndicator.let {
-                if (isFilledRight.not()) it.setErro(getMessageErrorFill()) else it.hide()
+                if (isFilledRight.not()) it.setError(getMessageErrorFill()) else it.hide()
             }
         }
     }
