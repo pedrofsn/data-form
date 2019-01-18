@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class FormQuestions(
         val settings: FormSettings,
+        val answers: List<Answer>,
         val questions: ArrayList<Question>
 ) : Parcelable

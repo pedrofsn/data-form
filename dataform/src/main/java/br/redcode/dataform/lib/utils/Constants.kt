@@ -10,14 +10,13 @@ object Constants {
 
     const val TYPE_QUESTION_INFORMATIVE_TEXT = "texto_informativo"
     const val TYPE_QUESTION_TEXTUAL = "textual"
-    const val TYPE_QUESTION_OBJECTIVE_LIST = "objetiva_lista"
-    const val TYPE_QUESTION_OBJECTIVE_SPINNER = "objetiva_spinner"
-    const val TYPE_QUESTION_LIST_REMOVABLE = "lista_item_removivel"
-    const val TYPE_QUESTION_MULTIPLE_CHOICE = "multipla_escolha"
-    const val TYPE_QUESTION_IMAGE_ONLY_CAMERA = "imagem_camera"
-    const val TYPE_QUESTION_IMAGE_ONLY_GALLERY = "imagem_galeria"
-    const val TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY = "imagem_camera_ou_galeria"
-    const val TYPE_QUESTION_PERCENTAGE = "percentual"
+    const val TYPE_QUESTION_OBJECTIVE_LIST = "objective_list"
+    const val TYPE_QUESTION_OBJECTIVE_SPINNER = "objective_spinner"
+    const val TYPE_QUESTION_MULTIPLE_CHOICE = "multiple_choice"
+    const val TYPE_QUESTION_IMAGE_ONLY_CAMERA = "image_camera"
+    const val TYPE_QUESTION_IMAGE_ONLY_GALLERY = "image_gallery"
+    const val TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY = "image_camera_or_gallery"
+    const val TYPE_QUESTION_PERCENTAGE = "percentage"
 
     const val QUESTION_DESCRIPTION_SYMBOL_REQUIRED = "*"
 

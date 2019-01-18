@@ -1,7 +1,6 @@
 package br.redcode.dataform.lib.ui
 
 import android.view.View
-import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIQuestionBase
@@ -43,15 +42,18 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
             recyclerView.setCustomAdapter(adapter)
         }
 
-        launch(main()) { fillAnswer() }
     }
 
-    private suspend fun fillAnswer() = coroutineScope() {
+    override fun fillAnswer(answer: Answer) {
+        launch(main()) { fillAnswerAsync(answer) }
+    }
+
+    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
         val asyncIndex = async(io()) {
             var indexAdapter = INVALID_VALUE
 
-            val selectedId = question.answer?.options?.firstOrNull { it.selected }?.id
-            if (selectedId?.toLong() != INVALID_VALUE.toLong()) {
+            val selectedId = answer.options?.firstOrNull()
+            if (selectedId?.isNotBlank() == true) {
                 indexAdapter = adapter.getList().indexOfFirst { selectedId == it.id }
             }
 
@@ -89,18 +91,12 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun getAnswer(): Answer {
-        val answer: Answer = if (indexSelected != Constants.INVALID_VALUE) {
+        val answer = super.getAnswer()
 
-            val result = arrayListOf<Spinnable>()
-            result.add(adapter.getList()[indexSelected])
-
-            Answer(options = result)
-        } else {
-            Answer()
+        if (indexSelected != Constants.INVALID_VALUE) {
+            answer.options = listOf(adapter.getList()[indexSelected].id)
         }
 
-        if (question.answer != null) answer.tag = question.answer?.tag
-        question.answer = answer
         return answer
     }
 

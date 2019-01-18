@@ -35,20 +35,20 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
             adapter.setLista(it)
             recyclerView.setCustomAdapter(adapter)
         }
+    }
 
-        // Resposta pré-preenchida
-        question.answer?.options?.let {
+    override fun fillAnswer(answer: Answer) {
+        answer.options?.let {
             for (alternativa in adapter.getList()) {
                 for (resposta in it) {
-                    if (resposta.selected && resposta.id == alternativa.id) {
-                        alternativa.selected = resposta.selected
+                    if (resposta.toString() == alternativa.id) {
+                        alternativa.selected = true
                     }
                 }
             }
 
             adapter.notifyDataSetChanged()
         }
-
     }
 
     private val onItemClickListener: ((Int) -> Unit)? = { position ->
@@ -63,9 +63,8 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun getAnswer(): Answer {
-        val answer = Answer(options = adapter.getList())
-        if (question.answer != null) answer.tag = question.answer?.tag
-        question.answer = answer
+        val answer = super.getAnswer()
+        answer.options = adapter.getList().map { it.id }.toList()
         return answer
     }
 
@@ -74,7 +73,7 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
         return selecteds >= question.getLimitMin() && selecteds <= question.getLimitMax()
     }
 
-    private fun getQuantitySelecteds() = getAnswer().options?.count { it.selected } ?: 0
+    private fun getQuantitySelecteds() = getAnswer().options?.size ?: 0
     override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantitySelecteds()))
 
 }

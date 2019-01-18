@@ -78,15 +78,20 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
         recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
 
         updateCounter()
-        fillAnswer()
     }
 
-    private fun fillAnswer() {
-        question.answer?.images?.let {
+    override fun fillAnswer(answer: Answer) {
+        answer.images?.let {
             adapter.setLista(it)
             adapter.notifyDataSetChanged()
             updateCounter()
         }
+    }
+
+    override fun getAnswer(): Answer {
+        val answer = super.getAnswer()
+        answer.images = adapter.getList()
+        return answer
     }
 
     private fun addImage() {
@@ -95,14 +100,6 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
                 handlerCaptureImage.capturarImagem(this, type)
             }
         }
-    }
-
-    override fun getAnswer(): Answer {
-        val answer = Answer()
-        answer.images = adapter.getList()
-        if (question.answer != null) answer.tag = question.answer?.tag
-        question.answer = answer
-        return answer
     }
 
     override fun isFilledCorrect() = isInMin() && isInMax()

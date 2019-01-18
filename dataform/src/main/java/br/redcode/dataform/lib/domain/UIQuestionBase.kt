@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.interfaces.Questionable
+import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIIndicator
@@ -76,6 +77,10 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         val messageInformation = question.information
         val result = if (messageInformation?.isEmpty() == true) messageDefaultLimits else messageInformation
         return result ?: EMPTY_STRING
+    }
+
+    override fun getAnswer(): Answer {
+        return Answer(idQuestion = question.id)
     }
 
 }

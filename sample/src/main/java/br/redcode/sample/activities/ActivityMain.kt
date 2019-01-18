@@ -57,7 +57,6 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
                 when {
                     isQuestionsFilledCorrect -> {
                         agregador.refreshAnswers()
-                        logQuestions()
                         openAnswers()
                     }
                     else -> showErrorFillForm()
@@ -68,15 +67,22 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
     private fun showErrorFillForm() = Toast.makeText(this, getString(R.string.existem_perguntas_nao_respondidas), Toast.LENGTH_LONG).show()
 
-    private fun logQuestions() {
-        val questions = agregador.formQuestions.questions.toString()
-        Utils.log(questions)
-    }
-
     private fun openAnswers() {
         val intent = Intent(this, ActivityRespostas::class.java)
-        intent.putExtra("formularioDePerguntas", formQuestions)
-        startActivity(intent)
+
+        launch(main()) {
+            val answers = agregador.getAnswers()
+
+            val asyncJson = async(io()) {
+                val gson = Gson()
+                val json = gson.toJson(answers)
+                return@async json
+            }
+
+            val answersJSON = asyncJson.await()
+            intent.putExtra("answersJSON", answersJSON)
+            startActivity(intent)
+        }
     }
 
     private suspend fun gerarListaPerguntas() = coroutineScope() {
@@ -96,11 +102,12 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
             }
         }
 
-        agregador = UIForm(formQuestions, handlerCapturaImagem, handlerInputPopup)
-        val viewGenerated = agregador.getView(this@ActivityMain)
-
         launch(main()) {
-            linearLayout.addView(viewGenerated)
+
+            agregador = UIForm(formQuestions, handlerCapturaImagem, handlerInputPopup)
+            val view = agregador.getViewGenerated(this@ActivityMain)
+
+            linearLayout.addView(view)
 
             // hack
             agregador.formQuestions.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->
@@ -110,6 +117,8 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
             val spinner = linearLayout.findViewWithTag<Spinner>("${PREFFIX_QUESTION}4${SUFFIX_QUESTION_SPINNER}")
             val pergunta = linearLayout.findViewWithTag<LinearLayout>("${PREFFIX_QUESTION}5")
             showAskIfSpinnerHasPosition3AsSelected(spinner, pergunta)
+
+            agregador.fillAnswers(formQuestions.answers)
         }
     }
 

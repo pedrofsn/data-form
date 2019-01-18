@@ -3,7 +3,6 @@ package br.redcode.dataform.lib.ui
 import android.view.View
 import android.widget.Spinner
 import br.com.redcode.spinnable.library.extensions_functions.getSpinnableFromSpinner
-import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.extension.setSpinnable2
@@ -32,13 +31,15 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
     override fun populateView() {
         super.populateView()
         spinner.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_SPINNER"
-
-        launch(main()) { fillAnswer() }
     }
 
-    private suspend fun fillAnswer() = coroutineScope() {
+    override fun fillAnswer(answer: Answer) {
+        launch(main()) { fillAnswerAsync(answer) }
+    }
+
+    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
         val asyncId = async(io()) {
-            return@async question.answer?.options?.firstOrNull { it.selected }?.id
+            return@async answer.options?.firstOrNull()
         }
 
         val id = asyncId.await()
@@ -50,19 +51,13 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
 
     override fun getAnswer(): Answer {
         val spinnable = spinner.getSpinnableFromSpinner(question.options)
-        val resposta = Answer()
+        val answer = super.getAnswer()
 
         if (spinnable != null) {
-            val result = arrayListOf<Spinnable>()
-            result.add(spinnable)
-
-            spinnable.selected = true
-            resposta.options = result
+            answer.options = listOf(spinnable.id)
         }
 
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        question.answer = resposta
-        return resposta
+        return answer
     }
 
     override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE

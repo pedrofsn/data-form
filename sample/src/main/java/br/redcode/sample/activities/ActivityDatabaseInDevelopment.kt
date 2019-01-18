@@ -1,5 +1,6 @@
 package br.redcode.sample.activities
 
+import android.content.Intent
 import android.os.Bundle
 import br.redcode.dataform.lib.model.FormQuestions
 import br.redcode.dataform.lib.ui.UIForm
@@ -30,6 +31,8 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        startActivity(Intent(this, ActivityMain::class.java))
 
         button.setOnClickListener { launch(io()) { seedDatabase() } }
     }

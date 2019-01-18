@@ -30,10 +30,8 @@ class UIQuestionInformationText(question: Question, settings: FormSettings) : UI
         question.information?.let { textViewInformativo.text = it }
     }
 
-    override fun getAnswer(): Answer {
-        val resposta = Answer()
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        return resposta
+    override fun fillAnswer(answer: Answer) {
+
     }
 
     override fun isFilledCorrect() = true

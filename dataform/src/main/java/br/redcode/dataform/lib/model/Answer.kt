@@ -1,7 +1,6 @@
 package br.redcode.dataform.lib.model
 
 import android.os.Parcelable
-import br.com.redcode.spinnable.library.model.Spinnable
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -10,13 +9,15 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Answer(
         var id: Long? = null,
-        var answer: String? = null,
-        var options: ArrayList<Spinnable>? = null,
-        var images: ArrayList<Image>? = null,
+        var idQuestion: Long,
+        var percentage: Int? = null,
+        var text: String? = null,
+        var options: List<String>? = null,
+        var images: List<Image>? = null,
         var tag: String? = null
 ) : Parcelable {
 
-    fun hasText() = answer != null && answer?.isNotEmpty() ?: false
+    fun hasText() = text != null && text?.isNotEmpty() ?: false
     fun hasOptions() = options != null && options?.isNotEmpty() ?: false
     fun hasOnlyOneOption() = hasOptions() && options!!.size == 1
     fun hasImages() = images != null && images?.isNotEmpty() ?: false

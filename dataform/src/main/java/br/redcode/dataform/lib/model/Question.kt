@@ -8,7 +8,6 @@ import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_IMAGE_CAMERA_OR_GAL
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_IMAGE_ONLY_CAMERA
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_IMAGE_ONLY_GALLERY
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_INFORMATIVE_TEXT
-import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_LIST_REMOVABLE
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_MULTIPLE_CHOICE
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_OBJECTIVE_LIST
 import br.redcode.dataform.lib.utils.Constants.TYPE_QUESTION_OBJECTIVE_SPINNER
@@ -25,7 +24,6 @@ data class Question(
         val id: Long,
         val description: String,
         val type: String,
-        var answer: Answer? = Answer(),
         val information: String? = EMPTY_STRING,
         val required: Boolean = true,
         val format: String? = null,
@@ -42,12 +40,11 @@ data class Question(
     fun isQuestionInformativeText() = TYPE_QUESTION_INFORMATIVE_TEXT == type
     fun isQuestionTextual() = TYPE_QUESTION_TEXTUAL == type
     fun isQuestionObjectiveList() = TYPE_QUESTION_OBJECTIVE_LIST == type
-    fun isQuestionListRemovable() = TYPE_QUESTION_LIST_REMOVABLE == type
     fun isQuestionObjectiveSpinner() = TYPE_QUESTION_OBJECTIVE_SPINNER == type
     fun isQuestionPercentage() = TYPE_QUESTION_PERCENTAGE == type
     fun isQuestionMultipleChoice() = validateLimits(TYPE_QUESTION_MULTIPLE_CHOICE == type)
     fun isQuestionImageOnlyCamera() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_CAMERA == type)
-    fun isQuestionImagemOnlyGallery() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_GALLERY == type)
+    fun isQuestionImageOnlyGallery() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_GALLERY == type)
     fun isQuestionImageCameraOrGallery() = validateLimits(TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY == type)
 
     private fun validateLimits(result: Boolean): Boolean {

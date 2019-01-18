@@ -7,7 +7,9 @@ import br.redcode.dataform.lib.model.Answer
  */
 interface Questionable {
 
+    fun fillAnswer(answer: Answer)
     fun getAnswer(): Answer
+
     fun isFilledCorrect(): Boolean
     fun getMessageErrorFill(): String
     fun getMessageInformation(): String
