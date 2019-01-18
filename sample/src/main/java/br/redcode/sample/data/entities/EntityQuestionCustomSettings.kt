@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-        tableName = "answers",
+        tableName = "question_custom_settings",
         foreignKeys = arrayOf(
                 ForeignKey(
                         entity = EntityQuestion::class,
@@ -16,15 +16,14 @@ import androidx.room.PrimaryKey
                         onUpdate = ForeignKey.CASCADE)
         )
 )
-data class EntityAnswer(
+data class EntityQuestionCustomSettings(
 
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "answer_id") val idAnswer: Long = 0,
+        @ColumnInfo(name = "custom_settings_id") val idCustomSettings: Long = 0,
 
         @ColumnInfo(name = "question_id") val idQuestion: Long,
 
-        val text: String? = null,
-        val percentage: Int? = null,
-        val tag: String? = null
+        val key: String,
+        val value: Boolean
 
 )

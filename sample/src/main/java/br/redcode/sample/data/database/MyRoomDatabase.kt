@@ -12,10 +12,7 @@ import br.redcode.sample.data.dao.AnswerDAO
 import br.redcode.sample.data.dao.AnswerImageDAO
 import br.redcode.sample.data.dao.AnswerOptionDAO
 import br.redcode.sample.data.dao.QuestionDAO
-import br.redcode.sample.data.entities.EntityAnswer
-import br.redcode.sample.data.entities.EntityAnswerImage
-import br.redcode.sample.data.entities.EntityAnswerOption
-import br.redcode.sample.data.entities.EntityQuestion
+import br.redcode.sample.data.entities.*
 import java.util.concurrent.Executors
 
 /**
@@ -24,10 +21,13 @@ import java.util.concurrent.Executors
 
 @Database(
         entities = [
-            EntityQuestion::class,
-            EntityAnswerOption::class,
+            EntityAnswer::class,
             EntityAnswerImage::class,
-            EntityAnswer::class
+            EntityAnswerOption::class,
+            EntityQuestion::class,
+            EntityQuestionCustomSettings::class,
+            EntityQuestionLimit::class,
+            EntityQuestionOption::class
         ],
         version = 1,
         exportSchema = false

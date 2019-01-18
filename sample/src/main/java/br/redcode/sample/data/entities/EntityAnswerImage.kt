@@ -27,28 +27,3 @@ data class EntityAnswerImage(
         val subtitle: String? = null
 
 )
-
-/*
-@Entity(
-        tableName = "answer_limits",
-        foreignKeys = arrayOf(
-                ForeignKey(
-                        entity = EntityAnswer::class,
-                        parentColumns = arrayOf("answer_id"),
-                        childColumns = arrayOf("answer_id"),
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        )
-)
-data class EntityQuestionLimit(
-
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "limit_id") val id: Long = 0,
-
-        @ColumnInfo(name = "answer_id") val idAnswer: Long,
-
-        val min: Int,
-        val max: Int
-
-)
-*/
