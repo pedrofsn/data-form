@@ -10,7 +10,6 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityAnswer
 import br.redcode.sample.data.entities.EntityQuestion
 import br.redcode.sample.domain.ActivityCapturarImagem
-import com.idescout.sql.SqlScoutServer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -27,8 +26,6 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
-
-    private val sqlScoutServer by lazy { SqlScoutServer.create(this@ActivityDatabaseInDevelopment, getPackageName()); }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,26 +51,5 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
         MyRoomDatabase.getInstance().answerDAO().insert(entityAnswer1)
     }
-
-    override fun onResume() {
-        sqlScoutServer.resume()
-        super.onResume()
-    }
-
-    override fun onPause() {
-        sqlScoutServer.destroy()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        sqlScoutServer.destroy()
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        sqlScoutServer.destroy()
-        super.onDestroy()
-    }
-
 
 }
