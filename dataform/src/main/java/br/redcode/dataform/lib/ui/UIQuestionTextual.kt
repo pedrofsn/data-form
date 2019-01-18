@@ -34,7 +34,7 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
     override fun populateView() {
         super.populateView()
         editText.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_EDITTEXT"
-        question.answer?.answer?.let { editText.setText(it) }
+
         editText.isEnabled = settings.editable
         if (settings.editable.not()) {
             TextViewCompat.setTextAppearance(editText, android.R.style.TextAppearance_Widget_TextView)
@@ -59,11 +59,12 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
         }
     }
 
+    override fun fillAnswer(answer: Answer) = editText.setText(answer.text)
+
     override fun getAnswer(): Answer {
-        val resposta = Answer(answer = editText.text.toString().trim())
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        question.answer = resposta
-        return resposta
+        val answer = super.getAnswer()
+        answer.text = editText.text.toString().trim()
+        return answer
     }
 
     override fun isFilledCorrect() = editText.text.toString().trim().isNotEmpty()

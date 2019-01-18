@@ -9,7 +9,7 @@ import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
-import br.redcode.dataform.lib.utils.Constants
+import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_SEEKBAR
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
@@ -33,24 +33,13 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
         seekBar.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_SEEKBAR"
         textView.tag = "$PREFFIX_QUESTION${question.id}$SUFFIX_QUESTION_TEXTVIEW"
 
-        atualizarTexto(0)
-        question.answer?.answer?.let {
-
-            try {
-                val percentual = it.toInt()
-                atualizarTexto(percentual)
-                seekBar.progress = percentual
-            } catch (e: Exception) {
-
-            }
-
-        }
+        updateText(0)
 
         seekBar.isEnabled = settings.editable
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                atualizarTexto(progress)
+                updateText(progress)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -63,23 +52,28 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
         })
     }
 
-    private fun atualizarTexto(progress: Int) {
+    private fun updateText(progress: Int) {
         textView.text = progress.toString().plus("%")
     }
 
+    override fun fillAnswer(answer: Answer) {
+        answer.percentage?.let {
+            try {
+                updateText(it)
+                seekBar.progress = it
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
     override fun getAnswer(): Answer {
-        val resposta = Answer(answer = seekBar.progress.toString())
-        if (question.answer != null) resposta.tag = question.answer?.tag
-        question.answer = resposta
-        return resposta
+        val answer = super.getAnswer()
+        answer.percentage = seekBar.progress
+        return answer
     }
 
-    override fun isFilledCorrect(): Boolean {
-        return true
-    }
-
-    override fun getMessageErrorFill(): String {
-        return Constants.EMPTY_STRING
-    }
+    override fun isFilledCorrect() = true
+    override fun getMessageErrorFill() = EMPTY_STRING
 
 }

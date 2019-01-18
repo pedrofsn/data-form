@@ -10,7 +10,7 @@
       "id": 777,
       "description": "Qual é o seu domínio da linguagem de programação Kotlin?",
       "information": "Esta é uma mensagem de informação dentro de um popup.",
-      "type": "percentual",
+      "type": "percentage",
       "required": "true",
       "answer": {
         "answer": "60"
@@ -55,7 +55,7 @@
     {
       "id": 3,
       "description": "Qual é o seu sexo?",
-      "type": "objetiva_lista",
+      "type": "objective_list",
       "required": "false",
       "options": [
         {
@@ -83,7 +83,7 @@
     {
       "id": 4,
       "description": "Quais salgadinhos você prefere?",
-      "type": "multipla_escolha",
+      "type": "multiple_choice",
       "required": "false",
       "limit": {
         "min": 1,
@@ -121,7 +121,7 @@
     {
       "id": 5,
       "description": "Adicione algumas fotos",
-      "type": "imagem_camera_ou_galeria",
+      "type": "image_camera_or_gallery",
       "required": "false",
       "limit": {
         "min": 1,
@@ -134,7 +134,7 @@
     {
       "id": 6,
       "description": "Imagem pré-adicionada da internet que pode ser substituída por uma da galeria",
-      "type": "imagem_galeria",
+      "type": "image_gallery",
       "required": "true",
       "limit": {
         "min": 1,
@@ -152,7 +152,7 @@
     {
       "id": 7,
       "description": "Adicione uma imagem da câmera",
-      "type": "imagem_camera",
+      "type": "image_camera",
       "required": "false",
       "limit": {
         "min": 1,
@@ -162,7 +162,7 @@
     {
       "id": 8,
       "description": "Qual é o seu estado civil?",
-      "type": "objetiva_spinner",
+      "type": "objective_spinner",
       "required": "true",
       "options": [
         {
@@ -190,7 +190,7 @@
     {
       "id": 9,
       "description": "Do you speak english?",
-      "type": "objetiva_spinner",
+      "type": "objective_spinner",
       "required": "false",
       "options": [
         {
