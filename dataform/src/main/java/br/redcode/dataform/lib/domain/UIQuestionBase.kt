@@ -55,7 +55,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
             it.setInformation(getMessageInformation())
         }
 
-        textViewDescription.text = question.getDescriptionWithSymbolRequired()
+        textViewDescription.text = if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
 
         if (settings.showIndicatorInformation.not()) {
             textViewInformation.text = question.information
