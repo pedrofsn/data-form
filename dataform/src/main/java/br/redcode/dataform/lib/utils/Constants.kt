@@ -19,8 +19,6 @@ object Constants {
     const val TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY = "imagem_camera_ou_galeria"
     const val TYPE_QUESTION_PERCENTAGE = "percentual"
 
-    const val FORM_UI_BACKGROUND_DEFAULT_COLOR = "#ffffff"
-
     const val QUESTION_DESCRIPTION_SYMBOL_REQUIRED = "*"
 
     const val PREFFIX_QUESTION = "ui_pergunta_"
@@ -33,7 +31,7 @@ object Constants {
     const val SUFFIX_QUESTION_LINEAR_LAYOUT = "_linearlayout"
 
     const val FORMAT_QUESTION_TEXTUAL_EMAIL = "email"
-    const val FORMAT_QUESTION_TEXTUAL_NUMBER = "numero"
+    const val FORMAT_QUESTION_TEXTUAL_NUMBER = "numeric"
     const val FORMAT_QUESTION_TEXTUAL_MULTI = "multi"
 
 }
