@@ -81,7 +81,7 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
     private suspend fun gerarListaPerguntas() = coroutineScope() {
         val reader = JSONReader(this@ActivityMain)
-        val json = reader.getStringFromJson(R.raw.perguntas)
+        val json = reader.getStringFromJson(R.raw.perguntas_3)
 
         val gson = Gson()
         formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
