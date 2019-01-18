@@ -2,7 +2,6 @@ package br.redcode.sample
 
 import android.app.Application
 import android.content.Context
-import com.facebook.stetho.Stetho
 import java.lang.ref.WeakReference
 
 class App : Application() {
@@ -15,11 +14,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         mContext = WeakReference(this)
-        initializeStetho()
-    }
-
-    private fun initializeStetho() {
-        if (BuildConfig.DEBUG) Stetho.initializeWithDefaults(this)
     }
 
 }
