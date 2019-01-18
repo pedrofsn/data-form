@@ -10,11 +10,11 @@ import kotlinx.android.parcel.Parcelize
 data class Answer(
         var id: Long? = null,
         var idQuestion: Long,
-        var percentage: Int? = null,
+
         var text: String? = null,
+        var percentage: Int? = null,
         var options: List<String>? = null,
-        var images: List<Image>? = null,
-        var tag: String? = null
+        var images: List<Image>? = null
 ) : Parcelable {
 
     fun hasText() = text != null && text?.isNotEmpty() ?: false

@@ -13,14 +13,8 @@ data class EntityQuestion(
 
         val description: String,
         val type: String,
-//        var answer: Answer? = Answer(),
         val information: String? = EMPTY_STRING,
         val required: Boolean = true,
         val format: String? = null
-
-//        var limit: Limit? = null,
-//        var options: ArrayList<Spinnable>? = null,
-//        var customSettings: HashMap<String, Boolean>? = null,
-//        var extra: Any? = null
 
 )

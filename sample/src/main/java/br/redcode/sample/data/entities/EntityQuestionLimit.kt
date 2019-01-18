@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-        tableName = "answers",
+        tableName = "answer_limits",
         foreignKeys = arrayOf(
                 ForeignKey(
                         entity = EntityQuestion::class,
@@ -16,15 +16,14 @@ import androidx.room.PrimaryKey
                         onUpdate = ForeignKey.CASCADE)
         )
 )
-data class EntityAnswer(
+data class EntityQuestionLimit(
 
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "answer_id") val idAnswer: Long = 0,
+        @ColumnInfo(name = "limit_id") val idLimit: Long = 0,
 
         @ColumnInfo(name = "question_id") val idQuestion: Long,
 
-        val text: String? = null,
-        val percentage: Int? = null,
-        val tag: String? = null
+        val min: Int,
+        val max: Int
 
 )
