@@ -79,8 +79,6 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         return result ?: EMPTY_STRING
     }
 
-    override fun getAnswer(): Answer {
-        return Answer(idQuestion = question.id)
-    }
+    override fun getAnswer() = Answer(idQuestion = question.id)
 
 }
