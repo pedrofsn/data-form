@@ -2,6 +2,7 @@
   "settings": {
     "showIndicatorError": true,
     "showIndicatorInformation": true,
+    "showSymbolRequired": true,
     "editable": true
   },
   "questions": [
