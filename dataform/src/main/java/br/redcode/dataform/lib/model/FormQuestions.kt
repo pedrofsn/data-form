@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class FormQuestions(
+        val idForm: Long,
         val settings: FormSettings,
         val answers: List<Answer>,
         val questions: ArrayList<Question>
