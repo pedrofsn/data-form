@@ -27,7 +27,8 @@ import java.util.concurrent.Executors
             EntityQuestion::class,
             EntityQuestionCustomSettings::class,
             EntityQuestionLimit::class,
-            EntityQuestionOption::class
+            EntityQuestionOption::class,
+            EntityFormSettings::class
         ],
         version = 1,
         exportSchema = false
