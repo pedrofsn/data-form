@@ -1,19 +1,21 @@
 package br.redcode.sample.activities
 
-import android.content.Intent
 import android.os.Bundle
 import br.redcode.dataform.lib.model.FormQuestions
-import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.sample.R
+import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
+import br.redcode.sample.extensions.toEntity
+import br.redcode.sample.utils.JSONReader
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
-    private lateinit var agregador: UIForm
     private lateinit var formQuestions: FormQuestions
+    private val reader by lazy { JSONReader(this) }
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -26,9 +28,18 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this, ActivityMain::class.java))
+        button.setOnClickListener { launch(io()) { populateFormQuestiosn() } }
+    }
 
-        button.setOnClickListener { launch(io()) { seedDatabase() } }
+    private suspend fun populateFormQuestiosn() = coroutineScope() {
+        val json = reader.getStringFromJson(R.raw.perguntas_3)
+
+        val gson = Gson()
+        formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
+
+        val fakeEntity = formQuestions.toEntity()
+        MyRoomDatabase.getInstance().formQuestionsDAO().insert(fakeEntity)
+
     }
 
     private suspend fun seedDatabase() = coroutineScope {
