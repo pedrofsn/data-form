@@ -18,16 +18,20 @@ import java.util.concurrent.Executors
 
 @Database(
         entities = [
+            // ANSWER
             EntityAnswer::class,
             EntityAnswerImage::class,
             EntityAnswerOption::class,
 
-            EntityFormSettings::class,
-
+            // QUESTION
             EntityQuestion::class,
             EntityQuestionCustomSettings::class,
             EntityQuestionLimit::class,
-            EntityQuestionOption::class
+            EntityQuestionOption::class,
+
+            // FORM
+            EntityFormSettings::class,
+            EntityFormQuestions::class
         ],
         version = 1,
         exportSchema = false
@@ -39,13 +43,12 @@ abstract class MyRoomDatabase : RoomDatabase() {
     abstract fun answerImageDAO(): AnswerImageDAO
     abstract fun answerOptionDAO(): AnswerOptionDAO
 
-    abstract fun formSettingsDAO(): FormSettingsDAO
-
     abstract fun questionDAO(): QuestionDAO
     abstract fun questionCustomSettingsDAO(): QuestionCustomSettingsDAO
     abstract fun questionLimitDAO(): QuestionLimitDAO
     abstract fun questionOptionDAO(): QuestionOptionDAO
 
+    abstract fun formSettingsDAO(): FormSettingsDAO
     abstract fun formQuestionsDAO(): FormQuestionsDAO
 
     companion object {
