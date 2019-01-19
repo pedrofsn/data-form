@@ -1,7 +1,7 @@
 package br.redcode.sample.activities
 
 import android.os.Bundle
-import br.redcode.dataform.lib.model.FormQuestions
+import br.redcode.dataform.lib.model.Form
 import br.redcode.sample.R
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
-    private lateinit var formQuestions: FormQuestions
+    private lateinit var form: Form
     private val reader by lazy { JSONReader(this) }
 
     val job = Job()
@@ -35,10 +35,10 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
         val json = reader.getStringFromJson(R.raw.perguntas_3)
 
         val gson = Gson()
-        formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
+        form = gson.fromJson<Form>(json, Form::class.java)
 
-        val fakeEntity = formQuestions.toEntity()
-        MyRoomDatabase.getInstance().formQuestionsDAO().insert(fakeEntity)
+        val fakeEntity = form.toEntity()
+        MyRoomDatabase.getInstance().formDAO().insert(fakeEntity)
 
     }
 

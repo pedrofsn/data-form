@@ -9,7 +9,7 @@ import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
-import br.redcode.dataform.lib.model.FormQuestions
+import br.redcode.dataform.lib.model.Form
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -18,17 +18,17 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
+class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
 
     private val perguntasUI = ArrayList<UIQuestionBase>()
 
     private fun generateUIQuestionsObjects() {
-        if (formQuestions.questions.isNotEmpty()) {
+        if (form.questions.isNotEmpty()) {
             perguntasUI.clear()
 
-            val settings = formQuestions.settings
+            val settings = form.settings
 
-            for (question in formQuestions.questions) {
+            for (question in form.questions) {
                 val uiPergunta: UIQuestionBase? = when {
                     question.isQuestionInformativeText() -> UIQuestionInformationText(question, settings)
                     question.isQuestionTextual() -> UIQuestionTextual(question, settings)
@@ -53,7 +53,7 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
             val linearLayout = LinearLayout(context)
             linearLayout.orientation = LinearLayout.VERTICAL
 
-            formQuestions.settings.backgroundColor?.let {
+            form.settings.backgroundColor?.let {
                 val color = Color.parseColor(it)
                 linearLayout.setBackgroundColor(color)
             }
@@ -94,7 +94,7 @@ class UIForm(val formQuestions: FormQuestions, val handlerCaptureImage: HandlerC
                 quantityQuestionsFilledCorrect += if (isFilledCorrect) 1 else 0
             }
 
-            quantityQuestionsFilledCorrect == formQuestions.questions.size
+            quantityQuestionsFilledCorrect == form.questions.size
         }
 
         return@coroutineScope async.await()

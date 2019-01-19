@@ -7,7 +7,7 @@ import android.widget.*
 import br.com.concrete.canarinho.watcher.CPFCNPJTextWatcher
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
-import br.redcode.dataform.lib.model.FormQuestions
+import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
@@ -28,7 +28,7 @@ import kotlin.coroutines.CoroutineContext
 class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
     private lateinit var agregador: UIForm
-    private lateinit var formQuestions: FormQuestions
+    private lateinit var form: Form
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -90,7 +90,7 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
         val json = reader.getStringFromJson(R.raw.perguntas_3)
 
         val gson = Gson()
-        formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
+        form = gson.fromJson<Form>(json, Form::class.java)
 
     }
 
@@ -105,13 +105,13 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
         launch(main()) {
 
-            agregador = UIForm(formQuestions, handlerCapturaImagem, handlerInputPopup)
+            agregador = UIForm(form, handlerCapturaImagem, handlerInputPopup)
             val view = agregador.getViewGenerated(this@ActivityMain)
 
             linearLayout.addView(view)
 
             // hack
-            agregador.formQuestions.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->
+            agregador.form.questions.filter { p -> p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF || p.format == CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ }.forEach { p ->
                 linearLayout.findViewWithTag<EditText>("$PREFFIX_QUESTION${p.id}$SUFFIX_QUESTION_EDITTEXT").addTextChangedListener(CPFCNPJTextWatcher())
             }
 
@@ -119,7 +119,7 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
             val pergunta = linearLayout.findViewWithTag<LinearLayout>("${PREFFIX_QUESTION}5")
             showAskIfSpinnerHasPosition3AsSelected(spinner, pergunta)
 
-            agregador.fillAnswers(formQuestions.answers)
+            agregador.fillAnswers(form.answers)
         }
     }
 

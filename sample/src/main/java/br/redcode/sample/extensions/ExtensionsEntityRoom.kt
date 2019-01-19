@@ -3,15 +3,16 @@ package br.redcode.sample.extensions
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.model.*
 import br.redcode.sample.data.entities.*
+import java.util.*
 
 // -----------> FORM
-fun FormQuestions.toEntity(): FormQuestionFull {
-    val entityFormSettings = settings.toEntity()
+fun Form.toEntity(): FormQuestionFull {
+    val entityFormSettings = settings.toEntity(idForm)
     val listEntityQuestionsFull = arrayListOf<EntityQuestionFull>()
     val awnserFull = arrayListOf<AnswerFull>()
 
     questions.forEach { question ->
-        val entityQuestion = question.toEntity()
+        val entityQuestion = question.toEntity(idForm)
         val currentIdQuestion = question.id
 
         val entityLimit = question.limit?.toEntity(idQuestion = currentIdQuestion)
@@ -30,7 +31,6 @@ fun FormQuestions.toEntity(): FormQuestionFull {
                 if (ids.isNotEmpty()) {
                     val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
                             ?: emptyList()
-                    //?.map { it.toEntity(idAnswer = currentIdAnwser) }?.let { entityAnswersOptions.addAll(it) }
                     answerIdsConfirmed.addAll(options)
                 }
             }
@@ -55,13 +55,16 @@ fun FormQuestions.toEntity(): FormQuestionFull {
     }
 
     return FormQuestionFull(
+            idForm = idForm,
+            lastUpdate = lastUpdate,
             settings = entityFormSettings,
             answers = awnserFull,
             questions = listEntityQuestionsFull
     )
 }
 
-fun FormSettings.toEntity() = EntityFormSettings(
+fun FormSettings.toEntity(idForm: Long) = EntityFormSettings(
+        idForm = idForm,
         showIndicatorError = showIndicatorError,
         showIndicatorInformation = showIndicatorInformation,
         showSymbolRequired = showSymbolRequired,
@@ -70,8 +73,9 @@ fun FormSettings.toEntity() = EntityFormSettings(
 )
 
 // -----------> QUESTIONS
-fun Question.toEntity() = EntityQuestion(
+fun Question.toEntity(idForm: Long) = EntityQuestion(
         id = id,
+        idForm = idForm,
         description = description,
         type = type,
         information = information,
@@ -144,14 +148,13 @@ fun EntityQuestionOption.toEntityAnswerQuestion(idAnswer: Long) = EntityAnswerOp
 
 // ----------------> EASY
 
+fun FormQuestionFull.toEntity() = EntityForm(
+        idForm = idForm,
+        lastUpdate = lastUpdate ?: Date()
+)
+
 fun List<EntityQuestionOption>?.changeQuestionOptions(idQuestion: Long) = this?.map { obj -> obj.copy(idQuestion = idQuestion) }
         ?: emptyList()
 
 fun List<EntityQuestionCustomSettings>?.changeQuestionCustomSettings(idQuestion: Long) = this?.map { obj -> obj.copy(idQuestion = idQuestion) }
-        ?: emptyList()
-
-fun List<EntityAnswerImage>?.changeAnswerImage(idAnswer: Long) = this?.map { obj -> obj.copy(idAnswer = idAnswer) }
-        ?: emptyList()
-
-fun List<EntityAnswerOption>?.changeAnswerOption(idAnswer: Long) = this?.map { obj -> obj.copy(idAnswer = idAnswer) }
         ?: emptyList()
