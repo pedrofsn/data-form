@@ -3,7 +3,7 @@ package br.redcode.sample.data.dao
 import androidx.room.Dao
 import androidx.room.Transaction
 import br.redcode.sample.data.database.MyRoomDatabase
-import br.redcode.sample.data.entities.EntityFormQuestionFull
+import br.redcode.sample.data.entities.FormQuestionFull
 import br.redcode.sample.extensions.changeQuestionCustomSettings
 import br.redcode.sample.extensions.changeQuestionOptions
 import br.redcode.sample.extensions.toEntity
@@ -13,7 +13,7 @@ import br.redcode.sample.extensions.toEntityAnswerQuestion
 interface FormQuestionsDAO {
 
     @Transaction
-    fun insert(full: EntityFormQuestionFull) {
+    fun insert(full: FormQuestionFull) {
         full.apply {
             questions.forEach { questionFull ->
                 val idQuestion = questionFull.question.id
