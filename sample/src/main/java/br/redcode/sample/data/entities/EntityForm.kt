@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "form_questions")
-data class EntityFormQuestions(
+@Entity(tableName = "forms")
+data class EntityForm(
 
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "form_questions_id") val id: Long = 0,
+        @ColumnInfo(name = "form_id") val idForm: Long = 0,
         @ColumnInfo(name = "last_update") val lastUpdate: Date
 
 )
