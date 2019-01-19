@@ -5,10 +5,10 @@ import br.redcode.dataform.lib.model.*
 import br.redcode.sample.data.entities.*
 
 // -----------> FORM
-fun FormQuestions.toEntity(): EntityFormQuestionFull {
+fun FormQuestions.toEntity(): FormQuestionFull {
     val entityFormSettings = settings.toEntity()
     val listEntityQuestionsFull = arrayListOf<EntityQuestionFull>()
-    val listEntityAwnserFull = arrayListOf<EntityAnswerFull>()
+    val awnserFull = arrayListOf<AnswerFull>()
 
     questions.forEach { question ->
         val entityQuestion = question.toEntity()
@@ -29,18 +29,19 @@ fun FormQuestions.toEntity(): EntityFormQuestionFull {
             answer.options?.let { ids ->
                 if (ids.isNotEmpty()) {
                     val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
-                            ?: emptyList()//?.map { it.toEntity(idAnswer = currentIdAnwser) }?.let { entityAnswersOptions.addAll(it) }
+                            ?: emptyList()
+                    //?.map { it.toEntity(idAnswer = currentIdAnwser) }?.let { entityAnswersOptions.addAll(it) }
                     answerIdsConfirmed.addAll(options)
                 }
             }
 
-            val entityAnswerFull = EntityAnswerFull(
+            val answerFull = AnswerFull(
                     answer = entityAnswer,
                     options = answerIdsConfirmed,
                     images = answer.images
             )
 
-            listEntityAwnserFull.add(entityAnswerFull)
+            awnserFull.add(answerFull)
         }
 
         val entityQuestionFull = EntityQuestionFull(
@@ -53,9 +54,9 @@ fun FormQuestions.toEntity(): EntityFormQuestionFull {
         listEntityQuestionsFull.add(entityQuestionFull)
     }
 
-    return EntityFormQuestionFull(
+    return FormQuestionFull(
             settings = entityFormSettings,
-            answers = listEntityAwnserFull,
+            answers = awnserFull,
             questions = listEntityQuestionsFull
     )
 }

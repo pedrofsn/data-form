@@ -1,7 +1,7 @@
 package br.redcode.sample.data.entities
 
-data class EntityFormQuestionFull(
+data class FormQuestionFull(
         val settings: EntityFormSettings,
-        val answers: List<EntityAnswerFull>,
+        val answers: List<AnswerFull>,
         val questions: List<EntityQuestionFull>
 )
