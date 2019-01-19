@@ -25,5 +25,5 @@ data class EntityAnswer(
 
         val text: String? = null,
         val percentage: Int? = null
-
+// TODO foreignkey to all answers and questions WITH FORM. Because I can have multiple forms!
 )
