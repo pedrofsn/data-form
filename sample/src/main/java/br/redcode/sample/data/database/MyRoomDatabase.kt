@@ -8,10 +8,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import br.redcode.sample.App
 import br.redcode.sample.BuildConfig
-import br.redcode.sample.data.dao.AnswerDAO
-import br.redcode.sample.data.dao.AnswerImageDAO
-import br.redcode.sample.data.dao.AnswerOptionDAO
-import br.redcode.sample.data.dao.QuestionDAO
+import br.redcode.sample.data.dao.*
 import br.redcode.sample.data.entities.*
 import java.util.concurrent.Executors
 
@@ -24,11 +21,13 @@ import java.util.concurrent.Executors
             EntityAnswer::class,
             EntityAnswerImage::class,
             EntityAnswerOption::class,
+
+            EntityFormSettings::class,
+
             EntityQuestion::class,
             EntityQuestionCustomSettings::class,
             EntityQuestionLimit::class,
-            EntityQuestionOption::class,
-            EntityFormSettings::class
+            EntityQuestionOption::class
         ],
         version = 1,
         exportSchema = false
@@ -36,10 +35,18 @@ import java.util.concurrent.Executors
 @TypeConverters(Converters::class)
 abstract class MyRoomDatabase : RoomDatabase() {
 
-    abstract fun questionDAO(): QuestionDAO
+    abstract fun answerDAO(): AnswerDAO
     abstract fun answerImageDAO(): AnswerImageDAO
     abstract fun answerOptionDAO(): AnswerOptionDAO
-    abstract fun answerDAO(): AnswerDAO
+
+    abstract fun formSettingsDAO(): FormSettingsDAO
+
+    abstract fun questionDAO(): QuestionDAO
+    abstract fun questionCustomSettingsDAO(): QuestionCustomSettingsDAO
+    abstract fun questionLimitDAO(): QuestionLimitDAO
+    abstract fun questionOptionDAO(): QuestionOptionDAO
+
+    abstract fun formQuestionsDAO(): FormQuestionsDAO
 
     companion object {
 

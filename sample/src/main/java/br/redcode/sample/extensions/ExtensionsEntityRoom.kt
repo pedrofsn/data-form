@@ -19,26 +19,25 @@ fun FormQuestions.toEntity(): EntityFormQuestionFull {
         val entityCustomSettings = question.customSettings?.toEntity(idQuestion = currentIdQuestion)
         // TODO and extra @RawValue?
 
-
         val answer = answers.firstOrNull { currentIdQuestion == it.idQuestion }
         if (answer != null) {
             val entityAnswer = answer.toEntity(idQuestion = currentIdQuestion)
-            val currentIdAnwser = entityAnswer.idAnswer
 
-            val entityAnswerImages = answer.images?.toEntity(idAnswer = currentIdAnwser)
-            val entityAnswersOptions = arrayListOf<EntityAnswerOption>()
+            val answerIdsConfirmed = arrayListOf<String>()
 
             // TODO improve
             answer.options?.let { ids ->
                 if (ids.isNotEmpty()) {
-                    entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.toEntity() }?.let { entityAnswersOptions.addAll(it) }
+                    val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
+                            ?: emptyList()//?.map { it.toEntity(idAnswer = currentIdAnwser) }?.let { entityAnswersOptions.addAll(it) }
+                    answerIdsConfirmed.addAll(options)
                 }
             }
 
             val entityAnswerFull = EntityAnswerFull(
                     answer = entityAnswer,
-                    options = entityAnswersOptions,
-                    images = entityAnswerImages
+                    options = answerIdsConfirmed,
+                    images = answer.images
             )
 
             listEntityAwnserFull.add(entityAnswerFull)
@@ -52,8 +51,6 @@ fun FormQuestions.toEntity(): EntityFormQuestionFull {
         )
 
         listEntityQuestionsFull.add(entityQuestionFull)
-
-
     }
 
     return EntityFormQuestionFull(
@@ -139,6 +136,21 @@ fun Image.toEntity(idAnswer: Long) = EntityAnswerImage(
         subtitle = subtitle
 )
 
-fun EntityQuestionOption.toEntity() = EntityAnswerOption(
+fun EntityQuestionOption.toEntityAnswerQuestion(idAnswer: Long) = EntityAnswerOption(
+        idAnswer = idAnswer,
         idQuestionOption = idQuestionOption
 )
+
+// ----------------> EASY
+
+fun List<EntityQuestionOption>?.changeQuestionOptions(idQuestion: Long) = this?.map { obj -> obj.copy(idQuestion = idQuestion) }
+        ?: emptyList()
+
+fun List<EntityQuestionCustomSettings>?.changeQuestionCustomSettings(idQuestion: Long) = this?.map { obj -> obj.copy(idQuestion = idQuestion) }
+        ?: emptyList()
+
+fun List<EntityAnswerImage>?.changeAnswerImage(idAnswer: Long) = this?.map { obj -> obj.copy(idAnswer = idAnswer) }
+        ?: emptyList()
+
+fun List<EntityAnswerOption>?.changeAnswerOption(idAnswer: Long) = this?.map { obj -> obj.copy(idAnswer = idAnswer) }
+        ?: emptyList()
