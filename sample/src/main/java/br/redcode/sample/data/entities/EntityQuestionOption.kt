@@ -26,8 +26,8 @@ data class EntityQuestionOption(
         @ColumnInfo(name = "question_option_id") val idQuestionOption: Long = 0,
 
         @ColumnInfo(name = "question_id") val idQuestion: Long,
-        @ColumnInfo(name = "option_id") val idOption: String,
 
+        @ColumnInfo(name = "option_id") val idOption: String,
         val description: String,
         val selected: Boolean = false
 

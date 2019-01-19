@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.model
 
 import android.os.Parcelable
+import br.redcode.dataform.lib.utils.Constants.INVALID_VALUE
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -18,10 +19,12 @@ data class Answer(
 ) : Parcelable {
 
     fun hasText() = text != null && text?.isNotEmpty() ?: false
+    fun hasPercentage() = percentage != null && percentage!! >= 0 && percentage!! <= 100
     fun hasOptions() = options != null && options?.isNotEmpty() ?: false
     fun hasOnlyOneOption() = hasOptions() && options!!.size == 1
     fun hasImages() = images != null && images?.isNotEmpty() ?: false
 
-    fun hasAnswer() = id != null && (hasText() || hasOptions() || hasImages())
+    fun hasAnswer() = idQuestion != INVALID_VALUE.toLong() &&
+            (hasText() || hasPercentage() || hasOptions() || hasImages())
 
 }

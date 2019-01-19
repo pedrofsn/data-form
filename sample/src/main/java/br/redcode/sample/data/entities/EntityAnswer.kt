@@ -24,7 +24,6 @@ data class EntityAnswer(
         @ColumnInfo(name = "question_id") val idQuestion: Long,
 
         val text: String? = null,
-        val percentage: Int? = null,
-        val tag: String? = null
+        val percentage: Int? = null
 
 )

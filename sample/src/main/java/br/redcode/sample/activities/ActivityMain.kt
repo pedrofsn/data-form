@@ -43,7 +43,7 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
         initializeListener()
         launch(coroutineContext) {
-            gerarListaPerguntas()
+            populateFormQuestiosn()
             afterOnCreate()
         }
     }
@@ -85,12 +85,13 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
         }
     }
 
-    private suspend fun gerarListaPerguntas() = coroutineScope() {
+    private suspend fun populateFormQuestiosn() = coroutineScope() {
         val reader = JSONReader(this@ActivityMain)
         val json = reader.getStringFromJson(R.raw.perguntas_3)
 
         val gson = Gson()
         formQuestions = gson.fromJson<FormQuestions>(json, FormQuestions::class.java)
+
     }
 
     private suspend fun afterOnCreate() = coroutineScope() {
