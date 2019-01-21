@@ -37,8 +37,6 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
             populateFormQuestiosn()
             afterOnCreate()
         }
-
-//        button.setOnClickListener { launch(io()) { populateFormQuestiosn() } }
     }
 
     private suspend fun populateFormQuestiosn() = coroutineScope() {
