@@ -33,7 +33,7 @@ import java.util.concurrent.Executors
             EntityFormSettings::class,
             EntityForm::class
         ],
-        version = 3,
+        version = 4,
         exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -55,7 +55,7 @@ abstract class MyRoomDatabase : RoomDatabase() {
 
         @Volatile
         private var INSTANCE: MyRoomDatabase? = null
-        private val DATABASE_NAME: String = "dataform.db"
+        private const val DATABASE_NAME: String = "dataform.db"
 
         fun getInstance(context: Context = App.getContext()!!): MyRoomDatabase {
             return INSTANCE ?: synchronized(this) {

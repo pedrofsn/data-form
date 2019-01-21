@@ -22,7 +22,7 @@ import androidx.room.*
         ],
         indices = [
             Index(
-                    value = ["option_id", "question_id"],
+                    value = ["form_id", "question_id", "option_id"],
                     unique = true
             )
         ]

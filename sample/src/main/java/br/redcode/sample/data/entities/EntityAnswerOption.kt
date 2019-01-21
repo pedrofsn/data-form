@@ -1,9 +1,6 @@
 package br.redcode.sample.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
         tableName = "answer_options",
@@ -20,14 +17,23 @@ import androidx.room.PrimaryKey
                     parentColumns = arrayOf("answer_id"),
                     childColumns = arrayOf("answer_id"),
                     onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
+                    onUpdate = ForeignKey.CASCADE
+            )
             ,
             ForeignKey(
                     entity = EntityQuestionOption::class,
                     parentColumns = arrayOf("question_option_id"),
                     childColumns = arrayOf("question_option_id"),
                     onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)]
+                    onUpdate = ForeignKey.CASCADE
+            )
+        ],
+        indices = [
+            Index(
+                    value = ["form_id", "answer_id"],
+                    unique = true
+            )
+        ]
 )
 data class EntityAnswerOption(
 
