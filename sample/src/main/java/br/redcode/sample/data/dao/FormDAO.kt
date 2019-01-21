@@ -50,7 +50,7 @@ interface FormDAO : BaseDAO<EntityForm> {
                     MyRoomDatabase.getInstance().answerOptionDAO().insert(optionQuestion.toEntityAnswerQuestion(idAnswer = idAwnser))
                 }
 
-                val images = answerFull.images?.toEntity(idAnswer = idAwnser, idForm = idForm)
+                val images = answerFull.images?.toEntity(idAnswer = idAwnser)
                 MyRoomDatabase.getInstance().answerImageDAO().insertAll(images)
             }
 

@@ -6,13 +6,6 @@ import androidx.room.*
         tableName = "question_options",
         foreignKeys = [
             ForeignKey(
-                    entity = EntityForm::class,
-                    parentColumns = arrayOf("form_id"),
-                    childColumns = arrayOf("form_id"),
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE
-            ),
-            ForeignKey(
                     entity = EntityQuestion::class,
                     parentColumns = arrayOf("question_id"),
                     childColumns = arrayOf("question_id"),
@@ -22,7 +15,7 @@ import androidx.room.*
         ],
         indices = [
             Index(
-                    value = ["form_id", "question_id", "option_id"],
+                    value = ["question_id", "option_id"],
                     unique = true
             )
         ]
@@ -32,7 +25,6 @@ data class EntityQuestionOption(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "question_option_id") val idQuestionOption: Long = 0,
 
-        @ColumnInfo(name = "form_id") val idForm: Long,
         @ColumnInfo(name = "question_id") val idQuestion: Long,
 
         @ColumnInfo(name = "option_id") val idOption: String,
