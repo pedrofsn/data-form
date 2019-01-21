@@ -15,14 +15,14 @@ fun Form.toEntity(): FormQuestionFull {
         val entityQuestion = question.toEntity(idForm)
         val currentIdQuestion = question.id
 
-        val entityLimit = question.limit?.toEntity(idQuestion = currentIdQuestion)
-        val entityOptionsQuestion = question.options?.fromOptionsToEntity(idQuestion = currentIdQuestion)
-        val entityCustomSettings = question.customSettings?.toEntity(idQuestion = currentIdQuestion)
+        val entityLimit = question.limit?.toEntity(idQuestion = currentIdQuestion, idForm = idForm)
+        val entityOptionsQuestion = question.options?.fromOptionsToEntity(idQuestion = currentIdQuestion, idForm = idForm)
+        val entityCustomSettings = question.customSettings?.toEntity(idQuestion = currentIdQuestion, idForm = idForm)
         // TODO and extra @RawValue?
 
         val answer = answers.firstOrNull { currentIdQuestion == it.idQuestion }
         if (answer != null) {
-            val entityAnswer = answer.toEntity(idQuestion = currentIdQuestion)
+            val entityAnswer = answer.toEntity(idQuestion = currentIdQuestion, idForm = idForm)
 
             val answerIdsConfirmed = arrayListOf<String>()
 
@@ -84,25 +84,32 @@ fun Question.toEntity(idForm: Long) = EntityQuestion(
 )
 
 // LIMIT
-fun Limit.toEntity(idQuestion: Long) = EntityQuestionLimit(
+fun Limit.toEntity(idQuestion: Long, idForm: Long) = EntityQuestionLimit(
         min = min,
         max = max,
+        idForm = idForm,
         idQuestion = idQuestion
 )
 
 // OPTIONS
-fun List<Spinnable>?.fromOptionsToEntity(idQuestion: Long) = this?.map { it.toEntity(idQuestion = idQuestion) }
+fun List<Spinnable>?.fromOptionsToEntity(idQuestion: Long, idForm: Long) = this?.map {
+    it.toEntity(
+            idQuestion = idQuestion,
+            idForm = idForm
+    )
+}
         ?: emptyList()
 
-fun Spinnable.toEntity(idQuestion: Long) = EntityQuestionOption(
+fun Spinnable.toEntity(idQuestion: Long, idForm: Long) = EntityQuestionOption(
         idOption = id,
         description = description,
         selected = selected,
+        idForm = idForm,
         idQuestion = idQuestion
 )
 
 // CUSTOM SETTINGS
-fun HashMap<String, Boolean>.toEntity(idQuestion: Long): List<EntityQuestionCustomSettings> {
+fun HashMap<String, Boolean>.toEntity(idQuestion: Long, idForm: Long): List<EntityQuestionCustomSettings> {
     val list = arrayListOf<EntityQuestionCustomSettings>()
 
     if (isNullOrEmpty().not()) {
@@ -112,6 +119,7 @@ fun HashMap<String, Boolean>.toEntity(idQuestion: Long): List<EntityQuestionCust
 
             if (key.isNotBlank()) {
                 val entity = EntityQuestionCustomSettings(
+                        idForm = idForm,
                         idQuestion = idQuestion,
                         key = key,
                         value = value
@@ -126,23 +134,26 @@ fun HashMap<String, Boolean>.toEntity(idQuestion: Long): List<EntityQuestionCust
 }
 
 // -----------> ANSWERS
-fun Answer.toEntity(idQuestion: Long) = EntityAnswer(
+fun Answer.toEntity(idQuestion: Long, idForm: Long) = EntityAnswer(
         text = text,
         percentage = percentage,
+        idForm = idForm,
         idQuestion = idQuestion
 )
 
-fun List<Image>?.toEntity(idAnswer: Long) = this?.map { it.toEntity(idAnswer = idAnswer) }
+fun List<Image>?.toEntity(idAnswer: Long, idForm: Long) = this?.map { it.toEntity(idAnswer = idAnswer, idForm = idForm) }
         ?: emptyList()
 
-fun Image.toEntity(idAnswer: Long) = EntityAnswerImage(
+fun Image.toEntity(idAnswer: Long, idForm: Long) = EntityAnswerImage(
         idAnswer = idAnswer,
+        idForm = idForm,
         image = image,
         subtitle = subtitle
 )
 
 fun EntityQuestionOption.toEntityAnswerQuestion(idAnswer: Long) = EntityAnswerOption(
         idAnswer = idAnswer,
+        idForm = idForm,
         idQuestionOption = idQuestionOption
 )
 

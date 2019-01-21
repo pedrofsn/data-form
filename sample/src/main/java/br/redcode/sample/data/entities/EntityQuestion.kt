@@ -8,14 +8,14 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 
 @Entity(
         tableName = "questions",
-        foreignKeys = arrayOf(
-                ForeignKey(
-                        entity = EntityForm::class,
-                        parentColumns = arrayOf("form_id"),
-                        childColumns = arrayOf("form_id"),
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        )
+        foreignKeys = [
+            ForeignKey(
+                    entity = EntityForm::class,
+                    parentColumns = arrayOf("form_id"),
+                    childColumns = arrayOf("form_id"),
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE)
+        ]
 )
 data class EntityQuestion(
 
