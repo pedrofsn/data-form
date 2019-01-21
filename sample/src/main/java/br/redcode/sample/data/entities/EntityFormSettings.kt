@@ -1,20 +1,24 @@
 package br.redcode.sample.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
         tableName = "form_settings",
-        foreignKeys = arrayOf(
-                ForeignKey(
-                        entity = EntityForm::class,
-                        parentColumns = arrayOf("form_id"),
-                        childColumns = arrayOf("form_id"),
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        )
+        foreignKeys = [
+            ForeignKey(
+                    entity = EntityForm::class,
+                    parentColumns = arrayOf("form_id"),
+                    childColumns = arrayOf("form_id"),
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE
+            )
+        ],
+        indices = [
+            Index(
+                    value = ["form_id"],
+                    unique = true
+            )
+        ]
 )
 data class EntityFormSettings(
 

@@ -1,9 +1,6 @@
 package br.redcode.sample.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
         tableName = "answer_limits",
@@ -21,6 +18,12 @@ import androidx.room.PrimaryKey
                     childColumns = arrayOf("question_id"),
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE
+            )
+        ],
+        indices = [
+            Index(
+                    value = ["form_id", "question_id"],
+                    unique = true
             )
         ]
 )

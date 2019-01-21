@@ -1,9 +1,6 @@
 package br.redcode.sample.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 
 @Entity(
@@ -14,7 +11,14 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
                     parentColumns = arrayOf("form_id"),
                     childColumns = arrayOf("form_id"),
                     onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
+                    onUpdate = ForeignKey.CASCADE
+            )
+        ],
+        indices = [
+            Index(
+                    value = ["form_id", "question_id"],
+                    unique = true
+            )
         ]
 )
 data class EntityQuestion(
