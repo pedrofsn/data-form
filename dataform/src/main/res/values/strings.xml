@@ -12,4 +12,5 @@
     <string name="selecione_ao_menos_uma_alternativa">Selecione ao menos uma alternativa</string>
     <string name="o_campo_de_texto_nao_foi_preenchido">O campo de texto não foi preenchido</string>
     <string name="mensagem_limites_default">A quantidade mínima é de %d e a quantidade máxima é de %d</string>
+    <string name="sem_resposta">Sem resposta</string>
 </resources>

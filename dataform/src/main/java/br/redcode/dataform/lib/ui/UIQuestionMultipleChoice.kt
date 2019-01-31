@@ -38,16 +38,20 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun fillAnswer(answer: Answer) {
-        answer.options?.let {
-            for (alternativa in adapter.getList()) {
-                for (resposta in it) {
-                    if (resposta.toString() == alternativa.id) {
-                        alternativa.selected = true
+        if (isInputAnswersInOtherScreen()) {
+            super.fillAnswer(answer)
+        } else {
+            answer.options?.let {
+                for (alternativa in adapter.getList()) {
+                    for (resposta in it) {
+                        if (resposta.toString() == alternativa.id) {
+                            alternativa.selected = true
+                        }
                     }
                 }
-            }
 
-            adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 

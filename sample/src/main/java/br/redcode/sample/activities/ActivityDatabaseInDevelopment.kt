@@ -3,6 +3,7 @@ package br.redcode.sample.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
@@ -11,7 +12,6 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.extensions.toEntity
 import br.redcode.sample.utils.JSONReader
-import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -30,8 +30,20 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
 
+    private val myAnswers = hashMapOf<Long, Answer>()
+
     private val callbackQuestion = { question: Question ->
-        Utils.log("question.description -> ${question.description}")
+
+        val previewAnswer = myAnswers[question.id]
+
+        val intent = Intent(this, AnswerResponder::class.java)
+
+        intent.putExtra("question", question)
+        if (previewAnswer != null) {
+            intent.putExtra("previewAnswer", previewAnswer)
+        }
+
+        startActivityForResult(intent, 15)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +74,7 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
     }
 
-    private suspend fun afterOnCreate() = coroutineScope() {
+    private suspend fun afterOnCreate() = coroutineScope {
         launch(main()) {
 
             agregador = UIForm(form, handlerCapturaImagem, callbackQuestion)
@@ -70,7 +82,13 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
             linearLayout.addView(view)
 
-            agregador.fillAnswers(form.answers)
+            fillAnswers(form.answers)
+        }
+    }
+
+    private suspend fun fillAnswers(answers: List<Answer>) = coroutineScope {
+        launch(main()) {
+            agregador.fillAnswers(answers)
         }
     }
 
@@ -127,6 +145,20 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 //        )
 //
 //        MyRoomDatabase.getInstance().answerDAO().insert(entityAnswer1)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 15 && resultCode == RESULT_OK && data != null) {
+            val answer = data.getParcelableExtra<Answer>("answer")
+
+            myAnswers.put(answer.idQuestion, answer)
+
+            launch(main()) {
+                fillAnswers(myAnswers.values.toList())
+            }
+        }
     }
 
 }

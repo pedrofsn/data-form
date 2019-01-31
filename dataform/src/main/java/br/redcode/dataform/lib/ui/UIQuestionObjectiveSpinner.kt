@@ -37,16 +37,20 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
         launch(main()) { fillAnswerAsync(answer) }
     }
 
-    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
-        val asyncId = async(io()) {
-            return@async answer.options?.firstOrNull()
+    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope {
+        if (isInputAnswersInOtherScreen()) {
+            super.fillAnswer(answer)
+        } else {
+            val asyncId = async(io()) {
+                return@async answer.options?.firstOrNull()
+            }
+
+            val id = asyncId.await()
+            val questionOptions = question.options?.toList() ?: emptyList()
+
+            spinner.setSpinnable2(questionOptions, true, id)
+            spinner.isEnabled = settings.editable
         }
-
-        val id = asyncId.await()
-        val questionOptions = question.options?.toList() ?: emptyList()
-
-        spinner.setSpinnable2(questionOptions, true, id)
-        spinner.isEnabled = settings.editable
     }
 
     override fun getAnswer(): Answer {

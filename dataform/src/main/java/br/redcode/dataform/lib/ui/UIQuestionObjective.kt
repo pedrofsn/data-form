@@ -45,7 +45,11 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun fillAnswer(answer: Answer) {
-        launch(main()) { fillAnswerAsync(answer) }
+        if (isInputAnswersInOtherScreen()) {
+            super.fillAnswer(answer)
+        } else {
+            launch(main()) { fillAnswerAsync(answer) }
+        }
     }
 
     private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handleAnswer: ((Question) -> Unit)) {
+class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handleAnswer: ((Question) -> Unit)? = null) {
 
     private val perguntasUI = ArrayList<UIQuestionBase>()
 

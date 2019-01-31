@@ -57,4 +57,5 @@ data class Question(
             throw RuntimeException("EN: Did you forgot limits in JSON question ${id}\nPT: Falta especificar os limites no JSON da pergunta ${id}")
         }
     }
+
 }
