@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.LinearLayout
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
-import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
+import br.redcode.dataform.lib.model.Question
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handlerInputPopup: HandlerInputPopup) {
+class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handleAnswer: ((Question) -> Unit)) {
 
     private val perguntasUI = ArrayList<UIQuestionBase>()
 
@@ -42,7 +42,10 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
                     else -> null
                 }
 
-                uiPergunta?.let { perguntasUI.add(it) }
+                uiPergunta?.let {
+                    uiPergunta.handleAnswer = handleAnswer
+                    perguntasUI.add(it)
+                }
             }
         }
     }

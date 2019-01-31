@@ -1,6 +1,7 @@
 {
   "idForm": 1,
   "settings": {
+    "inputAnswersInOtherScreen": true,
     "showIndicatorError": true,
     "showIndicatorInformation": true,
     "showSymbolRequired": true,

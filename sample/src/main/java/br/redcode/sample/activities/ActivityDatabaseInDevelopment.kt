@@ -3,15 +3,15 @@ package br.redcode.sample.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import br.com.redcode.spinnable.library.model.Spinnable
-import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.model.Form
+import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.sample.R
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.extensions.toEntity
 import br.redcode.sample.utils.JSONReader
+import br.redcode.sample.utils.Utils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -29,6 +29,10 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
+
+    private val callbackQuestion = { question: Question ->
+        Utils.log("question.description -> ${question.description}")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,17 +63,9 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
     }
 
     private suspend fun afterOnCreate() = coroutineScope() {
-        val handlerInputPopup = object : HandlerInputPopup() {
-
-            override fun chamarPopup(idQuestion: Long, functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit) {
-                super.chamarPopup(idQuestion, functionAdicionarItem)
-
-            }
-        }
-
         launch(main()) {
 
-            agregador = UIForm(form, handlerCapturaImagem, handlerInputPopup)
+            agregador = UIForm(form, handlerCapturaImagem, callbackQuestion)
             val view = agregador.getViewGenerated(this@ActivityDatabaseInDevelopment)
 
             linearLayout.addView(view)

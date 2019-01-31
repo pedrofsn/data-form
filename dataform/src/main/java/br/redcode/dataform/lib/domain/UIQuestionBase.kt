@@ -3,6 +3,7 @@ package br.redcode.dataform.lib.domain
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.interfaces.Questionable
@@ -30,14 +31,19 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
 
+    var handleAnswer: ((Question) -> Unit)? = null
+
     private lateinit var textViewDescription: TextView
     private lateinit var textViewInformation: TextView
+    private lateinit var linearLayoutContent: LinearLayout
+    private lateinit var view: View
     lateinit var uiIndicator: UIIndicator
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(idLayout, null)
+        view = inflater.inflate(idLayout, null)
         view.tag = "$PREFFIX_QUESTION${question.id}"
+
         initView(view)
         populateView()
         return view
@@ -47,6 +53,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         uiIndicator = view.findViewById(R.id.indicator)
         textViewDescription = view.findViewById(R.id.textViewDescription)
         textViewInformation = view.findViewById(R.id.textViewInformation)
+        linearLayoutContent = view.findViewById(R.id.linearLayoutContent)
     }
 
     open fun populateView() {
@@ -62,6 +69,13 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         }
 
         textViewInformation.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
+
+        if (isInputAnswersInOtherScreen()) {
+            view.setOnClickListener { handleAnswer?.invoke(question) }
+            linearLayoutContent.visibility = View.GONE
+        } else {
+            linearLayoutContent.visibility = View.VISIBLE
+        }
     }
 
     override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
@@ -80,5 +94,6 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     }
 
     override fun getAnswer() = Answer(idQuestion = question.id)
+    fun isInputAnswersInOtherScreen() = settings.inputAnswersInOtherScreen
 
 }
