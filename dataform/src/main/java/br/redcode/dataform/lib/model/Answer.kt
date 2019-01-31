@@ -26,4 +26,13 @@ data class Answer(
     fun hasAnswer() = idQuestion != INVALID_VALUE.toLong() &&
             (hasText() || hasPercentage() || hasOptions() || hasImages())
 
+    fun getPreviewAnswer(question: Question): String? = when {
+        hasText() -> text
+        hasPercentage() -> percentage.toString()
+        hasOptions() || hasOnlyOneOption() -> question.options?.filter {
+            it.id in (options ?: emptyList())
+        }?.map { it.description }?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...")
+        hasImages() -> images?.map { it.image }?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...")
+        else -> ""
+    }
 }

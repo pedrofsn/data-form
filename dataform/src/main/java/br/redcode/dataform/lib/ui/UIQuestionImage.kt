@@ -81,10 +81,14 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     override fun fillAnswer(answer: Answer) {
-        answer.images?.let {
-            adapter.setLista(it)
-            adapter.notifyDataSetChanged()
-            updateCounter()
+        if (isInputAnswersInOtherScreen()) {
+            super.fillAnswer(answer)
+        } else {
+            answer.images?.let {
+                adapter.setLista(it)
+                adapter.notifyDataSetChanged()
+                updateCounter()
+            }
         }
     }
 

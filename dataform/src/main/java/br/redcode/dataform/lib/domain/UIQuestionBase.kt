@@ -35,25 +35,33 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
     private lateinit var textViewDescription: TextView
     private lateinit var textViewInformation: TextView
+    private lateinit var textViewPreviewAnswer: TextView
     private lateinit var linearLayoutContent: LinearLayout
-    private lateinit var view: View
+    private lateinit var viewWrapper: View
+    private lateinit var viewContent: View
     lateinit var uiIndicator: UIIndicator
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
-        view = inflater.inflate(idLayout, null)
-        view.tag = "$PREFFIX_QUESTION${question.id}"
+        viewWrapper = inflater.inflate(R.layout.ui_question_wrapper, null)
 
-        initView(view)
+        viewContent = inflater.inflate(idLayout, null)
+        viewContent.tag = "$PREFFIX_QUESTION${question.id}"
+
+        linearLayoutContent = viewWrapper.findViewById(R.id.linearLayoutContent)
+        linearLayoutContent.addView(viewContent)
+
+        initView(viewContent)
         populateView()
-        return view
+
+        return viewWrapper
     }
 
     open fun initView(view: View) {
-        uiIndicator = view.findViewById(R.id.indicator)
-        textViewDescription = view.findViewById(R.id.textViewDescription)
-        textViewInformation = view.findViewById(R.id.textViewInformation)
-        linearLayoutContent = view.findViewById(R.id.linearLayoutContent)
+        uiIndicator = viewWrapper.findViewById(R.id.indicator)
+        textViewDescription = viewWrapper.findViewById(R.id.textViewDescription)
+        textViewPreviewAnswer = viewWrapper.findViewById(R.id.textViewPreviewAnswer)
+        textViewInformation = viewWrapper.findViewById(R.id.textViewInformation)
     }
 
     open fun populateView() {
@@ -71,10 +79,12 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         textViewInformation.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
 
         if (isInputAnswersInOtherScreen()) {
-            view.setOnClickListener { handleAnswer?.invoke(question) }
+            viewWrapper.setOnClickListener { handleAnswer?.invoke(question) }
             linearLayoutContent.visibility = View.GONE
+            textViewPreviewAnswer.visibility = View.VISIBLE
         } else {
             linearLayoutContent.visibility = View.VISIBLE
+            textViewPreviewAnswer.visibility = View.GONE
         }
     }
 
@@ -93,7 +103,12 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         return result ?: EMPTY_STRING
     }
 
+    override fun fillAnswer(answer: Answer) {
+        textViewPreviewAnswer.text = answer.getPreviewAnswer(question)
+    }
+
     override fun getAnswer() = Answer(idQuestion = question.id)
     fun isInputAnswersInOtherScreen() = settings.inputAnswersInOtherScreen
+
 
 }
