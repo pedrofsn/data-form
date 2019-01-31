@@ -16,7 +16,7 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
         ],
         indices = [
             Index(
-                    value = ["form_id", "question_id"],
+                    value = ["question_id", "form_id"],
                     unique = true
             )
         ]
@@ -24,7 +24,7 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 data class EntityQuestion(
 
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "question_id") val id: Long = 0,
+        @ColumnInfo(name = "question_id") val idQuestion: Long = 0,
 
         @ColumnInfo(name = "form_id") val idForm: Long,
 

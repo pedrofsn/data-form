@@ -8,7 +8,9 @@ import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.sample.R
+import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
+import br.redcode.sample.extensions.toEntity
 import br.redcode.sample.utils.JSONReader
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,14 +41,20 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
         }
     }
 
-    private suspend fun populateFormQuestiosn() = coroutineScope() {
-        val json = reader.getStringFromJson(R.raw.perguntas_3)
+    private suspend fun populateFormQuestiosn() = coroutineScope {
+        launch(io()) {
+            val json = reader.getStringFromJson(R.raw.perguntas_3)
 
-        val gson = Gson()
-        form = gson.fromJson<Form>(json, Form::class.java)
+            val gson = Gson()
+            form = gson.fromJson<Form>(json, Form::class.java)
 
-//        val fakeEntity = form.toEntity()
+            val fakeEntity = form.toEntity()
 
+            MyRoomDatabase.getInstance().formDAO().insert(fakeEntity)
+
+            val x = MyRoomDatabase.getInstance().formDAO().readForm(1)
+            x.toString()
+        }
 
     }
 

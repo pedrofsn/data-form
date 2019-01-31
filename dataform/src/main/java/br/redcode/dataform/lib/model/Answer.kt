@@ -9,7 +9,6 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Answer(
-        var id: Long? = null,
         var idQuestion: Long,
 
         var text: String? = null,

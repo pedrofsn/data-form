@@ -1,6 +1,7 @@
 package br.redcode.dataform.lib.ui
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIQuestionBase
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
-    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter: AdapterRadioButton
     private var indexSelected: Int = Constants.INVALID_VALUE
@@ -41,7 +42,6 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
             adapter.setLista(it)
             recyclerView.setCustomAdapter(adapter)
         }
-
     }
 
     override fun fillAnswer(answer: Answer) {

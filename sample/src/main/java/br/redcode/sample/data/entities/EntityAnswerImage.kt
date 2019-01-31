@@ -1,6 +1,7 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.redcode.dataform.lib.model.Image
 
 @Entity(
         tableName = "answer_images",
@@ -30,4 +31,9 @@ data class EntityAnswerImage(
         val image: String,
         val subtitle: String? = null
 
-)
+) {
+    fun toModel() = Image(
+            image = image,
+            subtitle = subtitle
+    )
+}

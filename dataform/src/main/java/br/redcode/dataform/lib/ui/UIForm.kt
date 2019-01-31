@@ -7,7 +7,6 @@ import android.widget.LinearLayout
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
-import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import kotlinx.coroutines.Dispatchers
@@ -102,7 +101,7 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
 
     fun refreshAnswers() {
         for (ui in perguntasUI) {
-            (ui as Questionable).getAnswer().id = ui.question.id
+//            (ui as Questionable).getAnswer().id = ui.question.id TODO why?
         }
     }
 
