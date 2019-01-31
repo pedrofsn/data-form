@@ -8,6 +8,7 @@ import br.com.concrete.canarinho.watcher.CPFCNPJTextWatcher
 import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.domain.handlers.HandlerInputPopup
 import br.redcode.dataform.lib.model.Form
+import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
@@ -108,7 +109,7 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
 
         launch(main()) {
 
-            agregador = UIForm(form, handlerCapturaImagem, handlerInputPopup)
+            agregador = UIForm(form, handlerCapturaImagem) { q: Question -> }
             val view = agregador.getViewGenerated(this@ActivityMain)
 
             linearLayout.addView(view)
