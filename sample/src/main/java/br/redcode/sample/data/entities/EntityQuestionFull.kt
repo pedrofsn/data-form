@@ -9,7 +9,7 @@ data class EntityQuestionFull(
         val question: EntityQuestion,
 
         @Embedded
-        val limit: EntityQuestionLimit?,
+        val limit: EntityQuestionLimit? = null,
 
         @Relation(parentColumn = "question_id", entityColumn = "question_id")
         val options: List<EntityQuestionOption>? = null,

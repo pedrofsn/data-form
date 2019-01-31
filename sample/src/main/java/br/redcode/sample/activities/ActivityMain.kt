@@ -13,6 +13,7 @@ import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_SPINNER
 import br.redcode.sample.R
+import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.dialogs.DialogCheckin
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.interfaces.OnPosicaoCadastrada
@@ -46,6 +47,8 @@ class ActivityMain : ActivityCapturarImagem(), CoroutineScope {
             populateFormQuestiosn()
             afterOnCreate()
         }
+
+        MyRoomDatabase.getInstance().formDAO().read(1)
     }
 
     private fun initializeListener() {

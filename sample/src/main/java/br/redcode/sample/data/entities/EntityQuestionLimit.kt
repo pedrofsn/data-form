@@ -3,7 +3,7 @@ package br.redcode.sample.data.entities
 import androidx.room.*
 
 @Entity(
-        tableName = "answer_limits",
+        tableName = "question_limits",
         foreignKeys = [
             ForeignKey(
                     entity = EntityQuestion::class,

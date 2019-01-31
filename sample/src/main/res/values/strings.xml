@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dataform - App de Exemplo</string>
+    <string name="app_name">Formulário dinâmico</string>
     <string name="respostas">Respostas</string>
     <string name="imagem">Imagem</string>
     <string name="existem_perguntas_nao_respondidas">Existem perguntas não respondidas</string>
