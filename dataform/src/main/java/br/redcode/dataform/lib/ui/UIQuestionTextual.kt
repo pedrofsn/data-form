@@ -60,15 +60,12 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
     }
 
     override fun fillAnswer(answer: Answer) {
-        if (isInputAnswersInOtherScreen()) {
-            super.fillAnswer(answer)
-        } else {
-            editText.setText(answer.text)
-        }
+        super.fillAnswer(answer)
+        editText.setText(answer.text)
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.text = editText.text.toString().trim()
         return answer
     }

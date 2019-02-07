@@ -45,11 +45,8 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun fillAnswer(answer: Answer) {
-        if (isInputAnswersInOtherScreen()) {
-            super.fillAnswer(answer)
-        } else {
-            launch(main()) { fillAnswerAsync(answer) }
-        }
+        super.fillAnswer(answer)
+        launch(main()) { fillAnswerAsync(answer) }
     }
 
     private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
@@ -69,7 +66,10 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
         if (index != INVALID_VALUE) {
             indexSelected = index
             adapter.getList()[index].selected = true
-            adapter.notifyDataSetChanged()
+
+            if (isInputAnswersInOtherScreen().not()) {
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -95,7 +95,7 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
 
         if (indexSelected != Constants.INVALID_VALUE) {
             answer.options = listOf(adapter.getList()[indexSelected].id)

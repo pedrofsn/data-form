@@ -35,7 +35,7 @@ class UIQuestionInformationText(question: Question, settings: FormSettings) : UI
     }
 
     override fun isFilledCorrect() = true
-
     override fun getMessageErrorFill() = EMPTY_STRING
+    override fun getAnswer() = tempAnswer
 
 }

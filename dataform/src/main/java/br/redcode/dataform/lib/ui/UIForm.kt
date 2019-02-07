@@ -9,10 +9,7 @@ import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -78,7 +75,14 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
             for (ui in perguntasUI) {
                 val answer = answers.firstOrNull { it.idQuestion == ui.question.id }
                 answer?.let {
-                    launch(Dispatchers.Main) { ui.fillAnswer(it) }
+                    launch(Dispatchers.Main) {
+                        ui.fillAnswer(it)
+
+                        delay(500)
+                        if (ui.isFilledCorrect()) {
+                            ui.showMessageForErrorFill(true)
+                        }
+                    }
                 }
             }
         }
