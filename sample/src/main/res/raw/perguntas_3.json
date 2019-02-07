@@ -3,7 +3,7 @@
   "settings": {
     "inputAnswersInOtherScreen": true,
     "showIndicatorError": true,
-    "showIndicatorInformation": true,
+    "showIndicatorInformation": false,
     "showSymbolRequired": true,
     "editable": true
   },
