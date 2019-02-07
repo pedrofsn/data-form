@@ -65,6 +65,8 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
             form = gson.fromJson<Form>(json, Form::class.java)
             form.settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
 
+            form.answers.map { answer -> myAnswers.put(answer.idQuestion, answer) }
+
             val fakeEntity = form.toEntity()
 
             MyRoomDatabase.getInstance().formDAO().insert(fakeEntity)

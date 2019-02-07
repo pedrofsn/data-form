@@ -25,6 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Finalizar" />
+        android:text="@string/responder"
+        android:textColor="@android:color/holo_green_light"
+        android:textStyle="bold" />
 
 </RelativeLayout>
