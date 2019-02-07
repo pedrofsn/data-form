@@ -57,6 +57,13 @@ data class Question(
 
     private fun crashAppWithoutLimitInformation() {
         when {
+            limit?.auto == true -> {
+                limit = Limit(
+                        max = countOptions(),
+                        min = getLimitMin(),
+                        auto = true
+                )
+            }
             hasOptions() && getLimitMax() > countOptions() -> throw RuntimeException("EN: Limit max is grather than options quantity in question ${id}\nPT: O limite máximo é maior que a quantidade de alternativas da pergunta ${id}")
             getLimitMin() < 0 -> throw RuntimeException("EN: Negative min limit in question ${id}\nPT: O limite mínimo está negativo na pergunta ${id}")
             getLimitMin() > getLimitMax() -> throw RuntimeException("EN: Negative min limit in question ${id}\nPT: O limite mínimo está negativo na pergunta ${id}")
