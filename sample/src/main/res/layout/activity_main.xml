@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/background_app"
     android:orientation="vertical"
     tools:context="br.redcode.sample.activities.ActivityMain">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/button"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/respiro_visual_card">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -19,7 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical" />
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/button"
