@@ -10,4 +10,5 @@
     <string name="register">Cadastrar</string>
     <string name="hint_capture_image_subtitle">Apenas em uma pergunta</string>
     <string name="responder">Responder</string>
+    <string name="required">Obrigatório</string>
 </resources>
