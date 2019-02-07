@@ -38,20 +38,18 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun fillAnswer(answer: Answer) {
-        if (isInputAnswersInOtherScreen()) {
-            super.fillAnswer(answer)
-        } else {
-            answer.options?.let {
-                for (alternativa in adapter.getList()) {
-                    for (resposta in it) {
-                        if (resposta.toString() == alternativa.id) {
-                            alternativa.selected = true
-                        }
+        super.fillAnswer(answer)
+
+        answer.options?.let {
+            for (alternativa in adapter.getList()) {
+                for (resposta in it) {
+                    if (resposta.toString() == alternativa.id) {
+                        alternativa.selected = true
                     }
                 }
-
-                adapter.notifyDataSetChanged()
             }
+
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -67,7 +65,7 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.options = adapter.getList().map { it.id }.toList()
         return answer
     }

@@ -57,22 +57,20 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
     }
 
     override fun fillAnswer(answer: Answer) {
-        if (isInputAnswersInOtherScreen()) {
-            super.fillAnswer(answer)
-        } else {
-            answer.percentage?.let {
-                try {
-                    updateText(it)
-                    seekBar.progress = it
-                } catch (e: Exception) {
+        super.fillAnswer(answer)
 
-                }
+        answer.percentage?.let {
+            try {
+                updateText(it)
+                seekBar.progress = it
+            } catch (e: Exception) {
+
             }
         }
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.percentage = seekBar.progress
         return answer
     }

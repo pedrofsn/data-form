@@ -41,6 +41,8 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     private lateinit var viewContent: View
     lateinit var uiIndicator: UIIndicator
 
+    internal var tempAnswer: Answer = Answer(idQuestion = question.id)
+
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
         viewWrapper = inflater.inflate(getLayoutWrapper(), null)
@@ -91,10 +93,10 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         }
     }
 
-    override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
-        launch(Dispatchers.Main) {
-            uiIndicator.let {
-                if (isFilledRight.not()) it.setError(getMessageErrorFill()) else it.hide()
+    override fun showMessageForErrorFill(isFilledRight: Boolean) {
+        launch(main()) {
+            uiIndicator.apply {
+                if (isFilledRight) hide() else setError(getMessageErrorFill())
             }
         }
     }
@@ -107,11 +109,13 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     }
 
     override fun fillAnswer(answer: Answer) {
-        textViewPreviewAnswer.text = answer.getPreviewAnswer(question)
+        if (isInputAnswersInOtherScreen()) {
+            textViewPreviewAnswer.text = answer.getPreviewAnswer(question)
+        }
+
+        tempAnswer = answer
     }
 
-    override fun getAnswer() = Answer(idQuestion = question.id)
     fun isInputAnswersInOtherScreen() = settings.inputAnswersInOtherScreen
-
 
 }
