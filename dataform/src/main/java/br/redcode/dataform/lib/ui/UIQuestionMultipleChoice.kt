@@ -40,16 +40,14 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     override fun fillAnswer(answer: Answer) {
         super.fillAnswer(answer)
 
-        answer.options?.let {
-            for (alternativa in adapter.getList()) {
-                for (resposta in it) {
-                    if (resposta.toString() == alternativa.id) {
-                        alternativa.selected = true
-                    }
+        if (answer.hasOptions()) {
+            answer.options?.let { ids ->
+                adapter.getList().forEach { obj ->
+                    obj.selected = obj.id in ids
                 }
-            }
 
-            adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -66,7 +64,7 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
 
     override fun getAnswer(): Answer {
         val answer = tempAnswer
-        answer.options = adapter.getList().map { it.id }.toList()
+        answer.options = adapter.getList().filter { it.selected }.map { it.id }.toList()
         return answer
     }
 

@@ -8,9 +8,7 @@ import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.sample.R
-import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.ActivityCapturarImagem
-import br.redcode.sample.extensions.toEntity
 import br.redcode.sample.utils.JSONReader
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,14 +63,14 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
             form = gson.fromJson<Form>(json, Form::class.java)
             form.settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
 
-            form.answers.map { answer -> myAnswers.put(answer.idQuestion, answer) }
+            form.answers.forEach { answer -> myAnswers.put(answer.idQuestion, answer) }
 
-            val fakeEntity = form.toEntity()
-
-            MyRoomDatabase.getInstance().formDAO().insert(fakeEntity)
-
-            val x = MyRoomDatabase.getInstance().formDAO().readForm(1)
-            x.toString()
+//            val fakeEntity = form.toEntity()
+//
+//            MyRoomDatabase.getInstance().formDAO().insert(fakeEntity)
+//
+//            val x = MyRoomDatabase.getInstance().formDAO().readForm(1)
+//            x.toString()
         }
 
     }
@@ -89,10 +87,8 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
         }
     }
 
-    private suspend fun fillAnswers(answers: List<Answer>) = coroutineScope {
-        launch(main()) {
-            agregador.fillAnswers(answers)
-        }
+    private fun fillAnswers(answers: List<Answer>) {
+        launch(main()) { agregador.fillAnswers(answers) }
     }
 
     private fun initializeListener() {
@@ -156,11 +152,8 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
         if (requestCode == 15 && resultCode == RESULT_OK && data != null) {
             val answer = data.getParcelableExtra<Answer>("answer")
 
-            myAnswers.put(answer.idQuestion, answer)
-
-            launch(main()) {
-                fillAnswers(myAnswers.values.toList())
-            }
+            myAnswers[answer.idQuestion] = answer
+            fillAnswers(myAnswers.values.toList())
         }
     }
 
