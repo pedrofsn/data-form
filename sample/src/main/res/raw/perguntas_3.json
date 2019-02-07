@@ -11,7 +11,7 @@
     {
       "id": 1,
       "description": "Batido",
-      "type": "objective_list",
+      "type": "multiple_choice",
       "required": "true",
       "options": [
         {
@@ -30,7 +30,11 @@
           "id": "3",
           "description": "Porta Malas"
         }
-      ]
+      ],
+      "limit": {
+        "max": 4,
+        "min": 0
+      }
     },
     {
       "id": 2,
