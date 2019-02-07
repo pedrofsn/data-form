@@ -1,7 +1,6 @@
 {
   "idForm": 1,
   "settings": {
-    "backgroundColor": "#FAFCFD",
     "inputAnswersInOtherScreen": true,
     "showIndicatorInformation": false,
     "showIndicatorError": true,

@@ -2,6 +2,7 @@ package br.redcode.sample.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
@@ -11,7 +12,7 @@ import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityCapturarImagem
 import br.redcode.sample.utils.JSONReader
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_responder.*
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -42,7 +43,7 @@ class AnswerResponder : ActivityCapturarImagem(), CoroutineScope {
         }
     }
 
-    private suspend fun afterOnCreate() = coroutineScope() {
+    private suspend fun afterOnCreate() = coroutineScope {
         launch(main()) {
             val asyncForm = async(io()) {
                 val json = reader.getStringFromJson(R.raw.perguntas_3)
@@ -54,12 +55,16 @@ class AnswerResponder : ActivityCapturarImagem(), CoroutineScope {
             form = asyncForm.await()
 
             // DIFERENÇA
-            val newSettings = form.settings.copy(inputAnswersInOtherScreen = false)
             val newQuestion = form.questions.firstOrNull { q -> q.id == question.id }
             val newAnswers = arrayListOf<Answer>()
             val newQuestions = arrayListOf<Question>()
+            val newSettings = form.settings.copy(
+                    inputAnswersInOtherScreen = false,
+                    showSymbolRequired = false
+            )
 
             newQuestion?.let { newQuestions.add(newQuestion) }
+
             if (previewAnswer != null) {
                 newAnswers.add(previewAnswer!!)
             }
@@ -78,6 +83,8 @@ class AnswerResponder : ActivityCapturarImagem(), CoroutineScope {
             linearLayout.addView(view)
 
             agregador.fillAnswers(form.answers)
+
+            textViewRequired.visibility = if (newQuestion?.required == true) View.VISIBLE else View.GONE
         }
     }
 
