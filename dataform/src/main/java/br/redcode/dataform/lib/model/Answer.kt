@@ -32,7 +32,18 @@ data class Answer(
         hasOptions() || hasOnlyOneOption() -> question.options?.filter {
             it.id in (options ?: emptyList())
         }?.map { it.description }?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...")
-        hasImages() -> images?.map { it.image }?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...")
+        hasImages() -> getPreviewAnswerImage()
         else -> ""
+    }
+
+    private fun getPreviewAnswerImage(): String {
+        val count = images?.count() ?: 0
+
+        // TODO --> I'm shameless for this because I #needmovefast
+        return when {
+            count > 1 -> String.format("%d imagens", count)
+            else -> String.format("%d imagem", count)
+        }
+//        images?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...") { it.image }
     }
 }
