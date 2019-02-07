@@ -10,7 +10,8 @@ data class FormSettings(
         val showIndicatorInformation: Boolean = true,
         val showSymbolRequired: Boolean = true,
         val editable: Boolean = true,
-        val backgroundColor: String? = null
+        val backgroundColor: String? = null,
+        var idLayoutWrapper: Int? = null
 ) : Parcelable {
 
     fun hasIndicator() = showIndicatorError or showIndicatorInformation
