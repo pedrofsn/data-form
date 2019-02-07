@@ -63,6 +63,7 @@ class ActivityDatabaseInDevelopment : ActivityCapturarImagem(), CoroutineScope {
 
             val gson = Gson()
             form = gson.fromJson<Form>(json, Form::class.java)
+            form.settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
 
             val fakeEntity = form.toEntity()
 

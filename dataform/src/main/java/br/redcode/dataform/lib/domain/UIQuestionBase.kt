@@ -43,7 +43,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
-        viewWrapper = inflater.inflate(R.layout.ui_question_wrapper, null)
+        viewWrapper = inflater.inflate(getLayoutWrapper(), null)
 
         viewContent = inflater.inflate(idLayout, null)
         viewContent.tag = "$PREFFIX_QUESTION${question.id}"
@@ -56,6 +56,8 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
         return viewWrapper
     }
+
+    private fun getLayoutWrapper(): Int = settings.idLayoutWrapper ?: R.layout.ui_question_wrapper
 
     open fun initView(view: View) {
         uiIndicator = viewWrapper.findViewById(R.id.indicator)
