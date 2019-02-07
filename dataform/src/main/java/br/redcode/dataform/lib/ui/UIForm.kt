@@ -9,7 +9,10 @@ import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by pedrofsn on 31/10/2017.
@@ -78,10 +81,11 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
                     launch(Dispatchers.Main) {
                         ui.fillAnswer(it)
 
-                        delay(500)
-                        if (ui.isFilledCorrect()) {
-                            ui.showMessageForErrorFill(true)
-                        }
+//                        TODO não tá ajudando -> este delay que "faz sumir os UI INDICATORS" causa um delay na obtenção da resposta que cria um "fantasma"
+//                        delay(500)
+//                        if (ui.isFilledCorrect()) {
+//                            ui.showMessageForErrorFill(true)
+//                        }
                     }
                 }
             }
