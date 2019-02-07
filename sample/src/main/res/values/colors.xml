@@ -6,4 +6,5 @@
 
     <color name="spinnable_hint_color">@android:color/darker_gray</color>
     <color name="spinnable_text_color">@android:color/black</color>
+    <color name="background_app">#FAFCFD</color>
 </resources>
