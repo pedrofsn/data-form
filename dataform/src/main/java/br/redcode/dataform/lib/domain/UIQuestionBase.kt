@@ -72,11 +72,12 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
         textViewDescription.text = if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
 
-        if (settings.showIndicatorInformation.not()) {
+        if (settings.showIndicatorInformation && question.information?.isNotEmpty() == true) {
             textViewInformation.text = question.information
+            textViewInformation.visibility = View.VISIBLE
+        } else {
+            textViewInformation.visibility = View.GONE
         }
-
-        textViewInformation.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
 
         if (isInputAnswersInOtherScreen()) {
             viewWrapper.setOnClickListener { handleAnswer?.invoke(question) }
