@@ -4,35 +4,32 @@
 
     <include layout="@layout/ui_question_piece_information" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="@dimen/respiro_visual_card">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/indicator"
+            android:layout_toLeftOf="@+id/indicator"
+            tools:text="@tools:sample/full_names" />
 
-            <TextView
-                android:id="@+id/textViewDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/indicator"
-                tools:text="@tools:sample/full_names" />
+        <br.redcode.dataform.lib.ui.UIIndicator
+            android:id="@+id/indicator"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
 
-            <br.redcode.dataform.lib.ui.UIIndicator
-                android:id="@+id/indicator"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </merge>
