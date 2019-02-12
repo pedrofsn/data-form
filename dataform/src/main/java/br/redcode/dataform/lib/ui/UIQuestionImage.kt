@@ -44,11 +44,11 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
         }
 
         override fun visualizeImage(image: Image) {
-            handlerCaptureImage.visualizarImagem(image)
+            handlerCaptureImage.visualizeImage(image)
         }
 
         override fun loadImage(image: String, imageView: ImageView) {
-            handlerCaptureImage.carregarImagem(image, imageView)
+            handlerCaptureImage.loadImage(image, imageView)
         }
     }
 
@@ -97,9 +97,9 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     private fun addImage() {
-        if (handlerCaptureImage.hasPermissoes()) {
+        if (handlerCaptureImage.hasPermissions()) {
             if (canAddMoreOne()) {
-                handlerCaptureImage.capturarImagem(this, type)
+                handlerCaptureImage.captureImage(this, type)
             }
         }
     }

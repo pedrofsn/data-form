@@ -73,7 +73,7 @@ abstract class ActivityCapturarImagem : ActivityCaptureImage(), EasyImage.Callba
         buttonOk.setOnClickListener {
             dialog?.dismiss()
             val imagem = Image(subtitle = editTextLegenda.text.toString(), image = file.absolutePath)
-            handlerCaptureImage.onImagensSelecionadas(imagem)
+            handlerCaptureImage.onImageSelecteds(imagem)
         }
     }
 
