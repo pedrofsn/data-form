@@ -12,25 +12,19 @@ class HandlerCaptureImage(val callback: ImageCapturable) {
 
     var uiQuestionImageTemp: UIQuestionImage? = null
 
-    fun capturarImagem(uiQuestionImage: UIQuestionImage, type: UIQuestionImage.Type) {
+    fun captureImage(uiQuestionImage: UIQuestionImage, type: UIQuestionImage.Type) {
         uiQuestionImageTemp = uiQuestionImage
         callback.captureImage(type)
     }
 
-    fun onImagensSelecionadas(vararg imagens: Image) {
-        imagens.forEach { uiQuestionImageTemp?.addImage(it) }
+    fun onImageSelecteds(vararg images: Image) {
+        images.forEach { uiQuestionImageTemp?.addImage(it) }
     }
 
-    fun visualizarImagem(image: Image) {
-        callback.visualizeImage(image)
-    }
+    fun visualizeImage(image: Image) = callback.visualizeImage(image)
 
-    fun carregarImagem(imagem: String, imageView: ImageView) {
-        callback.loadImage(imagem, imageView)
-    }
+    fun loadImage(imagem: String, imageView: ImageView) = callback.loadImage(imagem, imageView)
 
-    fun hasPermissoes(): Boolean {
-        return callback.hasPermissions()
-    }
+    fun hasPermissions(): Boolean = callback.hasPermissions()
 
 }
