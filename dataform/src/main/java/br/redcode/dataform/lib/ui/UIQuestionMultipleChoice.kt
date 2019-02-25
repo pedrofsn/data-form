@@ -74,6 +74,6 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     private fun getQuantitySelecteds() = getAnswer().options?.size ?: 0
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantitySelecteds()))
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantitySelecteds()))
 
 }

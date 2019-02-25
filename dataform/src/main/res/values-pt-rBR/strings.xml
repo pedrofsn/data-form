@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">DataForm</string>
+    <string name="add">Adicionar</string>
+    <string name="x_of_x">%d/%d</string>
+    <string name="no_image_added">Nenhuma imagem adicionada</string>
+    <string name="select">Selecione</string>
+    <string name="enable_all_permissions">Habilite todas as permissões</string>
+    <string name="information">Informação</string>
+    <string name="error">Erro</string>
+    <string name="ok">Ok</string>
+    <string name="need_x_items">Faltam %d itens</string>
+    <string name="select_at_least_one_option">Selecione ao menos uma alternativa</string>
+    <string name="error_text_filed_not_filled">O campo de texto não foi preenchido</string>
+    <string name="error_limits">A quantidade mínima é de %d e a quantidade máxima é de %d</string>
+    <string name="no_answer">Sem resposta</string>
+</resources>
