@@ -1,4 +1,4 @@
-package br.redcode.sample.activities
+package br.redcode.sample.view.image
 
 import android.content.Context
 import android.content.Intent
