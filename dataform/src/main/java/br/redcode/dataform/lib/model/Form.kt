@@ -9,8 +9,8 @@ import java.util.*
  */
 @Parcelize
 data class Form(
-        val idForm: Long,
-        val lastUpdate: Date,
+        val idForm: Long = -1,
+        val lastUpdate: Date? = Date(),
         val settings: FormSettings,
         val answers: List<Answer>,
         val questions: ArrayList<Question>

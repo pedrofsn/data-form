@@ -6,17 +6,22 @@ import br.redcode.sample.R
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.utils.JSONReader
+import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
 import com.google.gson.Gson
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
-    private val JSON_RAW = R.raw.questions_1
-
+    private var case = 0
     val myAnswers = hashMapOf<Long, Answer>()
+
+    fun load(case: Int) {
+        this.case = case
+        load()
+    }
 
     override fun load() = showProgressbar {
         launch(main()) {
@@ -30,22 +35,37 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
     private suspend fun loadForm() = coroutineScope {
         async(io()) {
-            val json = JSONReader().getStringFromJson(JSON_RAW)
+            val form: Form = when (case) {
+                LOAD_FORM_FROM_JSON -> loadFormFromJSON()
+                LOAD_FORM_FROM_DATABASE -> loadFormFromDatabase()
+                else -> throw RuntimeException("Wrong paramenter brow!")
+            }
 
-            val gson = Gson()
-            val form = gson.fromJson<Form>(json, Form::class.java)
             form.settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
 
-            val formWithAnswers = form.copy(
-                    answers = form.answers, // TODO LOAD FROM DATABASE
-                    lastUpdate = Date()
-            )
+//            val formWithAnswers = form.copy(
+//                    answers = form.answers, // TODO LOAD FROM DATABASE
+//                    lastUpdate = Date()
+//            )
 
+            // FILL ANSWERS
             myAnswers.clear()
-            formWithAnswers.answers.forEach { answer -> myAnswers.put(answer.idQuestion, answer) }
+            form.answers.forEach { answer -> myAnswers.put(answer.idQuestion, answer) }
 
-            formWithAnswers
+            form
         }
+    }
+
+    private fun loadFormFromJSON(): Form {
+        val idJsonRaw = R.raw.questions_1
+        val json = JSONReader().getStringFromJson(idJsonRaw)
+        return Gson().fromJson<Form>(json, Form::class.java)
+    }
+
+    private fun loadFormFromDatabase(): Form {
+        val idJsonRaw = R.raw.questions_1
+        val json = JSONReader().getStringFromJson(idJsonRaw)
+        return Gson().fromJson<Form>(json, Form::class.java)
     }
 
     fun updateAnswer(newAnswer: Answer) {

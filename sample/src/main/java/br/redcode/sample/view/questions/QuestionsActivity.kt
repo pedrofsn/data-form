@@ -2,6 +2,7 @@ package br.redcode.sample.view.questions
 
 import android.view.View
 import android.view.ViewGroup
+import br.com.redcode.base.extensions.receiveInt
 import br.com.redcode.base.mvvm.extensions.observer
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
@@ -16,6 +17,13 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
 
     override val layout = R.layout.activity_questions
     override val classViewModel = QuestionsViewModel::class.java
+
+    companion object {
+        const val LOAD_FORM_FROM_JSON = 0
+        const val LOAD_FORM_FROM_DATABASE = 1
+    }
+
+    private val case by receiveInt("case")
 
     private val observer = observer<Form> { updateUI(it) }
     override val onQuestionClicked = { question: Question ->
@@ -34,7 +42,7 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
 
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
-        viewModel.load()
+        viewModel.load(case)
     }
 
     private fun updateUI(form: Form) {
