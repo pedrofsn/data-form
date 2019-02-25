@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/respiro_visual_card"
-                    android:text="@string/sem_resposta"
+                    android:text="@string/no_answer"
                     android:textColor="@android:color/black"
                     android:textStyle="italic" />
 

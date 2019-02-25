@@ -35,9 +35,9 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_toStartOf="@+id/textViewPreviewAnswer"
+            android:layout_toLeftOf="@+id/textViewPreviewAnswer"
             android:layout_toEndOf="@+id/indicator"
             android:layout_toRightOf="@+id/indicator"
-            android:layout_toLeftOf="@+id/textViewPreviewAnswer"
             tools:text="@tools:sample/full_names" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_toStartOf="@+id/imageViewArrow"
             android:layout_toLeftOf="@+id/imageViewArrow"
             android:gravity="end"
-            android:text="@string/sem_resposta"
+            android:text="@string/no_answer"
             android:textColor="@android:color/black" />
 
         <ImageView

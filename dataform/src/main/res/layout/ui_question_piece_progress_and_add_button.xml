@@ -15,7 +15,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/linearLayoutAdicionar"
-        tools:text="@string/x_barra_x" />
+        tools:text="@string/x_of_x" />
 
     <LinearLayout
         android:id="@+id/linearLayoutAdicionar"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/adicionar" />
+            android:text="@string/add" />
 
     </LinearLayout>
 

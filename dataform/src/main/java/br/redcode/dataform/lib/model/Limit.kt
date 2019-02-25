@@ -16,6 +16,6 @@ data class Limit(
         val auto: Boolean? = null
 ) : Parcelable {
 
-    fun getMessageDefault(context: Context) = String.format(context.getString(R.string.mensagem_limites_default), min, max)
+    fun getMessageDefault(context: Context) = String.format(context.getString(R.string.error_limits), min, max)
 
 }

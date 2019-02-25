@@ -61,7 +61,7 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
 
         override fun captureImage(type: UIQuestionImage.Type) {
             when (type) {
-                UIQuestionImage.Type.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(getMyActivity(), getString(R.string.selecione), RESULT_CODE_EASY_IMAGE)
+                UIQuestionImage.Type.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(getMyActivity(), getString(R.string.select), RESULT_CODE_EASY_IMAGE)
                 UIQuestionImage.Type.CAMERA -> EasyImage.openCameraForImage(getMyActivity(), RESULT_CODE_EASY_IMAGE)
                 UIQuestionImage.Type.GALLERY -> EasyImage.openGallery(getMyActivity(), RESULT_CODE_EASY_IMAGE)
             }
@@ -104,7 +104,7 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
     val handlerCaptureImage by lazy { HandlerCaptureImage(imageCapturable) }
 
     private fun forcePermissions() {
-        Toast.makeText(this, getString(R.string.habilite_todas_as_permissoes), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.enable_all_permissions), Toast.LENGTH_LONG).show()
         val intent = Intent()
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         val uri = Uri.fromParts("package", packageName, null)

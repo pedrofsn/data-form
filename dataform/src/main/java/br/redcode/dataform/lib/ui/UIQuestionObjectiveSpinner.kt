@@ -63,6 +63,6 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
     }
 
     override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
-    override fun getMessageErrorFill() = spinner.context.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = spinner.context.getString(R.string.select_at_least_one_option)
 
 }
