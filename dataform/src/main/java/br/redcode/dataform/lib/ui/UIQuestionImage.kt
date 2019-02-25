@@ -44,11 +44,11 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
         }
 
         override fun visualizeImage(image: Image) {
-            handlerCaptureImage.visualizarImagem(image)
+            handlerCaptureImage.visualizeImage(image)
         }
 
         override fun loadImage(image: String, imageView: ImageView) {
-            handlerCaptureImage.carregarImagem(image, imageView)
+            handlerCaptureImage.loadImage(image, imageView)
         }
     }
 
@@ -81,6 +81,8 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     override fun fillAnswer(answer: Answer) {
+        super.fillAnswer(answer)
+
         answer.images?.let {
             adapter.setLista(it)
             adapter.notifyDataSetChanged()
@@ -89,26 +91,26 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.images = adapter.getList()
         return answer
     }
 
     private fun addImage() {
-        if (handlerCaptureImage.hasPermissoes()) {
+        if (handlerCaptureImage.hasPermissions()) {
             if (canAddMoreOne()) {
-                handlerCaptureImage.capturarImagem(this, type)
+                handlerCaptureImage.captureImage(this, type)
             }
         }
     }
 
     override fun isFilledCorrect() = isInMin() && isInMax()
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantityCurrent()))
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantityCurrent()))
 
     private fun updateCounter() {
         val current = getQuantityCurrent()
         val max = question.getLimitMax()
-        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), current, max)
+        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_of_x), current, max)
 
         linearLayoutAdicionar.isEnabled = current != max
         if (isFilledCorrect()) uiIndicator.hide()

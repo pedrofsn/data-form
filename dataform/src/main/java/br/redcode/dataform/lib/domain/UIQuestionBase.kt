@@ -3,6 +3,7 @@ package br.redcode.dataform.lib.domain
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.interfaces.Questionable
@@ -30,23 +31,41 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     fun io() = job + Dispatchers.IO
     fun main() = job + Dispatchers.Main
 
+    var handleAnswer: ((Question) -> Unit)? = null
+
     private lateinit var textViewDescription: TextView
     private lateinit var textViewInformation: TextView
+    private lateinit var textViewPreviewAnswer: TextView
+    private lateinit var linearLayoutContent: LinearLayout
+    private lateinit var viewWrapper: View
+    private lateinit var viewContent: View
     lateinit var uiIndicator: UIIndicator
+
+    internal var tempAnswer: Answer = Answer(idQuestion = question.id)
 
     open fun initialize(context: Context): View {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(idLayout, null)
-        view.tag = "$PREFFIX_QUESTION${question.id}"
-        initView(view)
+        viewWrapper = inflater.inflate(getLayoutWrapper(), null)
+
+        viewContent = inflater.inflate(idLayout, null)
+        viewContent.tag = "$PREFFIX_QUESTION${question.id}"
+
+        linearLayoutContent = viewWrapper.findViewById(R.id.linearLayoutContent)
+        linearLayoutContent.addView(viewContent)
+
+        initView(viewContent)
         populateView()
-        return view
+
+        return viewWrapper
     }
 
+    private fun getLayoutWrapper(): Int = settings.idLayoutWrapper ?: R.layout.ui_question_wrapper
+
     open fun initView(view: View) {
-        uiIndicator = view.findViewById(R.id.indicator)
-        textViewDescription = view.findViewById(R.id.textViewDescription)
-        textViewInformation = view.findViewById(R.id.textViewInformation)
+        uiIndicator = viewWrapper.findViewById(R.id.indicator)
+        textViewDescription = viewWrapper.findViewById(R.id.textViewDescription)
+        textViewPreviewAnswer = viewWrapper.findViewById(R.id.textViewPreviewAnswer)
+        textViewInformation = viewWrapper.findViewById(R.id.textViewInformation)
     }
 
     open fun populateView() {
@@ -57,17 +76,27 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
         textViewDescription.text = if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
 
-        if (settings.showIndicatorInformation.not()) {
+        if (settings.showIndicatorInformation && question.information?.isNotEmpty() == true) {
             textViewInformation.text = question.information
+            textViewInformation.visibility = View.VISIBLE
+        } else {
+            textViewInformation.visibility = View.GONE
         }
 
-        textViewInformation.visibility = if (settings.showIndicatorInformation.not() && question.information?.isNotEmpty() == true) View.VISIBLE else View.GONE
+        if (isInputAnswersInOtherScreen()) {
+            viewWrapper.setOnClickListener { handleAnswer?.invoke(question) }
+            linearLayoutContent.visibility = View.GONE
+            textViewPreviewAnswer.visibility = View.VISIBLE
+        } else {
+            linearLayoutContent.visibility = View.VISIBLE
+            textViewPreviewAnswer.visibility = View.GONE
+        }
     }
 
-    override suspend fun showMessageForErrorFill(isFilledRight: Boolean) {
-        launch(Dispatchers.Main) {
-            uiIndicator.let {
-                if (isFilledRight.not()) it.setError(getMessageErrorFill()) else it.hide()
+    override fun showMessageForErrorFill(isFilledRight: Boolean) {
+        launch(main()) {
+            uiIndicator.apply {
+                if (isFilledRight) hide() else setError(getMessageErrorFill())
             }
         }
     }
@@ -79,6 +108,14 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
         return result ?: EMPTY_STRING
     }
 
-    override fun getAnswer() = Answer(idQuestion = question.id)
+    override fun fillAnswer(answer: Answer) {
+        if (isInputAnswersInOtherScreen()) {
+            textViewPreviewAnswer.text = answer.getPreviewAnswer(question)
+        }
+
+        tempAnswer = answer
+    }
+
+    fun isInputAnswersInOtherScreen() = settings.inputAnswersInOtherScreen
 
 }

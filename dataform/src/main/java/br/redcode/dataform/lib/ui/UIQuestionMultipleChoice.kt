@@ -38,16 +38,16 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun fillAnswer(answer: Answer) {
-        answer.options?.let {
-            for (alternativa in adapter.getList()) {
-                for (resposta in it) {
-                    if (resposta.toString() == alternativa.id) {
-                        alternativa.selected = true
-                    }
-                }
-            }
+        super.fillAnswer(answer)
 
-            adapter.notifyDataSetChanged()
+        if (answer.hasOptions()) {
+            answer.options?.let { ids ->
+                adapter.getList().forEach { obj ->
+                    obj.selected = obj.id in ids
+                }
+
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -63,8 +63,8 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
-        answer.options = adapter.getList().map { it.id }.toList()
+        val answer = tempAnswer
+        answer.options = adapter.getList().filter { it.selected }.map { it.id }.toList()
         return answer
     }
 
@@ -74,6 +74,6 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     private fun getQuantitySelecteds() = getAnswer().options?.size ?: 0
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantitySelecteds()))
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantitySelecteds()))
 
 }

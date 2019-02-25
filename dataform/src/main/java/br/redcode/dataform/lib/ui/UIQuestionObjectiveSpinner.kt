@@ -37,7 +37,9 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
         launch(main()) { fillAnswerAsync(answer) }
     }
 
-    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
+    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope {
+        super.fillAnswer(answer)
+
         val asyncId = async(io()) {
             return@async answer.options?.firstOrNull()
         }
@@ -51,7 +53,7 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
 
     override fun getAnswer(): Answer {
         val spinnable = spinner.getSpinnableFromSpinner(question.options)
-        val answer = super.getAnswer()
+        val answer = tempAnswer
 
         if (spinnable != null) {
             answer.options = listOf(spinnable.id)
@@ -61,6 +63,6 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
     }
 
     override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
-    override fun getMessageErrorFill() = spinner.context.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = spinner.context.getString(R.string.select_at_least_one_option)
 
 }

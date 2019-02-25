@@ -47,14 +47,28 @@ data class Question(
     fun isQuestionImageOnlyGallery() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_GALLERY == type)
     fun isQuestionImageCameraOrGallery() = validateLimits(TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY == type)
 
+    fun hasOptions() = options?.isNotEmpty() == true
+    fun countOptions() = options?.size ?: 0
+
     private fun validateLimits(result: Boolean): Boolean {
         if (result) crashAppWithoutLimitInformation()
         return result
     }
 
     private fun crashAppWithoutLimitInformation() {
-        if (limit == null) {
-            throw RuntimeException("EN: Did you forgot limits in JSON question ${id}\nPT: Falta especificar os limites no JSON da pergunta ${id}")
+        when {
+            limit?.auto == true -> {
+                limit = Limit(
+                        max = countOptions(),
+                        min = getLimitMin(),
+                        auto = true
+                )
+            }
+            hasOptions() && getLimitMax() > countOptions() -> throw RuntimeException("EN: Limit max is grather than options quantity in question ${id}\nPT: O limite máximo é maior que a quantidade de alternativas da pergunta ${id}")
+            getLimitMin() < 0 -> throw RuntimeException("EN: Negative min limit in question ${id}\nPT: O limite mínimo está negativo na pergunta ${id}")
+            getLimitMin() > getLimitMax() -> throw RuntimeException("EN: Negative min limit in question ${id}\nPT: O limite mínimo está negativo na pergunta ${id}")
+            limit == null -> throw RuntimeException("EN: Did you forgot limits in JSON question ${id}\nPT: Falta especificar os limites no JSON da pergunta ${id}")
         }
     }
+
 }

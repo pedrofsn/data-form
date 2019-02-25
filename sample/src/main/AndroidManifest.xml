@@ -10,10 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
 
         <activity
-            android:name=".activities.ActivityDatabaseInDevelopment"
+            android:name=".view.main.ActivityMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -24,19 +25,19 @@
         </activity>
 
         <activity
-            android:name=".activities.ActivityRespostas"
-            android:label="@string/respostas"
+            android:name=".view.questions.QuestionsActivity"
+            android:label="@string/questions"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".activities.ActivityMain"
+            android:name=".view.image.ImageZoomActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".activities.ActivityImagemComZoom"
-            android:label="@string/imagem"
+            android:name=".view.answer.AnswerActivity"
+            android:label="@string/to_answer"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 

@@ -57,6 +57,8 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
     }
 
     override fun fillAnswer(answer: Answer) {
+        super.fillAnswer(answer)
+
         answer.percentage?.let {
             try {
                 updateText(it)
@@ -68,7 +70,7 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.percentage = seekBar.progress
         return answer
     }

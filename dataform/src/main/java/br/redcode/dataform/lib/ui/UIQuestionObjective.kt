@@ -2,6 +2,7 @@ package br.redcode.dataform.lib.ui
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import br.com.redcode.spinnable.library.extensions_functions.select
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterRadioButton
 import br.redcode.dataform.lib.domain.UIQuestionBase
@@ -45,10 +46,11 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun fillAnswer(answer: Answer) {
+        super.fillAnswer(answer)
         launch(main()) { fillAnswerAsync(answer) }
     }
 
-    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope() {
+    private suspend fun fillAnswerAsync(answer: Answer) = coroutineScope {
         val asyncIndex = async(io()) {
             var indexAdapter = INVALID_VALUE
 
@@ -64,8 +66,11 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
 
         if (index != INVALID_VALUE) {
             indexSelected = index
-            adapter.getList()[index].selected = true
-            adapter.notifyDataSetChanged()
+            adapter.getList().select(index)
+
+            if (isInputAnswersInOtherScreen().not()) {
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -91,7 +96,7 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
 
         if (indexSelected != Constants.INVALID_VALUE) {
             answer.options = listOf(adapter.getList()[indexSelected].id)
@@ -101,6 +106,6 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun isFilledCorrect() = indexSelected != Constants.INVALID_VALUE
-    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.select_at_least_one_option)
 
 }

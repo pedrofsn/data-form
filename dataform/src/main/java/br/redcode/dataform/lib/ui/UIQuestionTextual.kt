@@ -59,15 +59,18 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
         }
     }
 
-    override fun fillAnswer(answer: Answer) = editText.setText(answer.text)
+    override fun fillAnswer(answer: Answer) {
+        super.fillAnswer(answer)
+        editText.setText(answer.text)
+    }
 
     override fun getAnswer(): Answer {
-        val answer = super.getAnswer()
+        val answer = tempAnswer
         answer.text = editText.text.toString().trim()
         return answer
     }
 
     override fun isFilledCorrect() = editText.text.toString().trim().isNotEmpty()
-    override fun getMessageErrorFill() = editText.context.getString(R.string.o_campo_de_texto_nao_foi_preenchido)
+    override fun getMessageErrorFill() = editText.context.getString(R.string.error_text_filed_not_filled)
 
 }

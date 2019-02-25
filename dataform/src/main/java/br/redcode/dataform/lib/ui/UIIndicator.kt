@@ -70,7 +70,7 @@ class UIIndicator : ImageView {
         }
     }
 
-    private fun getTitle() = context.getString(if (isError) R.string.erro else R.string.informacao)
+    private fun getTitle() = context.getString(if (isError) R.string.error else R.string.information)
 
     fun show() {
         visibility = View.VISIBLE
