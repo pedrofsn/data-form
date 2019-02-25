@@ -1,7 +1,8 @@
 package br.redcode.sample.utils
 
-import android.content.Context
 import androidx.annotation.RawRes
+import br.com.redcode.base.extensions.toLogcat
+import br.redcode.sample.App
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -9,11 +10,11 @@ import java.io.InputStreamReader
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class JSONReader(val context: Context) {
+class JSONReader {
 
     fun getStringFromJson(@RawRes raw: Int): String {
         val sb = StringBuffer()
-        val br = BufferedReader(InputStreamReader(context.resources.openRawResource(raw)))
+        val br = BufferedReader(InputStreamReader(App.getContext()?.resources?.openRawResource(raw)))
 
         try {
             var temp: String? = ""
@@ -38,7 +39,7 @@ class JSONReader(val context: Context) {
         }
 
         val resultado = sb.toString()
-        Utils.log("JSON lido: $resultado")
+        "JSON lido: $resultado".toLogcat()
         return resultado
     }
 
