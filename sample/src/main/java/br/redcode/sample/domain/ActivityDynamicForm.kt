@@ -2,13 +2,19 @@ package br.redcode.sample.domain
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
@@ -27,12 +33,13 @@ import br.redcode.sample.R
 import br.redcode.sample.view.image.ImageZoomActivity
 import kotlinx.coroutines.launch
 import pl.aprilapps.easyphotopicker.EasyImage
+import java.io.File
 
 /*
     CREATED BY @PEDROFSN
 */
 
-abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : ActivityMVVM<B, VM>() {
+abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : ActivityMVVM<B, VM>(), EasyImage.Callbacks {
 
     companion object {
         const val REQUEST_CODE_ANSWER = 26
@@ -122,7 +129,6 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == RESULT_OK && data != null) {
             when (requestCode) {
                 REQUEST_CODE_ANSWER -> {
@@ -133,6 +139,7 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
                         fillAnswers()
                     }
                 }
+                else -> EasyImage.handleActivityResult(requestCode, resultCode, data, this, this)
             }
         }
     }
@@ -153,4 +160,46 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
     }
 
     abstract fun getViewGroupToHandleForm(): ViewGroup?
+
+    override fun onImagePickerError(e: Exception?, source: EasyImage.ImageSource?, type: Int) {
+        e?.let {
+            it.printStackTrace()
+            Toast.makeText(baseContext, it.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onImagesPicked(imagesFiles: List<File>, source: EasyImage.ImageSource, type: Int) {
+        imagesFiles.forEach { getDialogDialogComOk(file = it, handlerCaptureImage = handlerCaptureImage) }
+    }
+
+    private fun getDialogDialogComOk(context: Context = this, file: File, handlerCaptureImage: HandlerCaptureImage) {
+        val viewDialog = (context as AppCompatActivity).layoutInflater.inflate(R.layout.dialog_imagem, null)
+
+        val imageViewPreview: ImageView = viewDialog.findViewById(R.id.imageViewPreview)
+        val editTextLegenda: EditText = viewDialog.findViewById(R.id.editTextLegenda)
+        val buttonOk: Button = viewDialog.findViewById(R.id.buttonOk)
+
+        editTextLegenda.hint = "Apenas em uma pergunta"
+
+        imageCapturable.loadImage(file.absolutePath, imageViewPreview)
+
+        val alert = AlertDialog.Builder(context /*, R.style.DialogCustomizado*/)
+        alert.setView(viewDialog)
+        alert.setCancelable(false)
+
+        val dialog = alert.create()
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+
+        buttonOk.setOnClickListener {
+            dialog?.dismiss()
+            val image = Image(subtitle = editTextLegenda.text.toString(), image = file.absolutePath)
+            handlerCaptureImage.onImageSelecteds(image)
+        }
+    }
+
+    override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
+
+    }
 }
