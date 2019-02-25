@@ -1,6 +1,7 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.com.redcode.spinnable.library.model.Spinnable
 
 @Entity(
         tableName = "question_options",
@@ -40,4 +41,10 @@ data class EntityQuestionOption(
         val description: String,
         val selected: Boolean = false
 
-)
+) {
+    fun toModel() = Spinnable(
+            id = idOption,
+            description = description,
+            selected = selected
+    )
+}

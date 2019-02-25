@@ -3,12 +3,17 @@ package br.redcode.sample.data.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import br.com.redcode.spinnable.library.model.Spinnable
 import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.Form
+import br.redcode.dataform.lib.model.Question
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityForm
-import br.redcode.sample.data.entities.EntityQuestion
 import br.redcode.sample.data.entities.FormQuestionFull
-import br.redcode.sample.extensions.*
+import br.redcode.sample.extensions.changeQuestionCustomSettings
+import br.redcode.sample.extensions.changeQuestionOptions
+import br.redcode.sample.extensions.toEntity
+import br.redcode.sample.extensions.toEntityAnswerQuestion
 
 @Dao
 interface FormDAO : BaseDAO<EntityForm> {
@@ -17,64 +22,82 @@ interface FormDAO : BaseDAO<EntityForm> {
     @Query("SELECT * FROM forms WHERE form_id = :idForm")
     fun read(idForm: Long): EntityForm?
 
-    //    @Query("""
-//        SELECT * FROM forms f
-//        where f.form_id = :idForm
-//    """)
     @Transaction
-    fun readForm(idForm: Long): List<EntityQuestion> {
+    fun readForm(idForm: Long): Form? {
         val db = MyRoomDatabase.getInstance()
 
         val entityForm = read(idForm)
         val entityFormSettings = db.formSettingsDAO().readByForm(idForm)
-        val entityQuestions = db.questionDAO().readByForm(idForm)
 
-        entityQuestions.forEach { entityQuestion ->
-            val idQuestion = entityQuestion.idQuestion
+        if (entityForm != null && entityFormSettings != null) {
+            val entityQuestions = db.questionDAO().readByForm(idForm)
 
-            val entityQuestionLimit = db.questionLimitDAO().readByForm(idQuestion)
+            val questions = arrayListOf<Question>()
+            val answers = arrayListOf<Answer>()
 
-            val entityQuestionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
-                    idQuestion = idQuestion,
-                    idForm = idForm
-            )
+            entityQuestions.forEach { entityQuestion ->
+                val idQuestion = entityQuestion.idQuestion
 
-            val entityQuestionCustomSettings = db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
-                    idQuestion = idQuestion,
-                    idForm = idForm
-            )
+                val entityQuestionLimit = db.questionLimitDAO().readByForm(idQuestion)
+                val limit = entityQuestionLimit?.toModel()
 
-            val entityAnswer = db.answerDAO().read(
-                    idQuestion = idQuestion,
-                    idForm = idForm
-            )
+                val entityQuestionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                        idQuestion = idQuestion,
+                        idForm = idForm
+                )
+                val options = arrayListOf<Spinnable>()
+                options.addAll(entityQuestionOptions.map { it.toModel() })
 
-            if (entityAnswer != null) {
+                val entityQuestionCustomSettings = db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
+                        idQuestion = idQuestion,
+                        idForm = idForm
+                )
+                val customSettings = hashMapOf<String, Boolean>()
+                entityQuestionCustomSettings.map { it.toModel() }.forEach { customSettings.put(it.key, it.value) }
 
                 val entityAnswerImages = db.answerImageDAO().readAllInsideQuestionFromForm(
                         idQuestion = idQuestion,
                         idForm = idForm
                 )
+                val images = entityAnswerImages.map { it.toModel() }
 
                 val entityAnswerOptions = db.answerOptionDAO().readAllInsideQuestionFromForm(
                         idQuestion = idQuestion,
                         idForm = idForm
                 )
 
-                val answer = Answer(
+                val entityAnswer = db.answerDAO().read(
                         idQuestion = idQuestion,
-                        text = entityAnswer.text,
-                        percentage = entityAnswer.percentage,
-                        images = entityAnswerImages.toModel(),
+                        idForm = idForm
+                )
+
+                val question = entityQuestion.toModel(
+                        limit = limit,
+                        options = options,
+                        customSettings = customSettings
+                )
+
+                val answer = entityAnswer?.toModel(
+                        images = images,
                         options = entityAnswerOptions
                 )
+                answer?.let { answers.add(answer) }
+                questions.add(question)
 
             }
 
+            val form = Form(
+                    idForm = idForm,
+                    lastUpdate = entityForm.lastUpdate,
+                    settings = entityFormSettings.toModel(),
+                    questions = questions,
+                    answers = answers
+            )
+
+            return form
         }
 
-
-        return entityQuestions
+        return null
     }
 
 //    INNER JOIN form_settings fs on fs.form_id = f.form_id
@@ -132,4 +155,7 @@ interface FormDAO : BaseDAO<EntityForm> {
             MyRoomDatabase.getInstance().formSettingsDAO().insert(settings)
         }
     }
+
+    @Query("DELETE FROM forms")
+    fun deleteAll()
 }

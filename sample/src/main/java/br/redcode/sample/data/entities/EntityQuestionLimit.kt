@@ -1,6 +1,7 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.redcode.dataform.lib.model.Limit
 
 @Entity(
         tableName = "question_limits",
@@ -30,4 +31,9 @@ data class EntityQuestionLimit(
         val min: Int,
         val max: Int
 
-)
+) {
+    fun toModel() = Limit(
+            max = max,
+            min = min
+    )
+}

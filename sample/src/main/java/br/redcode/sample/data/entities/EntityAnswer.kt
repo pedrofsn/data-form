@@ -1,6 +1,8 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.redcode.dataform.lib.model.Answer
+import br.redcode.dataform.lib.model.Image
 
 @Entity(
         tableName = "answers",
@@ -38,4 +40,12 @@ data class EntityAnswer(
         val text: String? = null,
         val percentage: Int? = null
 
-)
+) {
+    fun toModel(options: List<String>?, images: List<Image>?) = Answer(
+            idQuestion = idQuestion,
+            text = text,
+            percentage = percentage,
+            options = options,
+            images = images
+    )
+}

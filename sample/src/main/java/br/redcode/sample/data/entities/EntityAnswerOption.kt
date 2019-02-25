@@ -37,5 +37,6 @@ data class EntityAnswerOption(
 
         @ColumnInfo(name = "question_option_id") val idQuestionOption: Long
 
-)
-
+) {
+    fun toModel() = idQuestionOption
+}

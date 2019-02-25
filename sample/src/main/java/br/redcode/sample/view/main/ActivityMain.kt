@@ -17,5 +17,6 @@ class ActivityMain(override val layout: Int = R.layout.activity_main) : Activity
     }
 
     fun openCase1(view: View?) = goTo<QuestionsActivity>("case" to LOAD_FORM_FROM_JSON)
+    fun openCase2(view: View?) = goTo<QuestionsActivity>("case" to QuestionsActivity.LOAD_FORM_FROM_DATABASE)
 
 }

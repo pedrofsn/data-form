@@ -33,7 +33,7 @@ import java.util.concurrent.Executors
             EntityFormSettings::class,
             EntityForm::class
         ],
-        version = 8,
+        version = 1,
         exportSchema = false
 )
 @TypeConverters(Converters::class)

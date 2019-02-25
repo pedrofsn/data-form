@@ -4,13 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_app"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="br.redcode.sample.view.main.ActivityMain">
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/respiro_visual_menor"
         android:onClick="openCase1"
-        android:text="FORM loaded by JSON (res/raw)" />
+        android:text="FORM loaded from JSON (res/raw)"
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/respiro_visual_menor"
+        android:onClick="openCase2"
+        android:text="FORM loaded from database"
+        android:textAllCaps="false" />
 
 </LinearLayout>

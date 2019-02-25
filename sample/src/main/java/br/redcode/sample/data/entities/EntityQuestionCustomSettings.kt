@@ -1,6 +1,7 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.redcode.dataform.lib.model.CustomSetting
 
 @Entity(
         tableName = "question_custom_settings",
@@ -38,4 +39,9 @@ data class EntityQuestionCustomSettings(
         val key: String,
         val value: Boolean
 
-)
+) {
+    fun toModel() = CustomSetting(
+            key = key,
+            value = value
+    )
+}

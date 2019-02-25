@@ -10,6 +10,6 @@ data class EntityForm(
 
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "form_id") val idForm: Long = 0,
-        @ColumnInfo(name = "last_update") val lastUpdate: Date
+        @ColumnInfo(name = "last_update") val lastUpdate: Date = Date()
 
 )

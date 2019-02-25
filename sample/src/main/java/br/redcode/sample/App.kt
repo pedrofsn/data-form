@@ -2,6 +2,8 @@ package br.redcode.sample
 
 import android.app.Application
 import android.content.Context
+import androidx.multidex.MultiDex
+import com.facebook.stetho.Stetho
 //import com.facebook.stetho.Stetho
 import java.lang.ref.WeakReference
 
@@ -15,7 +17,14 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         mContext = WeakReference(this)
-//        Stetho.initializeWithDefaults(this);
+        initializeStetho()
+    }
+
+    private fun initializeStetho() = Stetho.initializeWithDefaults(this)
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
 }
