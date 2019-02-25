@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.databinding.ViewDataBinding
 import br.com.redcode.base.extensions.toLogcat
-import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.easyglide.library.load
 import br.redcode.dataform.lib.domain.handlers.HandlerCaptureImage
 import br.redcode.dataform.lib.interfaces.ImageCapturable
@@ -25,7 +24,7 @@ import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.dataform.lib.ui.UIQuestionImage
 import br.redcode.sample.R
-import br.redcode.sample.activities.ImageZoomActivity
+import br.redcode.sample.view.image.ImageZoomActivity
 import kotlinx.coroutines.launch
 import pl.aprilapps.easyphotopicker.EasyImage
 
@@ -33,7 +32,7 @@ import pl.aprilapps.easyphotopicker.EasyImage
     CREATED BY @PEDROFSN
 */
 
-abstract class ActivityDynamicForm<B : ViewDataBinding, VM : AbstractBaseViewModel> : ActivityMVVM<B, VM>() {
+abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : ActivityMVVM<B, VM>() {
 
     companion object {
         const val REQUEST_CODE_ANSWER = 26
