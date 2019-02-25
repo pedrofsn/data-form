@@ -37,7 +37,7 @@
 
         <activity
             android:name=".view.answer.AnswerActivity"
-            android:label="@string/responder"
+            android:label="@string/to_answer"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 

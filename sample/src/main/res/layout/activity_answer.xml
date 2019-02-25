@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:onClick="saveAnswer"
-            android:text="@string/responder"
+            android:text="@string/to_answer"
             android:textColor="@android:color/holo_green_light"
             android:textStyle="bold" />
 

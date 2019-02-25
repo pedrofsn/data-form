@@ -106,6 +106,6 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun isFilledCorrect() = indexSelected != Constants.INVALID_VALUE
-    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.selecione_ao_menos_uma_alternativa)
+    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.select_at_least_one_option)
 
 }

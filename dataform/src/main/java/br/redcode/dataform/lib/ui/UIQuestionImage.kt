@@ -105,12 +105,12 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     override fun isFilledCorrect() = isInMin() && isInMax()
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.faltam_x_itens), (question.getLimitMax() - getQuantityCurrent()))
+    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantityCurrent()))
 
     private fun updateCounter() {
         val current = getQuantityCurrent()
         val max = question.getLimitMax()
-        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_barra_x), current, max)
+        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_of_x), current, max)
 
         linearLayoutAdicionar.isEnabled = current != max
         if (isFilledCorrect()) uiIndicator.hide()

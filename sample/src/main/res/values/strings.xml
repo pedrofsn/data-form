@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">Formulário dinâmico</string>
-    <string name="respostas">Respostas</string>
-    <string name="imagem">Imagem</string>
-    <string name="existem_perguntas_nao_respondidas">Existem perguntas não respondidas</string>
+    <string name="answers">Respostas</string>
+    <string name="image">Imagem</string>
+    <string name="exists_no_answered_questions">Existem perguntas não respondidas</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
-    <string name="answers">Respostas</string>
     <string name="new_register">Novo Cadastro</string>
     <string name="register">Cadastrar</string>
     <string name="hint_capture_image_subtitle">Apenas em uma pergunta</string>
-    <string name="responder">Responder</string>
+    <string name="to_answer">Responder</string>
     <string name="required">Obrigatório</string>
     <string name="share_image">Compartilhar imagem</string>
     <string name="share">Compartilhar</string>
