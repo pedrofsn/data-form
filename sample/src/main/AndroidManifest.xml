@@ -14,7 +14,7 @@
         tools:replace="android:name">
 
         <activity
-            android:name=".activities.ActivityDatabaseInDevelopment"
+            android:name=".view.main.ActivityMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -25,23 +25,19 @@
         </activity>
 
         <activity
-            android:name=".activities.ActivityRespostas"
-            android:label="@string/respostas"
+            android:name=".view.questions.QuestionsActivity"
+            android:label="@string/questions"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".activities.ActivityMain"
+            android:name=".view.image.ImageZoomActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".activities.ImageZoomActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name=".activities.AnswerResponder"
+            android:name=".view.answer.AnswerActivity"
+            android:label="@string/responder"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
