@@ -1,6 +1,7 @@
 package br.redcode.sample.data.entities
 
 import androidx.room.*
+import br.redcode.dataform.lib.model.FormSettings
 
 @Entity(
         tableName = "form_settings",
@@ -29,8 +30,19 @@ data class EntityFormSettings(
 
         val showIndicatorError: Boolean = true,
         val showIndicatorInformation: Boolean = true,
+        val inputAnswersInOtherScreen: Boolean = false,
         val showSymbolRequired: Boolean = true,
         val editable: Boolean = true,
+
         val backgroundColor: String? = null
 
-)
+) {
+    fun toModel() = FormSettings(
+            showIndicatorError = showIndicatorError,
+            showIndicatorInformation = showIndicatorInformation,
+            inputAnswersInOtherScreen = inputAnswersInOtherScreen,
+            showSymbolRequired = showSymbolRequired,
+            editable = editable,
+            backgroundColor = backgroundColor
+    )
+}
