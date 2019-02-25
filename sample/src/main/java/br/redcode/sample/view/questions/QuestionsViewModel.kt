@@ -14,7 +14,7 @@ import java.util.*
 
 class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
-    private val reader by lazy { JSONReader() }
+    private val JSON_RAW = R.raw.questions_1
 
     val myAnswers = hashMapOf<Long, Answer>()
 
@@ -30,14 +30,14 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
     private suspend fun loadForm() = coroutineScope {
         async(io()) {
-            val json = reader.getStringFromJson(R.raw.perguntas_3)
+            val json = JSONReader().getStringFromJson(JSON_RAW)
 
             val gson = Gson()
             val form = gson.fromJson<Form>(json, Form::class.java)
             form.settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
 
             val formWithAnswers = form.copy(
-                    answers = emptyList(), // LOAD FROM DATABASE
+                    answers = form.answers, // TODO LOAD FROM DATABASE
                     lastUpdate = Date()
             )
 
