@@ -1,0 +1,147 @@
+{
+  "idForm": 1,
+  "settings": {
+    "inputAnswersInOtherScreen": true,
+    "showIndicatorInformation": false,
+    "showIndicatorError": true,
+    "showSymbolRequired": true,
+    "editable": true
+  },
+  "questions": [
+    {
+      "id": 1,
+      "description": "What is your favorite operation system(s)?",
+      "type": "multiple_choice",
+      "required": "true",
+      "options": [
+        {
+          "id": "0",
+          "description": "Android"
+        },
+        {
+          "id": "1",
+          "description": "iOS"
+        },
+        {
+          "id": "2",
+          "description": "Windows Phone"
+        },
+        {
+          "id": "3",
+          "description": "Firefox OS"
+        }
+      ],
+      "limit": {
+        "auto": true
+      }
+    },
+    {
+      "id": 2,
+      "description": "Which programming language did you prefer?",
+      "type": "objective_list",
+      "required": "true",
+      "information": "Personal opinion",
+      "options": [
+        {
+          "id": "0",
+          "description": "Kotlin"
+        },
+        {
+          "id": "1",
+          "description": "Java"
+        },
+        {
+          "id": "2",
+          "description": "Swift"
+        },
+        {
+          "id": "3",
+          "description": "Objective-C"
+        },
+        {
+          "id": "4",
+          "description": "Javascript"
+        },
+        {
+          "id": "5",
+          "description": "Ruby"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "description": "What is your IDE?",
+      "type": "objective_list",
+      "required": "true",
+      "options": [
+        {
+          "id": "0",
+          "description": "Android Studio"
+        },
+        {
+          "id": "1",
+          "description": "Motodev"
+        },
+        {
+          "id": "2",
+          "description": "Eclipse"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "description": "Do you like this library?",
+      "type": "objective_list",
+      "required": "true",
+      "options": [
+        {
+          "id": "0",
+          "description": "Yes / Shut up and take my money!"
+        },
+        {
+          "id": "1",
+          "description": "Nope"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "description": "Select your memes",
+      "type": "image_gallery",
+      "required": "false",
+      "limit": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "id": 5,
+      "description": "Tell more about you",
+      "type": "textual",
+      "format": "multi",
+      "required": "false"
+    }
+  ],
+  "answers": [
+    {
+      "idQuestion": 1,
+      "options": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "idQuestion": 6,
+      "images": [
+        {
+          "image": "https://avatars3.githubusercontent.com/u/3484814",
+          "subtitle": "@pedrofsn"
+        }
+      ]
+    },
+    {
+      "idQuestion": 5,
+      "text": "My name is Pedro!"
+    }
+  ]
+}
