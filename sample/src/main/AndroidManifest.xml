@@ -14,7 +14,7 @@
         tools:replace="android:name">
 
         <activity
-            android:name=".view.main.ActivityMain"
+            android:name="br.redcode.sample.view.navigation.main.ActivityMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -25,19 +25,19 @@
         </activity>
 
         <activity
-            android:name=".view.forms.FormsActivity"
+            android:name="br.redcode.sample.view.navigation.select_form.FormsActivity"
             android:label="@string/forms"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".view.answereds.AnsweredActivity"
+            android:name="br.redcode.sample.view.navigation.select_form_with_answers.AnsweredActivity"
             android:label="@string/form_answereds"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".view.questions.QuestionsActivity"
+            android:name="br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity"
             android:label="@string/questions"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -48,7 +48,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".view.answer.AnswerActivity"
+            android:name="br.redcode.sample.view.dynamic_form.form_do_answer.AnswerActivity"
             android:label="@string/to_answer"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />

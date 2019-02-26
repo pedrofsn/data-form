@@ -1,4 +1,4 @@
-package br.redcode.sample.view.answereds.list
+package br.redcode.sample.view.common
 
 import br.com.redcode.base.mvvm.domain.adapter.BaseAdapterMVVM
 import br.redcode.sample.R

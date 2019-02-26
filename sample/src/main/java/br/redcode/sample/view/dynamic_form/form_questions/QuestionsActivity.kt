@@ -1,4 +1,4 @@
-package br.redcode.sample.view.questions
+package br.redcode.sample.view.dynamic_form.form_questions
 
 import android.view.ViewGroup
 import br.com.redcode.base.extensions.receiveInt
@@ -10,7 +10,7 @@ import br.redcode.dataform.lib.model.Question
 import br.redcode.sample.R
 import br.redcode.sample.databinding.ActivityQuestionsBinding
 import br.redcode.sample.domain.ActivityDynamicForm
-import br.redcode.sample.view.answer.AnswerActivity
+import br.redcode.sample.view.dynamic_form.form_do_answer.AnswerActivity
 import kotlinx.coroutines.launch
 
 class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, QuestionsViewModel>() {

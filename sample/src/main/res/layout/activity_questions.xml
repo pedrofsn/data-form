@@ -7,7 +7,7 @@
 
         <variable
             name="viewHolder"
-            type="br.redcode.sample.view.questions.QuestionsViewModel" />
+            type="br.redcode.sample.view.dynamic_form.form_questions.QuestionsViewModel" />
     </data>
 
     <FrameLayout

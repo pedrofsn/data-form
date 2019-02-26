@@ -1,4 +1,4 @@
-package br.redcode.sample.view.answer
+package br.redcode.sample.view.dynamic_form.form_do_answer
 
 import android.content.Intent
 import android.view.View

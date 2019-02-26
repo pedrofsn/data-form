@@ -1,4 +1,4 @@
-package br.redcode.sample.view.forms
+package br.redcode.sample.view.navigation.select_form
 
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData

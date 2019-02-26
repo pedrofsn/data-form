@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="br.redcode.sample.view.answer.AnswerViewModel" />
+            type="br.redcode.sample.view.dynamic_form.form_do_answer.AnswerViewModel" />
     </data>
 
     <FrameLayout

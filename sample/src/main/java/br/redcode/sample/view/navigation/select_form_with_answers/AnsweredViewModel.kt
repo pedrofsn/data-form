@@ -1,4 +1,4 @@
-package br.redcode.sample.view.answereds
+package br.redcode.sample.view.navigation.select_form_with_answers
 
 import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.FormAnswered

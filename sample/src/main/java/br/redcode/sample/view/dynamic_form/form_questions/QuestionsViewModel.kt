@@ -1,4 +1,4 @@
-package br.redcode.sample.view.questions
+package br.redcode.sample.view.dynamic_form.form_questions
 
 import br.com.redcode.base.extensions.extract
 import br.com.redcode.base.mvvm.extensions.isValid
@@ -11,8 +11,8 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.utils.JSONReader
-import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
-import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
+import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
 import com.google.gson.Gson
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async

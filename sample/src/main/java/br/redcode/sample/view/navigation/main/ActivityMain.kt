@@ -1,13 +1,13 @@
-package br.redcode.sample.view.main
+package br.redcode.sample.view.navigation.main
 
 import android.view.View
 import br.redcode.sample.R
 import br.redcode.sample.data.database.Mock
 import br.redcode.sample.domain.ActivityWithoutMVVM
-import br.redcode.sample.view.forms.FormsActivity
-import br.redcode.sample.view.questions.QuestionsActivity
-import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
-import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
+import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity
+import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
+import br.redcode.sample.view.navigation.select_form.FormsActivity
 import kotlinx.coroutines.launch
 
 /*
