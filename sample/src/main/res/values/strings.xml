@@ -13,5 +13,6 @@
     <string name="share_image">Share Image</string>
     <string name="share">Share</string>
     <string name="questions">Questions</string>
-    <string name="save">Save</string>
+    <string name="validate_form_and_save">Validate form before save</string>
+    <string name="saved_">Saved: %s</string>
 </resources>
