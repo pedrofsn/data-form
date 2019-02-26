@@ -7,7 +7,7 @@ import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import kotlinx.coroutines.launch
 
-class AnsweredViewModel : BaseViewModelWithLiveData<List<String>>() {
+class SelectFormAnsweredViewModel : BaseViewModelWithLiveData<List<String>>() {
 
     private val dao by lazy { MyRoomDatabase.getInstance().formAnsweredDAO() }
     private val results = arrayListOf<FormAnswered>()

@@ -11,15 +11,15 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.utils.JSONReader
-import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
-import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_JSON
 import com.google.gson.Gson
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
+class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     private var case = 0
     private var idFormAnswers = INVALID_VALUE.toLong()

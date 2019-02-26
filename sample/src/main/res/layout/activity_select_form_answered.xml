@@ -6,7 +6,8 @@
 
         <variable
             name="viewModel"
-            type="br.redcode.sample.view.navigation.select_form.FormsViewModel" />
+            type="br.redcode.sample.view.navigation.select_form_with_answers.SelectFormAnsweredViewModel" />
+
     </data>
 
     <FrameLayout

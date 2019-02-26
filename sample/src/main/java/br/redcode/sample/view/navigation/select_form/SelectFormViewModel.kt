@@ -6,7 +6,7 @@ import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.model.MiniForm
 import kotlinx.coroutines.launch
 
-class FormsViewModel : BaseViewModelWithLiveData<List<String>>() {
+class SelectFormViewModel : BaseViewModelWithLiveData<List<String>>() {
 
     private val dao by lazy { MyRoomDatabase.getInstance().formDAO() }
     private val results = arrayListOf<MiniForm>()

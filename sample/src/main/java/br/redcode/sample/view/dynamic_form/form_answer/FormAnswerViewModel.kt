@@ -1,4 +1,4 @@
-package br.redcode.sample.view.dynamic_form.form_do_answer
+package br.redcode.sample.view.dynamic_form.form_answer
 
 import androidx.databinding.ObservableField
 import br.redcode.dataform.lib.model.Answer
@@ -10,7 +10,7 @@ import br.redcode.sample.extensions.showProgressbar
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AnswerViewModel : BaseViewModelWithLiveData<Form>() {
+class FormAnswerViewModel : BaseViewModelWithLiveData<Form>() {
 
     val isRequired = ObservableField<Boolean>(false)
 

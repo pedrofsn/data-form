@@ -1,4 +1,4 @@
-package br.redcode.sample.view.dynamic_form.form_do_answer
+package br.redcode.sample.view.dynamic_form.form_answer
 
 import android.content.Intent
 import android.view.View
@@ -9,7 +9,7 @@ import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.sample.R
-import br.redcode.sample.databinding.ActivityAnswerBinding
+import br.redcode.sample.databinding.ActivityFormAnswerBinding
 import br.redcode.sample.domain.ActivityDynamicForm
 import kotlinx.coroutines.launch
 
@@ -17,10 +17,10 @@ import kotlinx.coroutines.launch
     CREATED BY @PEDROFSN
 */
 
-class AnswerActivity : ActivityDynamicForm<ActivityAnswerBinding, AnswerViewModel>() {
+class FormAnswerActivity : ActivityDynamicForm<ActivityFormAnswerBinding, FormAnswerViewModel>() {
 
-    override val classViewModel = AnswerViewModel::class.java
-    override val layout = R.layout.activity_answer
+    override val classViewModel = FormAnswerViewModel::class.java
+    override val layout = R.layout.activity_form_answer
 
     private val question by lazy { intent.getParcelableExtra<Question>("question") }
     private val previewAnswer: Answer? by lazy { intent.getParcelableExtra<Answer?>("previewAnswer") }
@@ -45,7 +45,7 @@ class AnswerActivity : ActivityDynamicForm<ActivityAnswerBinding, AnswerViewMode
     private fun updateUI(form: Form) {
         launch(main()) {
             uiForm = UIForm(form, handlerCaptureImage, null)
-            val view = uiForm.getViewGenerated(this@AnswerActivity)
+            val view = uiForm.getViewGenerated(this@FormAnswerActivity)
             binding.linearLayout.addView(view)
 
             uiForm.fillAnswers(form.answers)

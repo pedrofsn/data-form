@@ -4,19 +4,19 @@ import br.com.redcode.base.extensions.receiveLong
 import br.com.redcode.base.mvvm.extensions.observer
 import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.sample.R
-import br.redcode.sample.databinding.ActivityAnsweredBinding
+import br.redcode.sample.databinding.ActivitySelectFormAnsweredBinding
 import br.redcode.sample.domain.ActivityMVVM
 import br.redcode.sample.view.common.AdapterString
-import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity
-import br.redcode.sample.view.dynamic_form.form_questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_DATABASE
 
 /*
     CREATED BY @PEDROFSN
 */
-class AnsweredActivity : ActivityMVVM<ActivityAnsweredBinding, AnsweredViewModel>() {
+class SelectFormAnsweredActivity : ActivityMVVM<ActivitySelectFormAnsweredBinding, SelectFormAnsweredViewModel>() {
 
-    override val classViewModel = AnsweredViewModel::class.java
-    override val layout = R.layout.activity_answered
+    override val classViewModel = SelectFormAnsweredViewModel::class.java
+    override val layout = R.layout.activity_select_form_answered
 
     private val idForm by receiveLong("form_id")
 
@@ -48,7 +48,7 @@ class AnsweredActivity : ActivityMVVM<ActivityAnsweredBinding, AnsweredViewModel
 
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
-            "open" -> if (obj != null && obj is Long) goTo<QuestionsActivity>("idFormAnswers" to obj, "case" to LOAD_FORM_FROM_DATABASE)
+            "open" -> if (obj != null && obj is Long) goTo<FormActivity>("idFormAnswers" to obj, "case" to LOAD_FORM_FROM_DATABASE)
             else -> super.handleEvent(event, obj)
         }
     }
