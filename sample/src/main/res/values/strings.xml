@@ -1,16 +1,17 @@
 <resources>
-    <string name="app_name">Formulário dinâmico</string>
-    <string name="answers">Respostas</string>
-    <string name="image">Imagem</string>
-    <string name="exists_no_answered_questions">Existem perguntas não respondidas</string>
+    <string name="app_name">DataForm - Sample</string>
+    <string name="answers">Answers</string>
+    <string name="image">Imagm</string>
+    <string name="exists_no_answered_questions">Exists no answered questions</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
-    <string name="new_register">Novo Cadastro</string>
-    <string name="register">Cadastrar</string>
-    <string name="hint_capture_image_subtitle">Apenas em uma pergunta</string>
-    <string name="to_answer">Responder</string>
-    <string name="required">Obrigatório</string>
-    <string name="share_image">Compartilhar imagem</string>
-    <string name="share">Compartilhar</string>
-    <string name="questions">Perguntas</string>
+    <string name="new_register">New Register</string>
+    <string name="register">Register</string>
+    <string name="hint_capture_image_subtitle">Just one question</string>
+    <string name="to_answer">Answer</string>
+    <string name="required">Required</string>
+    <string name="share_image">Share Image</string>
+    <string name="share">Share</string>
+    <string name="questions">Questions</string>
+    <string name="save">Save</string>
 </resources>
