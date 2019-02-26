@@ -10,7 +10,6 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.utils.JSONReader
-import br.redcode.sample.utils.Utils
 import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_DATABASE
 import br.redcode.sample.view.questions.QuestionsActivity.Companion.LOAD_FORM_FROM_JSON
 import com.google.gson.Gson
@@ -40,13 +39,6 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
                 val form = asyncForm?.await()
                 form?.settings?.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
-
-                Utils.log("carregado: $form")
-
-//            val formWithAnswers = form.copy(
-//                    answers = form.answers, // TODO LOAD FROM DATABASE
-//                    lastUpdate = Date()
-//            )
 
                 // FILL ANSWERS
                 myAnswers.clear()

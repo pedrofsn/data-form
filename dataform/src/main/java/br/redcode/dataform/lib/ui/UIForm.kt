@@ -110,12 +110,6 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
         return@coroutineScope async.await()
     }
 
-    fun refreshAnswers() {
-        for (ui in perguntasUI) {
-//            (ui as Questionable).getAnswer().id = ui.question.id TODO why?
-        }
-    }
-
     suspend fun getAnswers(): List<Answer> = coroutineScope {
 
         val answers = arrayListOf<Answer>()

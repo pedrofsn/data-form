@@ -58,7 +58,6 @@ class AnswerActivity : ActivityDynamicForm<ActivityAnswerBinding, AnswerViewMode
 
             when {
                 isQuestionsFilledCorrect -> {
-                    uiForm.refreshAnswers()
                     saveAndClose()
                 }
                 else -> finish()
