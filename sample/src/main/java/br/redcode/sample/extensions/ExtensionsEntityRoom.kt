@@ -70,11 +70,11 @@ fun HashMap<String, Boolean>.toEntity(idQuestion: Long, idForm: Long): List<Enti
 }
 
 // -----------> ANSWERS
-fun Answer.toEntity(idQuestion: Long, idForm: Long) = EntityAnswer(
+fun Answer.toEntity(idQuestion: Long, form_with_answers_id: Long) = EntityAnswer(
         text = text,
         percentage = percentage,
         idQuestion = idQuestion,
-        idForm = idForm
+        form_with_answers_id = form_with_answers_id
 )
 
 fun List<Image>?.toEntity(idAnswer: Long) = this?.map { it.toEntity(idAnswer = idAnswer) }

@@ -25,6 +25,18 @@
         </activity>
 
         <activity
+            android:name=".view.forms.FormsActivity"
+            android:label="@string/forms"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".view.answereds.AnsweredActivity"
+            android:label="@string/form_answereds"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
             android:name=".view.questions.QuestionsActivity"
             android:label="@string/questions"
             android:screenOrientation="portrait"

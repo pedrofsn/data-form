@@ -2,6 +2,7 @@ package br.redcode.sample.view.questions
 
 import android.view.ViewGroup
 import br.com.redcode.base.extensions.receiveInt
+import br.com.redcode.base.extensions.receiveLong
 import br.com.redcode.base.mvvm.extensions.observer
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
@@ -22,6 +23,7 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
         const val LOAD_FORM_FROM_DATABASE = 1
     }
 
+    private val idFormAnswers by receiveLong("idFormAnswers")
     private val case by receiveInt("case")
 
     private val labelSaved by lazy { getString(R.string.saved_) }
@@ -43,7 +45,10 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
 
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
-        viewModel.load(case)
+        viewModel.load(
+                idFormAnswers = idFormAnswers,
+                case = case
+        )
     }
 
     private fun updateUI(form: Form) {

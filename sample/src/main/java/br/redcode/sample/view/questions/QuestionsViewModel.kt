@@ -1,11 +1,12 @@
 package br.redcode.sample.view.questions
 
 import br.com.redcode.base.extensions.extract
+import br.com.redcode.base.mvvm.extensions.isValid
 import br.com.redcode.base.utils.Constants.EMPTY_STRING
+import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.sample.R
-import br.redcode.sample.data.database.Mock.MOCK_ID_FORM
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
@@ -21,10 +22,15 @@ import kotlinx.coroutines.launch
 class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
     private var case = 0
+    private var idFormAnswers = INVALID_VALUE.toLong()
+
     val myAnswers = hashMapOf<Long, Answer>()
 
-    fun load(case: Int) {
+    fun load(case: Int, idFormAnswers: Long) {
         this.case = case
+        if (idFormAnswers.isValid()) {
+            this.idFormAnswers = idFormAnswers
+        }
         load()
     }
 
@@ -59,7 +65,7 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
         }
     }
 
-    private suspend fun loadFormFromDatabase() = coroutineScope { async(io()) { MyRoomDatabase.getInstance().formDAO().readForm(MOCK_ID_FORM) } }
+    private suspend fun loadFormFromDatabase() = coroutineScope { async(io()) { MyRoomDatabase.getInstance().formDAO().readForm(idFormAnswers) } }
 
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
@@ -70,7 +76,7 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
             val asyncSave = async(io()) {
                 if (form != null) {
                     MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                            idForm = form.idForm,
+                            form_with_answers_id = idFormAnswers,
                             idQuestion = newAnswer.idQuestion,
                             answer = newAnswer
                     )
@@ -107,5 +113,8 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
             }
         }
     }
+
+    private fun isEdit() = idFormAnswers.isValid()
+    private fun isCreate() = isEdit().not()
 
 }

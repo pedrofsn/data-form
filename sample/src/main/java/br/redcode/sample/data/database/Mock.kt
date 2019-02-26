@@ -10,12 +10,14 @@ object Mock {
     fun seedDatabase() {
         Utils.log("Mock -> seedDatabase - start")
 
-        MyRoomDatabase.getInstance().formDAO().deleteAll()
+        val db = MyRoomDatabase.getInstance()
+
+        db.formDAO().deleteAll()
 
         // FORM
         val entityForm1 = EntityForm(idForm = MOCK_ID_FORM)
 
-        val idForm = MyRoomDatabase.getInstance().formDAO().insert(entityForm1)
+        val idForm = db.formDAO().insert(entityForm1)
 
         // FORM SETTINGS
         val entityFormSettings = EntityFormSettings(
@@ -28,7 +30,7 @@ object Mock {
                 editable = false,
                 backgroundColor = null
         )
-        MyRoomDatabase.getInstance().formSettingsDAO().insert(entityFormSettings)
+        db.formSettingsDAO().insert(entityFormSettings)
 
         // QUESTION 1
         val questionEntity1 = EntityQuestion(
@@ -38,7 +40,7 @@ object Mock {
                 type = "objective_list",
                 required = true
         )
-        val idQuestion1 = MyRoomDatabase.getInstance().questionDAO().insert(questionEntity1)
+        val idQuestion1 = db.questionDAO().insert(questionEntity1)
 
         // QUESTION 1 - OPTION 1
         val option1Question1 = EntityQuestionOption(
@@ -76,17 +78,21 @@ object Mock {
                 description = "Pie"
         )
 
-        val idOption1Question1 = MyRoomDatabase.getInstance().questionOptionDAO().insert(option1Question1)
-        val idOption2Question1 = MyRoomDatabase.getInstance().questionOptionDAO().insert(option2Question1)
-        val idOption3Question1 = MyRoomDatabase.getInstance().questionOptionDAO().insert(option3Question1)
-        val idOption4Question1 = MyRoomDatabase.getInstance().questionOptionDAO().insert(option4Question1)
+        val idOption1Question1 = db.questionOptionDAO().insert(option1Question1)
+        val idOption2Question1 = db.questionOptionDAO().insert(option2Question1)
+        val idOption3Question1 = db.questionOptionDAO().insert(option3Question1)
+        val idOption4Question1 = db.questionOptionDAO().insert(option4Question1)
+
+        // FORM ANSWERS
+        val entityFormAnswered = EntityFormAnswered(form_id = idForm)
+        val form_with_answers_id = db.formAnsweredDAO().insert(entityFormAnswered)
 
         // QUESTION 1 - ANSWER 1
         val entityAnswer = EntityAnswer(
-                idForm = idForm,
+                form_with_answers_id = form_with_answers_id,
                 idQuestion = idQuestion1
         )
-        val idAnswer1 = MyRoomDatabase.getInstance().answerDAO().insert(entityAnswer)
+        val idAnswer1 = db.answerDAO().insert(entityAnswer)
 
         // QUESTION 1 - ANSWER 1 - OPTION 0
         val entityAnswerOption0Question1 = EntityAnswerOption(
@@ -100,7 +106,7 @@ object Mock {
                 idQuestionOption = idOption4Question1
         )
 
-        MyRoomDatabase.getInstance().answerOptionDAO().insert(entityAnswerOption0Question1, entityAnswerOption1Question1)
+        db.answerOptionDAO().insert(entityAnswerOption0Question1, entityAnswerOption1Question1)
 
         Utils.log("Mock -> seedDatabase - end")
     }

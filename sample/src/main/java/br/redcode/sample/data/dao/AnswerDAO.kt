@@ -7,26 +7,27 @@ import br.redcode.dataform.lib.model.Answer
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityAnswer
 import br.redcode.sample.extensions.toEntity
+import java.util.*
 
 @Dao
 interface AnswerDAO : BaseDAO<EntityAnswer> {
 
-    @Query("SELECT * FROM answers WHERE form_id = :idForm and question_id = :idQuestion")
-    fun read(idQuestion: Long, idForm: Long): EntityAnswer?
+    @Query("SELECT * FROM answers WHERE form_with_answers_id = :form_with_answers_id and question_id = :idQuestion")
+    fun read(idQuestion: Long, form_with_answers_id: Long): EntityAnswer?
 
-    @Query("DELETE FROM answers WHERE form_id = :idForm")
-    fun delete(idForm: Long)
+    @Query("DELETE FROM answers WHERE form_with_answers_id = :form_with_answers_id")
+    fun delete(form_with_answers_id: Long)
 
     @Transaction
-    fun deleteAndSave(idForm: Long, answers: HashMap<Long, Answer>) {
-        delete(idForm = idForm)
+    fun deleteAndSave(form_with_answers_id: Long, answers: HashMap<Long, Answer>) {
+        delete(form_with_answers_id = form_with_answers_id)
 
         answers.forEach {
             val idQuestion = it.key
             val answer = it.value
 
             deleteAndSave(
-                    idForm = idForm,
+                    form_with_answers_id = form_with_answers_id,
                     idQuestion = idQuestion,
                     answer = answer
             )
@@ -34,29 +35,36 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
     }
 
     @Transaction
-    fun deleteAndSave(idForm: Long, idQuestion: Long, answer: Answer) {
-        val entityAnswer = answer.toEntity(
-                idQuestion = idQuestion,
-                idForm = idForm
-        )
+    fun deleteAndSave(form_with_answers_id: Long, idQuestion: Long, answer: Answer) {
+        val db = MyRoomDatabase.getInstance()
+        val entityFormAnswered = db.formAnsweredDAO().read(form_with_answers_id)
 
-        val idAnswer = insert(entityAnswer)
-        val questionOptions = MyRoomDatabase.getInstance().questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
-                idForm = idForm,
-                idQuestion = idQuestion
-        )
+        if (entityFormAnswered != null) {
+            val entityAnswer = answer.toEntity(
+                    idQuestion = idQuestion,
+                    form_with_answers_id = form_with_answers_id
+            )
 
-        when {
-            answer.hasOptions() -> {
-                val selecteds = questionOptions.filter { it.idOption in answer.options!! }
-                val entities = selecteds.map { it.toEntityAnswer(idAnswer = idAnswer) }
-                MyRoomDatabase.getInstance().answerOptionDAO().insertAll(entities)
+            val idAnswer = insert(entityAnswer)
+            val questionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                    idForm = entityFormAnswered.form_id,
+                    idQuestion = idQuestion
+            )
+
+            when {
+                answer.hasOptions() -> {
+                    val selecteds = questionOptions.filter { it.idOption in answer.options!! }
+                    val entities = selecteds.map { it.toEntityAnswer(idAnswer = idAnswer) }
+                    db.answerOptionDAO().insertAll(entities)
+                }
+
+                answer.hasImages() -> {
+                    val entityImages = answer.images.toEntity(idAnswer = idAnswer)
+                    db.answerImageDAO().insertAll(entityImages)
+                }
             }
 
-            answer.hasImages() -> {
-                val entityImages = answer.images.toEntity(idAnswer = idAnswer)
-                MyRoomDatabase.getInstance().answerImageDAO().insertAll(entityImages)
-            }
+            db.formAnsweredDAO().refreshLastUpdate(form_with_answers_id, Date())
         }
     }
 

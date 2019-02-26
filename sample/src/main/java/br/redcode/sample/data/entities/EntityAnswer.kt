@@ -15,16 +15,19 @@ import br.redcode.dataform.lib.model.Image
                     onUpdate = ForeignKey.CASCADE
             ),
             ForeignKey(
-                    entity = EntityForm::class,
-                    parentColumns = arrayOf("form_id"),
-                    childColumns = arrayOf("form_id"),
+                    entity = EntityFormAnswered::class,
+                    parentColumns = arrayOf("form_with_answers_id"),
+                    childColumns = arrayOf("form_with_answers_id"),
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE
             )
         ],
         indices = [
             Index(
-                    value = ["form_id", "question_id"],
+                    value = [
+                        "form_with_answers_id",
+                        "question_id"
+                    ],
                     unique = true
             )
         ]
@@ -34,12 +37,12 @@ data class EntityAnswer(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "answer_id") val idAnswer: Long = 0,
 
-        @ColumnInfo(name = "form_id") val idForm: Long,
         @ColumnInfo(name = "question_id") val idQuestion: Long,
 
         val text: String? = null,
-        val percentage: Int? = null
+        val percentage: Int? = null,
 
+        val form_with_answers_id: Long
 ) {
     fun toModel(options: List<String>?, images: List<Image>?) = Answer(
             idQuestion = idQuestion,

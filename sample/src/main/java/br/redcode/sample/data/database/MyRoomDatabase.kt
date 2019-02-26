@@ -31,9 +31,12 @@ import java.util.concurrent.Executors
 
             // FORM
             EntityFormSettings::class,
-            EntityForm::class
+            EntityForm::class,
+
+            // FORM
+            EntityFormAnswered::class
         ],
-        version = 1,
+        version = 3,
         exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -50,6 +53,7 @@ abstract class MyRoomDatabase : RoomDatabase() {
 
     abstract fun formSettingsDAO(): FormSettingsDAO
     abstract fun formDAO(): FormDAO
+    abstract fun formAnsweredDAO(): FormAnsweredDAO
 
     companion object {
 

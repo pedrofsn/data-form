@@ -15,4 +15,6 @@
     <string name="questions">Perguntas</string>
     <string name="validate_form_and_save">Validar form antes de salvar</string>
     <string name="saved_">Salvou: %s</string>
+    <string name="form_answereds">Formulários Respondidos</string>
+    <string name="forms">Formulários</string>
 </resources>

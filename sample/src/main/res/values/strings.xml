@@ -15,4 +15,6 @@
     <string name="questions">Questions</string>
     <string name="validate_form_and_save">Validate form before save</string>
     <string name="saved_">Saved: %s</string>
+    <string name="form_answereds">Forms Answereds</string>
+    <string name="forms">Forms</string>
 </resources>

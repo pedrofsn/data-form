@@ -8,9 +8,8 @@ import br.redcode.sample.data.entities.EntityAnswerImage
 @Dao
 interface AnswerImageDAO : BaseDAO<EntityAnswerImage> {
 
-    // TODO better than add property form_id ? or maybe it's better create a table with this relationship
-    @Query("SELECT ai.* FROM answer_images ai INNER JOIN answers a on ai.answer_id = a.answer_id WHERE a.form_id = :idForm and a.question_id = :idQuestion")
-    fun readAllInsideQuestionFromForm(idQuestion: Long, idForm: Long): List<EntityAnswerImage>
+    @Query("SELECT ai.* FROM answer_images ai INNER JOIN answers a on ai.answer_id = a.answer_id INNER JOIN form_with_answers fa on fa.form_with_answers_id = :form_with_answers_id WHERE a.question_id = :idQuestion")
+    fun readAllInsideQuestionFromForm(idQuestion: Long, form_with_answers_id: Long): List<EntityAnswerImage>
 
     @Transaction
     fun insertAll(objs: List<EntityAnswerImage>?) = objs?.forEach { insert(it) }
