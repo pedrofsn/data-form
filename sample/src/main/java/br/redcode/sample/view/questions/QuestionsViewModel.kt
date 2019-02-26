@@ -69,11 +69,21 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
-        saveProfile()
     }
 
-    private fun saveProfile() {
-
+    fun save() {
+        launch(main()) {
+            val asyncSave = async(io()) {
+                val form = liveData.value?.copy()
+                if (form != null) {
+                    MyRoomDatabase.getInstance().answerDAO().deleteAndSave(form.idForm, myAnswers)
+                }
+            }
+            asyncSave.await()
+            launch(main()) {
+                showSimpleAlert("saved")
+            }
+        }
     }
 
 }

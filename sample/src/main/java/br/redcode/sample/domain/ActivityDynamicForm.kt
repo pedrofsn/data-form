@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
@@ -31,6 +32,7 @@ import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.dataform.lib.ui.UIQuestionImage
 import br.redcode.sample.R
 import br.redcode.sample.view.image.ImageZoomActivity
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
@@ -200,6 +202,18 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
     }
 
     override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
+
+    }
+
+    fun save(view: View?) {
+        launch(main()) {
+            val asyncAnswers = async(io()) { uiForm.getAnswers() }
+            val answers = asyncAnswers.await()
+            handleAnswers(answers)
+        }
+    }
+
+    open fun handleAnswers(answers: List<Answer>) {
 
     }
 }

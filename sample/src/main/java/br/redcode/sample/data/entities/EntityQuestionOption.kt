@@ -47,4 +47,9 @@ data class EntityQuestionOption(
             description = description,
             selected = selected
     )
+
+    fun toEntityAnswer(idAnswer: Long) = EntityAnswerOption(
+            idAnswer = idAnswer,
+            idQuestionOption = idQuestionOption
+    )
 }
