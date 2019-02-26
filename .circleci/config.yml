@@ -8,7 +8,7 @@ restore_cache: &restore_cache
     - app-builds-{{ .Revision }}
 jobs:
   build:
-    working_directory: ~/dataform
+    working_directory: ~/data-form
     docker:
     - image: circleci/android:api-25-alpha
     environment:
@@ -28,15 +28,15 @@ jobs:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - save_cache:
         paths:
-        - ~/dataform/build
+        - ~/data-form/build
         key: builds-{{ .Revision }}
     - save_cache:
         paths:
-        - ~/dataform/app/build
+        - ~/data-form/app/build
         key: app-builds-{{ .Revision }}
 
   test:
-    working_directory: ~/dataform
+    working_directory: ~/data-form
     docker:
     - image: circleci/android:api-25-alpha
     environment:
@@ -51,7 +51,7 @@ jobs:
         name: Send coverage
         command: ./scripts/ci/send-coverage-info.sh
   deploy:
-    working_directory: ~/dataform
+    working_directory: ~/data-form
     docker:
     - image: circleci/android:api-25-alpha
     environment:
