@@ -1,6 +1,5 @@
 package br.redcode.sample.view.questions
 
-import android.view.View
 import android.view.ViewGroup
 import br.com.redcode.base.extensions.receiveInt
 import br.com.redcode.base.mvvm.extensions.observer
@@ -51,7 +50,14 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
         }
     }
 
-    fun updatePassword(view: View?) = showMessage("implementar alteração de senhas")
+    override fun handleAnswers(answers: List<Answer>) {
+        if (answers.isNotEmpty()) {
+            viewModel.save()
+        } else {
+            toast(getString(R.string.no_answer))
+        }
+    }
+
     override fun updateAnswer(answer: Answer) = viewModel.updateAnswer(answer)
     override fun fillAnswers() = fillAnswers(viewModel.myAnswers.values.toList())
     override fun getViewGroupToHandleForm(): ViewGroup = binding.linearLayout

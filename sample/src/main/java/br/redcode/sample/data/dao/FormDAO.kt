@@ -9,15 +9,16 @@ import br.redcode.dataform.lib.model.Form
 import br.redcode.dataform.lib.model.Question
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityForm
-import br.redcode.sample.data.entities.FormQuestionFull
-import br.redcode.sample.extensions.changeQuestionCustomSettings
-import br.redcode.sample.extensions.changeQuestionOptions
-import br.redcode.sample.extensions.toEntity
-import br.redcode.sample.extensions.toEntityAnswerQuestion
+import java.util.*
 
 @Dao
 interface FormDAO : BaseDAO<EntityForm> {
 
+    @Query("UPDATE forms set last_update = :lastUpdate WHERE form_id = :idForm")
+    fun refreshLastUpdate(idForm: Long, lastUpdate: Date)
+
+    @Query("SELECT count(*) > 1 FROM forms WHERE form_id = :idForm")
+    fun exists(idForm: Long): Boolean
 
     @Query("SELECT * FROM forms WHERE form_id = :idForm")
     fun read(idForm: Long): EntityForm?
@@ -100,18 +101,7 @@ interface FormDAO : BaseDAO<EntityForm> {
         return null
     }
 
-//    INNER JOIN form_settings fs on fs.form_id = f.form_id
-//
-//    INNER JOIN questions q on q.form_id = f.form_id
-//    INNER JOIN question_custom_settings qs on qs.question_id = q.question_id
-//    INNER JOIN question_limits ql on ql.question_id = q.question_id
-//
-//    INNER JOIN answers a on a.question_id = q.question_id
-//    INNER JOIN answer_images ai on ai.answer_id = a.answer_id
-//    INNER JOIN answer_options ao on ao.answer_id = a.answer_id
-
-
-    @Transaction
+    /*@Transaction
     fun insert(full: FormQuestionFull) {
         full.apply {
 
@@ -154,8 +144,9 @@ interface FormDAO : BaseDAO<EntityForm> {
 
             MyRoomDatabase.getInstance().formSettingsDAO().insert(settings)
         }
-    }
+    }*/
 
     @Query("DELETE FROM forms")
     fun deleteAll()
+
 }

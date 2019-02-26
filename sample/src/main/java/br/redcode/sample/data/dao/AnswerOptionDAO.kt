@@ -15,4 +15,7 @@ interface AnswerOptionDAO : BaseDAO<EntityAnswerOption> {
     @Transaction
     fun insertAll(objs: List<EntityAnswerOption>?) = objs?.forEach { insert(it) }
 
+    @Query("DELETE FROM answer_options WHERE answer_id = :idAnswer")
+    fun delete(idAnswer: Long)
+
 }

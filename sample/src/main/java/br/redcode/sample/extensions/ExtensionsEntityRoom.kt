@@ -151,11 +151,6 @@ fun EntityQuestionOption.toEntityAnswerQuestion(idAnswer: Long) = EntityAnswerOp
 
 // ----------------> EASY
 
-fun FormQuestionFull.toEntity() = EntityForm(
-        idForm = idForm,
-        lastUpdate = lastUpdate ?: Date()
-)
-
 fun List<EntityQuestionOption>?.changeQuestionOptions(idQuestion: Long) = this?.map { obj -> obj.copy(idQuestion = idQuestion) }
         ?: emptyList()
 

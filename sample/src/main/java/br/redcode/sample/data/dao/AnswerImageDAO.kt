@@ -15,4 +15,7 @@ interface AnswerImageDAO : BaseDAO<EntityAnswerImage> {
     @Transaction
     fun insertAll(objs: List<EntityAnswerImage>?) = objs?.forEach { insert(it) }
 
+    @Query("DELETE FROM answer_images WHERE answer_id = :idAnswer")
+    fun delete(idAnswer: Long)
+
 }
