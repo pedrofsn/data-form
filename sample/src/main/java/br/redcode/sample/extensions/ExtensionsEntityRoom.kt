@@ -26,14 +26,10 @@ fun Form.toEntity(): FormQuestionFull {
 
             val answerIdsConfirmed = arrayListOf<String>()
 
-            // TODO improve
-            answer.options?.let { ids ->
-                if (ids.isNotEmpty()) {
-                    val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
-                            ?: emptyList()
-                    answerIdsConfirmed.addAll(options)
-                }
-            }
+            val ids = answer.options?.filter { it.isNotEmpty() } ?: emptyList()
+            val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
+                    ?: emptyList()
+            answerIdsConfirmed.addAll(options)
 
             val answerFull = AnswerFull(
                     answer = entityAnswer,
