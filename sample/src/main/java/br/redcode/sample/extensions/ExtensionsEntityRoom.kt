@@ -5,60 +5,6 @@ import br.redcode.dataform.lib.model.*
 import br.redcode.sample.data.entities.*
 import java.util.*
 
-// -----------> FORM
-fun Form.toEntity(): FormQuestionFull {
-    val entityFormSettings = settings.toEntity(idForm)
-    val listEntityQuestionsFull = arrayListOf<EntityQuestionFull>()
-    val awnserFull = arrayListOf<AnswerFull>()
-
-    questions.forEach { question ->
-        val entityQuestion = question.toEntity(idForm)
-        val currentIdQuestion = question.id
-
-        val entityLimit = question.limit?.toEntity(idQuestion = currentIdQuestion)
-        val entityOptionsQuestion = question.options?.fromOptionsToEntity(idQuestion = currentIdQuestion, idForm = idForm)
-        val entityCustomSettings = question.customSettings?.toEntity(idQuestion = currentIdQuestion, idForm = idForm)
-        // TODO and extra @RawValue?
-
-        val answer = answers.firstOrNull { currentIdQuestion == it.idQuestion }
-        if (answer != null) {
-            val entityAnswer = answer.toEntity(idQuestion = currentIdQuestion, idForm = idForm)
-
-            val answerIdsConfirmed = arrayListOf<String>()
-
-            val ids = answer.options?.filter { it.isNotEmpty() } ?: emptyList()
-            val options = entityOptionsQuestion?.filter { it.idOption in ids }?.map { it.idOption }
-                    ?: emptyList()
-            answerIdsConfirmed.addAll(options)
-
-            val answerFull = AnswerFull(
-                    answer = entityAnswer,
-                    options = answerIdsConfirmed,
-                    images = answer.images
-            )
-
-            awnserFull.add(answerFull)
-        }
-
-        val entityQuestionFull = EntityQuestionFull(
-                question = entityQuestion,
-                limit = entityLimit,
-                options = entityOptionsQuestion,
-                customSettings = entityCustomSettings
-        )
-
-        listEntityQuestionsFull.add(entityQuestionFull)
-    }
-
-    return FormQuestionFull(
-            idForm = idForm,
-            lastUpdate = lastUpdate,
-            settings = entityFormSettings,
-            answers = awnserFull,
-            questions = listEntityQuestionsFull
-    )
-}
-
 fun FormSettings.toEntity(idForm: Long) = EntityFormSettings(
         idForm = idForm,
         showIndicatorError = showIndicatorError,
