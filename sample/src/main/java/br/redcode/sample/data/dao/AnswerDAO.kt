@@ -25,28 +25,37 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
             val idQuestion = it.key
             val answer = it.value
 
-            val entityAnswer = answer.toEntity(
-                    idQuestion = idQuestion,
-                    idForm = idForm
-            )
-
-            val idAnswer = insert(entityAnswer)
-            val questionOptions = MyRoomDatabase.getInstance().questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+            deleteAndSave(
                     idForm = idForm,
-                    idQuestion = idQuestion
+                    idQuestion = idQuestion,
+                    answer = answer
             )
+        }
+    }
 
-            when {
-                answer.hasOptions() -> {
-                    val selecteds = questionOptions.filter { it.idOption in answer.options!! }
-                    val entities = selecteds.map { it.toEntityAnswer(idAnswer = idAnswer) }
-                    MyRoomDatabase.getInstance().answerOptionDAO().insertAll(entities)
-                }
+    @Transaction
+    fun deleteAndSave(idForm: Long, idQuestion: Long, answer: Answer) {
+        val entityAnswer = answer.toEntity(
+                idQuestion = idQuestion,
+                idForm = idForm
+        )
 
-                answer.hasImages() -> {
-                    val entityImages = answer.images.toEntity(idAnswer = idAnswer)
-                    MyRoomDatabase.getInstance().answerImageDAO().insertAll(entityImages)
-                }
+        val idAnswer = insert(entityAnswer)
+        val questionOptions = MyRoomDatabase.getInstance().questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                idForm = idForm,
+                idQuestion = idQuestion
+        )
+
+        when {
+            answer.hasOptions() -> {
+                val selecteds = questionOptions.filter { it.idOption in answer.options!! }
+                val entities = selecteds.map { it.toEntityAnswer(idAnswer = idAnswer) }
+                MyRoomDatabase.getInstance().answerOptionDAO().insertAll(entities)
+            }
+
+            answer.hasImages() -> {
+                val entityImages = answer.images.toEntity(idAnswer = idAnswer)
+                MyRoomDatabase.getInstance().answerImageDAO().insertAll(entityImages)
             }
         }
     }
