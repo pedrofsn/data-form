@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:onClick="save"
-                android:text="@string/save"
+                android:text="@string/validate_form_and_save"
                 android:textColor="@android:color/holo_green_light"
                 android:textStyle="bold" />
 

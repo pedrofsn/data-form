@@ -1,5 +1,7 @@
 package br.redcode.sample.view.questions
 
+import br.com.redcode.base.extensions.extract
+import br.com.redcode.base.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.sample.R
@@ -69,6 +71,34 @@ class QuestionsViewModel : BaseViewModelWithLiveData<Form>() {
 
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
+
+        launch(main()) {
+            val form = liveData.value?.copy()
+
+            val asyncSave = async(io()) {
+                if (form != null) {
+                    MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
+                            idForm = form.idForm,
+                            idQuestion = newAnswer.idQuestion,
+                            answer = newAnswer
+                    )
+                }
+            }
+
+            val asyncPreviewMessage = async(io()) {
+                if (form != null) {
+                    val question = form.questions.firstOrNull { it.id == newAnswer.idQuestion }
+                    if (question != null) {
+                        return@async extract safe newAnswer.getPreviewAnswer(question)
+                    }
+                }
+
+                return@async EMPTY_STRING
+            }
+
+            asyncSave.await()
+            sendEventToUI("onUpdatedAnswer", asyncPreviewMessage.await())
+        }
     }
 
     fun save() {

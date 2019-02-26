@@ -24,6 +24,8 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
 
     private val case by receiveInt("case")
 
+    private val labelSaved by lazy { getString(R.string.saved_) }
+
     private val observer = observer<Form> { updateUI(it) }
     override val onQuestionClicked = { question: Question ->
         val previewAnswer = viewModel.myAnswers[question.id]
@@ -57,6 +59,15 @@ class QuestionsActivity : ActivityDynamicForm<ActivityQuestionsBinding, Question
             toast(getString(R.string.no_answer))
         }
     }
+
+    override fun handleEvent(event: String, obj: Any?) {
+        when (event) {
+            "onUpdatedAnswer" -> if (obj != null && obj is String && obj.isNotEmpty()) onUpdatedAnswer(obj)
+            else -> super.handleEvent(event, obj)
+        }
+    }
+
+    private fun onUpdatedAnswer(message: String) = showMessage(String.format(labelSaved, message))
 
     override fun updateAnswer(answer: Answer) = viewModel.updateAnswer(answer)
     override fun fillAnswers() = fillAnswers(viewModel.myAnswers.values.toList())
