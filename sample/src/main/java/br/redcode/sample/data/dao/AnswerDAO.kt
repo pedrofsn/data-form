@@ -68,4 +68,35 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
         }
     }
 
+    @Transaction
+    fun readAnswers(idQuestion: Long, form_with_answers_id: Long): List<Answer> {
+        val db = MyRoomDatabase.getInstance()
+        val answers = arrayListOf<Answer>()
+
+        val entityAnswerImages = db.answerImageDAO().readAllInsideQuestionFromForm(
+                idQuestion = idQuestion,
+                form_with_answers_id = form_with_answers_id
+        )
+        val images = entityAnswerImages.map { it.toModel() }
+
+        val entityAnswerOptions = db.answerOptionDAO().readAllInsideQuestionFromForm(
+                idQuestion = idQuestion,
+                form_with_answers_id = form_with_answers_id
+        )
+
+        val entityAnswer = db.answerDAO().read(
+                idQuestion = idQuestion,
+                form_with_answers_id = form_with_answers_id
+        )
+
+        val answer = entityAnswer?.toModel(
+                images = images,
+                options = entityAnswerOptions
+        )
+
+        answer?.let { answers.add(answer) }
+
+        return answers
+    }
+
 }

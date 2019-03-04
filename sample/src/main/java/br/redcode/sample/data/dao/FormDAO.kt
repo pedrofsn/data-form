@@ -64,35 +64,22 @@ interface FormDAO : BaseDAO<EntityForm> {
                     val customSettings = hashMapOf<String, Boolean>()
                     entityQuestionCustomSettings.map { it.toModel() }.forEach { customSettings.put(it.key, it.value) }
 
-                    val entityAnswerImages = db.answerImageDAO().readAllInsideQuestionFromForm(
-                            idQuestion = idQuestion,
-                            form_with_answers_id = entityFormAnswered.form_with_answers_id
-                    )
-                    val images = entityAnswerImages.map { it.toModel() }
-
-                    val entityAnswerOptions = db.answerOptionDAO().readAllInsideQuestionFromForm(
-                            idQuestion = idQuestion,
-                            form_with_answers_id = entityFormAnswered.form_with_answers_id
-                    )
-
-                    val entityAnswer = db.answerDAO().read(
-                            idQuestion = idQuestion,
-                            form_with_answers_id = entityFormAnswered.form_with_answers_id
-                    )
-
                     val question = entityQuestion.toModel(
                             limit = limit,
                             options = options,
                             customSettings = customSettings
                     )
 
-                    val answer = entityAnswer?.toModel(
-                            images = images,
-                            options = entityAnswerOptions
+                    val readedAnswers = db.answerDAO().readAnswers(
+                            idQuestion = idQuestion,
+                            form_with_answers_id = entityFormAnswered.form_with_answers_id
                     )
-                    answer?.let { answers.add(answer) }
-                    questions.add(question)
 
+                    if (readedAnswers.isNotEmpty()) {
+                        answers.addAll(readedAnswers)
+                    }
+
+                    questions.add(question)
                 }
 
                 val form = Form(
