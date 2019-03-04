@@ -3,7 +3,6 @@ package br.redcode.sample.view.dynamic_form.form_questions
 import br.com.redcode.base.extensions.extract
 import br.com.redcode.base.mvvm.extensions.isValid
 import br.com.redcode.base.utils.Constants.EMPTY_STRING
-import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
 import br.redcode.sample.R
@@ -22,15 +21,13 @@ import kotlinx.coroutines.launch
 class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     private var case = 0
-    private var idFormAnswers = INVALID_VALUE.toLong()
+    private var idFormAnswers: Long? = null
 
     val myAnswers = hashMapOf<Long, Answer>()
 
     fun load(case: Int, idFormAnswers: Long) {
+        this.idFormAnswers = if (idFormAnswers.isValid()) idFormAnswers else null
         this.case = case
-        if (idFormAnswers.isValid()) {
-            this.idFormAnswers = idFormAnswers
-        }
         load()
     }
 
@@ -65,7 +62,13 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
         }
     }
 
-    private suspend fun loadFormFromDatabase() = coroutineScope { async(io()) { MyRoomDatabase.getInstance().formDAO().readForm(idFormAnswers) } }
+    private suspend fun loadFormFromDatabase() = coroutineScope {
+        async(io()) {
+            idFormAnswers?.let { form_with_answers_id ->
+                MyRoomDatabase.getInstance().formDAO().readFormWithAnswers(form_with_answers_id)
+            }
+        }
+    }
 
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
@@ -74,12 +77,14 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
             val form = liveData.value?.copy()
 
             val asyncSave = async(io()) {
-                if (form != null) {
-                    MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                            form_with_answers_id = idFormAnswers,
-                            idQuestion = newAnswer.idQuestion,
-                            answer = newAnswer
-                    )
+                idFormAnswers?.let { form_with_answers_id ->
+                    if (form != null) {
+                        MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
+                                form_with_answers_id = form_with_answers_id,
+                                idQuestion = newAnswer.idQuestion,
+                                answer = newAnswer
+                        )
+                    }
                 }
             }
 
@@ -102,9 +107,14 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
     fun save() {
         launch(main()) {
             val asyncSave = async(io()) {
-                val form = liveData.value?.copy()
-                if (form != null) {
-                    MyRoomDatabase.getInstance().answerDAO().deleteAndSave(form.idForm, myAnswers)
+                idFormAnswers?.let { form_with_answers_id ->
+                    val form = liveData.value?.copy()
+                    if (form != null) {
+                        MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
+                                form_with_answers_id = form_with_answers_id,
+                                answers = myAnswers
+                        )
+                    }
                 }
             }
             asyncSave.await()
@@ -114,7 +124,7 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
         }
     }
 
-    private fun isEdit() = idFormAnswers.isValid()
+    private fun isEdit() = idFormAnswers?.isValid() == true
     private fun isCreate() = isEdit().not()
 
 }

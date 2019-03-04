@@ -27,7 +27,7 @@ interface FormDAO : BaseDAO<EntityForm> {
     fun readAll(): List<EntityForm>
 
     @Transaction
-    fun readForm(form_with_answers_id: Long): Form? {
+    fun readFormWithAnswers(form_with_answers_id: Long): Form? {
         val db = MyRoomDatabase.getInstance()
 
         val entityFormAnswered = db.formAnsweredDAO().read(form_with_answers_id)
