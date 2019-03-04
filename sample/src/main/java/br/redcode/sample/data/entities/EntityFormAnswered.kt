@@ -21,7 +21,7 @@ import java.util.*
         indices = [
             Index(
                     value = ["form_id"],
-                    unique = true
+                    unique = false
             )
         ]
 )

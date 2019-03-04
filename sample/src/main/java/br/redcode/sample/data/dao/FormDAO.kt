@@ -97,6 +97,61 @@ interface FormDAO : BaseDAO<EntityForm> {
         return null
     }
 
+    @Transaction
+    fun readOnlyForm(idForm: Long): Form? {
+        val db = MyRoomDatabase.getInstance()
+
+        val entityForm = db.formDAO().read(idForm)
+        val entityFormSettings = db.formSettingsDAO().readByForm(idForm)
+
+        if (entityForm != null && entityFormSettings != null) {
+            val entityQuestions = db.questionDAO().readByForm(idForm)
+
+            val questions = arrayListOf<Question>()
+
+            entityQuestions.forEach { entityQuestion ->
+                val idQuestion = entityQuestion.idQuestion
+
+                val entityQuestionLimit = db.questionLimitDAO().readByForm(idQuestion)
+                val limit = entityQuestionLimit?.toModel()
+
+                val entityQuestionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                        idQuestion = idQuestion,
+                        idForm = idForm
+                )
+                val options = arrayListOf<Spinnable>()
+                options.addAll(entityQuestionOptions.map { it.toModel() })
+
+                val entityQuestionCustomSettings = db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
+                        idQuestion = idQuestion,
+                        idForm = idForm
+                )
+                val customSettings = hashMapOf<String, Boolean>()
+                entityQuestionCustomSettings.map { it.toModel() }.forEach { customSettings.put(it.key, it.value) }
+
+                val question = entityQuestion.toModel(
+                        limit = limit,
+                        options = options,
+                        customSettings = customSettings
+                )
+
+                questions.add(question)
+            }
+
+            val form = Form(
+                    idForm = idForm,
+                    lastUpdate = entityForm.lastUpdate,
+                    settings = entityFormSettings.toModel(),
+                    questions = questions,
+                    answers = emptyList()
+            )
+
+            return form
+        }
+
+        return null
+    }
+
     @Query("DELETE FROM forms")
     fun deleteAll()
 

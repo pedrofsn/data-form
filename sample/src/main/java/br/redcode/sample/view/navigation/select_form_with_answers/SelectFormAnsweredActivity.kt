@@ -9,7 +9,8 @@ import br.redcode.sample.databinding.ActivitySelectFormAnsweredBinding
 import br.redcode.sample.domain.ActivityMVVM
 import br.redcode.sample.view.common.AdapterString
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_WITH_ANSWERS_FROM_DATABASE
+import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_ONLY_FORM_FROM_DATABASE
 
 /*
     CREATED BY @PEDROFSN
@@ -49,14 +50,19 @@ class SelectFormAnsweredActivity : ActivityMVVM<ActivitySelectFormAnsweredBindin
 
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
-            "open" -> if (obj != null && obj is Long) goTo<FormActivity>(
-                    "idFormAnswers" to obj,
-                    "case" to LOAD_FORM_FROM_DATABASE
+            "open" -> if (obj != null && obj is Long) FormActivity.open(
+                    context = this,
+                    case = LOAD_FORM_WITH_ANSWERS_FROM_DATABASE,
+                    idFormAnswers = obj
             )
             else -> super.handleEvent(event, obj)
         }
     }
 
-    fun add(view: View?) = goTo<FormActivity>("case" to LOAD_FORM_FROM_DATABASE)
+    fun add(view: View?) = FormActivity.open(
+            context = this,
+            case = LOAD_ONLY_FORM_FROM_DATABASE,
+            idForm = idForm
+    )
 
 }

@@ -3,6 +3,7 @@ package br.redcode.sample.data.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityAnswer
@@ -19,30 +20,47 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
     fun delete(form_with_answers_id: Long)
 
     @Transaction
-    fun deleteAndSave(form_with_answers_id: Long, answers: HashMap<Long, Answer>) {
-        delete(form_with_answers_id = form_with_answers_id)
+    fun deleteAndSave(form_id: Long, form_with_answers_id: Long, answers: HashMap<Long, Answer>): Long {
+        val db = MyRoomDatabase.getInstance()
 
-        answers.forEach {
-            val idQuestion = it.key
-            val answer = it.value
+        val entityFormAnswered = db.formAnsweredDAO().insertOrUpdate(
+                form_id = form_id,
+                form_with_answers_id = form_with_answers_id
+        )
 
-            deleteAndSave(
-                    form_with_answers_id = form_with_answers_id,
-                    idQuestion = idQuestion,
-                    answer = answer
-            )
+        entityFormAnswered?.let { formAnswered ->
+
+            delete(form_with_answers_id = formAnswered.form_with_answers_id)
+
+            answers.forEach {
+                val idQuestion = it.key
+                val answer = it.value
+
+                deleteAndSave(
+                        form_id = formAnswered.form_id,
+                        form_with_answers_id = formAnswered.form_with_answers_id,
+                        idQuestion = idQuestion,
+                        answer = answer
+                )
+            }
         }
+
+        return entityFormAnswered?.form_with_answers_id ?: INVALID_VALUE.toLong()
     }
 
     @Transaction
-    fun deleteAndSave(form_with_answers_id: Long, idQuestion: Long, answer: Answer) {
+    fun deleteAndSave(form_id: Long, form_with_answers_id: Long, idQuestion: Long, answer: Answer): Long {
         val db = MyRoomDatabase.getInstance()
-        val entityFormAnswered = db.formAnsweredDAO().read(form_with_answers_id)
+
+        val entityFormAnswered = db.formAnsweredDAO().insertOrUpdate(
+                form_id = form_id,
+                form_with_answers_id = form_with_answers_id
+        )
 
         if (entityFormAnswered != null) {
             val entityAnswer = answer.toEntity(
                     idQuestion = idQuestion,
-                    form_with_answers_id = form_with_answers_id
+                    form_with_answers_id = entityFormAnswered.form_with_answers_id
             )
 
             val idAnswer = insert(entityAnswer)
@@ -64,8 +82,10 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
                 }
             }
 
-            db.formAnsweredDAO().refreshLastUpdate(form_with_answers_id, Date())
+            db.formAnsweredDAO().refreshLastUpdate(entityFormAnswered.form_with_answers_id, Date())
         }
+
+        return entityFormAnswered?.form_with_answers_id ?: INVALID_VALUE.toLong()
     }
 
     @Transaction
