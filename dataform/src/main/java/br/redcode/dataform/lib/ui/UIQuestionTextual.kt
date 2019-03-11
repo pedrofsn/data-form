@@ -7,13 +7,17 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.core.widget.TextViewCompat
+import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
+import br.com.concrete.canarinho.watcher.ValorMonetarioWatcher
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.domain.UIQuestionBase
 import br.redcode.dataform.lib.interfaces.Questionable
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.FormSettings
 import br.redcode.dataform.lib.model.Question
+import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_DATE
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_EMAIL
+import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_MONEY
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_MULTI
 import br.redcode.dataform.lib.utils.Constants.FORMAT_QUESTION_TEXTUAL_NUMBER
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
@@ -45,6 +49,21 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
             when {
                 FORMAT_QUESTION_TEXTUAL_EMAIL == question.format -> editText.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
                 FORMAT_QUESTION_TEXTUAL_NUMBER == question.format -> editText.inputType = InputType.TYPE_CLASS_NUMBER
+                FORMAT_QUESTION_TEXTUAL_DATE == question.format -> {
+                    val watcher = MascaraNumericaTextWatcher.Builder()
+                            .paraMascara("##/##/####")
+                            .build()
+
+                    editText.addTextChangedListener(watcher)
+                }
+                FORMAT_QUESTION_TEXTUAL_MONEY == question.format -> {
+                    val watcher = ValorMonetarioWatcher.Builder()
+                            .comSimboloReal()
+                            .comMantemZerosAoLimpar()
+                            .build()
+
+                    editText.addTextChangedListener(watcher)
+                }
                 FORMAT_QUESTION_TEXTUAL_MULTI == question.format -> {
                     editText.setSingleLine(false)
                     editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE

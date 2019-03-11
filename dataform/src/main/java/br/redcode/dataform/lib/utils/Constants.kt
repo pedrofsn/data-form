@@ -32,5 +32,7 @@ object Constants {
     const val FORMAT_QUESTION_TEXTUAL_EMAIL = "email"
     const val FORMAT_QUESTION_TEXTUAL_NUMBER = "numeric"
     const val FORMAT_QUESTION_TEXTUAL_MULTI = "multi"
+    const val FORMAT_QUESTION_TEXTUAL_DATE = "date"
+    const val FORMAT_QUESTION_TEXTUAL_MONEY = "money"
 
 }

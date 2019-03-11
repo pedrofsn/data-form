@@ -105,6 +105,13 @@
       ]
     },
     {
+      "id": 5,
+      "description": "Tell more about you",
+      "type": "textual",
+      "format": "multi",
+      "required": "false"
+    },
+    {
       "id": 6,
       "description": "Select your memes",
       "type": "image_gallery",
@@ -115,10 +122,17 @@
       }
     },
     {
-      "id": 5,
-      "description": "Tell more about you",
+      "id": 7,
+      "description": "How much is your budget?",
       "type": "textual",
-      "format": "multi",
+      "format": "money",
+      "required": "false"
+    },
+    {
+      "id": 8,
+      "description": "Say your birthday",
+      "type": "textual",
+      "format": "date",
       "required": "false"
     }
   ],
