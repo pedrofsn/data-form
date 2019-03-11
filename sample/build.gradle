@@ -71,9 +71,6 @@ dependencies {
     // App Compat
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
-    // Masks and formatation
-    implementation 'br.com.concrete:canarinho:2.0.1'
-
     // JSON Parser
     implementation 'com.google.code.gson:gson:2.8.5'
 
