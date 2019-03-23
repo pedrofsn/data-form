@@ -71,4 +71,6 @@ data class Question(
         }
     }
 
+    fun hasInformation() = information?.isNotEmpty() == true
+
 }
