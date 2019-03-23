@@ -14,7 +14,7 @@
         tools:replace="android:name">
 
         <activity
-            android:name="br.redcode.sample.view.navigation.main.ActivityMain"
+            android:name=".view.navigation.main.ActivityMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -25,19 +25,19 @@
         </activity>
 
         <activity
-            android:name="br.redcode.sample.view.navigation.select_form.SelectFormActivity"
+            android:name=".view.navigation.select_form.SelectFormActivity"
             android:label="@string/forms"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="br.redcode.sample.view.navigation.select_form_with_answers.SelectFormAnsweredActivity"
+            android:name=".view.navigation.select_form_with_answers.SelectFormAnsweredActivity"
             android:label="@string/form_answereds"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="br.redcode.sample.view.dynamic_form.form_questions.FormActivity"
+            android:name=".view.dynamic_form.form_questions.FormActivity"
             android:label="@string/questions"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -48,22 +48,10 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="br.redcode.sample.view.dynamic_form.form_answer.FormAnswerActivity"
+            android:name=".view.dynamic_form.form_answer.FormAnswerActivity"
             android:label="@string/to_answer"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.easyphotopicker.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"
-                tools:replace="android:resource" />
-        </provider>
 
     </application>
 
