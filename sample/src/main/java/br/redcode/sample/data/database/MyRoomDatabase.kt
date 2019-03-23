@@ -36,7 +36,7 @@ import java.util.concurrent.Executors
             // FORM
             EntityFormAnswered::class
         ],
-        version = 5,
+        version = 6,
         exportSchema = false
 )
 @TypeConverters(Converters::class)

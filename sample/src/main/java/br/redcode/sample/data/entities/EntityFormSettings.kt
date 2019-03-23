@@ -30,6 +30,7 @@ data class EntityFormSettings(
 
         val showIndicatorError: Boolean = true,
         val showIndicatorInformation: Boolean = true,
+        val showInformation: Boolean = true,
         val inputAnswersInOtherScreen: Boolean = false,
         val showSymbolRequired: Boolean = true,
         val editable: Boolean = true,
@@ -40,6 +41,7 @@ data class EntityFormSettings(
     fun toModel() = FormSettings(
             showIndicatorError = showIndicatorError,
             showIndicatorInformation = showIndicatorInformation,
+            showInformation = showInformation,
             inputAnswersInOtherScreen = inputAnswersInOtherScreen,
             showSymbolRequired = showSymbolRequired,
             editable = editable,
