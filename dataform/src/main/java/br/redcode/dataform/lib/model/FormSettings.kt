@@ -8,6 +8,7 @@ data class FormSettings(
         val inputAnswersInOtherScreen: Boolean = false,
         val showIndicatorError: Boolean = true,
         val showIndicatorInformation: Boolean = true,
+        val showInformation: Boolean = true,
         val showSymbolRequired: Boolean = true,
         val editable: Boolean = true,
         val backgroundColor: String? = null,

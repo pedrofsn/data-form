@@ -76,7 +76,7 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
 
         textViewDescription.text = if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
 
-        if (settings.showIndicatorInformation && question.information?.isNotEmpty() == true) {
+        if ((settings.showInformation || settings.showIndicatorInformation) && question.hasInformation()) {
             textViewInformation.text = question.information
             textViewInformation.visibility = View.VISIBLE
         } else {
