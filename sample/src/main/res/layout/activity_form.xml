@@ -42,7 +42,7 @@
                 android:layout_alignParentBottom="true"
                 android:onClick="save"
                 android:text="@string/validate_form_and_save"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
         </RelativeLayout>
