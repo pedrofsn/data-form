@@ -11,6 +11,7 @@ import br.redcode.dataform.lib.model.Question
 import br.redcode.sample.R
 import br.redcode.sample.databinding.ActivityFormBinding
 import br.redcode.sample.domain.ActivityDynamicForm
+import br.redcode.sample.model.LoadType
 import br.redcode.sample.view.dynamic_form.form_answer.FormAnswerActivity
 import kotlinx.coroutines.launch
 
@@ -20,13 +21,9 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     override val classViewModel = FormViewModel::class.java
 
     companion object {
-        const val LOAD_FORM_FROM_JSON = 0
-        const val LOAD_FORM_WITH_ANSWERS_FROM_DATABASE = 1
-        const val LOAD_ONLY_FORM_FROM_DATABASE = 2
-
         fun open(
             context: BaseActivity,
-            case: Int,
+            @LoadType case: Int,
             idForm: Long? = null,
             idFormAnswers: Long? = null
         ) {

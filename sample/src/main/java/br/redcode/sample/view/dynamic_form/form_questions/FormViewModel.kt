@@ -10,11 +10,9 @@ import br.redcode.sample.R
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
+import br.redcode.sample.model.LoadType
 import br.redcode.sample.model.repository.AnswerRepositoryImpl
 import br.redcode.sample.model.repository.FormRepositoryImpl
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_JSON
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_WITH_ANSWERS_FROM_DATABASE
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_ONLY_FORM_FROM_DATABASE
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -29,7 +27,7 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     val myAnswers = hashMapOf<Long, Answer>()
 
-    fun load(case: Int, idFormAnswers: Long, idForm: Long) {
+    fun load(@LoadType case: Int, idFormAnswers: Long, idForm: Long) {
         this.idFormAnswers = idFormAnswers
         this.idForm = idForm
         this.case = case
@@ -40,11 +38,11 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
         launch(main()) {
             launch(io()) {
                 val form: Form? = when (case) {
-                    LOAD_FORM_FROM_JSON -> formRepository.loadFormFromJSON()
-                    LOAD_FORM_WITH_ANSWERS_FROM_DATABASE -> formRepository.loadFormFromDatabase(
+                    LoadType.JSON -> formRepository.loadFormFromJSON()
+                    LoadType.FORM_WITH_ANSWERS_FROM_DATABASE -> formRepository.loadFormFromDatabase(
                         idFormAnswers
                     )
-                    LOAD_ONLY_FORM_FROM_DATABASE -> formRepository.loadOnlyFormFromDatabase(idForm)
+                    LoadType.FORM_FROM_DATABASE -> formRepository.loadOnlyFormFromDatabase(idForm)
                     else -> throw RuntimeException("Wrong paramenter brow!")
                 }
 

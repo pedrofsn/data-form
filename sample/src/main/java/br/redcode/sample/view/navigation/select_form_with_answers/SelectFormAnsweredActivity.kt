@@ -7,10 +7,9 @@ import br.redcode.dataform.lib.extension.setCustomAdapter
 import br.redcode.sample.R
 import br.redcode.sample.databinding.ActivitySelectFormAnsweredBinding
 import br.redcode.sample.domain.ActivityMVVM
+import br.redcode.sample.model.LoadType
 import br.redcode.sample.view.common.AdapterString
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_WITH_ANSWERS_FROM_DATABASE
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_ONLY_FORM_FROM_DATABASE
 
 /*
     CREATED BY @PEDROFSN
@@ -53,7 +52,7 @@ class SelectFormAnsweredActivity :
         when (event) {
             "open" -> if (obj != null && obj is Long) FormActivity.open(
                 context = this,
-                case = LOAD_FORM_WITH_ANSWERS_FROM_DATABASE,
+                case = LoadType.FORM_WITH_ANSWERS_FROM_DATABASE,
                 idFormAnswers = obj
             )
             else -> super.handleEvent(event, obj)
@@ -62,7 +61,7 @@ class SelectFormAnsweredActivity :
 
     fun add(view: View?) = FormActivity.open(
         context = this,
-        case = LOAD_ONLY_FORM_FROM_DATABASE,
+        case = LoadType.FORM_FROM_DATABASE,
         idForm = idForm
     )
 }

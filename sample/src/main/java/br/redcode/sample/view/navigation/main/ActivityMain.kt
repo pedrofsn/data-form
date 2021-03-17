@@ -4,9 +4,8 @@ import android.view.View
 import br.redcode.sample.R
 import br.redcode.sample.data.database.Mock
 import br.redcode.sample.domain.ActivityWithoutMVVM
+import br.redcode.sample.model.LoadType
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_JSON
-import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_WITH_ANSWERS_FROM_DATABASE
 import br.redcode.sample.view.navigation.select_form.SelectFormActivity
 import kotlinx.coroutines.launch
 
@@ -16,16 +15,15 @@ import kotlinx.coroutines.launch
 
 class ActivityMain(override val layout: Int = R.layout.activity_main) : ActivityWithoutMVVM() {
 
-    override fun afterOnCreate() {
-    }
+    override fun afterOnCreate() = Unit
 
     fun openCase1(view: View?) = FormActivity.open(
         context = this,
-        case = LOAD_FORM_FROM_JSON
+        case = LoadType.JSON
     )
 
     fun openCase2(view: View?) =
-        goTo<SelectFormActivity>("case" to LOAD_FORM_WITH_ANSWERS_FROM_DATABASE)
+        goTo<SelectFormActivity>("case" to LoadType.FORM_WITH_ANSWERS_FROM_DATABASE)
 
     fun resetDatabase(view: View?) {
         launch(io()) {
