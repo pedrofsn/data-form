@@ -15,7 +15,8 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionInformationText(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_informative_text, question, settings), Questionable {
+class UIQuestionInformationText(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_informative_text, question, settings), Questionable {
 
     private lateinit var textViewInformativo: TextView
 
@@ -31,11 +32,9 @@ class UIQuestionInformationText(question: Question, settings: FormSettings) : UI
     }
 
     override fun fillAnswer(answer: Answer) {
-
     }
 
     override fun isFilledCorrect() = true
     override fun getMessageErrorFill() = EMPTY_STRING
     override fun getAnswer() = tempAnswer
-
 }

@@ -27,7 +27,12 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionImage(question: Question, settings: FormSettings, val handlerCaptureImage: HandlerCaptureImage, val type: Type) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
+class UIQuestionImage(
+    question: Question,
+    settings: FormSettings,
+    val handlerCaptureImage: HandlerCaptureImage,
+    val type: Type
+) : UIQuestionBase(R.layout.ui_question_image, question, settings) {
 
     enum class Type {
         CAMERA, GALLERY, CAMERA_OR_GALLERY
@@ -73,9 +78,13 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
             linearLayoutAdicionar.setOnClickListener { addImage() }
         }
 
-        val layoutManagerHorizontal = LinearLayoutManager(recyclerView.context, OrientationHelper.HORIZONTAL, false)
+        val layoutManagerHorizontal =
+            LinearLayoutManager(recyclerView.context, OrientationHelper.HORIZONTAL, false)
         val layoutManagerVertical = LinearLayoutManager(recyclerView.context)
-        recyclerView.setCustomAdapter(adapter, layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal)
+        recyclerView.setCustomAdapter(
+            adapter,
+            layoutManager = if (comLegenda) layoutManagerVertical else layoutManagerHorizontal
+        )
 
         updateCounter()
     }
@@ -105,12 +114,16 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     }
 
     override fun isFilledCorrect() = isInMin() && isInMax()
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantityCurrent()))
+    override fun getMessageErrorFill() = String.format(
+        recyclerView.context.getString(R.string.need_x_items),
+        (question.getLimitMax() - getQuantityCurrent())
+    )
 
     private fun updateCounter() {
         val current = getQuantityCurrent()
         val max = question.getLimitMax()
-        textViewAndamento.text = String.format(recyclerView.context.getString(R.string.x_of_x), current, max)
+        textViewAndamento.text =
+            String.format(recyclerView.context.getString(R.string.x_of_x), current, max)
 
         linearLayoutAdicionar.isEnabled = current != max
         if (isFilledCorrect()) uiIndicator.hide()
@@ -139,5 +152,4 @@ class UIQuestionImage(question: Question, settings: FormSettings, val handlerCap
     fun isInMax() = getQuantityCurrent() <= question.getLimitMax()
     fun isInMin() = getQuantityCurrent() >= question.getLimitMin()
     private fun canAddMoreOne() = getQuantityCurrent() + 1 <= question.getLimitMax()
-
 }

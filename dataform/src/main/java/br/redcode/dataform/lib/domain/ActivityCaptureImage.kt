@@ -13,7 +13,11 @@ import br.redcode.dataform.lib.ui.UIQuestionImage
  */
 abstract class ActivityCaptureImage : AppCompatActivity(), ImageCapturable {
 
-    val permissoes: Array<String> = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    val permissoes: Array<String> = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 
     val handlerCapturaImagem = HandlerCaptureImage(this)
 
@@ -24,5 +28,4 @@ abstract class ActivityCaptureImage : AppCompatActivity(), ImageCapturable {
     abstract override fun visualizeImage(image: Image)
 
     abstract override fun loadImage(imagem: String, imageView: ImageView)
-
 }

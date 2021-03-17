@@ -26,5 +26,4 @@ class HandlerCaptureImage(val callback: ImageCapturable) {
     fun loadImage(imagem: String, imageView: ImageView) = callback.loadImage(imagem, imageView)
 
     fun hasPermissions(): Boolean = callback.hasPermissions()
-
 }

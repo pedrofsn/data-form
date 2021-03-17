@@ -27,8 +27,8 @@ class SelectFormActivity : ActivityMVVM<ActivitySelectFormBinding, SelectFormVie
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
         binding.recyclerView.setCustomAdapter(
-                adapter = adapter,
-                incluirDivider = true
+            adapter = adapter,
+            incluirDivider = true
         )
     }
 
@@ -48,5 +48,4 @@ class SelectFormActivity : ActivityMVVM<ActivitySelectFormBinding, SelectFormVie
             else -> super.handleEvent(event, obj)
         }
     }
-
 }

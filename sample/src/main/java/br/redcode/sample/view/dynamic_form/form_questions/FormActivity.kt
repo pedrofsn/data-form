@@ -24,11 +24,16 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
         const val LOAD_FORM_WITH_ANSWERS_FROM_DATABASE = 1
         const val LOAD_ONLY_FORM_FROM_DATABASE = 2
 
-        fun open(context: BaseActivity, case: Int, idForm: Long? = null, idFormAnswers: Long? = null) {
+        fun open(
+            context: BaseActivity,
+            case: Int,
+            idForm: Long? = null,
+            idFormAnswers: Long? = null
+        ) {
             context.goTo<FormActivity>(
-                    "case" to case,
-                    "idFormAnswers" to idFormAnswers,
-                    "idForm" to idForm
+                "case" to case,
+                "idFormAnswers" to idFormAnswers,
+                "idForm" to idForm
             )
         }
     }
@@ -43,9 +48,9 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     override val onQuestionClicked = { question: Question ->
         val previewAnswer = viewModel.myAnswers[question.id]
         goTo<FormAnswerActivity>(
-                REQUEST_CODE_ANSWER,
-                "question" to question,
-                "previewAnswer" to previewAnswer
+            REQUEST_CODE_ANSWER,
+            "question" to question,
+            "previewAnswer" to previewAnswer
         )
     }
 
@@ -57,9 +62,9 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
         viewModel.load(
-                idFormAnswers = idFormAnswers,
-                idForm = idForm,
-                case = case
+            idFormAnswers = idFormAnswers,
+            idForm = idForm,
+            case = case
         )
     }
 
@@ -79,7 +84,9 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
 
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
-            "onUpdatedAnswer" -> if (obj != null && obj is String && obj.isNotEmpty()) onUpdatedAnswer(obj)
+            "onUpdatedAnswer" -> if (obj != null && obj is String && obj.isNotEmpty()) onUpdatedAnswer(
+                obj
+            )
             else -> super.handleEvent(event, obj)
         }
     }
@@ -90,5 +97,4 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     override fun fillAnswers() = fillAnswers(viewModel.myAnswers.values.toList())
     override fun getViewGroupToHandleForm(): ViewGroup = binding.linearLayout
     override fun getContentView() = binding.cardView
-
 }

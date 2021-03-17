@@ -26,5 +26,4 @@ class ViewHolderRadioButton(itemView: View) : ViewHolderGeneric<Spinnable>(itemV
         super.popular(obj, click)
         radioButton.isEnabled = formSettings.editable
     }
-
 }

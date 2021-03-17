@@ -1,6 +1,12 @@
 package br.redcode.sample.data.database
 
-import br.redcode.sample.data.entities.*
+import br.redcode.sample.data.entities.EntityAnswer
+import br.redcode.sample.data.entities.EntityAnswerOption
+import br.redcode.sample.data.entities.EntityForm
+import br.redcode.sample.data.entities.EntityFormAnswered
+import br.redcode.sample.data.entities.EntityFormSettings
+import br.redcode.sample.data.entities.EntityQuestion
+import br.redcode.sample.data.entities.EntityQuestionOption
 import br.redcode.sample.utils.Utils
 
 object Mock {
@@ -21,61 +27,61 @@ object Mock {
 
         // FORM SETTINGS
         val entityFormSettings = EntityFormSettings(
-                idForm = idForm,
+            idForm = idForm,
 
-                inputAnswersInOtherScreen = true,
-                showIndicatorInformation = false,
-                showIndicatorError = false,
-                showSymbolRequired = false,
-                editable = false,
-                backgroundColor = null
+            inputAnswersInOtherScreen = true,
+            showIndicatorInformation = false,
+            showIndicatorError = false,
+            showSymbolRequired = false,
+            editable = false,
+            backgroundColor = null
         )
         db.formSettingsDAO().insert(entityFormSettings)
 
         // QUESTION 1
         val questionEntity1 = EntityQuestion(
-                idForm = idForm,
+            idForm = idForm,
 
-                description = "What is your favorite candy?",
-                type = "objective_list",
-                required = true
+            description = "What is your favorite candy?",
+            type = "objective_list",
+            required = true
         )
         val idQuestion1 = db.questionDAO().insert(questionEntity1)
 
         // QUESTION 1 - OPTION 1
         val option1Question1 = EntityQuestionOption(
-                idQuestion = idQuestion1,
-                idForm = idForm,
+            idQuestion = idQuestion1,
+            idForm = idForm,
 
-                idOption = "1",
-                description = "Honeycomb"
+            idOption = "1",
+            description = "Honeycomb"
         )
 
         // QUESTION 1 - OPTION 2
         val option2Question1 = EntityQuestionOption(
-                idQuestion = idQuestion1,
-                idForm = idForm,
+            idQuestion = idQuestion1,
+            idForm = idForm,
 
-                idOption = "2",
-                description = "Jelly Beans"
+            idOption = "2",
+            description = "Jelly Beans"
         )
 
         // QUESTION 1 - OPTION 3
         val option3Question1 = EntityQuestionOption(
-                idQuestion = idQuestion1,
-                idForm = idForm,
+            idQuestion = idQuestion1,
+            idForm = idForm,
 
-                idOption = "3",
-                description = "Cupcake"
+            idOption = "3",
+            description = "Cupcake"
         )
 
         // QUESTION 1 - OPTION 4
         val option4Question1 = EntityQuestionOption(
-                idQuestion = idQuestion1,
-                idForm = idForm,
+            idQuestion = idQuestion1,
+            idForm = idForm,
 
-                idOption = "4",
-                description = "Pie"
+            idOption = "4",
+            description = "Pie"
         )
 
         val idOption1Question1 = db.questionOptionDAO().insert(option1Question1)
@@ -89,26 +95,25 @@ object Mock {
 
         // QUESTION 1 - ANSWER 1
         val entityAnswer = EntityAnswer(
-                form_with_answers_id = form_with_answers_id,
-                idQuestion = idQuestion1
+            form_with_answers_id = form_with_answers_id,
+            idQuestion = idQuestion1
         )
         val idAnswer1 = db.answerDAO().insert(entityAnswer)
 
         // QUESTION 1 - ANSWER 1 - OPTION 0
         val entityAnswerOption0Question1 = EntityAnswerOption(
-                idAnswer = idAnswer1,
-                idQuestionOption = idOption3Question1
+            idAnswer = idAnswer1,
+            idQuestionOption = idOption3Question1
         )
 
         // QUESTION 1 - ANSWER 1 - OPTION 1
         val entityAnswerOption1Question1 = EntityAnswerOption(
-                idAnswer = idAnswer1,
-                idQuestionOption = idOption4Question1
+            idAnswer = idAnswer1,
+            idQuestionOption = idOption4Question1
         )
 
         db.answerOptionDAO().insert(entityAnswerOption0Question1, entityAnswerOption1Question1)
 
         Utils.log("Mock -> seedDatabase - end")
     }
-
 }

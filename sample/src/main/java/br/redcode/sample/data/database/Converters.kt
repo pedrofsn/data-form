@@ -18,5 +18,4 @@ class Converters {
     fun toDate(date: Date?): Long? {
         return date?.time
     }
-
 }

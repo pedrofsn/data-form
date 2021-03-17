@@ -14,5 +14,4 @@ interface Questionable {
     fun getMessageErrorFill(): String
     fun getMessageInformation(): String
     fun showMessageForErrorFill(isFilledRight: Boolean)
-
 }

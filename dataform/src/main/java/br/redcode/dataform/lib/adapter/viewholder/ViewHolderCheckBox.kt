@@ -26,5 +26,4 @@ class ViewHolderCheckBox(itemView: View) : ViewHolderGeneric<Spinnable>(itemView
         checkBox.text = obj.description
         checkBox.isChecked = obj.selected
     }
-
 }

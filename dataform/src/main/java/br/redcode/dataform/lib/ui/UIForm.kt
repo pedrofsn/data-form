@@ -17,7 +17,11 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val handleAnswer: ((Question) -> Unit)? = null) {
+class UIForm(
+    val form: Form,
+    val handlerCaptureImage: HandlerCaptureImage,
+    val handleAnswer: ((Question) -> Unit)? = null
+) {
 
     private val perguntasUI = ArrayList<UIQuestionBase>()
 
@@ -29,15 +33,39 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
 
             for (question in form.questions) {
                 val uiPergunta: UIQuestionBase? = when {
-                    question.isQuestionInformativeText() -> UIQuestionInformationText(question, settings)
+                    question.isQuestionInformativeText() -> UIQuestionInformationText(
+                        question,
+                        settings
+                    )
                     question.isQuestionTextual() -> UIQuestionTextual(question, settings)
                     question.isQuestionObjectiveList() -> UIQuestionObjective(question, settings)
 //                    question.isQuestionListRemovable() -> UIQuestionListItemRemovable(question, settings, handlerInputPopup) TODO IT WILL DISABLE THIS KIND OF QUESTION IN OLD LIBRARY VERSIONS!
-                    question.isQuestionObjectiveSpinner() -> UIQuestionObjectiveSpinner(question, settings)
-                    question.isQuestionMultipleChoice() -> UIQuestionMultipleChoice(question, settings)
-                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Type.CAMERA_OR_GALLERY)
-                    question.isQuestionImageOnlyCamera() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Type.CAMERA)
-                    question.isQuestionImageOnlyGallery() -> UIQuestionImage(question, settings, handlerCaptureImage, UIQuestionImage.Type.GALLERY)
+                    question.isQuestionObjectiveSpinner() -> UIQuestionObjectiveSpinner(
+                        question,
+                        settings
+                    )
+                    question.isQuestionMultipleChoice() -> UIQuestionMultipleChoice(
+                        question,
+                        settings
+                    )
+                    question.isQuestionImageCameraOrGallery() -> UIQuestionImage(
+                        question,
+                        settings,
+                        handlerCaptureImage,
+                        UIQuestionImage.Type.CAMERA_OR_GALLERY
+                    )
+                    question.isQuestionImageOnlyCamera() -> UIQuestionImage(
+                        question,
+                        settings,
+                        handlerCaptureImage,
+                        UIQuestionImage.Type.CAMERA
+                    )
+                    question.isQuestionImageOnlyGallery() -> UIQuestionImage(
+                        question,
+                        settings,
+                        handlerCaptureImage,
+                        UIQuestionImage.Type.GALLERY
+                    )
                     question.isQuestionPercentage() -> UIQuestionPercentage(question, settings)
                     else -> null
                 }
@@ -129,5 +157,4 @@ class UIForm(val form: Form, val handlerCaptureImage: HandlerCaptureImage, val h
 
         return@coroutineScope answers
     }
-
 }

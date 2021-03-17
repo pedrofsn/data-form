@@ -39,5 +39,4 @@ interface FormAnsweredDAO : BaseDAO<EntityFormAnswered> {
             else -> throw RuntimeException(EXCEPTION_MESSAGE)
         }
     }
-
 }

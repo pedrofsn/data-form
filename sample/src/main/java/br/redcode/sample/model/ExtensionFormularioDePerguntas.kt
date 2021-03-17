@@ -4,7 +4,6 @@ package br.redcode.sample.model
  * Created by pedrofsn on 12/11/2017.
  */
 
-
 //fun FormQuestions.toListDTO(): ArrayList<PayloadAnswer> {
 //    val dtos = ArrayList<PayloadAnswer>()
 //

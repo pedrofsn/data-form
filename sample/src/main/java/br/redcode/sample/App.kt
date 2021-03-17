@@ -26,5 +26,4 @@ class App : Application() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
 }

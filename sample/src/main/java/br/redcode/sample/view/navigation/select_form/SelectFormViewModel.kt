@@ -28,5 +28,4 @@ class SelectFormViewModel : BaseViewModelWithLiveData<List<String>>() {
     }
 
     fun open(index: Int) = sendEventToUI("open", results[index].id)
-
 }

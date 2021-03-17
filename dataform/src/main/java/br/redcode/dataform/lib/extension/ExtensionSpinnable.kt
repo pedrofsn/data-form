@@ -17,7 +17,13 @@ fun Spinnable.toDTO(): PayloadOption {
     return PayloadOption(id.toLong(), selected)
 }
 
-fun <T : Spinner> T.setSpinnable2(data: List<Spinnable>, hasDefault: Boolean = false, id: String? = "", defaultString: String? = null, function: ((String, Int) -> Unit)? = null): AdapterSpinneable {
+fun <T : Spinner> T.setSpinnable2(
+    data: List<Spinnable>,
+    hasDefault: Boolean = false,
+    id: String? = "",
+    defaultString: String? = null,
+    function: ((String, Int) -> Unit)? = null
+): AdapterSpinneable {
     val temp = ArrayList<Spinnable>()
     var adapterSpinner = AdapterSpinneable(context, hasDefault, temp)
 
@@ -37,7 +43,12 @@ fun <T : Spinner> T.setSpinnable2(data: List<Spinnable>, hasDefault: Boolean = f
     return adapterSpinner
 }
 
-fun <T : Spinner> T.setIdSpinnable2(data: List<Spinnable>, hasDefault: Boolean = false, id: String? = "", delayInMillis: Long = 1000) {
+fun <T : Spinner> T.setIdSpinnable2(
+    data: List<Spinnable>,
+    hasDefault: Boolean = false,
+    id: String? = "",
+    delayInMillis: Long = 1000
+) {
     // Pre-select item
     if (id?.isNotEmpty() == true) {
         for (i in data.indices) {

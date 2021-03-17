@@ -32,16 +32,17 @@ import br.redcode.dataform.lib.ui.UIForm
 import br.redcode.dataform.lib.ui.UIQuestionImage
 import br.redcode.sample.R
 import br.redcode.sample.view.image.ImageZoomActivity
+import java.io.File
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import pl.aprilapps.easyphotopicker.EasyImage
-import java.io.File
 
 /*
     CREATED BY @PEDROFSN
 */
 
-abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : ActivityMVVM<B, VM>(), EasyImage.Callbacks {
+abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : ActivityMVVM<B, VM>(),
+    EasyImage.Callbacks {
 
     companion object {
         const val REQUEST_CODE_ANSWER = 26
@@ -49,9 +50,9 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
         private val RESULT_CODE_PERMISSION = 27
         private val RESULT_CODE_EASY_IMAGE = 28
         private val permissions: Array<String> = arrayOf(
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
     }
 
@@ -63,21 +64,42 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
 
         override fun captureImage(type: UIQuestionImage.Type) {
             when (type) {
-                UIQuestionImage.Type.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(getMyActivity(), getString(R.string.select), RESULT_CODE_EASY_IMAGE)
-                UIQuestionImage.Type.CAMERA -> EasyImage.openCameraForImage(getMyActivity(), RESULT_CODE_EASY_IMAGE)
-                UIQuestionImage.Type.GALLERY -> EasyImage.openGallery(getMyActivity(), RESULT_CODE_EASY_IMAGE)
+                UIQuestionImage.Type.CAMERA_OR_GALLERY -> EasyImage.openChooserWithGallery(
+                    getMyActivity(),
+                    getString(R.string.select),
+                    RESULT_CODE_EASY_IMAGE
+                )
+                UIQuestionImage.Type.CAMERA -> EasyImage.openCameraForImage(
+                    getMyActivity(),
+                    RESULT_CODE_EASY_IMAGE
+                )
+                UIQuestionImage.Type.GALLERY -> EasyImage.openGallery(
+                    getMyActivity(),
+                    RESULT_CODE_EASY_IMAGE
+                )
             }
         }
 
         override fun hasPermissions(): Boolean {
             for (permission in permissions) {
-                val isOk: Boolean = ContextCompat.checkSelfPermission(getMyActivity(), permission) == PermissionChecker.PERMISSION_GRANTED
+                val isOk: Boolean = ContextCompat.checkSelfPermission(
+                    getMyActivity(),
+                    permission
+                ) == PermissionChecker.PERMISSION_GRANTED
 
                 if (isOk.not()) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getMyActivity(), permission)) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            getMyActivity(),
+                            permission
+                        )
+                    ) {
                         forcePermissions()
                     } else {
-                        ActivityCompat.requestPermissions(getMyActivity(), permissions, RESULT_CODE_PERMISSION)
+                        ActivityCompat.requestPermissions(
+                            getMyActivity(),
+                            permissions,
+                            RESULT_CODE_PERMISSION
+                        )
                     }
                     return false
                 }
@@ -114,7 +136,11 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
         startActivity(intent)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             RESULT_CODE_PERMISSION -> {
                 if ((grantResults.filter { idPermissao: Int -> idPermissao == PackageManager.PERMISSION_GRANTED }.size == permissions.size).not()) {
@@ -171,11 +197,21 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
     }
 
     override fun onImagesPicked(imagesFiles: List<File>, source: EasyImage.ImageSource, type: Int) {
-        imagesFiles.forEach { getDialogDialogComOk(file = it, handlerCaptureImage = handlerCaptureImage) }
+        imagesFiles.forEach {
+            getDialogDialogComOk(
+                file = it,
+                handlerCaptureImage = handlerCaptureImage
+            )
+        }
     }
 
-    private fun getDialogDialogComOk(context: Context = this, file: File, handlerCaptureImage: HandlerCaptureImage) {
-        val viewDialog = (context as AppCompatActivity).layoutInflater.inflate(R.layout.dialog_imagem, null)
+    private fun getDialogDialogComOk(
+        context: Context = this,
+        file: File,
+        handlerCaptureImage: HandlerCaptureImage
+    ) {
+        val viewDialog =
+            (context as AppCompatActivity).layoutInflater.inflate(R.layout.dialog_imagem, null)
 
         val imageViewPreview: ImageView = viewDialog.findViewById(R.id.imageViewPreview)
         val editTextLegenda: EditText = viewDialog.findViewById(R.id.editTextLegenda)
@@ -195,14 +231,13 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
         dialog.show()
 
         buttonOk.setOnClickListener {
-            dialog?.dismiss()
+            dialog.dismiss()
             val image = Image(subtitle = editTextLegenda.text.toString(), image = file.absolutePath)
             handlerCaptureImage.onImageSelecteds(image)
         }
     }
 
     override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
-
     }
 
     fun save(view: View?) {
@@ -214,6 +249,5 @@ abstract class ActivityDynamicForm<B : ViewDataBinding, VM : BaseViewModel> : Ac
     }
 
     open fun handleAnswers(answers: List<Answer>) {
-
     }
 }

@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Image(
-        val image: String,
-        val subtitle: String? = null
+    val image: String,
+    val subtitle: String? = null
 ) : Parcelable

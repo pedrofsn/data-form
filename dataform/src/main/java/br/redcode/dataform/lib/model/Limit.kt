@@ -10,12 +10,12 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Limit(
-        val min: Int,
-        val max: Int,
+    val min: Int,
+    val max: Int,
 
-        val auto: Boolean? = null
+    val auto: Boolean? = null
 ) : Parcelable {
 
-    fun getMessageDefault(context: Context) = String.format(context.getString(R.string.error_limits), min, max)
-
+    fun getMessageDefault(context: Context) =
+        String.format(context.getString(R.string.error_limits), min, max)
 }

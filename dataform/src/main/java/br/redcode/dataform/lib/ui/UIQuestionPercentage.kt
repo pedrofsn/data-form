@@ -17,7 +17,8 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_TEXTVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_percentage, question, settings), Questionable {
+class UIQuestionPercentage(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_percentage, question, settings), Questionable {
 
     private lateinit var seekBar: SeekBar
     private lateinit var textView: TextView
@@ -43,11 +44,9 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-
             }
         })
     }
@@ -77,5 +76,4 @@ class UIQuestionPercentage(question: Question, settings: FormSettings) : UIQuest
 
     override fun isFilledCorrect() = true
     override fun getMessageErrorFill() = EMPTY_STRING
-
 }

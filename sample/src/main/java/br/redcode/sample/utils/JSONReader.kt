@@ -14,7 +14,8 @@ class JSONReader {
 
     fun getStringFromJson(@RawRes raw: Int): String {
         val sb = StringBuffer()
-        val br = BufferedReader(InputStreamReader(App.getContext()?.resources?.openRawResource(raw)))
+        val br =
+            BufferedReader(InputStreamReader(App.getContext()?.resources?.openRawResource(raw)))
 
         try {
             var temp: String? = ""
@@ -27,7 +28,6 @@ class JSONReader {
                     temp = br.readLine()
                 }
             }
-
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
@@ -42,5 +42,4 @@ class JSONReader {
         "JSON lido: $resultado".toLogcat()
         return resultado
     }
-
 }

@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_objective_spinner, question, settings), Questionable {
+class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_objective_spinner, question, settings), Questionable {
 
     private lateinit var spinner: Spinner
 
@@ -62,7 +63,9 @@ class UIQuestionObjectiveSpinner(question: Question, settings: FormSettings) : U
         return answer
     }
 
-    override fun isFilledCorrect() = spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
-    override fun getMessageErrorFill() = spinner.context.getString(R.string.select_at_least_one_option)
+    override fun isFilledCorrect() =
+        spinner.selectedItemPosition != 0 || spinner.visibility == View.GONE
 
+    override fun getMessageErrorFill() =
+        spinner.context.getString(R.string.select_at_least_one_option)
 }

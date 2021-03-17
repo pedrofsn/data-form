@@ -15,7 +15,8 @@ import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion
 /*
     CREATED BY @PEDROFSN
 */
-class SelectFormAnsweredActivity : ActivityMVVM<ActivitySelectFormAnsweredBinding, SelectFormAnsweredViewModel>() {
+class SelectFormAnsweredActivity :
+    ActivityMVVM<ActivitySelectFormAnsweredBinding, SelectFormAnsweredViewModel>() {
 
     override val classViewModel = SelectFormAnsweredViewModel::class.java
     override val layout = R.layout.activity_select_form_answered
@@ -33,8 +34,8 @@ class SelectFormAnsweredActivity : ActivityMVVM<ActivitySelectFormAnsweredBindin
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
         binding.recyclerView.setCustomAdapter(
-                adapter = adapter,
-                incluirDivider = true
+            adapter = adapter,
+            incluirDivider = true
         )
     }
 
@@ -51,18 +52,17 @@ class SelectFormAnsweredActivity : ActivityMVVM<ActivitySelectFormAnsweredBindin
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
             "open" -> if (obj != null && obj is Long) FormActivity.open(
-                    context = this,
-                    case = LOAD_FORM_WITH_ANSWERS_FROM_DATABASE,
-                    idFormAnswers = obj
+                context = this,
+                case = LOAD_FORM_WITH_ANSWERS_FROM_DATABASE,
+                idFormAnswers = obj
             )
             else -> super.handleEvent(event, obj)
         }
     }
 
     fun add(view: View?) = FormActivity.open(
-            context = this,
-            case = LOAD_ONLY_FORM_FROM_DATABASE,
-            idForm = idForm
+        context = this,
+        case = LOAD_ONLY_FORM_FROM_DATABASE,
+        idForm = idForm
     )
-
 }

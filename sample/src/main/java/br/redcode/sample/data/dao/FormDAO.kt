@@ -50,29 +50,32 @@ interface FormDAO : BaseDAO<EntityForm> {
                     val entityQuestionLimit = db.questionLimitDAO().readByForm(idQuestion)
                     val limit = entityQuestionLimit?.toModel()
 
-                    val entityQuestionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                    val entityQuestionOptions =
+                        db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
                             idQuestion = idQuestion,
                             idForm = idForm
-                    )
+                        )
                     val options = arrayListOf<Spinnable>()
                     options.addAll(entityQuestionOptions.map { it.toModel() })
 
-                    val entityQuestionCustomSettings = db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
+                    val entityQuestionCustomSettings =
+                        db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
                             idQuestion = idQuestion,
                             idForm = idForm
-                    )
+                        )
                     val customSettings = hashMapOf<String, Boolean>()
-                    entityQuestionCustomSettings.map { it.toModel() }.forEach { customSettings.put(it.key, it.value) }
+                    entityQuestionCustomSettings.map { it.toModel() }
+                        .forEach { customSettings.put(it.key, it.value) }
 
                     val question = entityQuestion.toModel(
-                            limit = limit,
-                            options = options,
-                            customSettings = customSettings
+                        limit = limit,
+                        options = options,
+                        customSettings = customSettings
                     )
 
                     val readedAnswers = db.answerDAO().readAnswers(
-                            idQuestion = idQuestion,
-                            form_with_answers_id = entityFormAnswered.form_with_answers_id
+                        idQuestion = idQuestion,
+                        form_with_answers_id = entityFormAnswered.form_with_answers_id
                     )
 
                     if (readedAnswers.isNotEmpty()) {
@@ -83,11 +86,11 @@ interface FormDAO : BaseDAO<EntityForm> {
                 }
 
                 val form = Form(
-                        idForm = idForm,
-                        lastUpdate = entityForm.lastUpdate,
-                        settings = entityFormSettings.toModel(),
-                        questions = questions,
-                        answers = answers
+                    idForm = idForm,
+                    lastUpdate = entityForm.lastUpdate,
+                    settings = entityFormSettings.toModel(),
+                    questions = questions,
+                    answers = answers
                 )
 
                 return form
@@ -115,35 +118,38 @@ interface FormDAO : BaseDAO<EntityForm> {
                 val entityQuestionLimit = db.questionLimitDAO().readByForm(idQuestion)
                 val limit = entityQuestionLimit?.toModel()
 
-                val entityQuestionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
+                val entityQuestionOptions =
+                    db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
                         idQuestion = idQuestion,
                         idForm = idForm
-                )
+                    )
                 val options = arrayListOf<Spinnable>()
                 options.addAll(entityQuestionOptions.map { it.toModel() })
 
-                val entityQuestionCustomSettings = db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
+                val entityQuestionCustomSettings =
+                    db.questionCustomSettingsDAO().readAllFromSpecificQuestionFromForm(
                         idQuestion = idQuestion,
                         idForm = idForm
-                )
+                    )
                 val customSettings = hashMapOf<String, Boolean>()
-                entityQuestionCustomSettings.map { it.toModel() }.forEach { customSettings.put(it.key, it.value) }
+                entityQuestionCustomSettings.map { it.toModel() }
+                    .forEach { customSettings.put(it.key, it.value) }
 
                 val question = entityQuestion.toModel(
-                        limit = limit,
-                        options = options,
-                        customSettings = customSettings
+                    limit = limit,
+                    options = options,
+                    customSettings = customSettings
                 )
 
                 questions.add(question)
             }
 
             val form = Form(
-                    idForm = idForm,
-                    lastUpdate = entityForm.lastUpdate,
-                    settings = entityFormSettings.toModel(),
-                    questions = questions,
-                    answers = emptyList()
+                idForm = idForm,
+                lastUpdate = entityForm.lastUpdate,
+                settings = entityFormSettings.toModel(),
+                questions = questions,
+                answers = emptyList()
             )
 
             return form
@@ -154,5 +160,4 @@ interface FormDAO : BaseDAO<EntityForm> {
 
     @Query("DELETE FROM forms")
     fun deleteAll()
-
 }

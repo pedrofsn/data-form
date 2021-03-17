@@ -16,7 +16,8 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_RECYCLERVIEW
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionMultipleChoice(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterCheckBox
@@ -74,6 +75,8 @@ class UIQuestionMultipleChoice(question: Question, settings: FormSettings) : UIQ
     }
 
     private fun getQuantitySelecteds() = getAnswer().options?.size ?: 0
-    override fun getMessageErrorFill() = String.format(recyclerView.context.getString(R.string.need_x_items), (question.getLimitMax() - getQuantitySelecteds()))
-
+    override fun getMessageErrorFill() = String.format(
+        recyclerView.context.getString(R.string.need_x_items),
+        (question.getLimitMax() - getQuantitySelecteds())
+    )
 }

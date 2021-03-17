@@ -34,5 +34,4 @@ object Constants {
     const val FORMAT_QUESTION_TEXTUAL_MULTI = "multi"
     const val FORMAT_QUESTION_TEXTUAL_DATE = "date"
     const val FORMAT_QUESTION_TEXTUAL_MONEY = "money"
-
 }

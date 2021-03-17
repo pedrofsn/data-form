@@ -9,5 +9,4 @@ abstract class BaseViewModelWithLiveData<Model> : BaseViewModel() {
     var id: Long = Constants.INVALID_VALUE.toLong()
 
     abstract fun load()
-
 }

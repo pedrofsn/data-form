@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
+abstract class AdapterGeneric<Objeto, VH : ViewHolderGeneric<Objeto>> :
+    androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
 
     abstract var myOnItemClickListener: ((Int) -> Unit)?
     private val lista = ArrayList<Objeto>()

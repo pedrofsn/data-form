@@ -5,6 +5,6 @@ package br.redcode.dataform.lib.model
 */
 
 data class CustomSetting(
-        val key: String,
-        val value: Boolean
+    val key: String,
+    val value: Boolean
 )

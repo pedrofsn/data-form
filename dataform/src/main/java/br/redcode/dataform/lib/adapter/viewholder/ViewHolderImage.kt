@@ -32,5 +32,4 @@ open class ViewHolderImage(itemView: View) : ViewHolderGeneric<Image>(itemView) 
         popular(obj, callback)
         imageViewRemover.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }
-
 }

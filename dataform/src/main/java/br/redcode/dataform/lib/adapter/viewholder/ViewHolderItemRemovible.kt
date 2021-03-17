@@ -30,9 +30,12 @@ class ViewHolderItemRemovible(itemView: View) : ViewHolderGeneric<Spinnable>(ite
         click?.let { imageViewRemoverItem.setOnClickListener { click.invoke(adapterPosition) } }
     }
 
-    fun popular(duasLinhas: Spinnable, myOnItemClickListener: ((Int) -> Unit)?, settings: FormSettings) {
+    fun popular(
+        duasLinhas: Spinnable,
+        myOnItemClickListener: ((Int) -> Unit)?,
+        settings: FormSettings
+    ) {
         popular(duasLinhas, myOnItemClickListener)
         imageViewRemoverItem.visibility = if (settings.editable) View.VISIBLE else View.GONE
     }
-
 }

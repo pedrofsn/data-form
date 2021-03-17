@@ -20,12 +20,16 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
     fun delete(form_with_answers_id: Long)
 
     @Transaction
-    fun deleteAndSave(form_id: Long, form_with_answers_id: Long, answers: HashMap<Long, Answer>): Long {
+    fun deleteAndSave(
+        form_id: Long,
+        form_with_answers_id: Long,
+        answers: HashMap<Long, Answer>
+    ): Long {
         val db = MyRoomDatabase.getInstance()
 
         val entityFormAnswered = db.formAnsweredDAO().insertOrUpdate(
-                form_id = form_id,
-                form_with_answers_id = form_with_answers_id
+            form_id = form_id,
+            form_with_answers_id = form_with_answers_id
         )
 
         entityFormAnswered?.let { formAnswered ->
@@ -37,10 +41,10 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
                 val answer = it.value
 
                 deleteAndSave(
-                        form_id = formAnswered.form_id,
-                        form_with_answers_id = formAnswered.form_with_answers_id,
-                        idQuestion = idQuestion,
-                        answer = answer
+                    form_id = formAnswered.form_id,
+                    form_with_answers_id = formAnswered.form_with_answers_id,
+                    idQuestion = idQuestion,
+                    answer = answer
                 )
             }
         }
@@ -49,24 +53,29 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
     }
 
     @Transaction
-    fun deleteAndSave(form_id: Long, form_with_answers_id: Long, idQuestion: Long, answer: Answer): Long {
+    fun deleteAndSave(
+        form_id: Long,
+        form_with_answers_id: Long,
+        idQuestion: Long,
+        answer: Answer
+    ): Long {
         val db = MyRoomDatabase.getInstance()
 
         val entityFormAnswered = db.formAnsweredDAO().insertOrUpdate(
-                form_id = form_id,
-                form_with_answers_id = form_with_answers_id
+            form_id = form_id,
+            form_with_answers_id = form_with_answers_id
         )
 
         if (entityFormAnswered != null) {
             val entityAnswer = answer.toEntity(
-                    idQuestion = idQuestion,
-                    form_with_answers_id = entityFormAnswered.form_with_answers_id
+                idQuestion = idQuestion,
+                form_with_answers_id = entityFormAnswered.form_with_answers_id
             )
 
             val idAnswer = insert(entityAnswer)
             val questionOptions = db.questionOptionDAO().readAllOptionsFromSpecificQuestionFromForm(
-                    idForm = entityFormAnswered.form_id,
-                    idQuestion = idQuestion
+                idForm = entityFormAnswered.form_id,
+                idQuestion = idQuestion
             )
 
             when {
@@ -94,29 +103,28 @@ interface AnswerDAO : BaseDAO<EntityAnswer> {
         val answers = arrayListOf<Answer>()
 
         val entityAnswerImages = db.answerImageDAO().readAllInsideQuestionFromForm(
-                idQuestion = idQuestion,
-                form_with_answers_id = form_with_answers_id
+            idQuestion = idQuestion,
+            form_with_answers_id = form_with_answers_id
         )
         val images = entityAnswerImages.map { it.toModel() }
 
         val entityAnswerOptions = db.answerOptionDAO().readAllInsideQuestionFromForm(
-                idQuestion = idQuestion,
-                form_with_answers_id = form_with_answers_id
+            idQuestion = idQuestion,
+            form_with_answers_id = form_with_answers_id
         )
 
         val entityAnswer = db.answerDAO().read(
-                idQuestion = idQuestion,
-                form_with_answers_id = form_with_answers_id
+            idQuestion = idQuestion,
+            form_with_answers_id = form_with_answers_id
         )
 
         val answer = entityAnswer?.toModel(
-                images = images,
-                options = entityAnswerOptions
+            images = images,
+            options = entityAnswerOptions
         )
 
         answer?.let { answers.add(answer) }
 
         return answers
     }
-
 }

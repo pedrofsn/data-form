@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.model.FormSettings
@@ -14,7 +14,7 @@ import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 /**
  * Created by pedrofsn on 03/11/2017.
  */
-class UIIndicator : ImageView {
+class UIIndicator : AppCompatImageView {
 
     private var isError = false
     private var message = EMPTY_STRING
@@ -62,15 +62,16 @@ class UIIndicator : ImageView {
     private fun showAlert() {
         if (message.isNotEmpty()) {
             AlertDialog.Builder(context)
-                    .setTitle(getTitle())
-                    .setMessage(message)
-                    .setPositiveButton(context.getString(R.string.ok)) { di: DialogInterface, p1 -> di.dismiss() }
-                    .setCancelable(false)
-                    .show()
+                .setTitle(getTitle())
+                .setMessage(message)
+                .setPositiveButton(context.getString(R.string.ok)) { di: DialogInterface, p1 -> di.dismiss() }
+                .setCancelable(false)
+                .show()
         }
     }
 
-    private fun getTitle() = context.getString(if (isError) R.string.error else R.string.information)
+    private fun getTitle() =
+        context.getString(if (isError) R.string.error else R.string.information)
 
     fun show() {
         visibility = View.VISIBLE
@@ -79,5 +80,4 @@ class UIIndicator : ImageView {
     fun hide() {
         visibility = View.GONE
     }
-
 }

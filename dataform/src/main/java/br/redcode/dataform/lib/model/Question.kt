@@ -21,20 +21,22 @@ import kotlinx.android.parcel.RawValue
  */
 @Parcelize
 data class Question(
-        val id: Long,
-        val description: String,
-        val type: String,
-        val information: String? = EMPTY_STRING,
-        val required: Boolean = true,
-        val format: String? = null,
+    val id: Long,
+    val description: String,
+    val type: String,
+    val information: String? = EMPTY_STRING,
+    val required: Boolean = true,
+    val format: String? = null,
 
-        var limit: Limit? = null,
-        var options: ArrayList<Spinnable>? = null,
-        var customSettings: HashMap<String, Boolean>? = null,
-        var extra: @RawValue Any? = null
+    var limit: Limit? = null,
+    var options: ArrayList<Spinnable>? = null,
+    var customSettings: HashMap<String, Boolean>? = null,
+    var extra: @RawValue Any? = null
 ) : Parcelable {
 
-    fun getDescriptionWithSymbolRequired() = if (required) "$description $QUESTION_DESCRIPTION_SYMBOL_REQUIRED" else description
+    fun getDescriptionWithSymbolRequired() =
+        if (required) "$description $QUESTION_DESCRIPTION_SYMBOL_REQUIRED" else description
+
     fun getLimitMax() = limit?.max ?: 1
     fun getLimitMin(): Int = limit?.min ?: 0
     fun isQuestionInformativeText() = TYPE_QUESTION_INFORMATIVE_TEXT == type
@@ -45,7 +47,8 @@ data class Question(
     fun isQuestionMultipleChoice() = validateLimits(TYPE_QUESTION_MULTIPLE_CHOICE == type)
     fun isQuestionImageOnlyCamera() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_CAMERA == type)
     fun isQuestionImageOnlyGallery() = validateLimits(TYPE_QUESTION_IMAGE_ONLY_GALLERY == type)
-    fun isQuestionImageCameraOrGallery() = validateLimits(TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY == type)
+    fun isQuestionImageCameraOrGallery() =
+        validateLimits(TYPE_QUESTION_IMAGE_CAMERA_OR_GALLERY == type)
 
     fun hasOptions() = options?.isNotEmpty() == true
     fun countOptions() = options?.size ?: 0
@@ -59,9 +62,9 @@ data class Question(
         when {
             limit?.auto == true -> {
                 limit = Limit(
-                        max = countOptions(),
-                        min = getLimitMin(),
-                        auto = true
+                    max = countOptions(),
+                    min = getLimitMin(),
+                    auto = true
                 )
             }
             hasOptions() && getLimitMax() > countOptions() -> throw RuntimeException("EN: Limit max is grather than options quantity in question ${id}\nPT: O limite máximo é maior que a quantidade de alternativas da pergunta ${id}")
@@ -72,5 +75,4 @@ data class Question(
     }
 
     fun hasInformation() = information?.isNotEmpty() == true
-
 }

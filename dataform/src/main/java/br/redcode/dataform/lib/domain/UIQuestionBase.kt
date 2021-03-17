@@ -13,16 +13,20 @@ import br.redcode.dataform.lib.model.Question
 import br.redcode.dataform.lib.ui.UIIndicator
 import br.redcode.dataform.lib.utils.Constants.EMPTY_STRING
 import br.redcode.dataform.lib.utils.Constants.PREFFIX_QUESTION
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-abstract class UIQuestionBase(val idLayout: Int, val question: Question, val settings: FormSettings) : Questionable, CoroutineScope {
+abstract class UIQuestionBase(
+    val idLayout: Int,
+    val question: Question,
+    val settings: FormSettings
+) : Questionable, CoroutineScope {
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -74,7 +78,8 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
             it.setInformation(getMessageInformation())
         }
 
-        textViewDescription.text = if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
+        textViewDescription.text =
+            if (settings.showSymbolRequired) question.getDescriptionWithSymbolRequired() else question.description
 
         if ((settings.showInformation || settings.showIndicatorInformation) && question.hasInformation()) {
             textViewInformation.text = question.information
@@ -104,7 +109,8 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     override fun getMessageInformation(): String {
         val messageDefaultLimits = question.limit?.getMessageDefault(textViewDescription.context)
         val messageInformation = question.information
-        val result = if (messageInformation?.isEmpty() == true) messageDefaultLimits else messageInformation
+        val result =
+            if (messageInformation?.isEmpty() == true) messageDefaultLimits else messageInformation
         return result ?: EMPTY_STRING
     }
 
@@ -117,5 +123,4 @@ abstract class UIQuestionBase(val idLayout: Int, val question: Question, val set
     }
 
     fun isInputAnswersInOtherScreen() = settings.inputAnswersInOtherScreen
-
 }

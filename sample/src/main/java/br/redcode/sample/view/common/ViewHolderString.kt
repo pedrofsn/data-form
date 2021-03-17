@@ -6,10 +6,10 @@ import br.redcode.sample.databinding.ViewholderStringBinding
 /**
  * Created by pedrofsn on 26/02/2019.
  */
-open class ViewHolderString(binding: ViewholderStringBinding) : BaseViewHolderMVVM<String, ViewholderStringBinding>(binding) {
+open class ViewHolderString(binding: ViewholderStringBinding) :
+    BaseViewHolderMVVM<String, ViewholderStringBinding>(binding) {
 
     override fun bind(data: String) {
         binding.data = data
     }
-
 }

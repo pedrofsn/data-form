@@ -26,7 +26,8 @@ import br.redcode.dataform.lib.utils.Constants.SUFFIX_QUESTION_EDITTEXT
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_textual, question, settings), Questionable {
+class UIQuestionTextual(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_textual, question, settings), Questionable {
 
     private lateinit var editText: EditText
 
@@ -41,32 +42,38 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
 
         editText.isEnabled = settings.editable
         if (settings.editable.not()) {
-            TextViewCompat.setTextAppearance(editText, android.R.style.TextAppearance_Widget_TextView)
+            TextViewCompat.setTextAppearance(
+                editText,
+                android.R.style.TextAppearance_Widget_TextView
+            )
             editText.setTypeface(null, Typeface.ITALIC)
         }
 
         if (question.isQuestionTextual() && question.format != null) {
             when {
-                FORMAT_QUESTION_TEXTUAL_EMAIL == question.format -> editText.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
-                FORMAT_QUESTION_TEXTUAL_NUMBER == question.format -> editText.inputType = InputType.TYPE_CLASS_NUMBER
+                FORMAT_QUESTION_TEXTUAL_EMAIL == question.format -> editText.inputType =
+                    InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+                FORMAT_QUESTION_TEXTUAL_NUMBER == question.format -> editText.inputType =
+                    InputType.TYPE_CLASS_NUMBER
                 FORMAT_QUESTION_TEXTUAL_DATE == question.format -> {
                     val watcher = MascaraNumericaTextWatcher.Builder()
-                            .paraMascara("##/##/####")
-                            .build()
+                        .paraMascara("##/##/####")
+                        .build()
 
                     editText.addTextChangedListener(watcher)
                 }
                 FORMAT_QUESTION_TEXTUAL_MONEY == question.format -> {
                     val watcher = ValorMonetarioWatcher.Builder()
-                            .comSimboloReal()
-                            .comMantemZerosAoLimpar()
-                            .build()
+                        .comSimboloReal()
+                        .comMantemZerosAoLimpar()
+                        .build()
 
                     editText.addTextChangedListener(watcher)
                 }
                 FORMAT_QUESTION_TEXTUAL_MULTI == question.format -> {
-                    editText.setSingleLine(false)
-                    editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                    editText.isSingleLine = false
+                    editText.inputType =
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
                     editText.imeOptions = EditorInfo.IME_FLAG_NO_ENTER_ACTION
                     editText.setLines(5)
                     editText.maxLines = 10
@@ -90,6 +97,6 @@ class UIQuestionTextual(question: Question, settings: FormSettings) : UIQuestion
     }
 
     override fun isFilledCorrect() = editText.text.toString().trim().isNotEmpty()
-    override fun getMessageErrorFill() = editText.context.getString(R.string.error_text_filed_not_filled)
-
+    override fun getMessageErrorFill() =
+        editText.context.getString(R.string.error_text_filed_not_filled)
 }

@@ -15,6 +15,8 @@ interface QuestionOptionDAO : BaseDAO<EntityQuestionOption> {
     fun read(idOption: String, idQuestion: Long): EntityQuestionOption
 
     @Query("SELECT * FROM question_options WHERE form_id = :idForm and question_id = :idQuestion")
-    fun readAllOptionsFromSpecificQuestionFromForm(idForm: Long, idQuestion: Long): List<EntityQuestionOption>
-
+    fun readAllOptionsFromSpecificQuestionFromForm(
+        idForm: Long,
+        idQuestion: Long
+    ): List<EntityQuestionOption>
 }

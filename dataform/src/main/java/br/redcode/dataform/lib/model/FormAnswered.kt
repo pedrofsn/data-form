@@ -7,7 +7,7 @@ import java.util.*
 */
 
 data class FormAnswered(
-        val id: Long,
-        val idForm: Long,
-        val lastUpdate: Date
+    val id: Long,
+    val idForm: Long,
+    val lastUpdate: Date
 )

@@ -13,22 +13,22 @@ import br.com.redcode.easyglide.library.load
 import br.redcode.sample.R
 import br.redcode.sample.domain.ActivityWithoutMVVM
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_image_zoom.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlinx.android.synthetic.main.activity_image_zoom.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-
-class ImageZoomActivity(override val layout: Int = R.layout.activity_image_zoom) : ActivityWithoutMVVM() {
+class ImageZoomActivity(override val layout: Int = R.layout.activity_image_zoom) :
+    ActivityWithoutMVVM() {
 
     private val image by lazy { intent?.getStringExtra("image") ?: EMPTY_STRING }
     private val title by lazy { intent?.getStringExtra("title") ?: EMPTY_STRING }
     private val description by lazy { intent?.getStringExtra("description") ?: EMPTY_STRING }
 
-    private val appName by lazy { getString(R.string.app_name) ?: EMPTY_STRING }
-    private val shareImage by lazy { getString(R.string.share_image) ?: EMPTY_STRING }
+    private val appName by lazy { getString(R.string.app_name) }
+    private val shareImage by lazy { getString(R.string.share_image) }
 
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
@@ -58,9 +58,9 @@ class ImageZoomActivity(override val layout: Int = R.layout.activity_image_zoom)
             progress.show()
             val bitmapAsync = async(io()) {
                 val futureTarget = Glide.with(this@ImageZoomActivity)
-                        .asBitmap()
-                        .load(image)
-                        .submit(1024, 720)
+                    .asBitmap()
+                    .load(image)
+                    .submit(1024, 720)
 
                 futureTarget.get()
             }
@@ -92,13 +92,17 @@ class ImageZoomActivity(override val layout: Int = R.layout.activity_image_zoom)
         try {
             val folder = context.getExternalFilesDir(DIRECTORY_PICTURES)
             val file = File(
-                    folder,
-                    "my_shared_image_" + System.currentTimeMillis() + ".png"
+                folder,
+                "my_shared_image_" + System.currentTimeMillis() + ".png"
             )
             val out = FileOutputStream(file)
             bmp.compress(Bitmap.CompressFormat.PNG, 100, out)
             out.close()
-            bmpUri = FileProvider.getUriForFile(this, "${packageName}.easyphotopicker.fileprovider", file)
+            bmpUri = FileProvider.getUriForFile(
+                this,
+                "${packageName}.easyphotopicker.fileprovider",
+                file
+            )
 
             file.deleteOnExit()
         } catch (e: IOException) {
@@ -107,5 +111,4 @@ class ImageZoomActivity(override val layout: Int = R.layout.activity_image_zoom)
 
         return bmpUri
     }
-
 }

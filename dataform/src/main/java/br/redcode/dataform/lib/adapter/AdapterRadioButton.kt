@@ -11,7 +11,10 @@ import br.redcode.dataform.lib.model.FormSettings
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterRadioButton(val settings: FormSettings, override var myOnItemClickListener: ((Int) -> Unit)?) : AdapterGeneric<Spinnable, ViewHolderRadioButton>() {
+class AdapterRadioButton(
+    val settings: FormSettings,
+    override var myOnItemClickListener: ((Int) -> Unit)?
+) : AdapterGeneric<Spinnable, ViewHolderRadioButton>() {
 
     override val layout: Int = R.layout.adapter_radiobutton
 
@@ -22,5 +25,4 @@ class AdapterRadioButton(val settings: FormSettings, override var myOnItemClickL
     override fun onBindViewHolder(holder: ViewHolderRadioButton, position: Int) {
         holder.popular(getList()[position], myOnItemClickListener, settings)
     }
-
 }

@@ -17,15 +17,15 @@ import kotlinx.coroutines.launch
 class ActivityMain(override val layout: Int = R.layout.activity_main) : ActivityWithoutMVVM() {
 
     override fun afterOnCreate() {
-
     }
 
     fun openCase1(view: View?) = FormActivity.open(
-            context = this,
-            case = LOAD_FORM_FROM_JSON
+        context = this,
+        case = LOAD_FORM_FROM_JSON
     )
 
-    fun openCase2(view: View?) = goTo<SelectFormActivity>("case" to LOAD_FORM_WITH_ANSWERS_FROM_DATABASE)
+    fun openCase2(view: View?) =
+        goTo<SelectFormActivity>("case" to LOAD_FORM_WITH_ANSWERS_FROM_DATABASE)
 
     fun resetDatabase(view: View?) {
         launch(io()) {
@@ -36,5 +36,4 @@ class ActivityMain(override val layout: Int = R.layout.activity_main) : Activity
             }
         }
     }
-
 }

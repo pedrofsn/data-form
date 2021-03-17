@@ -6,6 +6,6 @@ import java.io.Serializable
  * Created by pedrofsn on 03/11/2017.
  */
 data class PayloadOption(
-        val id: Long,
-        var selected: Boolean = false
+    val id: Long,
+    var selected: Boolean = false
 ) : Serializable

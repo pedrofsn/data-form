@@ -9,5 +9,4 @@ interface FormSettingsDAO : BaseDAO<EntityFormSettings> {
 
     @Query("SELECT * FROM form_settings WHERE form_id = :idForm")
     fun readByForm(idForm: Long): EntityFormSettings?
-
 }

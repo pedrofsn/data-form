@@ -14,5 +14,4 @@ interface ImageCapturable {
 
     fun visualizeImage(image: Image)
     fun loadImage(imagem: String, imageView: ImageView)
-
 }

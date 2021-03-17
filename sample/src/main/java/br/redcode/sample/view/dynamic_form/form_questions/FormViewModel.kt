@@ -69,7 +69,7 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     private suspend fun loadFormFromDatabase() = coroutineScope {
         async(io()) {
-            idFormAnswers?.let { form_with_answers_id ->
+            idFormAnswers.let { form_with_answers_id ->
                 MyRoomDatabase.getInstance().formDAO().readFormWithAnswers(form_with_answers_id)
             }
         }
@@ -78,7 +78,8 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
     private suspend fun loadOnlyFormFromDatabase() = coroutineScope {
         async(io()) {
             when {
-                idForm.isValid() -> MyRoomDatabase.getInstance().formDAO().readOnlyForm(idForm = idForm)
+                idForm.isValid() -> MyRoomDatabase.getInstance().formDAO()
+                    .readOnlyForm(idForm = idForm)
                 else -> throw RuntimeException("We need form_id")
             }
         }
@@ -92,10 +93,10 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
             val asyncSave = async(io()) {
                 idFormAnswers = MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                        form_id = idForm,
-                        form_with_answers_id = idFormAnswers,
-                        idQuestion = newAnswer.idQuestion,
-                        answer = newAnswer
+                    form_id = idForm,
+                    form_with_answers_id = idFormAnswers,
+                    idQuestion = newAnswer.idQuestion,
+                    answer = newAnswer
                 )
             }
 
@@ -121,9 +122,9 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
                 val form = liveData.value?.copy()
                 if (form != null) {
                     idFormAnswers = MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                            form_id = idForm,
-                            form_with_answers_id = idFormAnswers,
-                            answers = myAnswers
+                        form_id = idForm,
+                        form_with_answers_id = idFormAnswers,
+                        answers = myAnswers
                     )
                 }
             }
@@ -136,5 +137,4 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     private fun isEdit() = idFormAnswers.isValid()
     private fun isCreate() = isEdit().not()
-
 }

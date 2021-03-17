@@ -12,11 +12,16 @@ import br.redcode.dataform.lib.model.Image
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class AdapterImage(val callback: CallbackViewHolderImage, val settings: FormSettings, val comLegenda: Boolean = false) : AdapterGeneric<Image, ViewHolderImage>() {
+class AdapterImage(
+    val callback: CallbackViewHolderImage,
+    val settings: FormSettings,
+    val comLegenda: Boolean = false
+) : AdapterGeneric<Image, ViewHolderImage>() {
 
     override var myOnItemClickListener: ((Int) -> Unit)? = null
 
-    override val layout: Int = if (comLegenda) R.layout.adapter_image_with_subtitle else R.layout.adapter_image
+    override val layout: Int =
+        if (comLegenda) R.layout.adapter_image_with_subtitle else R.layout.adapter_image
 
     override fun getViewHolder(view: View): ViewHolderImage {
         return if (comLegenda) ViewHolderImageWithSubtitle(view) else ViewHolderImage(view)
@@ -25,5 +30,4 @@ class AdapterImage(val callback: CallbackViewHolderImage, val settings: FormSett
     override fun onBindViewHolder(holder: ViewHolderImage, position: Int) {
         holder.popular(getList()[position], callback, settings)
     }
-
 }

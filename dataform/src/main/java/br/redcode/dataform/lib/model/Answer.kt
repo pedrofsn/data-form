@@ -9,12 +9,12 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Answer(
-        var idQuestion: Long,
+    var idQuestion: Long,
 
-        var text: String? = null,
-        var percentage: Int? = null,
-        var options: List<String>? = null,
-        var images: List<Image>? = null
+    var text: String? = null,
+    var percentage: Int? = null,
+    var options: List<String>? = null,
+    var images: List<Image>? = null
 ) : Parcelable {
 
     fun hasText() = text != null && text?.isNotEmpty() ?: false
@@ -24,14 +24,20 @@ data class Answer(
     fun hasImages() = images != null && images?.isNotEmpty() ?: false
 
     fun hasAnswer() = idQuestion != INVALID_VALUE.toLong() &&
-            (hasText() || hasPercentage() || hasOptions() || hasImages())
+        (hasText() || hasPercentage() || hasOptions() || hasImages())
 
     fun getPreviewAnswer(question: Question): String? = when {
         hasText() -> text
         hasPercentage() -> percentage.toString()
         hasOptions() || hasOnlyOneOption() -> question.options?.filter {
             it.id in (options ?: emptyList())
-        }?.map { it.description }?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...")
+        }?.map { it.description }?.joinToString(
+            separator = ", ",
+            prefix = "",
+            postfix = "",
+            limit = 3,
+            truncated = "..."
+        )
         hasImages() -> getPreviewAnswerImage()
         else -> ""
     }

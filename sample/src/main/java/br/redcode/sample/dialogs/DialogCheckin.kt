@@ -51,7 +51,10 @@ class DialogCheckin : DialogFragmentGeneric() {
 
     override fun afterOnCreate() {
         buttonAdicionar.setOnClickListener {
-            callback.onPosicaoCadastrada(editTextLatitude.text.toString(), editTextLongitude.text.toString())
+            callback.onPosicaoCadastrada(
+                editTextLatitude.text.toString(),
+                editTextLongitude.text.toString()
+            )
             dismiss()
         }
     }

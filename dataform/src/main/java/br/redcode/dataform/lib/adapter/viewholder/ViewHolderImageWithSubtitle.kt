@@ -14,7 +14,6 @@ class ViewHolderImageWithSubtitle(itemView: View) : ViewHolderImage(itemView) {
 
     override fun popular(obj: Image) {
         super.popular(obj)
-        obj.subtitle?.let { textViewLegenda.setText(it) }
+        obj.subtitle?.let { textViewLegenda.text = it }
     }
-
 }

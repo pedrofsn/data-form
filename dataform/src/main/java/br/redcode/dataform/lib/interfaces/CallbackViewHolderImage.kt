@@ -12,5 +12,4 @@ interface CallbackViewHolderImage {
 
     fun visualizeImage(image: Image)
     fun loadImage(image: String, imageView: ImageView)
-
 }

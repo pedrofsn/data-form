@@ -11,5 +11,4 @@ interface QuestionLimitDAO : BaseDAO<EntityQuestionLimit> {
     @Language("RoomSql")
     @Query("SELECT * FROM question_limits WHERE limit_id = :idLimit")
     fun readByForm(idLimit: Long): EntityQuestionLimit?
-
 }

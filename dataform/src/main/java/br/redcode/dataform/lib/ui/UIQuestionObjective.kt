@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by pedrofsn on 31/10/2017.
  */
-class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
+class UIQuestionObjective(question: Question, settings: FormSettings) :
+    UIQuestionBase(R.layout.ui_question_list, question, settings), Questionable {
 
     private lateinit var recyclerView: RecyclerView
 
@@ -106,6 +107,6 @@ class UIQuestionObjective(question: Question, settings: FormSettings) : UIQuesti
     }
 
     override fun isFilledCorrect() = indexSelected != Constants.INVALID_VALUE
-    override fun getMessageErrorFill() = recyclerView.context.getString(R.string.select_at_least_one_option)
-
+    override fun getMessageErrorFill() =
+        recyclerView.context.getString(R.string.select_at_least_one_option)
 }

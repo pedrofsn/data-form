@@ -16,5 +16,4 @@ interface AnswerOptionDAO : BaseDAO<EntityAnswerOption> {
 
     @Query("DELETE FROM answer_options WHERE answer_id = :idAnswer")
     fun delete(idAnswer: Long)
-
 }

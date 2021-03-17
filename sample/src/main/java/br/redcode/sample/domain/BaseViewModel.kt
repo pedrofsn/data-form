@@ -1,10 +1,10 @@
 package br.redcode.sample.domain
 
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 /*
     CREATED BY @PEDROFSN
@@ -23,5 +23,4 @@ open class BaseViewModel : AbstractBaseViewModel(), CoroutineScope {
         super.onCleared()
         job.cancel()
     }
-
 }

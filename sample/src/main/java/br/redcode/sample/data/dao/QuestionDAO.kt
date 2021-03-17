@@ -9,6 +9,4 @@ interface QuestionDAO : BaseDAO<EntityQuestion> {
 
     @Query("SELECT * FROM questions WHERE form_id = :idForm")
     fun readByForm(idForm: Long): List<EntityQuestion>
-
-
 }

@@ -13,5 +13,4 @@ object Utils {
 
     const val CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CPF = "cpf"
     const val CUSTOM_SAMPLE_FORMAT_QUESTION_TEXTUAL_CNPJ = "cnpj"
-
 }

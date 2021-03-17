@@ -10,8 +10,10 @@ abstract class HandlerInputPopup {
 
     var idQuestion = INVALID_VALUE.toLong()
 
-    open fun chamarPopup(idQuestion: Long, functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit) {
+    open fun chamarPopup(
+        idQuestion: Long,
+        functionAdicionarItem: (idQuestion: Long, spinnable: Spinnable) -> Unit
+    ) {
         this.idQuestion = idQuestion
     }
-
 }

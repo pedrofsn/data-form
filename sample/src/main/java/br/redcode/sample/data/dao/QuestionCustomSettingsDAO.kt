@@ -12,6 +12,8 @@ interface QuestionCustomSettingsDAO : BaseDAO<EntityQuestionCustomSettings> {
     fun insertAll(objs: List<EntityQuestionCustomSettings>?) = objs?.forEach { insert(it) }
 
     @Query("SELECT * FROM question_custom_settings WHERE form_id = :idForm and question_id = :idQuestion")
-    fun readAllFromSpecificQuestionFromForm(idForm: Long, idQuestion: Long): List<EntityQuestionCustomSettings>
-
+    fun readAllFromSpecificQuestionFromForm(
+        idForm: Long,
+        idQuestion: Long
+    ): List<EntityQuestionCustomSettings>
 }
