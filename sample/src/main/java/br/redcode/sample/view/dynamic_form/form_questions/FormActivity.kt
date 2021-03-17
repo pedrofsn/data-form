@@ -84,9 +84,9 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
 
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
-            "onUpdatedAnswer" -> if (obj != null && obj is String && obj.isNotEmpty()) onUpdatedAnswer(
-                obj
-            )
+            "onUpdatedAnswer" -> (obj as? String)
+                ?.takeIf { it.isNotBlank() }
+                ?.run { onUpdatedAnswer(obj) }
             else -> super.handleEvent(event, obj)
         }
     }
