@@ -35,7 +35,7 @@ interface FormAnsweredDAO : BaseDAO<EntityFormAnswered> {
                 val new = entity.copy(form_with_answers_id = id)
                 new
             }
-            else -> throw RuntimeException("Which case is this?")
+            else -> throw RuntimeException("Neither 'Form' nor 'form answered' exists in database")
         }
 
         return entityFormAnswered
