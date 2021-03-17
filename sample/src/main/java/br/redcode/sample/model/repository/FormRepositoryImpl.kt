@@ -1,32 +1,27 @@
 package br.redcode.sample.model.repository
 
-import br.com.redcode.base.mvvm.extensions.isValid
 import br.redcode.dataform.lib.model.Form
 import br.redcode.sample.R
-import br.redcode.sample.data.database.MyRoomDatabase
-import br.redcode.sample.utils.JSONReader
-import com.google.gson.Gson
+import br.redcode.sample.model.LoadType
 
 class FormRepositoryImpl : FormRepository {
 
-    override fun loadFormFromJSON(): Form {
-        val idJsonRaw = R.raw.questions_1
-        val json = JSONReader().getStringFromJson(idJsonRaw)
-        val parser = Gson()
-        return parser.fromJson(json, Form::class.java)
-    }
+    private val interactorFormRaw by lazy { InteractorFormRawImpl() }
+    private val interactorFormDatabase by lazy { InteractorFormDatabaseImpl() }
 
-    override fun loadFormFromDatabase(idFormAnswers: Long?): Form? {
-        return idFormAnswers?.let { form_with_answers_id ->
-            MyRoomDatabase.getInstance().formDAO()
-                .readFormWithAnswers(form_with_answers_id)
+    override fun getForm(@LoadType case: Int, idFormAnswers: Long, idForm: Long): Form? {
+        val form = when (case) {
+            LoadType.JSON -> interactorFormRaw.loadFormFromJSON()
+            LoadType.FORM_WITH_ANSWERS_FROM_DATABASE -> {
+                interactorFormDatabase.loadFormFromDatabase(idFormAnswers)
+            }
+            LoadType.FORM_FROM_DATABASE -> interactorFormDatabase.loadOnlyFormFromDatabase(idForm)
+            else -> throw RuntimeException("Wrong paramenter brow!")
         }
+        return customizeDesign(form)
     }
 
-    override fun loadOnlyFormFromDatabase(idForm: Long): Form {
-        return MyRoomDatabase.getInstance().formDAO()
-            .takeIf { idForm.isValid() }
-            ?.readOnlyForm(idForm)
-            ?: throw RuntimeException("We need form_id")
+    private fun customizeDesign(form: Form?): Form? = form?.apply {
+        settings.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
     }
 }

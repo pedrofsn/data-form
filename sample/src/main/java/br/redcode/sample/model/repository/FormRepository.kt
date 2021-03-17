@@ -1,10 +1,9 @@
 package br.redcode.sample.model.repository
 
 import br.redcode.dataform.lib.model.Form
+import br.redcode.sample.model.LoadType
 
 interface FormRepository {
 
-    fun loadFormFromJSON(): Form
-    fun loadFormFromDatabase(idFormAnswers: Long?): Form?
-    fun loadOnlyFormFromDatabase(idForm: Long): Form
+    fun getForm(@LoadType case: Int, idFormAnswers: Long, idForm: Long): Form?
 }

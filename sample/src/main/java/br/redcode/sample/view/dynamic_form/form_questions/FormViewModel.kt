@@ -6,8 +6,6 @@ import br.com.redcode.base.utils.Constants.EMPTY_STRING
 import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
-import br.redcode.sample.R
-import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
 import br.redcode.sample.model.LoadType
@@ -15,10 +13,12 @@ import br.redcode.sample.model.repository.AnswerRepositoryImpl
 import br.redcode.sample.model.repository.FormRepositoryImpl
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
-    private var case = 0
+    @LoadType
+    private var case = LoadType.JSON
     private var idFormAnswers = INVALID_VALUE.toLong()
     private var idForm: Long = INVALID_VALUE.toLong()
 
@@ -36,27 +36,19 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
 
     override fun load() = showProgressbar {
         launch(main()) {
-            launch(io()) {
-                val form: Form? = when (case) {
-                    LoadType.JSON -> formRepository.loadFormFromJSON()
-                    LoadType.FORM_WITH_ANSWERS_FROM_DATABASE -> formRepository.loadFormFromDatabase(
-                        idFormAnswers
-                    )
-                    LoadType.FORM_FROM_DATABASE -> formRepository.loadOnlyFormFromDatabase(idForm)
-                    else -> throw RuntimeException("Wrong paramenter brow!")
-                }
-
-                form?.settings?.idLayoutWrapper = R.layout.ui_question_wrapper_like_ios
-
-                // FILL ANSWERS
-                myAnswers.clear()
-                form?.answers?.forEach { answer -> myAnswers.put(answer.idQuestion, answer) }
-
+            withContext(io()) {
+                val form = formRepository.getForm(case, idFormAnswers, idForm)
+                fillAnswers(form)
                 liveData.postValue(form)
             }
 
             showProgressbar(false)
         }
+    }
+
+    private fun fillAnswers(form: Form?) {
+        myAnswers.clear()
+        form?.answers?.forEach { answer -> myAnswers[answer.idQuestion] = answer }
     }
 
     fun updateAnswer(newAnswer: Answer) {
@@ -94,9 +86,9 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
             val asyncSave = async(io()) {
                 val form = liveData.value?.copy()
                 if (form != null) {
-                    idFormAnswers = MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                        form_id = idForm,
-                        form_with_answers_id = idFormAnswers,
+                    idFormAnswers = answerRepository.deleteAndSave(
+                        idForm = idForm,
+                        idFormAnswers = idFormAnswers,
                         answers = myAnswers
                     )
                 }
