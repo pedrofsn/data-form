@@ -22,7 +22,7 @@ class SelectFormAnsweredActivity :
 
     private val idForm by receiveLong("form_id")
 
-    private val adapter = AdapterString { model: String, index: Int -> viewModel.open(index) }
+    private val adapter = AdapterString { _, index: Int -> viewModel.open(index) }
     private val observer = observer<List<String>> { updateUI(it) }
 
     override fun setupUI() {
@@ -53,7 +53,8 @@ class SelectFormAnsweredActivity :
             "open" -> if (obj != null && obj is Long) FormActivity.open(
                 context = this,
                 case = LoadType.FORM_WITH_ANSWERS_FROM_DATABASE,
-                idFormAnswers = obj
+                idFormAnswers = obj,
+                idForm = idForm
             )
             else -> super.handleEvent(event, obj)
         }
