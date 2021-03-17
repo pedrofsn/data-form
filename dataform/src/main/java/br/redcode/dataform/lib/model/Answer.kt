@@ -4,6 +4,9 @@ import android.os.Parcelable
 import br.redcode.dataform.lib.utils.Constants.INVALID_VALUE
 import kotlinx.android.parcel.Parcelize
 
+private const val STRING_IMAGES = "%d imagens"
+private const val STRING_IMAGE = "%d imagem"
+
 /**
  * Created by pedrofsn on 31/10/2017.
  */
@@ -31,13 +34,13 @@ data class Answer(
         hasPercentage() -> percentage.toString()
         hasOptions() || hasOnlyOneOption() -> question.options?.filter {
             it.id in (options ?: emptyList())
-        }?.map { it.description }?.joinToString(
+        }?.joinToString(
             separator = ", ",
             prefix = "",
             postfix = "",
             limit = 3,
             truncated = "..."
-        )
+        ) { it.description }
         hasImages() -> getPreviewAnswerImage()
         else -> ""
     }
@@ -45,10 +48,10 @@ data class Answer(
     private fun getPreviewAnswerImage(): String {
         val count = images?.count() ?: 0
 
-        // TODO --> I'm shameless for this because I #needmovefast
+        // TODO --> I'm less shameless for moved magic string to constants #needmovefast
         return when {
-            count > 1 -> String.format("%d imagens", count)
-            else -> String.format("%d imagem", count)
+            count > 1 -> String.format(STRING_IMAGES, count)
+            else -> String.format(STRING_IMAGE, count)
         }
 //        images?.joinToString(separator = ", ", prefix = "", postfix = "", limit = 3, truncated = "...") { it.image }
     }
