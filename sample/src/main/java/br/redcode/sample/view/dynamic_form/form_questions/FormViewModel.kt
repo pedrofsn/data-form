@@ -69,7 +69,7 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
                 if (form != null) {
                     val question = form.questions.firstOrNull { it.id == newAnswer.idQuestion }
                     if (question != null) {
-                        return@async extract safe newAnswer.getPreviewAnswer(question)
+                        return@async extract safe newAnswer.getPreviewAnswer(question) + "<<"
                     }
                 }
 
