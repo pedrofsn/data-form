@@ -10,11 +10,11 @@ import br.redcode.sample.R
 import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.domain.BaseViewModelWithLiveData
 import br.redcode.sample.extensions.showProgressbar
-import br.redcode.sample.utils.JSONReader
+import br.redcode.sample.model.repository.AnswerRepositoryImpl
+import br.redcode.sample.model.repository.FormRepositoryImpl
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_FROM_JSON
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_FORM_WITH_ANSWERS_FROM_DATABASE
 import br.redcode.sample.view.dynamic_form.form_questions.FormActivity.Companion.LOAD_ONLY_FORM_FROM_DATABASE
-import com.google.gson.Gson
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -23,6 +23,9 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
     private var case = 0
     private var idFormAnswers = INVALID_VALUE.toLong()
     private var idForm: Long = INVALID_VALUE.toLong()
+
+    private val formRepository by lazy { FormRepositoryImpl() }
+    private val answerRepository by lazy { AnswerRepositoryImpl() }
 
     val myAnswers = hashMapOf<Long, Answer>()
 
@@ -37,9 +40,11 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
         launch(main()) {
             launch(io()) {
                 val form: Form? = when (case) {
-                    LOAD_FORM_FROM_JSON -> loadFormFromJSON()
-                    LOAD_FORM_WITH_ANSWERS_FROM_DATABASE -> loadFormFromDatabase()
-                    LOAD_ONLY_FORM_FROM_DATABASE -> loadOnlyFormFromDatabase()
+                    LOAD_FORM_FROM_JSON -> formRepository.loadFormFromJSON()
+                    LOAD_FORM_WITH_ANSWERS_FROM_DATABASE -> formRepository.loadFormFromDatabase(
+                        idFormAnswers
+                    )
+                    LOAD_ONLY_FORM_FROM_DATABASE -> formRepository.loadOnlyFormFromDatabase(idForm)
                     else -> throw RuntimeException("Wrong paramenter brow!")
                 }
 
@@ -56,25 +61,6 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
         }
     }
 
-    private fun loadFormFromJSON(): Form {
-        val idJsonRaw = R.raw.questions_1
-        val json = JSONReader().getStringFromJson(idJsonRaw)
-        val parser = Gson()
-        return parser.fromJson(json, Form::class.java)
-    }
-
-    private fun loadFormFromDatabase(): Form? {
-        return idFormAnswers.let { form_with_answers_id ->
-            MyRoomDatabase.getInstance().formDAO().readFormWithAnswers(form_with_answers_id)
-        }
-    }
-
-    private fun loadOnlyFormFromDatabase(): Form {
-        return MyRoomDatabase.getInstance().formDAO().takeIf { idForm.isValid() }
-            ?.readOnlyForm(idForm)
-            ?: throw RuntimeException("We need form_id")
-    }
-
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
 
@@ -82,11 +68,10 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
             val form = liveData.value?.copy()
 
             val asyncSave = async(io()) {
-                idFormAnswers = MyRoomDatabase.getInstance().answerDAO().deleteAndSave(
-                    form_id = idForm,
-                    form_with_answers_id = idFormAnswers,
-                    idQuestion = newAnswer.idQuestion,
-                    answer = newAnswer
+                idFormAnswers = answerRepository.saveAnswer(
+                    idForm = idForm,
+                    idFormAnswers = idFormAnswers,
+                    newAnswer = newAnswer
                 )
             }
 
