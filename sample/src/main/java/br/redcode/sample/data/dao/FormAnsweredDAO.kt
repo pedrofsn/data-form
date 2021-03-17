@@ -8,6 +8,8 @@ import br.redcode.sample.data.database.MyRoomDatabase
 import br.redcode.sample.data.entities.EntityFormAnswered
 import java.util.*
 
+private const val EXCEPTION_MESSAGE = "Neither 'Form' nor 'form answered' exists in database"
+
 @Dao
 interface FormAnsweredDAO : BaseDAO<EntityFormAnswered> {
 
@@ -26,8 +28,7 @@ interface FormAnsweredDAO : BaseDAO<EntityFormAnswered> {
     @Transaction
     fun insertOrUpdate(form_id: Long, form_with_answers_id: Long): EntityFormAnswered? {
         val db = MyRoomDatabase.getInstance()
-
-        val entityFormAnswered: EntityFormAnswered? = when {
+        return when {
             form_with_answers_id.isValid() -> db.formAnsweredDAO().read(form_with_answers_id)
             form_id.isValid() -> {
                 val entity = EntityFormAnswered(form_id = form_id)
@@ -35,10 +36,8 @@ interface FormAnsweredDAO : BaseDAO<EntityFormAnswered> {
                 val new = entity.copy(form_with_answers_id = id)
                 new
             }
-            else -> throw RuntimeException("Neither 'Form' nor 'form answered' exists in database")
+            else -> throw RuntimeException(EXCEPTION_MESSAGE)
         }
-
-        return entityFormAnswered
     }
 
 }
