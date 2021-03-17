@@ -36,10 +36,12 @@ class FormAnswerActivity : ActivityDynamicForm<ActivityFormAnswerBinding, FormAn
     override fun afterOnCreate() {
         enableHomeAsUpActionBar()
 
-        viewModel.load(
-                mQuestion = question,
+        question?.let {
+            viewModel.load(
+                mQuestion = it,
                 mAnswer = previewAnswer
-        )
+            )
+        }
     }
 
     private fun updateUI(form: Form) {
@@ -82,11 +84,8 @@ class FormAnswerActivity : ActivityDynamicForm<ActivityFormAnswerBinding, FormAn
     override fun getViewGroupToHandleForm(): ViewGroup? = null
 
     override fun updateAnswer(answer: Answer) {
-
     }
 
     override fun fillAnswers() {
-
     }
-
 }

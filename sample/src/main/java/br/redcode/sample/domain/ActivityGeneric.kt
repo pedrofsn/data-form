@@ -18,15 +18,11 @@ abstract class ActivityGeneric : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        item?.let {
-            when (it.itemId) {
-                android.R.id.home -> onBackPressed()
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
         }
 
         return super.onOptionsItemSelected(item)
     }
-
 }
