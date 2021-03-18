@@ -1,8 +1,6 @@
 package br.redcode.sample.view.dynamic_form.form_questions
 
-import br.com.redcode.base.extensions.extract
 import br.com.redcode.base.mvvm.extensions.isValid
-import br.com.redcode.base.utils.Constants.EMPTY_STRING
 import br.com.redcode.base.utils.Constants.INVALID_VALUE
 import br.redcode.dataform.lib.model.Answer
 import br.redcode.dataform.lib.model.Form
@@ -54,31 +52,24 @@ class FormViewModel : BaseViewModelWithLiveData<Form>() {
     fun updateAnswer(newAnswer: Answer) {
         myAnswers[newAnswer.idQuestion] = newAnswer
 
-        launch(main()) {
-            val form = liveData.value?.copy()
+        launch(io()) {
+            idFormAnswers = answerRepository.saveAnswer(
+                idForm = idForm,
+                idFormAnswers = idFormAnswers,
+                newAnswer = newAnswer
+            )
 
-            val asyncSave = async(io()) {
-                idFormAnswers = answerRepository.saveAnswer(
-                    idForm = idForm,
-                    idFormAnswers = idFormAnswers,
-                    newAnswer = newAnswer
-                )
-            }
-
-            val asyncPreviewMessage = async(io()) {
-                if (form != null) {
-                    val question = form.questions.firstOrNull { it.id == newAnswer.idQuestion }
-                    if (question != null) {
-                        return@async extract safe newAnswer.getPreviewAnswer(question) + "<<"
-                    }
-                }
-
-                return@async EMPTY_STRING
-            }
-
-            asyncSave.await()
-            sendEventToUI("onUpdatedAnswer", asyncPreviewMessage.await())
+            showMessageAfterSave(newAnswer)
         }
+    }
+
+    private fun showMessageAfterSave(newAnswer: Answer) {
+        liveData.value
+            ?.copy()
+            ?.questions
+            ?.firstOrNull { it.id == newAnswer.idQuestion }
+            ?.let { newAnswer.getPreviewAnswer(it) }
+            ?.run { launch(main()) { sendEventToUI("onUpdatedAnswer", this) } }
     }
 
     fun save() {

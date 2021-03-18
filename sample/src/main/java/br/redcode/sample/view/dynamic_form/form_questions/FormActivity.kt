@@ -66,9 +66,7 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     }
 
     private fun updateUI(form: Form) {
-        launch(main()) {
-            updateUIForm(form)
-        }
+        launch(main()) { updateUIForm(form) }
     }
 
     override fun handleAnswers(answers: List<Answer>) {
@@ -89,7 +87,6 @@ class FormActivity : ActivityDynamicForm<ActivityFormBinding, FormViewModel>() {
     }
 
     private fun onUpdatedAnswer(message: String) = showMessage(String.format(labelSaved, message))
-
     override fun updateAnswer(answer: Answer) = viewModel.updateAnswer(answer)
     override fun fillAnswers() = fillAnswers(viewModel.myAnswers.values.toList())
     override fun getViewGroupToHandleForm(): ViewGroup = binding.linearLayout

@@ -82,10 +82,6 @@ class FormAnswerActivity : ActivityDynamicForm<ActivityFormAnswerBinding, FormAn
     }
 
     override fun getViewGroupToHandleForm(): ViewGroup? = null
-
-    override fun updateAnswer(answer: Answer) {
-    }
-
-    override fun fillAnswers() {
-    }
+    override fun updateAnswer(answer: Answer) = Unit
+    override fun fillAnswers() = Unit
 }
