@@ -26,24 +26,28 @@ data class Answer(
     fun hasOnlyOneOption() = hasOptions() && options!!.size == 1
     fun hasImages() = images != null && images?.isNotEmpty() ?: false
 
-    fun hasAnswer() = idQuestion != INVALID_VALUE.toLong() &&
-        (hasText() || hasPercentage() || hasOptions() || hasImages())
+    fun hasAnswer() = (hasText() || hasPercentage() || hasOptions() || hasImages())
+        && isValidIdQuestion()
+
+    private fun isValidIdQuestion() = idQuestion != INVALID_VALUE.toLong()
 
     fun getPreviewAnswer(question: Question): String? = when {
         hasText() -> text
         hasPercentage() -> percentage.toString()
-        hasOptions() || hasOnlyOneOption() -> question.options?.filter {
-            it.id in (options ?: emptyList())
-        }?.joinToString(
+        hasOptions() || hasOnlyOneOption() -> getPreviewAnswerForOptions(question)
+        hasImages() -> getPreviewAnswerImage()
+        else -> ""
+    }
+
+    private fun getPreviewAnswerForOptions(question: Question) = question.options
+        ?.filter { it.id in (options ?: emptyList()) }
+        ?.joinToString(
             separator = ", ",
             prefix = "",
             postfix = "",
             limit = 3,
             truncated = "..."
         ) { it.description }
-        hasImages() -> getPreviewAnswerImage()
-        else -> ""
-    }
 
     private fun getPreviewAnswerImage(): String {
         val count = images?.count() ?: 0
