@@ -38,7 +38,7 @@ data class EntityQuestionCustomSettings(
     @ColumnInfo(name = "custom_settings_id") val idCustomSettings: Long = 0,
 
     @ColumnInfo(name = "form_id") val idForm: Long,
-    @ColumnInfo(name = "question_id") val idQuestion: Long,
+    @ColumnInfo(name = "question_id", index = true) val idQuestion: Long,
 
     val key: String,
     val value: Boolean

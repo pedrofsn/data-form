@@ -41,7 +41,7 @@ data class EntityAnswer(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "answer_id") val idAnswer: Long = 0,
 
-    @ColumnInfo(name = "question_id") val idQuestion: Long,
+    @ColumnInfo(name = "question_id", index = true) val idQuestion: Long,
 
     val text: String? = null,
     val percentage: Int? = null,

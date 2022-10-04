@@ -15,16 +15,16 @@ import br.redcode.dataform.lib.model.Image
 class AdapterImage(
     val callback: CallbackViewHolderImage,
     val settings: FormSettings,
-    val comLegenda: Boolean = false
+    private val hasSubtitle: Boolean = false
 ) : AdapterGeneric<Image, ViewHolderImage>() {
 
     override var myOnItemClickListener: ((Int) -> Unit)? = null
 
     override val layout: Int =
-        if (comLegenda) R.layout.adapter_image_with_subtitle else R.layout.adapter_image
+        if (hasSubtitle) R.layout.adapter_image_with_subtitle else R.layout.adapter_image
 
     override fun getViewHolder(view: View): ViewHolderImage {
-        return if (comLegenda) ViewHolderImageWithSubtitle(view) else ViewHolderImage(view)
+        return if (hasSubtitle) ViewHolderImageWithSubtitle(view) else ViewHolderImage(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolderImage, position: Int) {

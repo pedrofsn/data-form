@@ -34,11 +34,11 @@ import androidx.room.PrimaryKey
 data class EntityAnswerOption(
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "answer_option_id") val idAnswerOption: Long = 0,
+    @ColumnInfo(name = "answer_option_id", index = true) val idAnswerOption: Long = 0,
 
     @ColumnInfo(name = "answer_id") val idAnswer: Long,
 
-    @ColumnInfo(name = "question_option_id") val idQuestionOption: Long
+    @ColumnInfo(name = "question_option_id", index = true) val idQuestionOption: Long
 
 ) {
     fun toModel() = idQuestionOption
