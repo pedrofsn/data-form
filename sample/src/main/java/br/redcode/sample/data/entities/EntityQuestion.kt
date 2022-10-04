@@ -33,7 +33,7 @@ data class EntityQuestion(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "question_id") val idQuestion: Long = 0,
 
-    @ColumnInfo(name = "form_id") val idForm: Long,
+    @ColumnInfo(name = "form_id", index = true) val idForm: Long,
 
     val description: String,
     val type: String,

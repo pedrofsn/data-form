@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.OrientationHelper
+import androidx.recyclerview.widget.RecyclerView
 import br.redcode.dataform.lib.R
 import br.redcode.dataform.lib.adapter.AdapterImage
 import br.redcode.dataform.lib.domain.UIQuestionBase
@@ -79,7 +79,7 @@ class UIQuestionImage(
         }
 
         val layoutManagerHorizontal =
-            LinearLayoutManager(recyclerView.context, OrientationHelper.HORIZONTAL, false)
+            LinearLayoutManager(recyclerView.context, RecyclerView.HORIZONTAL, false)
         val layoutManagerVertical = LinearLayoutManager(recyclerView.context)
         recyclerView.setCustomAdapter(
             adapter,
@@ -106,10 +106,8 @@ class UIQuestionImage(
     }
 
     private fun addImage() {
-        if (handlerCaptureImage.hasPermissions()) {
-            if (canAddMoreOne()) {
-                handlerCaptureImage.captureImage(this, type)
-            }
+        if (handlerCaptureImage.hasPermissions() and canAddMoreOne()) {
+            handlerCaptureImage.captureImage(this, type)
         }
     }
 
